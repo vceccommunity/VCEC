@@ -1,5 +1,5 @@
 {
   "cleanUrls": true,
-  "buildCommand": null,
+  "buildCommand": "echo 'Building VCEC Static...' && exit 0",
   "outputDirectory": "."
 }

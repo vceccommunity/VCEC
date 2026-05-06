@@ -4,6 +4,7 @@
   "description": "Cổng thông tin xúc tiến đầu tư song phương VCEC Việt Nam - Trung Quốc",
   "main": "server.js",
   "scripts": {
+    "build": "echo 'Building static portal...'",
     "start": "node server.js"
   },
   "author": "VCEC Team",
