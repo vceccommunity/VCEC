@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên Hệ VCEC - Trung Tâm Giao Lưu & Hợp Tác Kinh Tế Việt Nam - Trung Quốc</title>
+  <meta name="description" content="Liên hệ ban xúc tiến đầu tư VCEC tại văn phòng Hà Nội và Thâm Quyến. Đăng ký thông tin nhận tư vấn thực địa nhanh chóng và hỗ trợ pháp lý hoàn chỉnh.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .contact-info-card {
+      background: #FFFFFF;
+      border: 1px solid var(--vcec-gold-border);
+      border-radius: 12px;
+      padding: 30px;
+    }
+    .office-block {
+      margin-bottom: 30px;
+    }
+    .office-title {
+      font-family: var(--vcec-font-title);
+      font-size: 1.2rem;
+      color: var(--vcec-red);
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--vcec-gold);
+      padding-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Global Header (Rendered dynamically by app.js) -->
+  <header id="global-header"></header>
+
+  <!-- Main Content with Cloud watermark background -->
+  <main class="bg-china-motif">
+    <div class="section-content">
+      
+      <!-- Sub-page Title Block -->
+      <section class="sub-hero">
+        <div class="container">
+          <h1 data-i18n="nav-contact">Liên Hệ</h1>
+          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">CỔNG THÔNG TIN XÚC TIẾN ĐẦU TƯ SONG PHƯƠNG</p>
+        </div>
+      </section>
+
+      <!-- Contact Layout Grid -->
+      <section class="section">
+        <div class="container">
+          <div class="contact-layout">
+            
+            <!-- Left Panel: Contact Address Card -->
+            <div class="contact-info-card">
+              <h2 style="font-family: var(--vcec-font-title); color: var(--vcec-text-dark); margin-bottom: 25px;">Hệ Thống Trụ Sở VCEC</h2>
+              
+              <!-- Hanoi Office -->
+              <div class="office-block">
+                <h3 class="office-title">🏢 Trụ sở Hà Nội (Việt Nam)</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #4A5568;">
+                  <strong>Địa chỉ:</strong> Tòa tháp VCCI, số 9 Đào Duy Anh, Đống Đa, Hà Nội.<br>
+                  <strong>Hotline:</strong> +84 (0) 24 3823 8888<br>
+                  <strong>Email:</strong> contact@vcec.vn
+                </p>
+              </div>
+
+              <!-- Shenzhen Office -->
+              <div class="office-block" style="margin-bottom: 0;">
+                <h3 class="office-title">🏢 Văn phòng Thâm Quyến (Trung Quốc)</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #4A5568;">
+                  <strong>地址：</strong> 中国深圳市福田区深南大道88号。<br>
+                  <strong>电话：</strong> +86 (0) 755 8288 8888<br>
+                  <strong>邮箱：</strong> sz@vcec.vn
+                </p>
+              </div>
+            </div>
+
+            <!-- Right Panel: Contact Inquiry Form -->
+            <div class="contact-info-card" style="border-color: var(--vcec-red);">
+              <h2 style="font-family: var(--vcec-font-title); color: var(--vcec-red); margin-bottom: 12px;" data-i18n="nav-contact">Đăng Ký Tư Vấn Trực Tuyến</h2>
+              <p style="font-size: 0.85rem; color: #666; margin-bottom: 25px;" data-i18n="matching-desc">Quý doanh nghiệp vui lòng điền mẫu thông tin dưới đây, chúng tôi sẽ chuyển hồ sơ cho chuyên viên trực tiếp phụ trách liên hệ lại trong vòng 15 phút.</p>
+              
+              <form id="direct-contact-form" onsubmit="handleLeadSubmit(event)">
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label data-i18n="form-company">Tên Doanh Nghiệp (Công ty)</label>
+                  <input type="text" class="form-input" required placeholder="Huawei Technologies Co., Ltd">
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label data-i18n="form-name">Họ và Tên Người Đại Diện</label>
+                  <input type="text" class="form-input" required placeholder="Nguyễn Văn A / 张伟">
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label data-i18n="form-wechat">WeChat ID / WhatsApp</label>
+                  <input type="text" class="form-input" required placeholder="WeChat ID / WhatsApp Number">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" data-i18n="form-submit">Gửi Đăng Ký Đối Chiếu</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Google Maps Embed Section (Hanoi VCCI Tower Coordinates - 100% Free) -->
+      <section class="section section-grey">
+        <div class="container">
+          <div class="section-title">
+            <h2>Vị Trí Bản Đồ Trụ Sở Hà Nội</h2>
+            <p>Tòa tháp VCCI, số 9 Đào Duy Anh, Đống Đa, Hà Nội, Việt Nam</p>
+          </div>
+          
+          <div style="width: 100%; height: 450px; border-radius: 16px; overflow: hidden; border: 1px solid var(--vcec-gold-border); margin-top: 30px;">
+            <iframe 
+              src="https://maps.google.com/maps?q=21.0118,105.8398&z=16&output=embed" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer (Rendered dynamically by app.js) -->
+  <footer id="global-footer"></footer>
+
+  <!-- 3-Click Lead Capture Success Modal (WeChat QR Code pop-up) -->
+  <div id="success-modal" class="modal-backdrop">
+    <div class="modal-content">
+      <h3 class="modal-title" data-i18n="success-title">Gửi Đăng Ký Thành Công!</h3>
+      <p class="modal-desc" data-i18n="success-desc">VCEC đã ghi nhận hồ sơ của doanh nghiệp và gán chuyên viên tư vấn tiếng Trung phụ trách trực tiếp liên hệ lại với anh/chị.</p>
+      
+      <div class="wechat-qr-block">
+        <h4 data-i18n="wechat-title">CHỦ ĐỘNG KẾT NỐI WECHAT / WHATSAPP</h4>
+        <p data-i18n="wechat-desc">Quét mã QR dưới đây để kết nối trực tiếp với Chuyên viên phụ trách thực địa khu vực của bạn:</p>
+        
+        <div class="qr-code-box">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <rect x="5" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="10" y="10" width="15" height="15" fill="#B8860B"/>
+            <rect x="70" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="75" y="10" width="15" height="15" fill="#B8860B"/>
+            <rect x="5" y="70" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="10" y="75" width="15" height="15" fill="#B8860B"/>
+            <rect x="40" y="10" width="8" height="8" fill="#C8102E"/>
+            <rect x="52" y="15" width="12" height="6" fill="#C8102E"/>
+            <rect x="45" y="28" width="6" height="14" fill="#B8860B"/>
+            <rect x="15" y="45" width="10" height="8" fill="#C8102E"/>
+            <rect x="32" y="48" width="18" height="8" fill="#C8102E"/>
+            <rect x="55" y="42" width="8" height="18" fill="#B8860B"/>
+            <rect x="72" y="45" width="18" height="8" fill="#C8102E"/>
+            <rect x="42" y="72" width="12" height="12" fill="#B8860B"/>
+            <rect x="62" y="75" width="6" height="16" fill="#C8102E"/>
+            <rect x="78" y="72" width="14" height="6" fill="#C8102E"/>
+            <rect x="42" y="42" width="16" height="16" fill="#C8102E" rx="4"/>
+            <text x="50" y="52" font-size="8" fill="#FFF" font-weight="900" text-anchor="middle">VCEC</text>
+          </svg>
+        </div>
+        <p style="font-weight: bold; color: var(--vcec-red); font-size: 1.1rem; margin-top: 10px; letter-spacing: 0.5px;">WeChat ID: VCEC_XuctienFDI_01</p>
+      </div>
+
+      <button class="btn btn-primary" onclick="closeModal()" data-i18n="success-close" style="width: 100%;">Đóng cửa sổ</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

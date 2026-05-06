@@ -1,0 +1,1304 @@
+/* 
+  VCEC Portal - Sovereign & Executive Design System
+  Brand: Vietnam - China Economic Exchange and Cooperation Center
+  Aesthetic: Elite, Sovereign, Intergovernmental, Action-Oriented, Premium
+  Author: Elite UI/UX Digital Architect (Antigravity Team)
+*/
+
+/* 1. Global Setup & Typographic Engine */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+
+:root {
+  /* Royal Color Palette (Vermilion Red & Champagne Gold) */
+  --vcec-red: #A81B34;          /* Royal Crimson - Deep, majestic, executive */
+  --vcec-red-hover: #8C1327;
+  --vcec-red-light: rgba(168, 27, 52, 0.05);
+  --vcec-red-glow: rgba(168, 27, 52, 0.15);
+  
+  --vcec-gold: #AF883A;         /* Premium Champagne Gold - Heritage, wealth, success */
+  --vcec-gold-hover: #96712D;
+  --vcec-gold-light: rgba(175, 136, 58, 0.06);
+  --vcec-gold-border: rgba(175, 136, 58, 0.25);
+  --vcec-gold-glow: rgba(175, 136, 58, 0.3);
+
+  /* Deep Obsidian Palette */
+  --vcec-dark: #090D1A;         /* Deepest Slate Blue / Obsidian */
+  --vcec-dark-bg: #070911;      /* Abyssal Black for premium contrast */
+  --vcec-dark-card: rgba(255, 255, 255, 0.02);
+  --vcec-slate: #131A2E;        /* Medium Slate Blue */
+  
+  /* Light Neutral Palette */
+  --vcec-text-main: #4A5568;    /* Charcoal Body Text */
+  --vcec-text-dark: #0B0F19;    /* Executive Title Dark */
+  --vcec-text-light: #718096;   /* Subtitles, greyed text */
+  --vcec-bg: #FCFDFE;           /* Premium soft alabaster white */
+  --vcec-light-bg: #F4F6F9;     /* Warm grey card background */
+  --vcec-border: #E4E9F2;       /* Slate border grey */
+  
+  /* Elite Typographic Stack */
+  --vcec-font-title: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --vcec-font-heritage: 'Cinzel', serif;
+  --vcec-font-body: 'Plus Jakarta Sans', sans-serif;
+  --vcec-font-zh: 'Noto Sans SC', sans-serif;
+
+  /* Layout Constants with Apple/McKinsey Styling curves */
+  --vcec-border-radius: 16px;
+  --vcec-border-radius-sm: 8px;
+  --vcec-transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Ultra-premium fluid animation */
+  --max-width: 1520px; /* Expanded for high-end wide screens */
+  
+  /* Rich Shadow Profiles */
+  --shadow-sm: 0 4px 12px rgba(9, 13, 26, 0.02);
+  --shadow-md: 0 12px 30px rgba(9, 13, 26, 0.04);
+  --shadow-lg: 0 30px 60px -15px rgba(9, 13, 26, 0.08);
+  --shadow-glow: 0 0 25px rgba(175, 136, 58, 0.15);
+  --shadow-red-glow: 0 0 25px rgba(168, 27, 52, 0.15);
+}
+
+/* 2. Global Reset & Base Setup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--vcec-font-body);
+  color: var(--vcec-text-main);
+  background-color: var(--vcec-bg);
+  line-height: 1.7;
+  overflow-x: hidden;
+  background-image: radial-gradient(at 0% 0%, rgba(175, 136, 58, 0.03) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(168, 27, 52, 0.02) 0px, transparent 50%);
+}
+
+/* Chinese Font Injection override */
+body.lang-zh {
+  font-family: var(--vcec-font-zh);
+}
+body.lang-zh h1, body.lang-zh h2, body.lang-zh h3, body.lang-zh h4, body.lang-zh h5, body.lang-zh h6, body.lang-zh .nav-link {
+  font-family: var(--vcec-font-zh) !important;
+  font-weight: 700;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--vcec-font-title);
+  color: var(--vcec-text-dark);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--vcec-transition);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+/* 3. Cultural Motif & Watermark Layers (Elite Polish) */
+/* Vietnam Dong Son Drum Background Pattern */
+.bg-vietnam-motif {
+  position: relative;
+}
+.bg-vietnam-motif::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 650px;
+  height: 650px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23AF883A' stroke-width='0.4' stroke-opacity='0.18'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23AF883A' stroke-width='0.3' stroke-opacity='0.18' stroke-dasharray='2 2'/%3E%3Ccircle cx='50' cy='50' r='28' fill='none' stroke='%23AF883A' stroke-width='0.3' stroke-opacity='0.18'/%3E%3Ccircle cx='50' cy='50' r='14' fill='none' stroke='%23AF883A' stroke-width='0.3' stroke-opacity='0.18'/%3E%3Cpolygon points='50,8 53,23 50,25 47,23' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='50,92 53,77 50,75 47,77' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='8,50 23,53 25,50 23,47' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='92,50 77,53 75,50 77,47' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='20.3,20.3 31.1,31.1 32.5,29.7 21.7,18.9' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='79.7,79.7 68.9,68.9 67.5,70.3 78.3,81.1' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='20.3,79.7 31.1,68.9 29.7,67.5 18.9,78.3' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpolygon points='79.7,20.3 68.9,31.1 70.3,32.5 81.1,21.7' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpath d='M50,40 L53,47 L47,47 Z' fill='%23AF883A' fill-opacity='0.18'/%3E%3Cpath d='M50,60 L53,53 L47,53 Z' fill='%23AF883A' fill-opacity='0.18'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.15; /* Subtly embedded in the layout */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* China Cloud (Xiangyun) Pattern */
+.bg-china-motif {
+  position: relative;
+}
+.bg-china-motif::before {
+  content: "";
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 550px;
+  height: 450px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M20,40 C15,40 12,35 15,30 C12,25 18,20 22,23 C25,18 32,18 35,22 C38,18 45,20 45,25 C48,23 52,27 50,31 C52,36 48,40 42,40 L20,40 Z' fill='none' stroke='%23A81B34' stroke-width='0.5' stroke-opacity='0.18'/%3E%3Cpath d='M42,40 Q45,43 50,40' fill='none' stroke='%23A81B34' stroke-width='0.5' stroke-opacity='0.18'/%3E%3Cpath d='M25,35 Q20,38 15,35 M30,32 Q35,35 40,32' fill='none' stroke='%23A81B34' stroke-width='0.3' stroke-opacity='0.12'/%3E%3Cpath d='M65,25 C61,25 58.6,21.6 61,17.6 C58.6,13.6 63.4,9.6 66.6,12 C69,8 74.6,8 77,11.2 C79.4,8 85,9.6 85,13.6 C87.4,12 90.6,15.2 89,18.4 C90.6,22.4 87.4,25.6 82.6,25.6 L65,25.6 Z' fill='none' stroke='%23A81B34' stroke-width='0.5' stroke-opacity='0.18'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* 4. Common Elements & Grid Engine */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.section-grey {
+  background-color: var(--vcec-light-bg);
+  border-top: 1px solid var(--vcec-border);
+  border-bottom: 1px solid var(--vcec-border);
+}
+
+.section-dark {
+  background-color: var(--vcec-dark-bg);
+  color: #FFFFFF;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.section-dark h2 {
+  color: #FFFFFF;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 70px;
+  position: relative;
+}
+
+.section-title h2 {
+  font-family: var(--vcec-font-title);
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--vcec-text-dark);
+  text-transform: capitalize;
+  margin-bottom: 16px;
+}
+
+.section-title p {
+  font-size: 1.15rem;
+  color: var(--vcec-text-light);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--vcec-red), var(--vcec-gold));
+  margin: 25px auto 0;
+  border-radius: 20px;
+}
+
+/* Buttons (Premium Glass/Interactive feel) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-family: var(--vcec-font-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--vcec-border-radius-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--vcec-transition);
+  letter-spacing: 0.02em;
+  gap: 10px;
+}
+
+.btn-primary {
+  background-color: var(--vcec-red);
+  color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(168, 27, 52, 0.2);
+}
+.btn-primary:hover {
+  background-color: var(--vcec-red-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(168, 27, 52, 0.35), var(--shadow-red-glow);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--vcec-gold);
+  border-color: var(--vcec-gold);
+}
+.btn-secondary:hover {
+  background-color: var(--vcec-gold);
+  color: #FFFFFF;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(175, 136, 58, 0.3), var(--shadow-glow);
+}
+
+/* 5. Nav Header & Footer (Frosted Floating Design) */
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(9, 13, 26, 0.88); /* Royal Obsidian translucent */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1.5px solid var(--vcec-gold-border);
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  max-width: 1750px; /* Expanded specifically for wide monitors to give links breathing room */
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at center, var(--vcec-red), var(--vcec-red-hover));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--vcec-gold);
+  box-shadow: 0 0 15px rgba(175, 136, 58, 0.4);
+  transition: var(--vcec-transition);
+}
+.logo-link:hover .logo-icon {
+  transform: rotate(15deg) scale(1.05);
+  box-shadow: 0 0 25px rgba(175, 136, 58, 0.7);
+}
+
+.logo-text {
+  color: #FFFFFF;
+  font-family: var(--vcec-font-heritage);
+}
+
+.logo-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.logo-subtitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--vcec-gold);
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 18px; /* Tighter spacing for high-density elegance */
+}
+
+.nav-link {
+  color: #D1D5DB;
+  font-family: var(--vcec-font-title);
+  font-weight: 600;
+  font-size: 0.85rem; /* Elite compact typography */
+  padding: 10px 0;
+  position: relative;
+  letter-spacing: 0.03em;
+  text-transform: uppercase; /* Sovereign uppercase aesthetic */
+  white-space: nowrap; /* CRITICAL: Never wrap link text into multiple lines */
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #FFFFFF;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--vcec-gold), var(--vcec-red));
+  transition: var(--vcec-transition);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+/* Custom Lang switcher pill */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: var(--vcec-transition);
+}
+
+.lang-btn.active {
+  color: #FFFFFF;
+  background-color: var(--vcec-red);
+  box-shadow: 0 4px 10px rgba(168, 27, 52, 0.3);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Premium Footer */
+.footer {
+  background-color: var(--vcec-dark-bg);
+  color: #9CA3AF;
+  padding: 100px 0 40px 0;
+  border-top: 2px solid var(--vcec-gold);
+  font-size: 0.95rem;
+  position: relative;
+}
+
+.footer h3 {
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  font-family: var(--vcec-font-title);
+  position: relative;
+  padding-bottom: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.footer h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--vcec-gold);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 0.9fr 0.9fr 1.4fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.footer-logo-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-logo-desc {
+  line-height: 1.8;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 14px;
+}
+
+.footer-links a {
+  transition: var(--vcec-transition);
+}
+.footer-links a:hover {
+  color: #FFFFFF;
+  padding-left: 8px;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-contact-item {
+  display: flex;
+  gap: 14px;
+}
+.footer-contact-item p {
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+/* 6. Page-Specific Stylings */
+
+/* 6.1. Hero Section & Premium Search Widget */
+.hero {
+  position: relative;
+  min-height: 650px;
+  background: linear-gradient(135deg, rgba(9, 13, 26, 0.92) 0%, rgba(9, 13, 26, 0.75) 100%),
+              url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin-bottom: 50px;
+  animation: modalIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero h1 {
+  font-family: var(--vcec-font-title);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--vcec-gold), #EBD096);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: #9CA3AF;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* Premium Floating Search Widget */
+.search-widget {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--vcec-border-radius);
+  padding: 35px;
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 6px solid var(--vcec-red);
+  color: #FFFFFF;
+  margin-top: -50px;
+  position: relative;
+  z-index: 10;
+  animation: modalIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.widget-title {
+  font-family: var(--vcec-font-title);
+  font-weight: 800;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.01em;
+}
+
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Balanced 4 symmetric columns on desktop */
+  gap: 20px;
+  align-items: end;
+}
+
+.widget-grid .btn {
+  height: 52px; /* Perfect vertical alignment with input elements */
+  padding: 0 30px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--vcec-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+/* Force white color on search widget labels for premium legibility over dark background */
+.search-widget .form-group label {
+  color: #FFFFFF !important;
+  opacity: 0.95;
+}
+
+.form-select, .form-input {
+  width: 100%;
+  height: 52px; /* Fixed height matching the action button */
+  padding: 0 18px; /* Standardize padding */
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--vcec-border-radius-sm);
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #FFFFFF;
+  font-weight: 500;
+  transition: var(--vcec-transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23AF883A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 16px;
+  padding-right: 44px;
+}
+
+.form-select option {
+  background-color: var(--vcec-dark);
+  color: #FFFFFF;
+}
+
+.form-select:focus, .form-input:focus {
+  border-color: var(--vcec-gold);
+  background-color: rgba(9, 13, 26, 0.95);
+  box-shadow: var(--shadow-glow);
+}
+
+/* 6.2. 8 Sectors Responsive Grid (Home & Sectors Page) */
+.sectors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Columns standard on desktop */
+  gap: 24px;
+}
+
+.sector-card {
+  background: linear-gradient(135deg, #111625 0%, #080C16 100%);
+  border-radius: var(--vcec-border-radius);
+  padding: 40px 32px;
+  border: 1px solid rgba(175, 136, 58, 0.22); /* Metallic refined gold border */
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  /* Multi-layered premium 3D shadows + Inner light reflection edge */
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.45), 
+    0 5px 15px rgba(0, 0, 0, 0.25), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Elegant geometric cultural watermark (Dong Son drum sunburst geometric lines) in the corner */
+.sector-card::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border: 1px dashed rgba(175, 136, 58, 0.08);
+  border-radius: 50%;
+  transition: var(--vcec-transition);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(175, 136, 58, 0.04) 10%, transparent 11%),
+              radial-gradient(circle, rgba(168, 27, 52, 0.02) 30%, transparent 31%);
+  background-size: 14px 14px;
+}
+
+.sector-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--vcec-red), var(--vcec-gold));
+  opacity: 0.4; /* Soft continuous gold glow accent */
+  transition: var(--vcec-transition);
+  z-index: 2;
+}
+
+.sector-card-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(175, 136, 58, 0.15) 0%, rgba(8, 12, 22, 0.6) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vcec-gold);
+  transition: var(--vcec-transition);
+  border: 1.5px solid rgba(175, 136, 58, 0.3);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.sector-card-icon svg {
+  transition: var(--vcec-transition);
+  filter: drop-shadow(0 2px 8px rgba(175, 136, 58, 0.3));
+}
+
+.sector-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #FFFFFF; /* Maximum legibility title */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.01em;
+  transition: var(--vcec-transition);
+}
+
+.sector-card-desc {
+  font-size: 0.9rem;
+  color: #9CA3AF; /* Luxury silver text for crystal clear contrast */
+  line-height: 1.7;
+  transition: var(--vcec-transition);
+}
+
+.sector-card-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--vcec-gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  transition: var(--vcec-transition);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.sector-card-link .arrow-symbol {
+  transition: var(--vcec-transition);
+  font-size: 1.1rem;
+}
+
+/* Hover premium interaction - Absolute 3D floating state */
+.sector-card:hover {
+  transform: translateY(-12px); /* Prominent 3D floating */
+  border-color: var(--vcec-gold);
+  /* Massive 3D Shadow Stack + Golden Ember Underglow */
+  box-shadow: 
+    0 35px 70px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(175, 136, 58, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #161D30 0%, #0C1222 100%);
+}
+
+.sector-card:hover::before {
+  opacity: 1;
+}
+
+.sector-card:hover::after {
+  transform: rotate(90deg) scale(1.15);
+  border-color: rgba(175, 136, 58, 0.25);
+  border-style: solid;
+}
+
+.sector-card:hover .sector-card-icon {
+  background: linear-gradient(135deg, var(--vcec-red) 0%, #D32F2F 100%);
+  color: #FFFFFF;
+  border-color: var(--vcec-red);
+  box-shadow: 
+    0 12px 24px rgba(168, 27, 52, 0.45),
+    0 0 15px rgba(168, 27, 52, 0.2);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.sector-card:hover .sector-card-title {
+  color: var(--vcec-gold); /* Elegantly gold transition on title hover */
+  text-shadow: 0 0 10px rgba(175, 136, 58, 0.4);
+}
+
+.sector-card:hover .sector-card-desc {
+  color: #F3F4F6; /* Enhanced contrast text on hover */
+}
+
+.sector-card:hover .sector-card-link {
+  color: #FFFFFF;
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+.sector-card:hover .sector-card-link .arrow-symbol {
+  transform: translateX(6px);
+}
+
+/* 6.3. Statistics & Premium Counters */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--vcec-border-radius);
+  border: 1.5px solid rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  transition: var(--vcec-transition);
+}
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--vcec-gold-border);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-family: var(--vcec-font-heritage);
+  font-size: 3.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--vcec-gold), #EBD096);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.stat-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #D1D5DB;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* 6.4. Investment Opportunities Page Layout (Slick Sidebar + Filter Grid) */
+.filters-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.filters-sidebar {
+  background-color: #FFFFFF;
+  border-radius: var(--vcec-border-radius);
+  padding: 30px;
+  border: 1.5px solid var(--vcec-border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 120px;
+}
+
+.filter-group {
+  margin-bottom: 30px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group-title {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--vcec-text-dark);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--vcec-gold-border);
+  padding-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-bottom: 12px;
+  color: var(--vcec-text-main);
+  transition: var(--vcec-transition);
+}
+.filter-option:hover {
+  color: var(--vcec-red);
+}
+
+.filter-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--vcec-red);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.project-card {
+  background-color: #FFFFFF;
+  border-radius: var(--vcec-border-radius);
+  border: 1.5px solid var(--vcec-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--vcec-transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg), 0 10px 20px rgba(168, 27, 52, 0.02);
+  border-color: rgba(168, 27, 52, 0.15);
+}
+
+.project-img-container {
+  height: 220px;
+  background-color: #E2E8F0;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--vcec-transition);
+}
+.project-card:hover .project-img {
+  transform: scale(1.08);
+}
+
+.project-tag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background-color: var(--vcec-red);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(168, 27, 52, 0.3);
+}
+
+.project-info {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-grow: 1;
+}
+
+.project-location {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--vcec-gold);
+  letter-spacing: 0.02em;
+}
+
+.project-card-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--vcec-text-dark);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.project-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  border-top: 1.5px solid var(--vcec-border);
+  border-bottom: 1.5px solid var(--vcec-border);
+  padding: 16px 0;
+  margin: 8px 0;
+}
+
+.spec-val-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spec-lbl {
+  font-size: 0.75rem;
+  color: var(--vcec-text-light);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.spec-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--vcec-text-dark);
+}
+
+/* 6.5. Project Details Block (Dashboard Layout) */
+.project-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+}
+
+.detail-block {
+  background-color: #FFFFFF;
+  border-radius: var(--vcec-border-radius);
+  padding: 40px;
+  border: 1.5px solid var(--vcec-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 30px;
+}
+
+.detail-block h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--vcec-gold-border);
+  padding-bottom: 12px;
+  color: var(--vcec-text-dark);
+  letter-spacing: -0.02em;
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-table tr {
+  border-bottom: 1.5px solid var(--vcec-border);
+}
+
+.detail-table tr:last-child {
+  border-bottom: none;
+}
+
+.detail-table td {
+  padding: 16px 12px;
+  font-size: 0.95rem;
+}
+
+.detail-table td.lbl {
+  font-weight: 700;
+  color: var(--vcec-text-dark);
+  width: 250px;
+}
+
+/* Executive Sticky Registration Lead Form */
+.sticky-lead-form {
+  position: sticky;
+  top: 120px;
+  background-color: #FFFFFF;
+  border-radius: var(--vcec-border-radius);
+  border: 1.5px solid rgba(175, 136, 58, 0.3);
+  border-top: 6px solid var(--vcec-red);
+  padding: 35px 28px;
+  box-shadow: var(--shadow-lg), 0 10px 30px rgba(175, 136, 58, 0.03);
+}
+
+.sticky-lead-form h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--vcec-text-dark);
+  letter-spacing: -0.02em;
+}
+
+.sticky-lead-form p {
+  font-size: 0.88rem;
+  color: var(--vcec-text-light);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.form-input {
+  background-color: var(--vcec-light-bg);
+  border: 1.5px solid var(--vcec-border);
+  color: var(--vcec-text-dark);
+}
+.form-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* Custom styled modern form groups */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--vcec-text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+/* 6.6. WeChat Dialog Modal (Premium Overlay) */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(9, 13, 26, 0.8);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  width: min(550px, 92vw);
+  padding: 45px 35px;
+  text-align: center;
+  border-top: 6px solid var(--vcec-red);
+  border-bottom: 4px solid var(--vcec-gold);
+  box-shadow: var(--shadow-lg), 0 20px 50px rgba(0, 0, 0, 0.3);
+  animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--vcec-text-dark);
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: var(--vcec-text-main);
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.wechat-qr-block {
+  background-color: var(--vcec-light-bg);
+  padding: 25px;
+  border-radius: var(--vcec-border-radius);
+  border: 1px dashed var(--vcec-gold);
+  margin-bottom: 30px;
+}
+
+.wechat-qr-block h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--vcec-red);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.wechat-qr-block p {
+  font-size: 0.85rem;
+  color: var(--vcec-text-light);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.qr-code-box {
+  background-color: #FFFFFF;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--vcec-border-radius-sm);
+  border: 1.5px solid var(--vcec-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* 6.7. Premium Vision Cards (About Page) */
+.about-vision-card {
+  background: linear-gradient(135deg, var(--vcec-dark) 0%, var(--vcec-slate) 100%);
+  border-radius: var(--vcec-border-radius);
+  padding: 50px;
+  color: #FFFFFF;
+  border: 1.5px solid var(--vcec-gold-border);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
+}
+.about-vision-card::after {
+  content: "VCEC";
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  font-size: 6rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  font-family: var(--vcec-font-heritage);
+}
+
+/* 7. Advanced Responsive Framework */
+@media (max-width: 1200px) {
+  .sectors-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns on smaller desktops */
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 30px;
+  }
+  
+  .widget-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-widget {
+    margin-top: -20px;
+  }
+  
+  .filters-layout {
+    grid-template-columns: 1fr;
+  }
+  .filters-sidebar {
+    position: static;
+    margin-bottom: 30px;
+  }
+  
+  .project-detail-layout {
+    grid-template-columns: 1fr;
+  }
+  .sticky-lead-form {
+    position: static;
+    margin-top: 30px;
+  }
+  
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+  
+  .hero {
+    padding: 100px 0;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .widget-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Hide the invisible spacer label on mobile so button stacks naturally */
+  .widget-grid .form-group label[style*="visibility: hidden"] {
+    display: none;
+  }
+  
+  .sectors-grid {
+    grid-template-columns: 1fr; /* 1 Column on mobile */
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 90px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 90px);
+    background-color: var(--vcec-dark);
+    flex-direction: column;
+    padding: 50px 30px;
+    gap: 30px;
+    transition: var(--vcec-transition);
+    overflow-y: auto;
+    border-top: 1px solid var(--vcec-gold-border);
+    backdrop-filter: blur(20px);
+  }
+  
+  .nav-menu.active {
+    left: 0;
+  }
+}
+
+/* 8. Extra Premium Utilities */
+.detail-table tr td {
+  transition: var(--vcec-transition);
+}
+.detail-table tr:hover td {
+  background-color: rgba(175, 136, 58, 0.02);
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quan Hệ Kinh Tế Việt Nam - Trung Quốc - VCEC Portal</title>
+  <meta name="description" content="Thống kê số liệu kinh tế song phương Việt - Trung mới nhất, các sự kiện hợp tác nổi bật và dữ liệu thương mại song phương thúc đẩy dòng vốn đầu tư.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom simple styled responsive chart for maximum visual elegance */
+    .chart-container {
+      background: #FFFFFF;
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid var(--vcec-gold-border);
+      margin: 40px 0;
+    }
+    .chart-bars-wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 300px;
+      padding-top: 40px;
+      border-bottom: 2px solid #E2E8F0;
+      position: relative;
+    }
+    .chart-y-axis {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      color: #718096;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .chart-bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 14%;
+    }
+    .chart-bars {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      width: 100%;
+      height: 240px;
+    }
+    .bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .bar:hover::after {
+      content: attr(data-value) "B USD";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--vcec-text-dark);
+      color: #FFFFFF;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .bar-export {
+      background: var(--vcec-gold);
+    }
+    .bar-import {
+      background: var(--vcec-red);
+    }
+    .chart-label {
+      margin-top: 10px;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      font-size: 0.85rem;
+    }
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 25px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Global Header -->
+  <header id="global-header"></header>
+
+  <!-- Main Content with Dong Son Drum watermark background -->
+  <main class="bg-vietnam-motif">
+    <div class="section-content">
+      
+      <!-- Sub-page Title Block -->
+      <section class="sub-hero">
+        <div class="container">
+          <h1 data-i18n="nav-relations">Quan Hệ Việt - Trung</h1>
+          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="bilateral-subtitle">Số liệu kim ngạch xuất nhập khẩu và các dấu mốc giao thương quan trọng</p>
+        </div>
+      </section>
+
+      <!-- Trade Data Section -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2 data-i18n="chart-title">Biểu đồ Kim ngạch Thương mại Song phương (Tỷ USD)</h2>
+            <p>Dữ liệu hợp tác thương mại liên tục tăng trưởng mạnh mẽ, định hình chuỗi sản xuất chung trong kỷ nguyên số.</p>
+          </div>
+
+          <!-- Pure CSS Premium Chart -->
+          <div class="chart-container">
+            <div class="chart-bars-wrapper">
+              <span class="chart-y-axis">Đơn vị: Tỷ USD</span>
+              
+              <!-- 2021 -->
+              <div class="chart-bar-group">
+                <div class="chart-bars">
+                  <div class="bar bar-export" style="height: 33.3%;" data-value="56"></div>
+                  <div class="bar bar-import" style="height: 65.4%;" data-value="110"></div>
+                </div>
+                <span class="chart-label">2021</span>
+              </div>
+              
+              <!-- 2022 -->
+              <div class="chart-bar-group">
+                <div class="chart-bars">
+                  <div class="bar bar-export" style="height: 35.1%;" data-value="59"></div>
+                  <div class="bar bar-import" style="height: 70.2%;" data-value="118"></div>
+                </div>
+                <span class="chart-label">2022</span>
+              </div>
+              
+              <!-- 2023 -->
+              <div class="chart-bar-group">
+                <div class="chart-bars">
+                  <div class="bar bar-export" style="height: 36.9%;" data-value="61"></div>
+                  <div class="bar bar-import" style="height: 66.0%;" data-value="111"></div>
+                </div>
+                <span class="chart-label">2023</span>
+              </div>
+              
+              <!-- 2024 -->
+              <div class="chart-bar-group">
+                <div class="chart-bars">
+                  <div class="bar bar-export" style="height: 41.7%;" data-value="70"></div>
+                  <div class="bar bar-import" style="height: 80.3%;" data-value="135"></div>
+                </div>
+                <span class="chart-label">2024</span>
+              </div>
+              
+              <!-- 2025 (Dự kiến) -->
+              <div class="chart-bar-group">
+                <div class="chart-bars">
+                  <div class="bar bar-export" style="height: 47.6%;" data-value="80"></div>
+                  <div class="bar bar-import" style="height: 89.2%;" data-value="150"></div>
+                </div>
+                <span class="chart-label">2025</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background: var(--vcec-gold);"></div>
+                <span data-i18n="export-label">Việt Nam xuất khẩu sang Trung Quốc</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: var(--vcec-red);"></div>
+                <span data-i18n="import-label">Việt Nam nhập khẩu từ Trung Quốc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Bilateral Milestones Timeline -->
+      <section class="section section-grey">
+        <div class="container" style="max-width: 900px;">
+          <div class="section-title">
+            <h2>Các Cột Mốc Giao Thương Trọng Đại</h2>
+            <p>Hành trình thúc đẩy hợp tác chiến lược toàn diện thúc đẩy luân chuyển chuỗi cung ứng</p>
+          </div>
+
+          <div style="margin-top: 40px; border-left: 3px solid var(--vcec-gold); padding-left: 25px; position: relative;">
+            
+            <div style="margin-bottom: 40px; position: relative;">
+              <div style="width: 15px; height: 15px; border-radius: 50%; background: var(--vcec-red); position: absolute; left: -34px; top: 5px; border: 3px solid #FFF;"></div>
+              <span style="font-weight: bold; color: var(--vcec-red); font-size: 1.2rem; display: block; margin-bottom: 5px;">Tháng 12 / 2023</span>
+              <h4 style="font-size: 1.15rem; color: var(--vcec-text-dark); margin-bottom: 8px;">Tuyên bố chung Việt Nam - Trung Quốc về xây dựng Cộng đồng chia sẻ tương lai</h4>
+              <p style="font-size: 0.95rem; color: #4A5568; line-height: 1.6;">Lãnh đạo cấp cao hai nước nhất trí tăng cường kết nối sáng kiến “Hai hành lang, một vành đai” với “Một vành đai, một con đường”, tạo cơ sở pháp lý vững chắc cho dòng vốn FDI đầu tư hạ tầng và công nghiệp chất lượng cao.</p>
+            </div>
+
+            <div style="margin-bottom: 40px; position: relative;">
+              <div style="width: 15px; height: 15px; border-radius: 50%; background: var(--vcec-red); position: absolute; left: -34px; top: 5px; border: 3px solid #FFF;"></div>
+              <span style="font-weight: bold; color: var(--vcec-red); font-size: 1.2rem; display: block; margin-bottom: 5px;">Tháng 08 / 2024</span>
+              <h4 style="font-size: 1.15rem; color: var(--vcec-text-dark); margin-bottom: 8px;">Ký kết 14 Văn kiện Hợp tác Kinh tế - Thương mại Xuyên Biên Giới</h4>
+              <p style="font-size: 0.95rem; color: #4A5568; line-height: 1.6;">Trong khuôn khổ chuyến thăm cấp nhà nước, các bộ ngành hai nước đã hoàn thành đàm phán ký kết biên bản kết nối cửa khẩu thông minh, liên kết hạ tầng đường sắt tiêu chuẩn khổ rộng và tối ưu hóa thủ tục hải quan.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

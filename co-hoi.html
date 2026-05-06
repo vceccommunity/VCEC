@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cơ Hội Đầu Tư & Dự Án Khu Công Nghiệp - VCEC Portal</title>
+  <meta name="description" content="Danh mục cơ hội đầu tư, dự án khu công nghiệp trọng điểm tại Việt Nam. Sử dụng bộ lọc thông minh tra cứu bản đồ tọa độ miễn phí và đăng ký xúc tiến nhanh.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Shared Global Header (Rendered dynamically by app.js) -->
+  <header id="global-header"></header>
+
+  <!-- Main Content with Cloud watermark background -->
+  <main class="bg-china-motif">
+    <div class="section-content">
+      
+      <!-- Sub-page Title Block -->
+      <section class="sub-hero">
+        <div class="container">
+          <h1 data-i18n="nav-opp">Cơ Hội Đầu Tư</h1>
+          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">CỔNG THÔNG TIN XÚC TIẾN ĐẦU TƯ SONG PHƯƠNG</p>
+        </div>
+      </section>
+
+      <!-- Search & Filters + Listings Layout -->
+      <section class="section">
+        <div class="container filters-layout">
+          
+          <!-- Sidebar Filters (Click 1 Input Area) -->
+          <div class="filters-sidebar">
+            <h3 data-i18n="filter-title" style="font-size: 1.2rem; margin-bottom: 20px; font-family: var(--vcec-font-title); color: var(--vcec-text-dark); border-bottom: 2px solid var(--vcec-gold); padding-bottom: 8px;">Bộ Lọc Tìm Kiếm</h3>
+            
+            <!-- Geographical Region -->
+            <div class="filter-group">
+              <span class="filter-group-title" data-i18n="filter-region">Vùng Địa Lý</span>
+              <label class="filter-option">
+                <input type="checkbox" class="region-filter" value="north" checked>
+                <span data-i18n="filter-north">Miền Bắc Việt Nam</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="region-filter" value="south" checked>
+                <span data-i18n="filter-south">Miền Nam Việt Nam</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="region-filter" value="central">
+                <span data-i18n="filter-central">Miền Trung Việt Nam</span>
+              </label>
+            </div>
+
+            <!-- Focus Sector -->
+            <div class="filter-group" style="margin-top: 25px;">
+              <span class="filter-group-title" data-i18n="filter-sec-title">Lĩnh Vực</span>
+              <label class="filter-option">
+                <input type="checkbox" class="sector-filter" value="electronics" checked>
+                <span data-i18n="filter-electronics">Công nghệ cao & Điện tử</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="sector-filter" value="energy" checked>
+                <span data-i18n="filter-energy">Năng lượng & Xe điện</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="sector-filter" value="infra" checked>
+                <span data-i18n="filter-infra">Hạ tầng Khu Công Nghiệp</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic Project Cards Listing Grid (Click 2 Area) -->
+          <div id="project-list" class="cards-grid">
+            <!-- Rendered Dynamically by app.js -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Interactive Map & Detail Block (Click 2 Target Area & Lead Form Area) -->
+      <section class="section section-grey">
+        <div id="dynamic-detail" class="container">
+          <!-- Populated dynamically when a project card is clicked -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer (Rendered dynamically by app.js) -->
+  <footer id="global-footer"></footer>
+
+  <!-- 3-Click Lead Capture Success Modal (WeChat QR Code pop-up) -->
+  <div id="success-modal" class="modal-backdrop">
+    <div class="modal-content">
+      <h3 class="modal-title" data-i18n="success-title">Gửi Đăng Ký Thành Công!</h3>
+      <p class="modal-desc" data-i18n="success-desc">VCEC đã ghi nhận hồ sơ của doanh nghiệp và gán chuyên viên tư vấn tiếng Trung phụ trách trực tiếp liên hệ lại với anh/chị.</p>
+      
+      <div class="wechat-qr-block">
+        <h4 data-i18n="wechat-title">CHỦ ĐỘNG KẾT NỐI WECHAT / WHATSAPP</h4>
+        <p data-i18n="wechat-desc">Quét mã QR dưới đây để kết nối trực tiếp với Chuyên viên phụ trách thực địa khu vực của bạn:</p>
+        
+        <!-- Generated beautiful WeChat/WhatsApp mockup QR code with high visual style -->
+        <div class="qr-code-box">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <!-- External borders and registration blocks -->
+            <rect x="5" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="10" y="10" width="15" height="15" fill="#B8860B"/>
+            <rect x="70" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="75" y="10" width="15" height="15" fill="#B8860B"/>
+            <rect x="5" y="70" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="10" y="75" width="15" height="15" fill="#B8860B"/>
+            <!-- Pseudo QR modules -->
+            <rect x="40" y="10" width="8" height="8" fill="#C8102E"/>
+            <rect x="52" y="15" width="12" height="6" fill="#C8102E"/>
+            <rect x="45" y="28" width="6" height="14" fill="#B8860B"/>
+            <rect x="15" y="45" width="10" height="8" fill="#C8102E"/>
+            <rect x="32" y="48" width="18" height="8" fill="#C8102E"/>
+            <rect x="55" y="42" width="8" height="18" fill="#B8860B"/>
+            <rect x="72" y="45" width="18" height="8" fill="#C8102E"/>
+            <rect x="42" y="72" width="12" height="12" fill="#B8860B"/>
+            <rect x="62" y="75" width="6" height="16" fill="#C8102E"/>
+            <rect x="78" y="72" width="14" height="6" fill="#C8102E"/>
+            <!-- Center Logo Placeholder -->
+            <rect x="42" y="42" width="16" height="16" fill="#C8102E" rx="4"/>
+            <text x="50" y="52" font-size="8" fill="#FFF" font-weight="900" text-anchor="middle">VCEC</text>
+          </svg>
+        </div>
+        <p style="font-weight: bold; color: var(--vcec-red); font-size: 1.1rem; margin-top: 10px; letter-spacing: 0.5px;">WeChat ID: VCEC_XuctienFDI_01</p>
+      </div>
+
+      <button class="btn btn-primary" onclick="closeModal()" data-i18n="success-close" style="width: 100%;">Đóng cửa sổ</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

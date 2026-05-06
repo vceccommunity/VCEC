@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tin Tức & Sự Kiện - VCEC Portal</title>
+  <meta name="description" content="Cập nhật tin tức kinh tế vĩ mô song phương Việt - Trung, lịch trình hội nghị xúc tiến đầu tư, và các hoạt động khảo sát thực địa của doanh nghiệp FDI.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .news-card {
+      background: #FFFFFF;
+      border: 1px solid var(--vcec-gold-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .news-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--vcec-red);
+      box-shadow: 0 10px 15px rgba(200,16,46,0.04);
+    }
+    .news-img {
+      height: 180px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .news-body {
+      padding: 20px;
+    }
+    .news-meta {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 8px;
+      display: block;
+      font-weight: 600;
+    }
+    .news-title {
+      font-family: var(--vcec-font-title);
+      font-size: 1.15rem;
+      color: var(--vcec-text-dark);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .news-desc {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Global Header -->
+  <header id="global-header"></header>
+
+  <!-- Main Content with Cloud watermark background -->
+  <main class="bg-china-motif">
+    <div class="section-content">
+      
+      <!-- Sub-page Title Block -->
+      <section class="sub-hero">
+        <div class="container">
+          <h1 data-i18n="nav-news">Tin Tức & Sự Kiện</h1>
+          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">CỔNG THÔNG TIN XÚC TIẾN ĐẦU TƯ SONG PHƯƠNG</p>
+        </div>
+      </section>
+
+      <!-- News Listing Grid -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Hoạt Động Xúc Tiến Nổi Bật</h2>
+            <p>Thông tin cập nhật chính thống về chính sách và tiến độ các đoàn khảo sát FDI Việt - Trung</p>
+          </div>
+
+          <div class="news-grid">
+            
+            <!-- News 1 -->
+            <div class="news-card">
+              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=500&q=80" alt="Summit" class="news-img">
+              <div class="news-body">
+                <span class="news-meta">📅 15 Tháng 4, 2026 | SỰ KIỆN</span>
+                <h3 class="news-title">Diễn đàn Xúc tiến Đầu tư Việt Nam – Trung Quốc tại Thâm Quyến năm 2026</h3>
+                <p class="news-desc">Hơn 250 tập đoàn công nghệ và bán dẫn Thâm Quyến tham gia đối thoại trực tiếp với ban quản lý các KCN Hải Phòng, Bắc Ninh về kế hoạch dịch chuyển chuỗi cung ứng.</p>
+              </div>
+            </div>
+
+            <!-- News 2 -->
+            <div class="news-card">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80" alt="FDI" class="news-img">
+              <div class="news-body">
+                <span class="news-meta">📅 02 Tháng 4, 2026 | KINH TẾ</span>
+                <h3 class="news-title">Dòng vốn FDI Trung Quốc dịch chuyển mạnh sang mảng Linh kiện Xe điện (EV)</h3>
+                <p class="news-desc">Các chính sách ưu đãi thuế của Việt Nam đối với năng lượng sạch đang thu hút dòng vốn lớn từ các nhà sản xuất pin lithium Thượng Hải và Chiết Giang đầu tư vào Bình Dương.</p>
+              </div>
+            </div>
+
+            <!-- News 3 -->
+            <div class="news-card">
+              <img src="https://images.unsplash.com/photo-1521791136368-1a46827d3ad4?auto=format&fit=crop&w=500&q=80" alt="Cooperation" class="news-img">
+              <div class="news-body">
+                <span class="news-meta">📅 20 Tháng 3, 2026 | THỰC ĐỊA</span>
+                <h3 class="news-title">VCEC tháp tùng Hiệp hội Điện tử Trung Quốc khảo sát hạ tầng VSIP Bắc Ninh</h3>
+                <p class="news-desc">Đoàn khảo sát đã trực tiếp đối thoại, khảo sát tiến độ cấp điện của trạm biến áp 110kV và tìm hiểu thủ tục làm hồ sơ đăng ký đầu tư IRC cực kỳ chi tiết.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

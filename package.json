@@ -1,0 +1,11 @@
+{
+  "name": "vcec-portal",
+  "version": "1.0.0",
+  "description": "Cổng thông tin xúc tiến đầu tư song phương VCEC Việt Nam - Trung Quốc",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "VCEC Team",
+  "license": "ISC"
+}
