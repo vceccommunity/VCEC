@@ -18,7 +18,7 @@ const translations = {
     "nav-news": "Tin Tức",
     "nav-resources": "Tài Nguyên",
     "nav-contact": "Liên Hệ",
-    "sub-title": "CỔNG THÔNG TIN XÚC TIẾN ĐẦU TƯ SONG PHƯƠNG",
+    "sub-title": "ĐẦU TƯ SONG PHƯƠNG",
 
     // Hero Section
     "hero-title": "Cổng Kết Nối Đầu Tư <span>Chính Danh & Thực Chiến</span> Việt - Trung",
