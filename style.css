@@ -504,19 +504,19 @@ button, input, select, textarea {
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: 100%; /* Spreads the text fully across the container width */
   margin-bottom: 50px;
   animation: modalIn 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero h1 {
   font-family: var(--vcec-font-title);
-  font-size: 3.5rem;
+  font-size: 2.5rem; /* Reduced by 2 steps from 3.5rem */
   font-weight: 800;
   color: #FFFFFF;
   margin-bottom: 24px;
   line-height: 1.2;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .hero h1 span {
@@ -530,6 +530,7 @@ button, input, select, textarea {
   color: #9CA3AF;
   line-height: 1.8;
   font-weight: 400;
+  text-align: justify; /* Justify text lines evenly to both left and right margins */
 }
 
 /* Premium Floating Search Widget */
@@ -1246,7 +1247,7 @@ button, input, select, textarea {
   }
   
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
   }
   
   .widget-grid {
@@ -1296,6 +1297,21 @@ button, input, select, textarea {
   
   .nav-menu.active {
     left: 0;
+  }
+  
+  /* Reduce logo size on mobile to prevent wrapping and overlapping with menu toggle */
+  .logo-title {
+    font-size: 1.25rem;
+  }
+  .logo-subtitle {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Give content more breathing room on narrow mobile screens */
+  .container {
+    padding: 0 16px;
   }
 }
 

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "build": "echo 'Building static portal...'",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "author": "VCEC Team",
   "license": "ISC"
