@@ -56,6 +56,10 @@
 }
 
 /* 2. Global Reset & Base Setup */
+html {
+  font-size: 93.75%; /* Scales down global typography by 1 step (16px -> 15px) */
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
