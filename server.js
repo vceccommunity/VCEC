@@ -26,14 +26,15 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  // Normalize request path
-  let filePath = req.url === '/' ? '/index.html' : req.url;
-  
-  // Strip URL query parameters (e.g. ?province=HaiPhong)
-  const queryIndex = filePath.indexOf('?');
+  // Strip URL query parameters first (e.g. /?zarsrc=3 -> /)
+  let urlPath = req.url;
+  const queryIndex = urlPath.indexOf('?');
   if (queryIndex !== -1) {
-    filePath = filePath.substring(0, queryIndex);
+    urlPath = urlPath.substring(0, queryIndex);
   }
+
+  // Normalize request path (if it's root, map to index.html)
+  let filePath = urlPath === '/' ? '/index.html' : urlPath;
 
   // Resolve absolute path safely
   const safePath = path.normalize(filePath).replace(/^(\.\.[\/\\])+/, '');
