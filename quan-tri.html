@@ -7,6 +7,10 @@
   <meta name="description" content="Hệ thống quản trị và kiểm duyệt dữ liệu chuyên dụng dành cho quản trị viên tối cao VCEC.">
   <link rel="stylesheet" href="style.css">
   
+  <!-- Quill Rich Text Editor CSS and JS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  
   <!-- Security Interception Script: Executes immediately to block unauthorized visual flash -->
   <script>
     if (localStorage.getItem("vcec_role") !== "super_admin" || localStorage.getItem("vcec_user") !== "vcec_sadmin") {
@@ -179,7 +183,7 @@
       height: 100%;
       overflow-y: auto;
       background: radial-gradient(circle at 10% 20%, #0c1020 0%, #060913 100%);
-      padding: 100px 40px 40px 40px; /* Increased top padding to allow elegant spacing below the floating topbar */
+      padding: 50px 40px 40px 40px; /* Reduced top padding to shift the page title upwards */
     }
 
     /* Floating Top Right Admin Controls - Separate Capsules */
@@ -432,10 +436,50 @@
       color: #EF4444;
       border: 1px solid rgba(239, 68, 68, 0.25);
     }
+    .badge.leader {
+      background: rgba(245, 158, 11, 0.12);
+      color: #F59E0B;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+    .badge.partner {
+      background: rgba(139, 92, 246, 0.12);
+      color: #8B5CF6;
+      border: 1px solid rgba(139, 92, 246, 0.25);
+    }
+    .badge.customer {
+      background: rgba(59, 130, 246, 0.12);
+      color: #3B82F6;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
     .badge.member {
       background: rgba(16, 185, 129, 0.12);
       color: #10B981;
       border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .lang-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      border-radius: 4px;
+      margin-right: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .lang-badge.vi {
+      background: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .lang-badge.zh {
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .lang-badge.en {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3B82F6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
     }
     .action-btn {
       background: rgba(239, 68, 68, 0.08);
@@ -539,12 +583,29 @@
       padding: 30px;
       max-width: 800px;
     }
+    
+    /* High-density overrides for collapsible forms */
+    #new-member-form-wrap .admin-form {
+      padding: 12px 20px;
+    }
+    #new-member-form-wrap .form-group {
+      margin-bottom: 8px;
+    }
+    #new-member-form-wrap .form-label {
+      font-size: 0.75rem;
+      margin-bottom: 2px;
+    }
+    #new-member-form-wrap .form-input {
+      padding: 5px 10px !important;
+      font-size: 0.8rem !important;
+      height: 34px !important;
+    }
     .form-group {
       margin-bottom: 20px;
     }
     .form-label {
       display: block;
-      color: var(--vcec-gold);
+      color: #E5E7EB; /* Lighter white/grey for supreme readability on dark administration bg */
       font-weight: 700;
       font-size: 0.9rem;
       margin-bottom: 8px;
@@ -558,10 +619,170 @@
       padding: 12px !important;
       font-size: 0.95rem !important;
     }
+    .form-input option {
+      background-color: #0c1020 !important;
+      color: #FFFFFF !important;
+    }
     .form-input:focus {
       border-color: var(--vcec-gold) !important;
       outline: none !important;
       background: rgba(255, 255, 255, 0.04) !important;
+    }
+
+    /* Custom Quill styling to fit beautifully in the premium dark theme */
+    .ql-toolbar.ql-snow {
+      background: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-top-left-radius: 8px !important;
+      border-top-right-radius: 8px !important;
+    }
+    .ql-container.ql-snow {
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      background: rgba(255, 255, 255, 0.01) !important;
+      color: #FFFFFF !important;
+      border-bottom-left-radius: 8px !important;
+      border-bottom-right-radius: 8px !important;
+      font-size: 0.95rem !important;
+      min-height: 200px;
+    }
+    .ql-snow .ql-stroke {
+      stroke: #E5E7EB !important;
+    }
+    .ql-snow .ql-fill {
+      fill: #E5E7EB !important;
+    }
+    .ql-snow .ql-picker {
+      color: #E5E7EB !important;
+    }
+    .ql-snow .ql-picker-options {
+      background-color: #0c1020 !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    .ql-editor.ql-blank::before {
+      color: #9CA3AF !important;
+      font-style: italic !important;
+    }
+
+    /* Custom Image Resizer Overlay */
+    .image-resizer-overlay {
+      position: absolute;
+      display: none;
+      z-index: 1000;
+      border: 1.5px dashed var(--vcec-gold);
+      box-shadow: 0 0 12px rgba(184, 134, 11, 0.4);
+      background: transparent;
+      pointer-events: none; /* Let clicks pass through to editor unless on handles */
+    }
+    .image-resizer-handle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: var(--vcec-gold) !important;
+      border: 1px solid #FFFFFF !important;
+      border-radius: 2px !important;
+      pointer-events: auto !important; /* Enable hover/drag events on the handles! */
+    }
+    .image-resizer-handle.top-left {
+      top: -6px;
+      left: -6px;
+      cursor: nwse-resize;
+    }
+    .image-resizer-handle.top-right {
+      top: -6px;
+      right: -6px;
+      cursor: nesw-resize;
+    }
+    .image-resizer-handle.bottom-left {
+      bottom: -6px;
+      left: -6px;
+      cursor: nesw-resize;
+    }
+    .image-resizer-handle.bottom-right {
+      bottom: -6px;
+      right: -6px;
+      cursor: nwse-resize;
+    }
+
+    /* Decrease font size of whole screen posts by exactly 1 step */
+    #screen-posts, 
+    #screen-posts .admin-form, 
+    #screen-posts .form-label, 
+    #screen-posts .form-input, 
+    #screen-posts .ql-container {
+      font-size: 0.84rem !important;
+    }
+    #screen-posts .lang-badge {
+      font-size: 0.68rem !important;
+      height: 32px !important; /* Force matching height with compact inputs */
+    }
+    #screen-posts .form-input {
+      padding: 6px 12px !important; /* Reduce vertical padding for sleeker input height */
+      min-height: auto !important;
+    }
+
+    /* Permission Matrix Table premium layouts */
+    #access-matrix-table th {
+      font-size: 0.68rem !important; /* Decrease header font size by 1 step */
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #9CA3AF !important;
+      font-weight: 700;
+      padding: 10px 8px !important;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    }
+    #access-matrix-table td {
+      padding: 10px 8px !important;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 0.74rem !important; /* Decrease cell font size by 1 step */
+    }
+    #settings-access-matrix select option {
+      background-color: #1a1e26 !important; /* Premium dark background */
+      color: #FFFFFF !important; /* Solid visible white text */
+    }
+
+    /* Permission Matrix Interactive Action Badges styling */
+    .matrix-action-badge {
+      font-size: 0.72rem !important; /* Ideal icon symbol centering size */
+      font-weight: 700;
+      width: 22px !important;
+      height: 22px !important;
+      border-radius: 50% !important; /* Perfect circle layout */
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      color: rgba(255, 255, 255, 0.25);
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px !important;
+    }
+    .matrix-action-badge:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .matrix-action-badge.act-view.active {
+      background: rgba(16, 185, 129, 0.12) !important;
+      border-color: rgba(16, 185, 129, 0.35) !important;
+      color: #34D399 !important; /* Premium Emerald */
+    }
+    .matrix-action-badge.act-new.active {
+      background: rgba(59, 130, 246, 0.12) !important;
+      border-color: rgba(59, 130, 246, 0.35) !important;
+      color: #60A5FA !important; /* Premium Blue */
+    }
+    .matrix-action-badge.act-edit.active {
+      background: rgba(245, 158, 11, 0.12) !important;
+      border-color: rgba(245, 158, 11, 0.35) !important;
+      color: #FBBF24 !important; /* Premium Amber */
+    }
+    .matrix-action-badge.act-delete.active {
+      background: rgba(239, 68, 68, 0.12) !important;
+      border-color: rgba(239, 68, 68, 0.35) !important;
+      color: #F87171 !important; /* Premium Light Red */
     }
   </style>
 </head>
@@ -612,14 +833,14 @@
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        <span>Bài viết & Tin tức</span>
+        <span>Bài đăng</span>
       </div>
 
       <div class="menu-item" id="menu-resources" onclick="switchScreen('resources')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
         </svg>
-        <span>Kho tài liệu (Files)</span>
+        <span>Kho lưu trữ</span>
       </div>
 
       <div class="menu-item" id="menu-members" onclick="switchScreen('members')">
@@ -629,7 +850,7 @@
           <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
-        <span>Thành viên hệ thống</span>
+        <span>Thành viên</span>
       </div>
 
       <div class="menu-item" id="menu-leads" onclick="switchScreen('leads')">
@@ -640,7 +861,7 @@
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        <span>Hồ sơ đăng ký xúc tiến</span>
+        <span>Hồ sơ đối tác</span>
       </div>
 
       <div class="menu-item" id="menu-settings" onclick="switchScreen('settings')">
@@ -669,36 +890,88 @@
         </button>
       </div>
 
-      <div class="admin-stats-grid">
-        <div class="stat-card">
-          <span class="stat-lbl">Tổng Số Bài Đăng</span>
-          <div class="stat-val">12</div>
-          <p style="color:#6B7280; font-size:0.75rem;">Bài đăng đã xuất bản công khai.</p>
-        </div>
-        <div class="stat-card green">
-          <span class="stat-lbl">Lượt Xem Bài Viết</span>
-          <div class="stat-val">3,428</div>
-          <p style="color:#6B7280; font-size:0.75rem;">Lượt tương tác và theo dõi từ doanh nghiệp.</p>
-        </div>
-      </div>
-
       <!-- Create New Post Form (Hidden by default) -->
-      <div id="new-post-form-wrap" style="display:none; margin-bottom:30px;">
+      <div id="new-post-form-wrap" style="display:none; margin-bottom:30px; animation: modalIn 0.35s ease-out;">
         <h3 style="color:#FFFFFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tạo bài viết mới</h3>
-        <form class="admin-form" onsubmit="publishPost(event)">
-          <div class="form-group">
-            <label class="form-label">Tiêu đề bài viết (Tiếng Việt)</label>
-            <input type="text" id="post-title-vi" class="form-input" required placeholder="Ví dụ: VCEC tổ chức ký kết hợp tác xúc tiến thương mại Việt-Trung">
+        <form class="admin-form" onsubmit="publishPost(event)" style="max-width: 900px;">
+          <!-- GROUP 1: TIÊU ĐỀ BÀI VIẾT (3 ngôn ngữ liền kề) -->
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" style="color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">
+              ✍️ Tiêu đề bài viết:
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="lang-badge vi" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">VN</span>
+                <input type="text" id="post-title-vi" class="form-input" required placeholder="Ví dụ: VCEC tổ chức ký kết hợp tác xúc tiến thương mại Việt-Trung" style="margin: 0; flex-grow: 1;">
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">CN</span>
+                <input type="text" id="post-title-zh" class="form-input" required placeholder="例如：VCEC举办越中经贸对接签署仪式" style="margin: 0; flex-grow: 1;">
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">EN</span>
+                <input type="text" id="post-title-en" class="form-input" required placeholder="Example: VCEC signs commercial trade promotion MoU with Guangdong delegation" style="margin: 0; flex-grow: 1;">
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Tiêu đề bài viết (Tiếng Trung)</label>
-            <input type="text" id="post-title-zh" class="form-input" required placeholder="例如：VCEC举办越中经贸对接签署仪式">
+
+          <!-- GROUP 2: MÔ TẢ NGẮN GỌN (3 ngôn ngữ liền kề) -->
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" style="color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">
+              📋 MÔ TẢ NGẮN GỌN:
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span class="lang-badge vi" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">VN</span>
+                <textarea id="post-summary-vi" class="form-input" rows="2" required placeholder="Nội dung mô tả tóm tắt bằng Tiếng Việt..." style="margin: 0; flex-grow: 1;"></textarea>
+              </div>
+              <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">CN</span>
+                <textarea id="post-summary-zh" class="form-input" rows="2" required placeholder="中文简短描述..." style="margin: 0; flex-grow: 1;"></textarea>
+              </div>
+              <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">EN</span>
+                <textarea id="post-summary-en" class="form-input" rows="2" required placeholder="Short description in English..." style="margin: 0; flex-grow: 1;"></textarea>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Mô tả ngắn gọn / Tóm tắt</label>
-            <textarea id="post-summary" class="form-input" rows="3" required placeholder="Nội dung tóm tắt hiển thị trên danh mục tin tức..."></textarea>
+
+          <!-- GROUP 3: NÔI DUNG BÀI VIẾT (3 trình soạn thảo liền kề) -->
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" style="color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">
+              📖 NỘI DUNG BÀI VIẾT:
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <!-- VN Content -->
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span class="lang-badge vi" style="flex-shrink: 0; width: 50px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.75rem; border-radius: 6px;">VN</span>
+                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Soạn thảo chi tiết bằng Tiếng Việt</span>
+                </div>
+                <div id="post-body-vi" style="height: 250px; margin-bottom: 8px;"></div>
+              </div>
+              
+              <!-- CN Content -->
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.75rem; border-radius: 6px;">CN</span>
+                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Soạn thảo chi tiết bằng Tiếng Trung</span>
+                </div>
+                <div id="post-body-zh" style="height: 250px; margin-bottom: 8px;"></div>
+              </div>
+              
+              <!-- EN Content -->
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.75rem; border-radius: 6px;">EN</span>
+                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Soạn thảo chi tiết bằng Tiếng Anh</span>
+                </div>
+                <div id="post-body-en" style="height: 250px; margin-bottom: 8px;"></div>
+              </div>
+            </div>
           </div>
-          <div style="display:flex; gap:12px;">
+
+          <div style="display:flex; gap:12px; margin-top: 20px;">
             <button type="submit" class="btn btn-primary">Xuất Bản Bài Viết</button>
             <button type="button" class="btn" style="background:rgba(255,255,255,0.05); color:#FFF;" onclick="hideNewPostForm()">Hủy Bỏ</button>
           </div>
@@ -782,22 +1055,48 @@
     <section class="content-screen" id="screen-members">
       <div class="screen-header">
         <div>
-          <h1 class="screen-title">Quản Lý Thành Viên Hệ Thống</h1>
-          <p class="screen-subtitle">Danh sách các tài khoản người dùng đã đăng ký tham gia cổng thông tin đầu tư VCEC.</p>
+          <h1 class="screen-title">Quản lý thành viên</h1>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn btn-primary" onclick="showNewMemberForm()" style="padding: 10px 20px; font-size: 0.85rem; background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-red-hover) 100%);">
+            ➕ Thêm thành viên
+          </button>
+          <button class="btn btn-secondary" onclick="exportMembersToExcel()" style="padding: 10px 20px; font-size: 0.85rem; color: var(--vcec-gold); border-color: var(--vcec-gold); background: rgba(255,255,255,0.01);">
+            📥 Xuất danh sách
+          </button>
         </div>
       </div>
 
-      <div class="admin-stats-grid">
-        <div class="stat-card">
-          <span class="stat-lbl">Tổng thành viên</span>
-          <div class="stat-val" id="total-users-metric">--</div>
-          <p style="color:#6B7280; font-size:0.75rem;">Số tài khoản đã được khởi tạo thành công.</p>
-        </div>
-        <div class="stat-card crimson">
-          <span class="stat-lbl">Tài khoản Admin</span>
-          <div class="stat-val">1</div>
-          <p style="color:#6B7280; font-size:0.75rem;">Quản trị viên có toàn quyền kiểm duyệt.</p>
-        </div>
+      <!-- Add New Member Form Wrapper (Hidden by default) -->
+      <div id="new-member-form-wrap" style="display:none; margin-bottom:30px; animation: modalIn 0.35s ease-out;">
+        <h3 style="color:#FFFFFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Thêm thành viên mới</h3>
+        <form class="admin-form" onsubmit="createNewMember(event)" style="border: 1.5px solid rgba(184, 134, 11, 0.3);">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px;">
+            <div class="form-group">
+              <label class="form-label">Tên tài khoản (Username)</label>
+              <input type="text" id="member-username" class="form-input" required placeholder="Nhập tên tài khoản...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mật khẩu (Password)</label>
+              <input type="password" id="member-password" class="form-input" required placeholder="Nhập mật khẩu...">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label class="form-label">Cấp bậc phân quyền (Role)</label>
+            <select id="member-role" class="form-input" style="appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23AF883A\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; padding-right: 32px;">
+              <option value="member">Thành viên (Member)</option>
+              <option value="customer">Khách hàng (Customer)</option>
+              <option value="partner">Đối tác (Partner)</option>
+              <option value="leader">Trưởng nhóm (Leader)</option>
+              <option value="admin">Quản trị viên (Admin)</option>
+              <option value="super_admin">Quản trị cấp cao (Super Admin)</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:12px; margin-top: 8px;">
+            <button type="submit" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; height: 32px; display: flex; align-items: center; justify-content: center;">Thêm thành viên</button>
+            <button type="button" class="btn" style="padding: 6px 14px; font-size: 0.8rem; height: 32px; display: flex; align-items: center; justify-content: center; background:rgba(255,255,255,0.05); color:#FFF;" onclick="hideNewMemberForm()">Hủy Bỏ</button>
+          </div>
+        </form>
       </div>
 
       <div class="admin-table-container">
@@ -862,20 +1161,22 @@
 
     <!-- SCREEN 5: CÀI ĐẶT -->
     <section class="content-screen" id="screen-settings">
-      <div class="screen-header">
+      <div class="screen-header" style="margin-bottom: 20px; padding-bottom: 12px;">
         <div>
           <h1 class="screen-title">Cài Đặt Hệ Thống</h1>
-          <p class="screen-subtitle font-sm">Quản lý và cấu hình thông tin website, danh sách phân quyền thành viên và thông số bảo mật.</p>
         </div>
       </div>
 
       <!-- Settings Sub-tab Controls -->
-      <div class="settings-tab-bar">
+      <div class="settings-tab-bar" style="margin-bottom: 20px; padding-bottom: 12px;">
         <button class="settings-tab-btn active" onclick="switchSettingsTab('site-info')">
           ℹ️ Thông tin website
         </button>
         <button class="settings-tab-btn" onclick="switchSettingsTab('permissions')">
           🛡️ Phân quyền thành viên
+        </button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('access-matrix')">
+          🔑 Phân quyền truy cập
         </button>
         <button class="settings-tab-btn" onclick="switchSettingsTab('account')">
           👤 Tài khoản quản trị
@@ -916,6 +1217,36 @@
               <label class="form-label">Footer Copyright (Bản quyền chân trang)</label>
               <input type="text" id="cfg-footer" class="form-input" required>
             </div>
+
+            <!-- Thay logo of website -->
+            <div class="form-group" style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.08); padding-top:20px;">
+              <label class="form-label" style="color:var(--vcec-gold); display:flex; align-items:center; gap:8px; font-weight: 700;">
+                🖼️ Thay Logo của website
+              </label>
+              <div style="display:flex; gap:12px; margin-top:8px;">
+                <input type="text" id="cfg-logo-url" class="form-input" placeholder="Dán link ảnh logo hoặc bấm Tải lên..." style="flex-grow:1;">
+                <input type="file" id="cfg-logo-file" style="display:none;" onchange="uploadSettingFile('logo')">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('cfg-logo-file').click()" style="padding:0 20px; font-size:0.85rem; height:52px; white-space:nowrap; border-radius:8px;">
+                  📤 Tải ảnh lên
+                </button>
+              </div>
+              <p style="color:#9CA3AF; font-size:0.75rem; margin-top:5px;">Khuyên dùng tệp hình ảnh PNG có nền trong suốt hoặc hình tròn (.png, .jpg, .svg).</p>
+            </div>
+
+            <!-- Thay ảnh of hero banner -->
+            <div class="form-group" style="margin-top:20px; margin-bottom:25px;">
+              <label class="form-label" style="color:var(--vcec-gold); display:flex; align-items:center; gap:8px; font-weight: 700;">
+                🌄 Thay ảnh nền Hero Banner (Trang chủ)
+              </label>
+              <div style="display:flex; gap:12px; margin-top:8px;">
+                <input type="text" id="cfg-hero-url" class="form-input" placeholder="Dán link ảnh nền hoặc bấm Tải lên..." style="flex-grow:1;">
+                <input type="file" id="cfg-hero-file" style="display:none;" onchange="uploadSettingFile('hero')">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('cfg-hero-file').click()" style="padding:0 20px; font-size:0.85rem; height:52px; white-space:nowrap; border-radius:8px;">
+                  📤 Tải ảnh lên
+                </button>
+              </div>
+              <p style="color:#9CA3AF; font-size:0.75rem; margin-top:5px;">Khuyên dùng ảnh phong cảnh góc rộng, độ phân giải cao (.jpg, .png).</p>
+            </div>
             
             <button type="submit" class="btn btn-primary" style="padding:10px 20px;">
               💾 Lưu thông tin cấu hình
@@ -950,6 +1281,63 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 4: Ma trận Phân quyền truy cập -->
+      <div class="settings-tab-content" id="settings-access-matrix" style="display:none;">
+        <div class="admin-form" style="width: 100%; max-width: 1000px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">
+            <h3 style="color:#FFF; margin: 0; font-family:var(--vcec-font-title); font-size: 1.15rem;">
+              🔑 Ma trận phân quyền
+            </h3>
+            
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+              <!-- Filter Role Column dropdown -->
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #9CA3AF; font-size: 0.72rem; font-weight: 600;">Xem vai trò:</span>
+                <select id="matrix-role-filter" onchange="filterMatrixColumns()" style="background: rgba(255,255,255,0.05); color: #FFF; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 8px; font-size: 0.72rem; cursor: pointer; outline: none;">
+                  <option value="all">-- Tất cả vai trò --</option>
+                  <option value="member">Thành viên</option>
+                  <option value="customer">Khách hàng</option>
+                  <option value="partner">Đối tác</option>
+                  <option value="leader">Trưởng nhóm</option>
+                  <option value="admin">Quản trị viên</option>
+                </select>
+              </div>
+
+              <!-- Check Username dropdown -->
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #9CA3AF; font-size: 0.72rem; font-weight: 600;">Lọc theo thành viên:</span>
+                <select id="matrix-user-filter" onchange="highlightUserRoleInMatrix()" style="background: rgba(255,255,255,0.05); color: #FFF; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 8px; font-size: 0.72rem; cursor: pointer; outline: none; max-width: 150px;">
+                  <option value="none">-- Chọn tài khoản --</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="admin-table-container" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius:10px; overflow:hidden;">
+            <table class="admin-table" id="access-matrix-table">
+              <thead>
+                <tr>
+                  <th style="width: 250px;">Chức năng / Menu</th>
+                  <th style="text-align: center;">Thành viên</th>
+                  <th style="text-align: center;">Khách hàng</th>
+                  <th style="text-align: center;">Đối tác</th>
+                  <th style="text-align: center;">Trưởng nhóm</th>
+                  <th style="text-align: center;">Quản trị viên</th>
+                </tr>
+              </thead>
+              <tbody id="access-matrix-tbody">
+                <!-- Will be dynamically populated by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 15px;">
+            <button class="btn btn-primary" onclick="savePermissionMatrix()" style="padding:10px 20px;">
+              💾 Lưu cấu hình ma trận
+            </button>
           </div>
         </div>
       </div>
@@ -1034,8 +1422,113 @@
       }
     }
 
+    // Global Quill Editor references
+    let quillVi, quillZh, quillEn;
+
+    function applyVietnameseTooltipsToQuill() {
+      const tooltipMap = {
+        '.ql-bold': 'Chữ đậm (Ctrl+B)',
+        '.ql-italic': 'Chữ nghiêng (Ctrl+I)',
+        '.ql-underline': 'Gạch chân (Ctrl+U)',
+        '.ql-strike': 'Gạch ngang',
+        '.ql-blockquote': 'Trích dẫn đoạn văn',
+        '.ql-code-block': 'Chèn khối mã lệnh',
+        '.ql-list[value="ordered"]': 'Danh sách dạng số',
+        '.ql-list[value="bullet"]': 'Danh sách dạng ký hiệu',
+        '.ql-color': 'Đổi màu văn bản',
+        '.ql-background': 'Đổi màu nền chữ',
+        '.ql-link': 'Thêm liên kết (Hyperlink)',
+        '.ql-image': 'Chèn hình ảnh',
+        '.ql-clean': 'Xóa sạch tất cả định dạng chữ',
+        '.ql-header[value="1"]': 'Tiêu đề lớn cấp 1 (H1)',
+        '.ql-header[value="2"]': 'Tiêu đề vừa cấp 2 (H2)',
+        '.ql-header[value="3"]': 'Tiêu đề nhỏ cấp 3 (H3)',
+        '.ql-header': 'Chọn kích thước tiêu đề',
+        '.ql-font': 'Chọn phông chữ',
+        '.ql-align': 'Căn chỉnh văn bản'
+      };
+
+      document.querySelectorAll('.ql-toolbar').forEach(toolbar => {
+        for (const [selector, text] of Object.entries(tooltipMap)) {
+          toolbar.querySelectorAll(selector).forEach(btn => {
+            btn.setAttribute('title', text);
+          });
+        }
+        
+        // Also attach tooltips to picker wrappers directly for a fast hover feel
+        const headerPicker = toolbar.querySelector('.ql-header.ql-picker');
+        if (headerPicker) headerPicker.setAttribute('title', 'Kích thước tiêu đề');
+        
+        const colorPicker = toolbar.querySelector('.ql-color.ql-picker');
+        if (colorPicker) colorPicker.setAttribute('title', 'Màu chữ');
+        
+        const bgPicker = toolbar.querySelector('.ql-background.ql-picker');
+        if (bgPicker) bgPicker.setAttribute('title', 'Màu nền chữ');
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       checkSupabaseReady();
+
+      // Initialize Quill Editors for Post body
+      if (typeof Quill !== "undefined") {
+        quillVi = new Quill('#post-body-vi', {
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ 'header': [1, 2, 3, false] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'color': [] }, { 'background': [] }],
+              ['link', 'image'],
+              ['clean']
+            ]
+          },
+          placeholder: 'Soạn thảo nội dung bài viết bằng Tiếng Việt...'
+        });
+
+        quillZh = new Quill('#post-body-zh', {
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ 'header': [1, 2, 3, false] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'color': [] }, { 'background': [] }],
+              ['link', 'image'],
+              ['clean']
+            ]
+          },
+          placeholder: 'Soạn thảo nội dung bài viết bằng Tiếng Trung...'
+        });
+
+        quillEn = new Quill('#post-body-en', {
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ 'header': [1, 2, 3, false] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'color': [] }, { 'background': [] }],
+              ['link', 'image'],
+              ['clean']
+            ]
+          },
+          placeholder: 'Soạn thảo nội dung bài viết bằng Tiếng Anh (English)...'
+        });
+
+        // Apply Vietnamese tooltips right after initializing
+        applyVietnameseTooltipsToQuill();
+
+        // Initialize lightweight image resizer
+        initImageResizer();
+
+        // Initialize dynamic access permission matrix
+        initPermissionMatrix();
+      }
     });
 
     // 3. Custom Logout Action
@@ -1062,20 +1555,32 @@
 
         if (usersErr) throw usersErr;
 
-        if (totalUsersMetric) totalUsersMetric.innerHTML = users ? users.length : 0;
+        // Filter out super_admin from list display to protect it and follow user request
+        const displayUsers = users ? users.filter(u => u.role !== 'super_admin' && u.username !== 'vcec_sadmin') : [];
+
+        if (totalUsersMetric) totalUsersMetric.innerHTML = displayUsers.length;
         
-        if (!users || users.length === 0) {
+        if (displayUsers.length === 0) {
           usersBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#9CA3AF;">Không có tài khoản nào.</td></tr>`;
           if (permissionsBody) permissionsBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#9CA3AF;">Không có tài khoản nào.</td></tr>`;
         } else {
-          usersBody.innerHTML = users.map(user => {
+          const roleMap = {
+            super_admin: { label: 'Quản trị cấp cao', class: 'admin' },
+            admin: { label: 'Quản trị viên', class: 'admin' },
+            leader: { label: 'Trưởng nhóm', class: 'leader' },
+            partner: { label: 'Đối tác', class: 'partner' },
+            customer: { label: 'Khách hàng', class: 'customer' },
+            member: { label: 'Thành viên', class: 'member' }
+          };
+
+          usersBody.innerHTML = displayUsers.map(user => {
             const isSuper = user.role === 'super_admin';
-            const badgeClass = isSuper ? 'admin' : 'member';
+            const roleInfo = roleMap[user.role] || { label: 'Thành viên', class: 'member' };
             const formattedDate = new Date(user.created_at).toLocaleString('vi-VN');
             return `
               <tr>
                 <td style="font-weight:700; color:#FFFFFF;">👥 ${user.username}</td>
-                <td><span class="badge ${badgeClass}">${isSuper ? 'Quản trị viên' : 'Thành viên'}</span></td>
+                <td><span class="badge ${roleInfo.class}">${roleInfo.label}</span></td>
                 <td style="color:#9CA3AF;">${formattedDate}</td>
                 <td style="text-align:right;">
                   ${!isSuper ? `
@@ -1089,20 +1594,25 @@
 
           // Populate Permissions configuration tab table list
           if (permissionsBody) {
-            permissionsBody.innerHTML = users.map(user => {
+            permissionsBody.innerHTML = displayUsers.map(user => {
               const isSuper = user.role === 'super_admin';
+              const roleInfo = roleMap[user.role] || { label: 'Thành viên', class: 'member' };
               return `
                 <tr>
                   <td style="font-weight:700; color:#FFFFFF;">👥 ${user.username}</td>
                   <td>
-                    <span class="badge ${isSuper ? 'admin' : 'member'}">
-                      ${isSuper ? 'Quản trị viên' : 'Thành viên'}
+                    <span class="badge ${roleInfo.class}">
+                      ${roleInfo.label}
                     </span>
                   </td>
                   <td>
                     <select id="role-select-${user.id}" class="form-input" style="padding: 4px 8px !important; font-size: 0.85rem !important; width: auto !important; height: auto !important;" ${isSuper ? 'disabled' : ''}>
                       <option value="member" ${user.role === 'member' ? 'selected' : ''}>Thành viên</option>
-                      <option value="super_admin" ${user.role === 'super_admin' ? 'selected' : ''}>Quản trị viên</option>
+                      <option value="customer" ${user.role === 'customer' ? 'selected' : ''}>Khách hàng</option>
+                      <option value="partner" ${user.role === 'partner' ? 'selected' : ''}>Đối tác</option>
+                      <option value="leader" ${user.role === 'leader' ? 'selected' : ''}>Trưởng nhóm</option>
+                      <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Quản trị viên</option>
+                      <option value="super_admin" ${user.role === 'super_admin' ? 'selected' : ''}>Quản trị cấp cao</option>
                     </select>
                   </td>
                   <td style="text-align:right;">
@@ -1112,6 +1622,14 @@
                   </td>
                 </tr>
               `;
+            }).join('');
+          }
+
+          // Populate Ma trận Phân quyền user selection filter dropdown
+          const userMatrixFilter = document.getElementById("matrix-user-filter");
+          if (userMatrixFilter) {
+            userMatrixFilter.innerHTML = `<option value="none">-- Chọn tài khoản --</option>` + displayUsers.map(user => {
+              return `<option value="${user.role}">${user.username}</option>`;
             }).join('');
           }
         }
@@ -1319,15 +1837,142 @@
     }
 
     async function changeRole(id, currentRole) {
-      const newRole = currentRole === 'super_admin' ? 'member' : 'super_admin';
-      if (!confirm(`Đổi quyền tài khoản này thành "${newRole}"?`)) return;
+      const roles = ['member', 'customer', 'partner', 'leader', 'admin'];
+      let currentIndex = roles.indexOf(currentRole);
+      if (currentIndex === -1) currentIndex = 0;
+      const nextIndex = (currentIndex + 1) % roles.length;
+      const newRole = roles[nextIndex];
+      
+      const roleMapVi = {
+        member: 'Thành viên',
+        customer: 'Khách hàng',
+        partner: 'Đối tác',
+        leader: 'Trưởng nhóm',
+        admin: 'Quản trị viên'
+      };
+
+      if (!confirm(`Đổi quyền tài khoản này thành "${roleMapVi[newRole]}"?`)) return;
       try {
         const { error } = await window.supabaseClient.from('vcec_users').update({ role: newRole }).eq('id', id);
         if (error) throw error;
-        alert(`Đã cập nhật cấp quyền!`);
+        alert(`Đã cập nhật cấp quyền thành công!`);
         loadCoreData();
       } catch (err) {
         alert("Lỗi: " + err.message);
+      }
+    }
+
+    function showNewMemberForm() {
+      document.getElementById("new-member-form-wrap").style.display = "block";
+    }
+
+    function hideNewMemberForm() {
+      document.getElementById("new-member-form-wrap").style.display = "none";
+      document.getElementById("member-username").value = "";
+      document.getElementById("member-password").value = "";
+      document.getElementById("member-role").value = "member";
+    }
+
+    async function createNewMember(event) {
+      event.preventDefault();
+      const usernameInput = document.getElementById("member-username");
+      const passwordInput = document.getElementById("member-password");
+      const roleInput = document.getElementById("member-role");
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+      const role = roleInput.value;
+
+      if (!username || !password) return;
+
+      if (!window.supabaseClient) {
+        alert("Cơ sở dữ liệu chưa sẵn sàng, vui lòng thử lại sau!");
+        return;
+      }
+
+      try {
+        // 1. Check if username already exists in Supabase
+        const { data: existingUser, error: selectError } = await window.supabaseClient
+          .from('vcec_users')
+          .select('username')
+          .eq('username', username.toLowerCase());
+
+        if (selectError) throw selectError;
+
+        if (existingUser && existingUser.length > 0) {
+          alert("Tên tài khoản này đã tồn tại!");
+          return;
+        }
+
+        // 2. Insert new user
+        const { error: insertError } = await window.supabaseClient
+          .from('vcec_users')
+          .insert([
+            { username: username.toLowerCase(), password: password, role: role }
+          ]);
+
+        if (insertError) throw insertError;
+
+        hideNewMemberForm();
+        loadCoreData();
+      } catch (err) {
+        console.error(err);
+        alert("Lỗi thêm thành viên: " + err.message);
+      }
+    }
+
+    async function exportMembersToExcel() {
+      if (!window.supabaseClient) {
+        alert("Cơ sở dữ liệu chưa sẵn sàng!");
+        return;
+      }
+
+      try {
+        const { data: users, error } = await window.supabaseClient
+          .from('vcec_users')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!users || users.length === 0) {
+          alert("Không có thành viên nào để xuất!");
+          return;
+        }
+
+        const roleMapVi = {
+          super_admin: 'Quản trị cấp cao',
+          admin: 'Quản trị viên',
+          leader: 'Trưởng nhóm',
+          partner: 'Đối tác',
+          customer: 'Khách hàng',
+          member: 'Thành viên'
+        };
+
+        // Construct CSV content with UTF-8 BOM so Excel opens Vietnamese characters perfectly
+        let csvContent = "\uFEFF"; // UTF-8 BOM
+        csvContent += "Tên tài khoản,Cấp bậc,Thời gian đăng ký hệ thống\n";
+
+        users.forEach(user => {
+          const roleText = roleMapVi[user.role] || 'Thành viên';
+          const formattedDate = new Date(user.created_at).toLocaleString('vi-VN');
+          const usernameEscaped = user.username.replace(/"/g, '""');
+          csvContent += `"${usernameEscaped}","${roleText}","${formattedDate}"\n`;
+        });
+
+        // Download file
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `Danh_sach_thanh_vien_VCEC_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error(err);
+        alert("Lỗi xuất file: " + err.message);
       }
     }
 
@@ -1348,9 +1993,18 @@
       event.preventDefault();
       const titleVi = document.getElementById("post-title-vi").value.trim();
       const titleZh = document.getElementById("post-title-zh").value.trim();
-      const summary = document.getElementById("post-summary").value.trim();
+      const titleEn = document.getElementById("post-title-en").value.trim();
+      
+      const summaryVi = document.getElementById("post-summary-vi").value.trim();
+      const summaryZh = document.getElementById("post-summary-zh").value.trim();
+      const summaryEn = document.getElementById("post-summary-en").value.trim();
+      
+      const contentVi = quillVi ? quillVi.getSemanticHTML() : "";
+      const contentZh = quillZh ? quillZh.getSemanticHTML() : "";
+      const contentEn = quillEn ? quillEn.getSemanticHTML() : "";
 
-      alert(`Xuất bản bài viết thành công!\n- VI: ${titleVi}\n- ZH: ${titleZh}`);
+      alert(`Xuất bản bài viết thành công!\n\n- Tiêu đề VI: ${titleVi}\n- Tiêu đề ZH: ${titleZh}\n- Tiêu đề EN: ${titleEn}\n- Tóm tắt VI: ${summaryVi}\n- Tóm tắt ZH: ${summaryZh}\n- Tóm tắt EN: ${summaryEn}\n- Độ dài nội dung VI: ${contentVi.length} ký tự\n- Độ dài nội dung ZH: ${contentZh.length} ký tự\n- Độ dài nội dung EN: ${contentEn.length} ký tự`);
+      
       hideNewPostForm();
     }
 
@@ -1359,6 +2013,15 @@
     }
     function hideNewPostForm() {
       document.getElementById("new-post-form-wrap").style.display = "none";
+      document.getElementById("post-title-vi").value = "";
+      document.getElementById("post-title-zh").value = "";
+      document.getElementById("post-title-en").value = "";
+      document.getElementById("post-summary-vi").value = "";
+      document.getElementById("post-summary-zh").value = "";
+      document.getElementById("post-summary-en").value = "";
+      if (quillVi) quillVi.setContents([]);
+      if (quillZh) quillZh.setContents([]);
+      if (quillEn) quillEn.setContents([]);
     }
 
     // 8. Settings Sub-Tab Control & Configurations Saving
@@ -1383,7 +2046,9 @@
         hotline: "0904.xxx.xxx",
         email: "contact@vcec.org.vn",
         description: "Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam - Trung Quốc",
-        footer: "© 2026 VCEC - Vietnam China Economic Cooperation. All Rights Reserved."
+        footer: "© 2026 VCEC - Vietnam China Economic Cooperation. All Rights Reserved.",
+        logoUrl: "",
+        heroUrl: ""
       };
       if (stored) {
         try {
@@ -1396,12 +2061,16 @@
       const elEmail = document.getElementById("cfg-email");
       const elDesc = document.getElementById("cfg-description");
       const elFooter = document.getElementById("cfg-footer");
+      const elLogoUrl = document.getElementById("cfg-logo-url");
+      const elHeroUrl = document.getElementById("cfg-hero-url");
       
-      if (elName) elName.value = cfg.name;
-      if (elHotline) elHotline.value = cfg.hotline;
-      if (elEmail) elEmail.value = cfg.email;
-      if (elDesc) elDesc.value = cfg.description;
-      if (elFooter) elFooter.value = cfg.footer;
+      if (elName) elName.value = cfg.name || "";
+      if (elHotline) elHotline.value = cfg.hotline || "";
+      if (elEmail) elEmail.value = cfg.email || "";
+      if (elDesc) elDesc.value = cfg.description || "";
+      if (elFooter) elFooter.value = cfg.footer || "";
+      if (elLogoUrl) elLogoUrl.value = cfg.logoUrl || "";
+      if (elHeroUrl) elHeroUrl.value = cfg.heroUrl || "";
     }
 
     function saveSiteConfig(event) {
@@ -1411,10 +2080,60 @@
         hotline: document.getElementById("cfg-hotline").value,
         email: document.getElementById("cfg-email").value,
         description: document.getElementById("cfg-description").value,
-        footer: document.getElementById("cfg-footer").value
+        footer: document.getElementById("cfg-footer").value,
+        logoUrl: document.getElementById("cfg-logo-url").value,
+        heroUrl: document.getElementById("cfg-hero-url").value
       };
       localStorage.setItem("vcec_site_config", JSON.stringify(cfg));
       alert("💾 Đã lưu cấu hình thông tin website thành công!");
+      
+      // Reflect changes immediately if global apply script is loaded
+      if (typeof applyCustomSiteConfig === "function") {
+        applyCustomSiteConfig();
+      }
+    }
+
+    async function uploadSettingFile(type) {
+      const input = document.getElementById(`cfg-${type}-file`);
+      if (!input || !input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      
+      const cleanName = `${type}_${Date.now()}_${file.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_.-]/g, '')}`;
+
+      try {
+        if (!window.supabaseClient) {
+          alert("Hệ thống mây chưa sẵn sàng, vui lòng thử lại sau!");
+          return;
+        }
+
+        const inputUrl = document.getElementById(`cfg-${type}-url`);
+        if (inputUrl) {
+          inputUrl.value = "⏳ Đang tải ảnh lên đám mây...";
+        }
+
+        const { data, error } = await window.supabaseClient
+          .storage
+          .from('vcec')
+          .upload(cleanName, file, {
+            cacheControl: '3600',
+            upsert: true
+          });
+
+        if (error) throw error;
+
+        // Get public URL
+        const publicUrl = `https://jhebreoxwuimlqwvjdok.supabase.co/storage/v1/object/public/vcec/${cleanName}`;
+        if (inputUrl) {
+          inputUrl.value = publicUrl;
+        }
+        alert(`Tải ảnh ${type === 'logo' ? 'Logo' : 'Hero Banner'} lên kho mây thành công!`);
+      } catch (err) {
+        alert("Lỗi tải tệp lên: " + err.message);
+        const inputUrl = document.getElementById(`cfg-${type}-url`);
+        if (inputUrl) inputUrl.value = "";
+      }
+      
+      input.value = ""; // clear input
     }
 
     async function loadAdminProfile() {
@@ -1505,6 +2224,362 @@
         alert("Lỗi đổi quyền: " + err.message);
       }
     }
+
+    // Lightweight, high-performance image resizer for Quill editors
+    let activeResizingImage = null;
+    let startWidth = 0;
+    let startHeight = 0;
+    let startX = 0;
+    let startY = 0;
+    let currentCorner = "";
+    let aspectRatio = 1;
+
+    function initImageResizer() {
+      const resizer = document.getElementById("image-resizer");
+      if (!resizer) return;
+
+      // Monitor any image click inside any Quill container
+      document.querySelectorAll(".ql-container").forEach(container => {
+        container.addEventListener("click", (e) => {
+          if (e.target && e.target.tagName === "IMG") {
+            e.stopPropagation();
+            showResizer(e.target);
+          } else {
+            hideResizer();
+          }
+        });
+      });
+
+      // Hide resizer when clicking elsewhere
+      document.addEventListener("click", (e) => {
+        if (e.target && e.target.tagName !== "IMG" && !e.target.classList.contains("image-resizer-handle")) {
+          hideResizer();
+        }
+      });
+
+      // Reposition overlay dynamically on scroll inside any Quill editor
+      document.querySelectorAll(".ql-editor").forEach(editor => {
+        editor.addEventListener("scroll", () => {
+          if (activeResizingImage) {
+            positionResizerOnImage(activeResizingImage);
+          }
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        if (activeResizingImage) {
+          positionResizerOnImage(activeResizingImage);
+        }
+      });
+
+      // Bind drag handles
+      resizer.querySelectorAll(".image-resizer-handle").forEach(handle => {
+        handle.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (!activeResizingImage) return;
+
+          currentCorner = handle.getAttribute("data-corner");
+          startX = e.clientX;
+          startY = e.clientY;
+          startWidth = activeResizingImage.getBoundingClientRect().width;
+          startHeight = activeResizingImage.getBoundingClientRect().height;
+          aspectRatio = startWidth / startHeight;
+
+          document.addEventListener("mousemove", handleMouseMove);
+          document.addEventListener("mouseup", handleMouseUp);
+        });
+      });
+    }
+
+    function showResizer(img) {
+      activeResizingImage = img;
+      const resizer = document.getElementById("image-resizer");
+      if (resizer) {
+        resizer.style.display = "block";
+        positionResizerOnImage(img);
+      }
+    }
+
+    function hideResizer() {
+      activeResizingImage = null;
+      const resizer = document.getElementById("image-resizer");
+      if (resizer) resizer.style.display = "none";
+    }
+
+    function positionResizerOnImage(img) {
+      const resizer = document.getElementById("image-resizer");
+      if (!resizer || !img) return;
+
+      const rect = img.getBoundingClientRect();
+      const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      resizer.style.top = (rect.top + scrollTop) + "px";
+      resizer.style.left = (rect.left + scrollLeft) + "px";
+      resizer.style.width = rect.width + "px";
+      resizer.style.height = rect.height + "px";
+    }
+
+    function handleMouseMove(e) {
+      if (!activeResizingImage) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      let newWidth = startWidth;
+
+      // Dynamically calculate new width based on corner movement
+      if (currentCorner === "bottom-right") {
+        newWidth = startWidth + dx;
+      } else if (currentCorner === "bottom-left") {
+        newWidth = startWidth - dx;
+      } else if (currentCorner === "top-right") {
+        newWidth = startWidth + dx;
+      } else if (currentCorner === "top-left") {
+        newWidth = startWidth - dx;
+      }
+
+      const parentEditor = activeResizingImage.closest(".ql-editor");
+      const maxEditorWidth = parentEditor ? parentEditor.clientWidth : 800;
+
+      if (newWidth < 40) newWidth = 40;
+      if (newWidth > maxEditorWidth) newWidth = maxEditorWidth;
+
+      // Update image dimensions
+      activeResizingImage.style.width = newWidth + "px";
+      activeResizingImage.style.height = "auto";
+
+      // Sync resizer overlay position instantly
+      positionResizerOnImage(activeResizingImage);
+    }
+
+    function handleMouseUp() {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+
+      // Trigger change event to ensure editor captures style state change
+      if (activeResizingImage) {
+        const editor = activeResizingImage.closest(".ql-editor");
+        if (editor) {
+          editor.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      }
+    }
+
+    // Dynamic Role-based Menu Access Permission Matrix Handlers
+    let permissionMatrix = {};
+
+    function initPermissionMatrix() {
+      const saved = localStorage.getItem("vcec_permission_matrix");
+      if (saved) {
+        try {
+          permissionMatrix = JSON.parse(saved);
+        } catch(e) {
+          permissionMatrix = getDefaultMatrix();
+        }
+      } else {
+        permissionMatrix = getDefaultMatrix();
+      }
+      renderPermissionMatrix();
+    }
+
+    function getDefaultMatrix() {
+      return {
+        member: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: true, new: true, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: false, new: false, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        customer: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: false, new: false, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: false, new: false, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        partner: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: true, new: true, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: true, new: true, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        leader: {
+          posts: { view: true, new: true, edit: true, delete: false },
+          resources: { view: true, new: true, edit: true, delete: false },
+          members: { view: true, new: true, edit: false, delete: false },
+          leads: { view: true, new: true, edit: true, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        admin: {
+          posts: { view: true, new: true, edit: true, delete: true },
+          resources: { view: true, new: true, edit: true, delete: true },
+          members: { view: true, new: true, edit: true, delete: true },
+          leads: { view: true, new: true, edit: true, delete: true },
+          settings: { view: true, new: true, edit: true, delete: true }
+        }
+      };
+    }
+
+    function renderPermissionMatrix() {
+      const tbody = document.getElementById("access-matrix-tbody");
+      if (!tbody) return;
+
+      const rows = [
+        { key: "posts", label: "Quản lý Bài đăng & Tin tức", color: "#EF4444" },
+        { key: "resources", label: "Quản lý Kho lưu trữ (Files)", color: "#3B82F6" },
+        { key: "members", label: "Quản lý Thành viên", color: "#A855F7" },
+        { key: "leads", label: "Quản lý Hồ sơ đối tác", color: "#10B981" },
+        { key: "settings", label: "Cấu hình Cài đặt hệ thống", color: "#F59E0B" }
+      ];
+
+      const roles = ["member", "customer", "partner", "leader", "admin"];
+
+      tbody.innerHTML = rows.map(row => {
+        return `
+          <tr>
+            <td style="font-weight: 600; color: #FFFFFF; white-space: nowrap; padding-right: 25px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="width: 7px; height: 7px; border-radius: 50%; background-color: ${row.color}; display: inline-block;"></span>
+                <span>${row.label}</span>
+              </div>
+            </td>
+            ${roles.map(role => {
+              let permissions = permissionMatrix[role] && permissionMatrix[role][row.key] 
+                ? permissionMatrix[role][row.key] 
+                : { view: false, new: false, edit: false, delete: false };
+
+              // Auto fallback if permission is saved as a simple boolean from older matrix structure
+              if (typeof permissions === 'boolean') {
+                const val = permissions;
+                permissions = { view: val, new: val, edit: val, delete: val };
+                if (!permissionMatrix[role]) permissionMatrix[role] = {};
+                permissionMatrix[role][row.key] = permissions;
+              }
+              
+              const actions = [
+                { key: "view", text: "👁", class: "act-view", title: "Xem (View)" },
+                { key: "new", text: "＋", class: "act-new", title: "Thêm mới (New)" },
+                { key: "edit", text: "✎", class: "act-edit", title: "Chỉnh sửa (Edit)" },
+                { key: "delete", text: "✕", class: "act-delete", title: "Xóa (Delete)" }
+              ];
+
+              return `
+                <td style="text-align: center;">
+                  <div style="display: flex; gap: 6px; justify-content: center; align-items: center;">
+                    ${actions.map(act => {
+                      const isActive = permissions[act.key];
+                      return `
+                        <span class="matrix-action-badge ${act.class} ${isActive ? 'active' : ''}" 
+                              title="${act.title} - ${role}" 
+                              onclick="toggleMatrixAction('${role}', '${row.key}', '${act.key}', this)">
+                          ${act.text}
+                        </span>
+                      `;
+                    }).join('')}
+                  </div>
+                </td>
+              `;
+            }).join('')}
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggleMatrixAction(role, screenKey, actionKey, element) {
+      if (!permissionMatrix[role]) permissionMatrix[role] = {};
+      if (!permissionMatrix[role][screenKey] || typeof permissionMatrix[role][screenKey] === 'boolean') {
+        permissionMatrix[role][screenKey] = { view: false, new: false, edit: false, delete: false };
+      }
+      
+      const isCurrentlyActive = element.classList.contains("active");
+      if (isCurrentlyActive) {
+        element.classList.remove("active");
+        permissionMatrix[role][screenKey][actionKey] = false;
+      } else {
+        element.classList.add("active");
+        permissionMatrix[role][screenKey][actionKey] = true;
+      }
+    }
+
+    function savePermissionMatrix() {
+      localStorage.setItem("vcec_permission_matrix", JSON.stringify(permissionMatrix));
+      alert("🎉 Đã lưu cấu hình Ma trận phân quyền truy cập thành công!");
+    }
+
+    function filterMatrixColumns() {
+      const filterSelect = document.getElementById("matrix-role-filter");
+      if (!filterSelect) return;
+      const selectedValue = filterSelect.value;
+      
+      const table = document.getElementById("access-matrix-table");
+      if (!table) return;
+      
+      const headerThs = Array.from(table.querySelectorAll("thead th"));
+      const rows = Array.from(table.querySelectorAll("tbody tr"));
+      
+      const roleIndexMap = {
+        member: 1,
+        customer: 2,
+        partner: 3,
+        leader: 4,
+        admin: 5
+      };
+      
+      if (selectedValue === "all") {
+        headerThs.forEach(th => th.style.display = "");
+        rows.forEach(row => {
+          Array.from(row.querySelectorAll("td")).forEach(td => td.style.display = "");
+        });
+      } else {
+        const targetIndex = roleIndexMap[selectedValue];
+        
+        headerThs.forEach((th, idx) => {
+          if (idx === 0 || idx === targetIndex) {
+            th.style.display = "";
+          } else {
+            th.style.display = "none";
+          }
+        });
+        
+        rows.forEach(row => {
+          Array.from(row.querySelectorAll("td")).forEach((td, idx) => {
+            if (idx === 0 || idx === targetIndex) {
+              td.style.display = "";
+            } else {
+              td.style.display = "none";
+            }
+          });
+        });
+      }
+    }
+
+    function highlightUserRoleInMatrix() {
+      const select = document.getElementById("matrix-user-filter");
+      if (!select) return;
+      const role = select.value;
+      
+      const roleFilterSelect = document.getElementById("matrix-role-filter");
+      if (role !== "none" && roleFilterSelect) {
+        roleFilterSelect.value = role;
+        filterMatrixColumns();
+      } else if (role === "none" && roleFilterSelect) {
+        roleFilterSelect.value = "all";
+        filterMatrixColumns();
+      }
+    }
   </script>
+
+  <!-- Dynamic Image Resizer Element for Quill Editors -->
+  <div id="image-resizer" class="image-resizer-overlay">
+    <div class="image-resizer-handle top-left" data-corner="top-left"></div>
+    <div class="image-resizer-handle top-right" data-corner="top-right"></div>
+    <div class="image-resizer-handle bottom-left" data-corner="bottom-left"></div>
+    <div class="image-resizer-handle bottom-right" data-corner="bottom-right"></div>
+  </div>
 </body>
 </html>

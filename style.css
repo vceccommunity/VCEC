@@ -402,15 +402,15 @@ button, input, select, textarea {
 .footer {
   background-color: var(--vcec-dark-bg);
   color: #9CA3AF;
-  padding: 100px 0 40px 0;
+  padding: 80px 0 40px 0; /* Slightly reduced top padding for better proportion */
   border-top: 2px solid var(--vcec-gold);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   position: relative;
 }
 
 .footer h3 {
   color: #FFFFFF;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   margin-bottom: 24px;
   font-family: var(--vcec-font-title);
   position: relative;
@@ -418,6 +418,17 @@ button, input, select, textarea {
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
+
+/* Scale down footer logo elements to align with the smaller typography */
+.footer-logo-block .logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.footer-logo-block .logo-title {
+  font-size: 1.35rem;
+}
+
 
 .footer h3::after {
   content: "";
@@ -491,7 +502,7 @@ button, input, select, textarea {
 /* 6.1. Hero Section & Premium Search Widget */
 .hero {
   position: relative;
-  min-height: 650px;
+  min-height: 520px;
   background: linear-gradient(135deg, rgba(9, 13, 26, 0.92) 0%, rgba(9, 13, 26, 0.75) 100%),
               url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1920&q=80');
   background-size: cover;
@@ -499,13 +510,13 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   color: #FFFFFF;
-  padding: 120px 0;
+  padding: 70px 0;
   overflow: hidden;
 }
 
 .hero-content {
   max-width: 100%; /* Spreads the text fully across the container width */
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   animation: modalIn 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

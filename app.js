@@ -933,11 +933,11 @@ function renderFooter() {
       <div class="footer-contact">
         <h3 data-i18n="footer-office">${translations[currentLang]["footer-office"]}</h3>
         <div class="footer-contact-item">
-          <span style="color:var(--vcec-gold); font-size:1.2rem;">📍</span>
+          <span style="color:var(--vcec-gold); font-size:1.0rem;">📍</span>
           <p data-i18n="footer-hanoi">${translations[currentLang]["footer-hanoi"]}</p>
         </div>
         <div class="footer-contact-item">
-          <span style="color:var(--vcec-gold); font-size:1.2rem;">📍</span>
+          <span style="color:var(--vcec-gold); font-size:1.0rem;">📍</span>
           <p data-i18n="footer-shenzhen">${translations[currentLang]["footer-shenzhen"]}</p>
         </div>
       </div>
@@ -945,10 +945,6 @@ function renderFooter() {
     
     <div class="container footer-bottom">
       <div data-i18n="copyright">${translations[currentLang]["copyright"]}</div>
-      <div style="display:flex; gap:16px;">
-        <a href="#" style="color:#FFFFFF; font-weight:700;">WeChat Official</a>
-        <a href="#" style="color:#FFFFFF; font-weight:700;">Zalo OA</a>
-      </div>
     </div>
   `;
 }
@@ -1055,6 +1051,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setLanguage(currentLang);
   renderHeader();
   renderFooter();
+  applyCustomSiteConfig();
 
   const path = window.location.pathname;
   const page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
@@ -1325,4 +1322,34 @@ function closeModal() {
   const modal = document.getElementById("success-modal");
   if (!modal) return;
   modal.style.display = "none";
+}
+
+// 7. Dynamic Site Configurations (Logo and Hero Banner overrides)
+function applyCustomSiteConfig() {
+  const storedConfig = localStorage.getItem("vcec_site_config");
+  if (!storedConfig) return;
+  try {
+    const cfg = JSON.parse(storedConfig);
+    
+    // 7.1 Override Website Logo (if configured)
+    if (cfg.logoUrl && cfg.logoUrl.trim()) {
+      const logoIcons = document.querySelectorAll(".logo-icon");
+      logoIcons.forEach(logoIcon => {
+        logoIcon.style.background = "none";
+        logoIcon.style.border = "none";
+        logoIcon.style.boxShadow = "none";
+        logoIcon.innerHTML = `<img src="${cfg.logoUrl.trim()}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">`;
+      });
+    }
+
+    // 7.2 Override Hero Banner Image (if configured)
+    if (cfg.heroUrl && cfg.heroUrl.trim()) {
+      const heroEl = document.querySelector(".hero");
+      if (heroEl) {
+        heroEl.style.backgroundImage = `linear-gradient(135deg, rgba(9, 13, 26, 0.92) 0%, rgba(9, 13, 26, 0.75) 100%), url('${cfg.heroUrl.trim()}')`;
+      }
+    }
+  } catch (e) {
+    console.error("Error applying site configuration:", e);
+  }
 }
