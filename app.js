@@ -5,6 +5,25 @@
   Author: Senior Frontend Architect
 */
 
+// Supabase Configuration (Added by Antigravity)
+const supabaseUrl = "https://jhebreoxwuimlqwvjdok.supabase.co";
+const supabaseKey = "sb_publishable_ycoHhRg7v4s11N6AKoUsEA_9wLW6L1s";
+let supabaseClient = null;
+
+// Dynamically inject Supabase CDN script
+(function() {
+  const script = document.createElement("script");
+  script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.42.0/dist/umd/supabase.js";
+  script.async = false;
+  script.onload = () => {
+    if (window.supabase) {
+      supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+      window.supabaseClient = supabaseClient;
+    }
+  };
+  document.head.appendChild(script);
+})();
+
 // 1. Translation Dictionary (Vietnamese, Chinese, English)
 const translations = {
   vi: {
@@ -100,7 +119,20 @@ const translations = {
     "footer-office": "Văn Phòng Đại Diện",
     "footer-hanoi": "Trụ sở Hà Nội: Tòa tháp VCCI, số 9 Đào Duy Anh, Đống Đa, Hà Nội.",
     "footer-shenzhen": "Văn phòng Thâm Quyến: Số 88, Đại lộ Thâm Nam, Quận Phúc Điền, Thâm Quyến, Trung Quốc.",
-    "copyright": "© 2026 Trung tâm Giao lưu và Hợp tác Kinh tế Việt - Trung (VCEC). Tất cả quyền được bảo lưu."
+    "copyright": "© 2026 Trung tâm Giao lưu và Hợp tác Kinh tế Việt - Trung (VCEC). Tất cả quyền được bảo lưu.",
+    "member-login": "Đăng Nhập Thành Viên",
+    "member-register": "Đăng Ký Nhanh",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "btn-login": "Đăng Nhập",
+    "btn-register": "Đăng Ký",
+    "no-account": "Chưa có tài khoản? Đăng ký nhanh",
+    "has-account": "Đã có tài khoản? Đăng nhập",
+    "hello": "Xin chào",
+    "logout": "Đăng Xuất",
+    "member-status": "Thành viên Chính thức",
+    "username-placeholder": "Nhập tài khoản...",
+    "password-placeholder": "Nhập mật khẩu..."
   },
   zh: {
     // Nav Bar
@@ -195,7 +227,20 @@ const translations = {
     "footer-office": "各地代表办事处",
     "footer-hanoi": "河内总部：越南河内市东大郡陶维英路9号 VCCI大厦。",
     "footer-shenzhen": "深圳联络处：中国深圳市福田区深南大道88号。",
-    "copyright": "© 2026 越中经济交流与合作中心 (VCEC). 版权所有."
+    "copyright": "© 2026 越中经济交流与合作中心 (VCEC). 版权所有.",
+    "member-login": "会员登录",
+    "member-register": "快速注册",
+    "username": "用户名",
+    "password": "密码",
+    "btn-login": "登录",
+    "btn-register": "注册",
+    "no-account": "还没有账号？立即快速注册",
+    "has-account": "已有账号？立即登录",
+    "hello": "您好",
+    "logout": "退出登录",
+    "member-status": "正式会员",
+    "username-placeholder": "输入用户名...",
+    "password-placeholder": "输入密码..."
   },
   en: {
     // Nav Bar
@@ -290,7 +335,20 @@ const translations = {
     "footer-office": "Representative Offices",
     "footer-hanoi": "Hanoi HQ: VCCI Tower, No. 9 Dao Duy Anh, Dong Da, Hanoi.",
     "footer-shenzhen": "Shenzhen Office: No. 88, Shennan Boulevard, Futian District, Shenzhen, China.",
-    "copyright": "© 2026 Vietnam - China Economic Exchange & Cooperation Center (VCEC). All rights reserved."
+    "copyright": "© 2026 Vietnam - China Economic Exchange & Cooperation Center (VCEC). All rights reserved.",
+    "member-login": "Member Login",
+    "member-register": "Quick Register",
+    "username": "Username",
+    "password": "Password",
+    "btn-login": "Log In",
+    "btn-register": "Register",
+    "no-account": "Don't have an account? Quick register",
+    "has-account": "Already have an account? Log in",
+    "hello": "Hello",
+    "logout": "Log Out",
+    "member-status": "Official Member",
+    "username-placeholder": "Enter username...",
+    "password-placeholder": "Enter password..."
   }
 };
 
@@ -346,6 +404,12 @@ function setLanguage(lang) {
       btn.classList.remove("active");
     }
   });
+
+  // Update nav-home-link tooltip
+  const homeLink = document.querySelector(".nav-home-link");
+  if (homeLink) {
+    homeLink.title = translations[lang]["nav-home"];
+  }
 }
 
 // 3. Shared Header and Footer Dynamic Renderers (To keep code dry and optimize SEO)
@@ -372,8 +436,118 @@ function renderHeader() {
   let menuHtml = '';
   menuItems.forEach(item => {
     const isActive = page === item.page ? 'active' : '';
-    menuHtml += `<a href="${item.page}" class="nav-link ${isActive}" data-i18n="${item.key}">${translations[currentLang][item.key]}</a>`;
+    if (item.key === 'nav-home') {
+      menuHtml += `
+        <a href="${item.page}" class="nav-link ${isActive} nav-home-link" title="${translations[currentLang]["nav-home"]}">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px;">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </a>
+      `;
+    } else {
+      menuHtml += `<a href="${item.page}" class="nav-link ${isActive}" data-i18n="${item.key}">${translations[currentLang][item.key]}</a>`;
+    }
   });
+
+  const loggedInUser = localStorage.getItem("vcec_user");
+  let memberHtml = '';
+
+  if (loggedInUser) {
+    const firstLetter = loggedInUser.charAt(0).toUpperCase();
+    memberHtml = `
+      <div class="member-container" style="position: relative; display: flex; align-items: center;">
+        <button class="member-avatar-btn logged-in" id="member-avatar-trigger" title="${translations[currentLang]["hello"] || "Xin chào"} ${loggedInUser}" style="
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-gold) 100%);
+          color: #FFFFFF;
+          border: 1.5px solid var(--vcec-gold);
+          font-weight: 800;
+          font-size: 0.95rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: var(--vcec-transition);
+          box-shadow: 0 0 10px rgba(175, 136, 58, 0.3);
+        ">
+          ${firstLetter}
+        </button>
+        <span class="member-status-dot active" style="
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 10px;
+          height: 10px;
+          background-color: #10B981;
+          border: 2px solid var(--vcec-dark);
+          border-radius: 50%;
+          box-shadow: 0 0 5px #10B981;
+        "></span>
+        
+        <!-- Dropdown for logged in users -->
+        <div class="member-dropdown" id="member-dropdown" style="
+          display: none;
+          position: absolute;
+          right: 0;
+          top: calc(100% + 12px);
+          width: 250px;
+          background-color: rgba(9, 13, 26, 0.96);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1.5px solid var(--vcec-gold-border);
+          border-radius: 12px;
+          padding: 20px;
+          box-shadow: var(--shadow-lg), 0 10px 30px rgba(0, 0, 0, 0.4);
+          z-index: 1005;
+          text-align: left;
+        ">
+          <div style="margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+            <p style="font-size: 0.8rem; color: var(--vcec-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;" data-i18n="member-status">
+              ${translations[currentLang]["member-status"] || "Thành viên Chính thức"}
+            </p>
+            <h4 style="color: #FFFFFF; font-size: 1.1rem; font-weight: 700;">${loggedInUser}</h4>
+          </div>
+          <div style="margin-bottom: 16px;">
+            <p style="font-size: 0.8rem; color: #9CA3AF; line-height: 1.4;">ID: VCEC-${loggedInUser.length}${Math.floor(Math.sin(loggedInUser.length)*100 + 200)}</p>
+          </div>
+          ${localStorage.getItem("vcec_role") === "super_admin" ? `
+            <a href="quan-tri.html" class="btn btn-primary" style="display: block; text-decoration: none; text-align: center; width: 100%; padding: 10px; font-size: 0.85rem; margin-bottom: 8px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); border: none;">
+              ⚙️ Quản Trị Hệ Thống
+            </a>
+          ` : ''}
+          <button class="btn btn-primary" id="member-logout-btn" style="width: 100%; padding: 10px; font-size: 0.85rem;" data-i18n="logout">
+            ${translations[currentLang]["logout"] || "Đăng Xuất"}
+          </button>
+        </div>
+      </div>
+    `;
+  } else {
+    memberHtml = `
+      <div class="member-container" style="position: relative; display: flex; align-items: center;">
+        <button class="member-avatar-btn" id="member-avatar-trigger" title="${translations[currentLang]["member-login"] || "Đăng Nhập"}" style="
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.05);
+          color: #D1D5DB;
+          border: 1.5px solid rgba(255,255,255,0.15);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: var(--vcec-transition);
+        ">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+      </div>
+    `;
+  }
 
   header.className = "header";
   header.innerHTML = `
@@ -395,6 +569,9 @@ function renderHeader() {
       </nav>
 
       <div style="display: flex; align-items: center; gap: 16px;">
+        <!-- Dynamic Member Icon -->
+        ${memberHtml}
+
         <div class="lang-switcher">
           <button class="lang-btn ${currentLang === 'vi' ? 'active' : ''}" data-lang="vi">VN</button>
           <button class="lang-btn ${currentLang === 'zh' ? 'active' : ''}" data-lang="zh">CN</button>
@@ -423,6 +600,293 @@ function renderHeader() {
       setLanguage(selected);
     });
   });
+
+  // Setup Member Avatar actions
+  const avatarTrigger = header.querySelector("#member-avatar-trigger");
+  if (avatarTrigger) {
+    avatarTrigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const user = localStorage.getItem("vcec_user");
+      if (user) {
+        // Toggle dropdown
+        const dropdown = header.querySelector("#member-dropdown");
+        if (dropdown) {
+          const isDisp = dropdown.style.display === "block";
+          dropdown.style.display = isDisp ? "none" : "block";
+        }
+      } else {
+        // Open Login/Register Modal
+        const modal = document.getElementById("member-modal");
+        if (modal) {
+          modal.style.display = "flex";
+        }
+      }
+    });
+  }
+
+  // Setup click outside to close dropdown
+  window.addEventListener("click", () => {
+    const dropdown = header.querySelector("#member-dropdown");
+    if (dropdown) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Setup Logout button
+  const logoutBtn = header.querySelector("#member-logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("vcec_user");
+      localStorage.removeItem("vcec_role");
+      location.reload();
+    });
+  }
+
+  // Setup Member modal
+  setupMemberModal();
+}
+
+// 3.1. setupMemberModal & auth authentication mechanism
+function setupMemberModal() {
+  if (document.getElementById("member-modal")) return;
+
+  const modalHtml = `
+    <div id="member-modal" class="modal-backdrop" style="display: none;">
+      <div class="modal-content" style="max-width: 420px; position: relative;">
+        <!-- Close button -->
+        <button class="member-modal-close" id="member-modal-close" style="
+          position: absolute;
+          top: 15px;
+          right: 20px;
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: var(--vcec-text-light);
+          transition: var(--vcec-transition);
+        ">✕</button>
+
+        <h3 class="modal-title" id="member-modal-title" data-i18n="member-login" style="margin-bottom: 24px;">
+          ${translations[currentLang]["member-login"]}
+        </h3>
+
+        <form id="member-auth-form" onsubmit="handleMemberAuth(event)">
+          <div style="margin-bottom: 20px; text-align: left;">
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--vcec-text-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;" data-i18n="username">${translations[currentLang]["username"]}</label>
+            <input type="text" id="member-username-input" class="member-modal-input" required data-i18n="username-placeholder" placeholder="${translations[currentLang]["username-placeholder"]}" style="
+              width: 100%;
+              height: 50px;
+              padding: 0 16px;
+              border: 1.5px solid var(--vcec-border);
+              border-radius: var(--vcec-border-radius-sm);
+              background-color: var(--vcec-light-bg);
+              color: var(--vcec-text-dark);
+              font-weight: 500;
+              transition: var(--vcec-transition);
+            ">
+          </div>
+          <div style="margin-bottom: 24px; text-align: left;">
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--vcec-text-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;" data-i18n="password">${translations[currentLang]["password"]}</label>
+            <input type="password" id="member-password-input" class="member-modal-input" required data-i18n="password-placeholder" placeholder="${translations[currentLang]["password-placeholder"]}" style="
+              width: 100%;
+              height: 50px;
+              padding: 0 16px;
+              border: 1.5px solid var(--vcec-border);
+              border-radius: var(--vcec-border-radius-sm);
+              background-color: var(--vcec-light-bg);
+              color: var(--vcec-text-dark);
+              font-weight: 500;
+              transition: var(--vcec-transition);
+            ">
+          </div>
+
+          <div id="member-modal-error" style="
+            color: var(--vcec-red);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: none;
+            text-align: left;
+          "></div>
+
+          <button type="submit" class="btn btn-primary" id="member-auth-submit-btn" style="width: 100%; margin-bottom: 20px;" data-i18n="btn-login">
+            ${translations[currentLang]["btn-login"]}
+          </button>
+
+          <a href="#" id="member-toggle-mode-link" data-i18n="no-account" style="
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--vcec-gold);
+            display: inline-block;
+            transition: var(--vcec-transition);
+          ">
+            ${translations[currentLang]["no-account"]}
+          </a>
+        </form>
+      </div>
+    </div>
+  `;
+
+  const div = document.createElement("div");
+  div.innerHTML = modalHtml;
+  document.body.appendChild(div.firstElementChild);
+
+  // Bind close event
+  document.getElementById("member-modal-close").addEventListener("click", () => {
+    document.getElementById("member-modal").style.display = "none";
+  });
+
+  // Bind click outside to close
+  document.getElementById("member-modal").addEventListener("click", (e) => {
+    if (e.target === document.getElementById("member-modal")) {
+      document.getElementById("member-modal").style.display = "none";
+    }
+  });
+
+  // Hover style for close button
+  const closeBtn = document.getElementById("member-modal-close");
+  closeBtn.addEventListener("mouseover", () => { closeBtn.style.color = "var(--vcec-red)"; });
+  closeBtn.addEventListener("mouseout", () => { closeBtn.style.color = "var(--vcec-text-light)"; });
+
+  // Mode toggler (Login vs Register)
+  let authMode = "login"; // "login" or "register"
+  const toggleLink = document.getElementById("member-toggle-mode-link");
+  toggleLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    const titleEl = document.getElementById("member-modal-title");
+    const submitBtn = document.getElementById("member-auth-submit-btn");
+    const errorEl = document.getElementById("member-modal-error");
+    
+    errorEl.style.display = "none";
+    
+    if (authMode === "login") {
+      authMode = "register";
+      titleEl.setAttribute("data-i18n", "member-register");
+      titleEl.innerHTML = translations[currentLang]["member-register"];
+      
+      submitBtn.setAttribute("data-i18n", "btn-register");
+      submitBtn.innerHTML = translations[currentLang]["btn-register"];
+      
+      toggleLink.setAttribute("data-i18n", "has-account");
+      toggleLink.innerHTML = translations[currentLang]["has-account"];
+    } else {
+      authMode = "login";
+      titleEl.setAttribute("data-i18n", "member-login");
+      titleEl.innerHTML = translations[currentLang]["member-login"];
+      
+      submitBtn.setAttribute("data-i18n", "btn-login");
+      submitBtn.innerHTML = translations[currentLang]["btn-login"];
+      
+      toggleLink.setAttribute("data-i18n", "no-account");
+      toggleLink.innerHTML = translations[currentLang]["no-account"];
+    }
+  });
+}
+
+async function handleMemberAuth(event) {
+  event.preventDefault();
+  
+  const usernameInput = document.getElementById("member-username-input");
+  const passwordInput = document.getElementById("member-password-input");
+  const errorEl = document.getElementById("member-modal-error");
+  const submitBtn = document.getElementById("member-auth-submit-btn");
+  
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value;
+  
+  if (!username || !password) return;
+  if (!supabaseClient) {
+    errorEl.innerHTML = currentLang === "vi" 
+      ? "Hệ thống đang kết nối cơ sở dữ liệu, vui lòng thử lại sau vài giây!" 
+      : (currentLang === "zh" ? "正在连接云端数据库，请稍等！" : "Connecting to database, please wait a few seconds!");
+    errorEl.style.display = "block";
+    return;
+  }
+  
+  const titleEl = document.getElementById("member-modal-title");
+  const isRegister = titleEl.getAttribute("data-i18n") === "member-register";
+  
+  // Disable button and show loading state
+  const originalText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = currentLang === "vi" ? "Đang xử lý..." : (currentLang === "zh" ? "正在处理..." : "Processing...");
+  
+  try {
+    if (isRegister) {
+      // 1. Check if username already exists in Supabase
+      const { data: existingUser, error: selectError } = await supabaseClient
+        .from('vcec_users')
+        .select('username')
+        .eq('username', username.toLowerCase());
+        
+      if (selectError) throw selectError;
+      
+      if (existingUser && existingUser.length > 0) {
+        errorEl.innerHTML = currentLang === "vi" 
+          ? "Tên đăng nhập đã tồn tại!" 
+          : (currentLang === "zh" ? "用户名已存在！" : "Username already exists!");
+        errorEl.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        return;
+      }
+      
+      // 2. Register user in Supabase
+      const { error: insertError } = await supabaseClient
+        .from('vcec_users')
+        .insert([
+          { username: username.toLowerCase(), password: password, role: 'member' }
+        ]);
+        
+      if (insertError) throw insertError;
+      
+      localStorage.setItem("vcec_user", username);
+      
+      alert(currentLang === "vi" 
+        ? `Đăng ký thành công! Chào mừng thành viên ${username}.` 
+        : (currentLang === "zh" ? `注册成功！欢迎会员 ${username}。` : `Registration successful! Welcome member ${username}.`));
+        
+      document.getElementById("member-modal").style.display = "none";
+      location.reload();
+    } else {
+      // 1. Authenticate user against Supabase table
+      const { data: userObj, error: authError } = await supabaseClient
+        .from('vcec_users')
+        .select('*')
+        .eq('username', username.toLowerCase())
+        .eq('password', password);
+        
+      if (authError) throw authError;
+      
+      if (!userObj || userObj.length === 0) {
+        errorEl.innerHTML = currentLang === "vi" 
+          ? "Sai tên đăng nhập hoặc mật khẩu!" 
+          : (currentLang === "zh" ? "用户名或密码错误！" : "Incorrect username or password!");
+        errorEl.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        return;
+      }
+      
+      localStorage.setItem("vcec_user", userObj[0].username);
+      localStorage.setItem("vcec_role", userObj[0].role || 'member');
+      
+      document.getElementById("member-modal").style.display = "none";
+      if (userObj[0].role === 'super_admin') {
+        window.location.href = "quan-tri.html";
+      } else {
+        location.reload();
+      }
+    }
+  } catch (err) {
+    console.error("Supabase Error:", err);
+    errorEl.innerHTML = currentLang === "vi" 
+      ? "Lỗi kết nối đám mây: " + (err.message || "Không phản hồi")
+      : (currentLang === "zh" ? "云端连接错误：" + (err.message || "无响应") : "Cloud connection error: " + (err.message || "No response"));
+    errorEl.style.display = "block";
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
 }
 
 function renderFooter() {
@@ -758,18 +1222,18 @@ document.addEventListener("DOMContentLoaded", () => {
               <h3 data-i18n="apply-matching">${translations[currentLang]["apply-matching"]}</h3>
               <p data-i18n="matching-desc">${translations[currentLang]["matching-desc"]}</p>
               
-              <form id="lead-submit-form" onsubmit="handleLeadSubmit(event)">
+              <form id="lead-submit-form" data-project-id="${project.id}" data-project-name="${name}" onsubmit="handleLeadSubmit(event)">
                 <div class="form-group" style="margin-bottom:16px;">
                   <label data-i18n="form-company">${translations[currentLang]["form-company"]}</label>
-                  <input type="text" class="form-input" required placeholder="Ví dụ: Huawei Technologies Co., Ltd">
+                  <input type="text" id="lead-company" class="form-input" required placeholder="Ví dụ: Huawei Technologies Co., Ltd">
                 </div>
                 <div class="form-group" style="margin-bottom:16px;">
                   <label data-i18n="form-name">${translations[currentLang]["form-name"]}</label>
-                  <input type="text" class="form-input" required placeholder="Nguyễn Văn A / 张伟">
+                  <input type="text" id="lead-name" class="form-input" required placeholder="Nguyễn Văn A / 张伟">
                 </div>
                 <div class="form-group" style="margin-bottom:16px;">
                   <label data-i18n="form-wechat">${translations[currentLang]["form-wechat"]}</label>
-                  <input type="text" class="form-input" required placeholder="WeChat ID / WhatsApp Number">
+                  <input type="text" id="lead-wechat" class="form-input" required placeholder="WeChat ID / WhatsApp Number">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;" data-i18n="form-submit">
                   ${translations[currentLang]["form-submit"]}
@@ -798,14 +1262,63 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 6. Lead Capture Form Successful State pop-up Handler (Click 3 Success Modal)
-function handleLeadSubmit(event) {
+async function handleLeadSubmit(event) {
   event.preventDefault();
   
+  const form = event.target;
+  const projectId = form.getAttribute("data-project-id");
+  const projectName = form.getAttribute("data-project-name");
+  
+  const companyInput = document.getElementById("lead-company");
+  const nameInput = document.getElementById("lead-name");
+  const wechatInput = document.getElementById("lead-wechat");
+  const submitBtn = form.querySelector("button[type='submit']");
+  
+  if (!companyInput || !nameInput || !wechatInput) return;
+  
+  const companyName = companyInput.value.trim();
+  const contactName = nameInput.value.trim();
+  const wechatId = wechatInput.value.trim();
+  
+  const originalText = submitBtn ? submitBtn.innerHTML : "";
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = currentLang === "vi" ? "Đang xử lý..." : (currentLang === "zh" ? "正在处理..." : "Processing...");
+  }
+  
+  // Save to Supabase
+  if (supabaseClient) {
+    try {
+      const { error } = await supabaseClient
+        .from('vcec_leads')
+        .insert([
+          {
+            company_name: companyName,
+            contact_name: contactName,
+            wechat_id: wechatId,
+            project_id: projectId,
+            project_name: projectName
+          }
+        ]);
+      if (error) throw error;
+    } catch (err) {
+      console.error("Error saving lead to Supabase:", err);
+    }
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
+
   const modal = document.getElementById("success-modal");
   if (!modal) return;
 
   // Show WeChat pop-up (assigned VCEC executive)
   modal.style.display = "flex";
+  
+  // Reset form
+  form.reset();
 }
 
 function closeModal() {

@@ -1322,3 +1322,95 @@ button, input, select, textarea {
 .detail-table tr:hover td {
   background-color: rgba(175, 136, 58, 0.02);
 }
+
+/* 9. Elite Member Avatar & Popups Setup (Added by Antigravity) */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.member-avatar-btn {
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05);
+}
+
+.member-avatar-btn:hover {
+  border-color: var(--vcec-gold) !important;
+  color: #FFFFFF !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(175, 136, 58, 0.25);
+}
+
+.member-avatar-btn.logged-in:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 0 15px rgba(175, 136, 58, 0.5);
+}
+
+.member-status-dot.active {
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.member-dropdown {
+  animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.member-modal-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  border: 1.5px solid var(--vcec-border) !important;
+  border-radius: var(--vcec-border-radius-sm);
+  background-color: var(--vcec-light-bg) !important;
+  color: var(--vcec-text-dark) !important;
+  font-weight: 500;
+  transition: var(--vcec-transition);
+}
+
+.member-modal-input:focus {
+  border-color: var(--vcec-red) !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(168, 27, 52, 0.15) !important;
+}
+
+/* Adjustments to the home menu icon styling */
+.nav-home-link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px !important;
+  border-radius: 8px;
+  transition: var(--vcec-transition);
+}
+
+.nav-home-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Reduce mobile nav-home-link margin/padding on small screens */
+@media (max-width: 768px) {
+  .nav-home-link {
+    width: 44px;
+    height: 44px;
+    padding: 0 !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+  }
+}

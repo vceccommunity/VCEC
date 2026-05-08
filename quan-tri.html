@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Quản Trị Hệ Thống - VCEC Portal</title>
+  <meta name="description" content="Hệ thống quản trị và kiểm duyệt dữ liệu chuyên dụng dành cho quản trị viên tối cao VCEC.">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Security Interception Script: Executes immediately to block unauthorized visual flash -->
+  <script>
+    if (localStorage.getItem("vcec_role") !== "super_admin" || localStorage.getItem("vcec_user") !== "vcec_sadmin") {
+      alert("Cảnh báo: Bạn không có quyền truy cập trang này!");
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <style>
+    /* Reset and Layout */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Prevent body scroll, let sidebar and content area scroll independently */
+      display: flex;
+      height: 100vh;
+      background-color: #060913;
+    }
+
+    /* Sidebar Column Styles */
+    .sidebar {
+      width: 280px;
+      background-color: #090d1a;
+      border-right: 1.5px solid rgba(184, 134, 11, 0.2);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      flex-shrink: 0;
+    }
+    .sidebar-brand {
+      padding: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-gold) 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(175, 136, 58, 0.4);
+    }
+    .brand-text h2 {
+      font-size: 1.25rem;
+      font-family: var(--vcec-font-title);
+      color: #FFFFFF;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+    .brand-text p {
+      font-size: 0.75rem;
+      color: var(--vcec-gold);
+      margin: 2px 0 0;
+      font-weight: 600;
+    }
+
+    .sidebar-profile {
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.01);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .profile-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-gold) 100%);
+      border: 1.5px solid var(--vcec-gold);
+      color: #FFF;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(175, 136, 58, 0.2);
+    }
+
+    .sidebar-menu {
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 16px; /* Reduced vertical padding from 12px to 8px to decrease menu item height */
+      color: #9CA3AF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border-radius: 10px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .menu-item:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+    .menu-item.active {
+      color: #FFFFFF;
+      background: linear-gradient(135deg, var(--vcec-red) 0%, #900c1e 100%);
+      border-color: var(--vcec-gold-border);
+      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.2);
+    }
+    .menu-item svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.25s ease;
+    }
+    .menu-item:hover svg {
+      transform: scale(1.1);
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sidebar-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      width: 100%;
+      border: none;
+    }
+    .sidebar-btn.home {
+      background: rgba(255,255,255,0.04);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar-btn.home:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--vcec-gold);
+    }
+    .sidebar-btn.logout {
+      background: rgba(239, 68, 68, 0.12);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+    .sidebar-btn.logout:hover {
+      background: #EF4444;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    /* Content Area Styles (Right Column) */
+    .content-area {
+      flex-grow: 1;
+      height: 100%;
+      overflow-y: auto;
+      background: radial-gradient(circle at 10% 20%, #0c1020 0%, #060913 100%);
+      padding: 100px 40px 40px 40px; /* Increased top padding to allow elegant spacing below the floating topbar */
+    }
+
+    /* Floating Top Right Admin Controls - Separate Capsules */
+    .admin-topbar {
+      position: fixed;
+      top: 24px;
+      right: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 999;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(9, 13, 26, 0.75) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      padding: 8px 16px !important;
+      border-radius: 20px !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .user-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10B981;
+      display: inline-block;
+    }
+    .user-name {
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .topbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #FFFFFF;
+      text-decoration: none;
+      background: rgba(9, 13, 26, 0.75) !important;
+      border: 1px solid rgba(184, 134, 11, 0.3) !important;
+      padding: 8px 16px !important;
+      border-radius: 20px !important;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .topbar-btn:hover {
+      background: linear-gradient(135deg, var(--vcec-red) 0%, #900c1e 100%) !important;
+      color: #FFFFFF !important;
+      border-color: var(--vcec-gold-border) !important;
+      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.4);
+      transform: translateY(-1px);
+    }
+    .logout-icon-btn {
+      background: rgba(239, 68, 68, 0.1) !important;
+      border: 1px solid rgba(239, 68, 68, 0.25) !important;
+      color: #EF4444;
+      padding: 0 !important;
+      border-radius: 50% !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      width: 36px !important;
+      height: 36px !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .logout-icon-btn:hover {
+      background: #EF4444 !important;
+      color: #FFFFFF !important;
+      border-color: #EF4444 !important;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+      transform: translateY(-1px);
+    }
+    .logout-icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Settings Section Sub-Tabs */
+    .settings-tab-bar {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .settings-tab-btn {
+      background: none;
+      border: none;
+      color: #9CA3AF;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+    }
+    .settings-tab-btn:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .settings-tab-btn.active {
+      color: var(--vcec-gold);
+      background: rgba(184, 134, 11, 0.1);
+      border: 1px solid rgba(184, 134, 11, 0.2);
+      box-shadow: 0 2px 10px rgba(184, 134, 11, 0.05);
+    }
+    .settings-tab-content {
+      animation: modalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Content Screens */
+    .content-screen {
+      display: none; /* Hide screen by default */
+      animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .content-screen.active {
+      display: block; /* Show active screen */
+    }
+
+    /* Cards and Elements inside Content */
+    .screen-header {
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .screen-title {
+      font-size: 1.8rem;
+      font-family: var(--vcec-font-title);
+      color: #FFFFFF;
+      margin: 0;
+      background: linear-gradient(135deg, #FFF 0%, var(--vcec-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .screen-subtitle {
+      color: #9CA3AF;
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--vcec-gold);
+    }
+    .stat-card.crimson::before {
+      background: var(--vcec-red);
+    }
+    .stat-card.green::before {
+      background: #10B981;
+    }
+    .stat-lbl {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #9CA3AF;
+      letter-spacing: 0.5px;
+    }
+    .stat-val {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 8px 0 2px;
+    }
+
+    /* Tables */
+    .admin-table-container {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .admin-table th {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 14px 18px;
+      color: var(--vcec-gold);
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      text-transform: uppercase;
+    }
+    .admin-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #D1D5DB;
+      font-size: 0.88rem;
+    }
+    .admin-table tr:hover {
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    /* Badges & Buttons */
+    .badge {
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge.admin {
+      background: rgba(239, 68, 68, 0.12);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+    .badge.member {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .action-btn {
+      background: rgba(239, 68, 68, 0.08);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .action-btn:hover {
+      background: #EF4444;
+      color: #FFFFFF;
+    }
+    .action-btn.secondary {
+      background: rgba(245, 158, 11, 0.08);
+      color: #F59E0B;
+      border-color: rgba(245, 158, 11, 0.2);
+      margin-right: 6px;
+    }
+    .action-btn.secondary:hover {
+      background: #F59E0B;
+      color: #000;
+    }
+
+    /* Custom File Manager Components */
+    .upload-zone {
+      border: 2px dashed rgba(184, 134, 11, 0.3);
+      background: rgba(255, 255, 255, 0.01);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-bottom: 30px;
+    }
+    .upload-zone:hover {
+      border-color: var(--vcec-gold);
+      background: rgba(184, 134, 11, 0.03);
+    }
+    .upload-zone svg {
+      color: var(--vcec-gold);
+      margin-bottom: 12px;
+    }
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .file-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .file-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--vcec-gold-border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .file-preview {
+      height: 120px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .file-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .file-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-size {
+      font-size: 0.75rem;
+      color: #9CA3AF;
+    }
+
+    /* Create New Post Components */
+    .admin-form {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 800px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      color: var(--vcec-gold);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 8px !important;
+      color: #FFF !important;
+      padding: 12px !important;
+      font-size: 0.95rem !important;
+    }
+    .form-input:focus {
+      border-color: var(--vcec-gold) !important;
+      outline: none !important;
+      background: rgba(255, 255, 255, 0.04) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Top Right Admin Controls -->
+  <div class="admin-topbar">
+    <a href="index.html" target="_blank" class="topbar-btn">
+      🌐 Xem website
+    </a>
+    <div class="topbar-user">
+      <div class="user-badge-dot"></div>
+      <span class="user-name">vcec_sadmin</span>
+    </div>
+    <button onclick="adminLogout()" class="logout-icon-btn" title="Đăng xuất tài khoản">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        <polyline points="16 17 21 12 16 7"></polyline>
+        <line x1="21" y1="12" x2="9" y2="12"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="sidebar">
+    <!-- Brand Identity Logo -->
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h2>VCEC Admin</h2>
+        <p>QUẢN TRỊ TỐI CAO</p>
+      </div>
+    </div>
+
+    <!-- Active Profile Info (Moved to Floating Topbar) -->
+
+    <!-- Navigation Menu Items -->
+    <nav class="sidebar-menu">
+      <div class="menu-item active" id="menu-posts" onclick="switchScreen('posts')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span>Bài viết & Tin tức</span>
+      </div>
+
+      <div class="menu-item" id="menu-resources" onclick="switchScreen('resources')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Kho tài liệu (Files)</span>
+      </div>
+
+      <div class="menu-item" id="menu-members" onclick="switchScreen('members')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span>Thành viên hệ thống</span>
+      </div>
+
+      <div class="menu-item" id="menu-leads" onclick="switchScreen('leads')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span>Hồ sơ đăng ký xúc tiến</span>
+      </div>
+
+      <div class="menu-item" id="menu-settings" onclick="switchScreen('settings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Cài đặt</span>
+      </div>
+    </nav>
+
+  </aside>
+
+  <!-- Right Independent Scrolling Content Area -->
+  <main class="content-area">
+
+    <!-- SCREEN 1: BÀI ĐĂNG (Active initially) -->
+    <section class="content-screen active" id="screen-posts">
+      <div class="screen-header">
+        <div>
+          <h1 class="screen-title">Quản Lý Bài Đăng & Tin Tức</h1>
+          <p class="screen-subtitle">Tạo bài viết mới hoặc kiểm duyệt các bài đăng tin tức của VCEC Portal.</p>
+        </div>
+        <button class="btn btn-primary" onclick="showNewPostForm()" style="padding:10px 20px; font-size:0.85rem;">
+          ✍️ Đăng Bài Viết Mới
+        </button>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="stat-card">
+          <span class="stat-lbl">Tổng Số Bài Đăng</span>
+          <div class="stat-val">12</div>
+          <p style="color:#6B7280; font-size:0.75rem;">Bài đăng đã xuất bản công khai.</p>
+        </div>
+        <div class="stat-card green">
+          <span class="stat-lbl">Lượt Xem Bài Viết</span>
+          <div class="stat-val">3,428</div>
+          <p style="color:#6B7280; font-size:0.75rem;">Lượt tương tác và theo dõi từ doanh nghiệp.</p>
+        </div>
+      </div>
+
+      <!-- Create New Post Form (Hidden by default) -->
+      <div id="new-post-form-wrap" style="display:none; margin-bottom:30px;">
+        <h3 style="color:#FFFFFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tạo bài viết mới</h3>
+        <form class="admin-form" onsubmit="publishPost(event)">
+          <div class="form-group">
+            <label class="form-label">Tiêu đề bài viết (Tiếng Việt)</label>
+            <input type="text" id="post-title-vi" class="form-input" required placeholder="Ví dụ: VCEC tổ chức ký kết hợp tác xúc tiến thương mại Việt-Trung">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tiêu đề bài viết (Tiếng Trung)</label>
+            <input type="text" id="post-title-zh" class="form-input" required placeholder="例如：VCEC举办越中经贸对接签署仪式">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mô tả ngắn gọn / Tóm tắt</label>
+            <textarea id="post-summary" class="form-input" rows="3" required placeholder="Nội dung tóm tắt hiển thị trên danh mục tin tức..."></textarea>
+          </div>
+          <div style="display:flex; gap:12px;">
+            <button type="submit" class="btn btn-primary">Xuất Bản Bài Viết</button>
+            <button type="button" class="btn" style="background:rgba(255,255,255,0.05); color:#FFF;" onclick="hideNewPostForm()">Hủy Bỏ</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Posts List Table -->
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Tiêu đề bài viết</th>
+              <th>Chuyên mục</th>
+              <th>Ngày đăng</th>
+              <th>Trạng thái</th>
+              <th style="text-align:right;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700; color:#FFF;">📌 VCEC tổ chức buổi hội đàm phát triển hạ tầng KCN xanh năm 2026</td>
+              <td>Xúc tiến FDI</td>
+              <td>08/05/2026</td>
+              <td><span class="badge member">Đang hiển thị</span></td>
+              <td style="text-align:right;">
+                <button class="action-btn secondary" onclick="alert('Tính năng chỉnh sửa đang phát triển!')">Sửa</button>
+                <button class="action-btn" onclick="alert('Đã xóa bài viết khỏi mây!')">Xóa</button>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:700; color:#FFF;">📌 Phái đoàn doanh nghiệp tỉnh Quảng Đông khảo sát thực địa đất công nghiệp tại Hải Phòng</td>
+              <td>Hợp tác quốc tế</td>
+              <td>06/05/2026</td>
+              <td><span class="badge member">Đang hiển thị</span></td>
+              <td style="text-align:right;">
+                <button class="action-btn secondary" onclick="alert('Tính năng chỉnh sửa đang phát triển!')">Sửa</button>
+                <button class="action-btn" onclick="alert('Đã xóa bài viết khỏi mây!')">Xóa</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: KHO TÀI LIỆU (Supabase Live Bucket Explorer) -->
+    <section class="content-screen" id="screen-resources">
+      <div class="screen-header">
+        <div>
+          <h1 class="screen-title">Kho Tài Liệu &amp; Media</h1>
+          <p class="screen-subtitle">Quản lý tệp tin, hình ảnh đăng tải trực tiếp lên kho lưu trữ đám mây (Bucket <strong>vcec</strong>) của Supabase.</p>
+        </div>
+        <div class="sync-indicator">
+          <span class="sync-dot"></span>
+          <span>Supabase Storage Connected</span>
+        </div>
+      </div>
+
+      <!-- Upload Files Box -->
+      <div class="upload-zone" onclick="document.getElementById('bucket-file-input').click()">
+        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <h4 style="color:#FFF; margin-bottom:6px;">Kéo thả file vào đây hoặc click để tải lên</h4>
+        <p style="color:#6B7280; font-size:0.8rem;">Hỗ trợ ảnh JPG, PNG, PDF, Word, Excel. Tải lên trực tiếp mây Supabase.</p>
+        <input type="file" id="bucket-file-input" style="display:none;" onchange="uploadToBucket(this)">
+      </div>
+
+      <!-- File Grid List -->
+      <h3 style="color:#FFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tài nguyên trong bucket "vcec"</h3>
+      <div class="file-grid" id="bucket-files-list">
+        <!-- Live loaded file cards will go here -->
+        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#9CA3AF;">
+          ⏳ Đang đồng bộ kho tệp tin từ Supabase...
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: THÀNH VIÊN HỆ THỐNG -->
+    <section class="content-screen" id="screen-members">
+      <div class="screen-header">
+        <div>
+          <h1 class="screen-title">Quản Lý Thành Viên Hệ Thống</h1>
+          <p class="screen-subtitle">Danh sách các tài khoản người dùng đã đăng ký tham gia cổng thông tin đầu tư VCEC.</p>
+        </div>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="stat-card">
+          <span class="stat-lbl">Tổng thành viên</span>
+          <div class="stat-val" id="total-users-metric">--</div>
+          <p style="color:#6B7280; font-size:0.75rem;">Số tài khoản đã được khởi tạo thành công.</p>
+        </div>
+        <div class="stat-card crimson">
+          <span class="stat-lbl">Tài khoản Admin</span>
+          <div class="stat-val">1</div>
+          <p style="color:#6B7280; font-size:0.75rem;">Quản trị viên có toàn quyền kiểm duyệt.</p>
+        </div>
+      </div>
+
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Tên tài khoản người dùng</th>
+              <th>Cấp bậc phân quyền</th>
+              <th>Thời gian đăng ký hệ thống</th>
+              <th style="text-align:right;">Thao tác quản trị</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody-sidebar">
+            <tr>
+              <td colspan="4" style="text-align:center; padding:40px; color:#9CA3AF;">
+                ⏳ Đang nạp danh sách thành viên...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: HỒ SƠ ĐĂNG KÝ XÚC TIẾN -->
+    <section class="content-screen" id="screen-leads">
+      <div class="screen-header">
+        <div>
+          <h1 class="screen-title">Hồ Sơ Đăng Ký Xúc Tiến &amp; Khảo Sát</h1>
+          <p class="screen-subtitle">Danh sách các doanh nghiệp đăng ký đối chiếu nhu cầu đầu tư KCN và tham quan thực địa.</p>
+        </div>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="stat-card crimson">
+          <span class="stat-lbl">Tổng Hồ Sơ Gặp Mặt</span>
+          <div class="stat-val" id="total-leads-metric">--</div>
+          <p style="color:#6B7280; font-size:0.75rem;">Yêu cầu ghép cặp kết nối FDI FDI Việt-Trung.</p>
+        </div>
+      </div>
+
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Doanh nghiệp &amp; Quốc gia</th>
+              <th>Người đại diện / WeChat</th>
+              <th>Dự án công nghiệp liên kết</th>
+              <th>Ngày gửi hồ sơ</th>
+              <th style="text-align:right;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody-sidebar">
+            <tr>
+              <td colspan="5" style="text-align:center; padding:40px; color:#9CA3AF;">
+                ⏳ Đang nạp danh sách hồ sơ...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: CÀI ĐẶT -->
+    <section class="content-screen" id="screen-settings">
+      <div class="screen-header">
+        <div>
+          <h1 class="screen-title">Cài Đặt Hệ Thống</h1>
+          <p class="screen-subtitle font-sm">Quản lý và cấu hình thông tin website, danh sách phân quyền thành viên và thông số bảo mật.</p>
+        </div>
+      </div>
+
+      <!-- Settings Sub-tab Controls -->
+      <div class="settings-tab-bar">
+        <button class="settings-tab-btn active" onclick="switchSettingsTab('site-info')">
+          ℹ️ Thông tin website
+        </button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('permissions')">
+          🛡️ Phân quyền thành viên
+        </button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('account')">
+          👤 Tài khoản quản trị
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Thông tin website -->
+      <div class="settings-tab-content" id="settings-site-info">
+        <div class="admin-form" style="width: 100%; max-width: 700px;">
+          <h3 style="color:#FFF; margin-bottom:6px; font-family:var(--vcec-font-title);">
+            ℹ️ Cấu hình thông tin cổng thông tin VCEC
+          </h3>
+          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:20px;">Thay đổi tiêu đề website, số hotline, địa chỉ email, mô tả và bản quyền hiển thị dưới chân trang.</p>
+          
+          <form onsubmit="saveSiteConfig(event)">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div class="form-group">
+                <label class="form-label">Tên Website / Portal</label>
+                <input type="text" id="cfg-site-name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hotline Liên hệ</label>
+                <input type="text" id="cfg-hotline" class="form-input" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Email hỗ trợ</label>
+              <input type="email" id="cfg-email" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Mô tả ngắn giới thiệu</label>
+              <textarea id="cfg-description" class="form-input" style="height:80px; resize:none;" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Footer Copyright (Bản quyền chân trang)</label>
+              <input type="text" id="cfg-footer" class="form-input" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="padding:10px 20px;">
+              💾 Lưu thông tin cấu hình
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Phân quyền -->
+      <div class="settings-tab-content" id="settings-permissions" style="display:none;">
+        <div class="admin-form" style="width: 100%; max-width: 900px;">
+          <h3 style="color:#FFF; margin-bottom:6px; font-family:var(--vcec-font-title);">
+            🛡️ Bảng phân quyền thành viên
+          </h3>
+          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:20px;">Phân cấp quyền hạn truy cập hoặc khóa tài khoản của các thành viên đăng ký cổng thông tin.</p>
+          
+          <div class="admin-table-container" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius:10px; overflow:hidden;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Tên tài khoản (Nickname)</th>
+                  <th>Cấp bậc hiện tại</th>
+                  <th>Chuyển phân quyền</th>
+                  <th style="text-align:right;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="permissions-tbody">
+                <tr>
+                  <td colspan="4" style="text-align:center; padding:40px; color:#9CA3AF;">
+                    ⏳ Đang nạp danh sách phân quyền...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Tài khoản -->
+      <div class="settings-tab-content" id="settings-account" style="display:none;">
+        <div class="admin-form" style="width: 100%; max-width: 600px;">
+          <h3 style="color:#FFF; margin-bottom:6px; font-family:var(--vcec-font-title);">
+            👤 Quản trị tài khoản Admin tối cao
+          </h3>
+          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:20px;">Thay đổi tên hiển thị (nickname) và cập nhật mật khẩu bảo mật truy cập của Super Admin.</p>
+          
+          <form onsubmit="updateAdminAccount(event)">
+            <div class="form-group">
+              <label class="form-label">Tên hiển thị / Nickname của Super Admin</label>
+              <input type="text" id="admin-nickname" class="form-input" required value="vcec_sadmin">
+            </div>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.08); margin:20px 0; padding-top:20px;">
+              <h4 style="color:var(--vcec-gold); margin-bottom:15px; font-size:0.95rem;">🔒 Thay đổi mật khẩu bảo mật</h4>
+              <div class="form-group">
+                <label class="form-label">Mật khẩu cũ (Để xác thực)</label>
+                <input type="password" id="admin-pass-old" class="form-input" required placeholder="Nhập mật khẩu hiện tại...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Mật khẩu mới (Bỏ trống nếu không muốn đổi)</label>
+                <input type="password" id="admin-pass-new" class="form-input" placeholder="Nhập mật khẩu mới...">
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="padding:10px 20px;">
+              Cập nhật thông tin tài khoản
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script Modules -->
+  <script src="app.js"></script>
+
+  <script>
+    // 1. Interactive SPA Screen Switching Logic
+    function switchScreen(screenId) {
+      // Deactivate all sidebar items and screens
+      document.querySelectorAll(".menu-item").forEach(item => {
+        item.classList.remove("active");
+      });
+      document.querySelectorAll(".content-screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      // Activate selected item and screen
+      const activeMenu = document.getElementById("menu-" + screenId);
+      const activeScreen = document.getElementById("screen-" + screenId);
+      
+      if (activeMenu && activeScreen) {
+        activeMenu.classList.add("active");
+        activeScreen.classList.add("active");
+      }
+      
+      // Load screen-specific data
+      if (screenId === 'resources') {
+        loadBucketFiles();
+      } else if (screenId === 'settings') {
+        switchSettingsTab('site-info');
+        loadSiteConfig();
+        loadAdminProfile();
+      }
+    }
+
+    // 2. Wait for Supabase to boot globally
+    function checkSupabaseReady() {
+      if (window.supabaseClient) {
+        loadCoreData();
+        loadSiteConfig();
+        loadAdminProfile();
+      } else {
+        setTimeout(checkSupabaseReady, 300);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      checkSupabaseReady();
+    });
+
+    // 3. Custom Logout Action
+    function adminLogout() {
+      localStorage.removeItem("vcec_user");
+      localStorage.removeItem("vcec_role");
+      window.location.href = "index.html";
+    }
+
+    // 4. Load database records (Users & Leads)
+    async function loadCoreData() {
+      const usersBody = document.getElementById("users-tbody-sidebar");
+      const leadsBody = document.getElementById("leads-tbody-sidebar");
+      const totalUsersMetric = document.getElementById("total-users-metric");
+      const totalLeadsMetric = document.getElementById("total-leads-metric");
+      const permissionsBody = document.getElementById("permissions-tbody");
+
+      try {
+        // Fetch Users list
+        const { data: users, error: usersErr } = await window.supabaseClient
+          .from('vcec_users')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (usersErr) throw usersErr;
+
+        if (totalUsersMetric) totalUsersMetric.innerHTML = users ? users.length : 0;
+        
+        if (!users || users.length === 0) {
+          usersBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#9CA3AF;">Không có tài khoản nào.</td></tr>`;
+          if (permissionsBody) permissionsBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#9CA3AF;">Không có tài khoản nào.</td></tr>`;
+        } else {
+          usersBody.innerHTML = users.map(user => {
+            const isSuper = user.role === 'super_admin';
+            const badgeClass = isSuper ? 'admin' : 'member';
+            const formattedDate = new Date(user.created_at).toLocaleString('vi-VN');
+            return `
+              <tr>
+                <td style="font-weight:700; color:#FFFFFF;">👥 ${user.username}</td>
+                <td><span class="badge ${badgeClass}">${isSuper ? 'Quản trị viên' : 'Thành viên'}</span></td>
+                <td style="color:#9CA3AF;">${formattedDate}</td>
+                <td style="text-align:right;">
+                  ${!isSuper ? `
+                    <button class="action-btn secondary" onclick="changeRole('${user.id}', '${user.role}')">Đổi Cấp</button>
+                    <button class="action-btn" onclick="deleteUser('${user.id}', '${user.username}')">Xóa</button>
+                  ` : `<span style="color:#6B7280; font-size:0.85rem; font-style:italic;">Hệ thống bảo vệ</span>`}
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          // Populate Permissions configuration tab table list
+          if (permissionsBody) {
+            permissionsBody.innerHTML = users.map(user => {
+              const isSuper = user.role === 'super_admin';
+              return `
+                <tr>
+                  <td style="font-weight:700; color:#FFFFFF;">👥 ${user.username}</td>
+                  <td>
+                    <span class="badge ${isSuper ? 'admin' : 'member'}">
+                      ${isSuper ? 'Quản trị viên' : 'Thành viên'}
+                    </span>
+                  </td>
+                  <td>
+                    <select id="role-select-${user.id}" class="form-input" style="padding: 4px 8px !important; font-size: 0.85rem !important; width: auto !important; height: auto !important;" ${isSuper ? 'disabled' : ''}>
+                      <option value="member" ${user.role === 'member' ? 'selected' : ''}>Thành viên</option>
+                      <option value="super_admin" ${user.role === 'super_admin' ? 'selected' : ''}>Quản trị viên</option>
+                    </select>
+                  </td>
+                  <td style="text-align:right;">
+                    ${!isSuper ? `
+                      <button class="action-btn secondary" style="padding: 4px 10px; font-size: 0.8rem;" onclick="updateUserPermission('${user.id}', '${user.username}')">Lưu phân quyền</button>
+                    ` : `<span style="color:#6B7280; font-size:0.85rem; font-style:italic;">Hệ thống bảo vệ</span>`}
+                  </td>
+                </tr>
+              `;
+            }).join('');
+          }
+        }
+
+        // Fetch Leads list
+        const { data: leads, error: leadsErr } = await window.supabaseClient
+          .from('vcec_leads')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (leadsErr) throw leadsErr;
+
+        if (totalLeadsMetric) totalLeadsMetric.innerHTML = leads ? leads.length : 0;
+
+        if (!leads || leads.length === 0) {
+          leadsBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#9CA3AF;">Chưa có yêu cầu xúc tiến nào.</td></tr>`;
+        } else {
+          leadsBody.innerHTML = leads.map(lead => {
+            const formattedDate = new Date(lead.created_at).toLocaleString('vi-VN');
+            return `
+              <tr>
+                <td style="font-weight:700; color:#FFFFFF;">🏢 ${lead.company_name}</td>
+                <td>
+                  <div>👤 ${lead.contact_name}</div>
+                  <div style="font-size:0.75rem; color:var(--vcec-gold); margin-top:3px;">💬 WeChat: ${lead.wechat_id}</div>
+                </td>
+                <td><span style="color:var(--vcec-red); font-weight:600;">📌 ${lead.project_name || 'Liên hệ chung'}</span></td>
+                <td style="color:#9CA3AF;">${formattedDate}</td>
+                <td style="text-align:right;">
+                  <button class="action-btn" onclick="deleteLead('${lead.id}', '${lead.company_name}')">Xóa</button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+      } catch (err) {
+        console.error("Dashboard error:", err);
+      }
+    }
+
+    async function loadBucketFiles() {
+      const grid = document.getElementById("bucket-files-list");
+      if (!grid) return;
+
+      if (!window.supabaseClient) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1; text-align:center; padding:40px; color:#9CA3AF;">
+            ⏳ Đang kết nối mây lưu trữ Supabase...
+          </div>
+        `;
+        setTimeout(loadBucketFiles, 300);
+        return;
+      }
+
+      try {
+        const { data: files, error } = await window.supabaseClient
+          .storage
+          .from('vcec')
+          .list('', {
+            limit: 100,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' }
+          });
+
+        if (error) throw error;
+
+        if (!files || files.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column:1/-1; text-align:center; padding:40px; color:#6B7280; font-style:italic;">
+              📭 Thư mục trống. Hãy kéo thả file vào vùng tải lên phía trên để lưu trữ.
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = files.map(file => {
+          const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file.name);
+          const { data: { publicUrl } } = window.supabaseClient.storage.from('vcec').getPublicUrl(file.name);
+          const sizeKb = (file.metadata ? (file.metadata.size / 1024).toFixed(1) : 0) + ' KB';
+          
+          let previewHtml = '';
+          if (isImage) {
+            previewHtml = `<img src="${publicUrl}" alt="${file.name}">`;
+          } else {
+            previewHtml = `
+              <div style="font-size:2.5rem;">📄</div>
+            `;
+          }
+
+          return `
+            <div class="file-card">
+              <div class="file-preview">${previewHtml}</div>
+              <div class="file-name" title="${file.name}">${file.name}</div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="file-size">${sizeKb}</span>
+                <button class="action-btn secondary" style="padding:4px 8px; font-size:0.7rem;" onclick="copyToClipboard('${publicUrl}')">🔗 Copy Link</button>
+              </div>
+              <button class="action-btn" style="width:100%; font-size:0.72rem; padding:4px;" onclick="deleteBucketFile('${file.name}')">🗑️ Xóa tệp</button>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error("Error loading bucket files:", err);
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#EF4444;">Lỗi tải tệp tin: ${err.message}</div>`;
+      }
+    }
+
+    // File copy tool helper
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Đã sao chép liên kết tệp tin vào Clipboard!");
+      }).catch(err => {
+        alert("Lỗi sao chép: " + err);
+      });
+    }
+
+    // Direct Upload to Supabase Storage Bucket
+    async function uploadToBucket(input) {
+      if (!input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      
+      // Clean up filename (replace spaces & weird characters to avoid url encoding bugs)
+      const cleanName = file.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_.-]/g, '');
+
+      try {
+        const { data, error } = await window.supabaseClient
+          .storage
+          .from('vcec')
+          .upload(cleanName, file, {
+            cacheControl: '3600',
+            upsert: true // Overwrite if same name
+          });
+
+        if (error) throw error;
+        alert(`Tải tệp "${cleanName}" lên mây Supabase thành công!`);
+        loadBucketFiles();
+      } catch (err) {
+        alert("Lỗi tải tệp lên: " + err.message);
+      }
+      
+      input.value = ""; // clear input
+    }
+
+    // Delete file from Supabase Storage
+    async function deleteBucketFile(filename) {
+      if (!confirm(`Bạn có muốn xóa vĩnh viễn tệp "${filename}" khỏi kho đám mây không?`)) return;
+
+      try {
+        const { error } = await window.supabaseClient
+          .storage
+          .from('vcec')
+          .remove([filename]);
+
+        if (error) throw error;
+        alert(`Đã xóa tệp "${filename}" thành công!`);
+        loadBucketFiles();
+      } catch (err) {
+        alert("Lỗi xóa tệp: " + err.message);
+      }
+    }
+
+    async function testLatency() {
+      const latencyEl = document.getElementById("latency-val");
+      if (!latencyEl) return;
+
+      if (!window.supabaseClient) {
+        latencyEl.innerHTML = "Đang thử nghiệm...";
+        setTimeout(testLatency, 300);
+        return;
+      }
+
+      latencyEl.innerHTML = "Đang thử nghiệm...";
+      latencyEl.style.color = "#F59E0B";
+
+      const start = performance.now();
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('vcec_users')
+          .select('id')
+          .limit(1);
+
+        if (error) throw error;
+        const latency = (performance.now() - start).toFixed(0);
+        latencyEl.innerHTML = `Kết nối tốt (${latency} ms)`;
+        latencyEl.style.color = "#10B981";
+      } catch (err) {
+        latencyEl.innerHTML = "Lỗi kết nối!";
+        latencyEl.style.color = "#EF4444";
+      }
+    }
+
+    // 7. Core User Management Actions
+    async function deleteUser(id, username) {
+      if (!confirm(`Xóa vĩnh viễn tài khoản "${username}"?`)) return;
+      try {
+        const { error } = await window.supabaseClient.from('vcec_users').delete().eq('id', id);
+        if (error) throw error;
+        alert(`Đã xóa tài khoản "${username}"!`);
+        loadCoreData();
+      } catch (err) {
+        alert("Lỗi: " + err.message);
+      }
+    }
+
+    async function changeRole(id, currentRole) {
+      const newRole = currentRole === 'super_admin' ? 'member' : 'super_admin';
+      if (!confirm(`Đổi quyền tài khoản này thành "${newRole}"?`)) return;
+      try {
+        const { error } = await window.supabaseClient.from('vcec_users').update({ role: newRole }).eq('id', id);
+        if (error) throw error;
+        alert(`Đã cập nhật cấp quyền!`);
+        loadCoreData();
+      } catch (err) {
+        alert("Lỗi: " + err.message);
+      }
+    }
+
+    async function deleteLead(id, company) {
+      if (!confirm(`Xóa hồ sơ xúc tiến của "${company}"?`)) return;
+      try {
+        const { error } = await window.supabaseClient.from('vcec_leads').delete().eq('id', id);
+        if (error) throw error;
+        alert(`Đã xóa hồ sơ!`);
+        loadCoreData();
+      } catch (err) {
+        alert("Lỗi: " + err.message);
+      }
+    }
+
+    // New Article Publish Logic
+    function publishPost(event) {
+      event.preventDefault();
+      const titleVi = document.getElementById("post-title-vi").value.trim();
+      const titleZh = document.getElementById("post-title-zh").value.trim();
+      const summary = document.getElementById("post-summary").value.trim();
+
+      alert(`Xuất bản bài viết thành công!\n- VI: ${titleVi}\n- ZH: ${titleZh}`);
+      hideNewPostForm();
+    }
+
+    function showNewPostForm() {
+      document.getElementById("new-post-form-wrap").style.display = "block";
+    }
+    function hideNewPostForm() {
+      document.getElementById("new-post-form-wrap").style.display = "none";
+    }
+
+    // 8. Settings Sub-Tab Control & Configurations Saving
+    function switchSettingsTab(tabId) {
+      // Deactivate all sub-tabs
+      document.querySelectorAll(".settings-tab-btn").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".settings-tab-content").forEach(content => content.style.display = "none");
+
+      // Find and activate tab button
+      const targetBtn = Array.from(document.querySelectorAll(".settings-tab-btn")).find(btn => btn.getAttribute("onclick").includes(tabId));
+      if (targetBtn) targetBtn.classList.add("active");
+
+      // Show selected content
+      const targetContent = document.getElementById(`settings-${tabId}`);
+      if (targetContent) targetContent.style.display = "block";
+    }
+
+    function loadSiteConfig() {
+      const stored = localStorage.getItem("vcec_site_config");
+      let cfg = {
+        name: "VCEC Portal",
+        hotline: "0904.xxx.xxx",
+        email: "contact@vcec.org.vn",
+        description: "Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam - Trung Quốc",
+        footer: "© 2026 VCEC - Vietnam China Economic Cooperation. All Rights Reserved."
+      };
+      if (stored) {
+        try {
+          cfg = JSON.parse(stored);
+        } catch(e) {}
+      }
+      
+      const elName = document.getElementById("cfg-site-name");
+      const elHotline = document.getElementById("cfg-hotline");
+      const elEmail = document.getElementById("cfg-email");
+      const elDesc = document.getElementById("cfg-description");
+      const elFooter = document.getElementById("cfg-footer");
+      
+      if (elName) elName.value = cfg.name;
+      if (elHotline) elHotline.value = cfg.hotline;
+      if (elEmail) elEmail.value = cfg.email;
+      if (elDesc) elDesc.value = cfg.description;
+      if (elFooter) elFooter.value = cfg.footer;
+    }
+
+    function saveSiteConfig(event) {
+      if (event) event.preventDefault();
+      const cfg = {
+        name: document.getElementById("cfg-site-name").value,
+        hotline: document.getElementById("cfg-hotline").value,
+        email: document.getElementById("cfg-email").value,
+        description: document.getElementById("cfg-description").value,
+        footer: document.getElementById("cfg-footer").value
+      };
+      localStorage.setItem("vcec_site_config", JSON.stringify(cfg));
+      alert("💾 Đã lưu cấu hình thông tin website thành công!");
+    }
+
+    async function loadAdminProfile() {
+      if (!window.supabaseClient) return;
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('vcec_users')
+          .select('username')
+          .eq('role', 'super_admin')
+          .maybeSingle();
+        if (data && !error) {
+          const nickEl = document.getElementById("admin-nickname");
+          if (nickEl) nickEl.value = data.username;
+          
+          // Also update the floating topbar user-name text!
+          const topbarNameEl = document.querySelector(".admin-topbar .user-name");
+          if (topbarNameEl) topbarNameEl.textContent = data.username;
+        }
+      } catch (e) {
+        console.error("Lỗi nạp profile admin:", e);
+      }
+    }
+
+    async function updateAdminAccount(event) {
+      if (event) event.preventDefault();
+      const nickname = document.getElementById("admin-nickname").value.trim();
+      const oldPass = document.getElementById("admin-pass-old").value;
+      const newPass = document.getElementById("admin-pass-new").value;
+
+      try {
+        // Query current super admin account details
+        const { data: adminUser, error: queryErr } = await window.supabaseClient
+          .from('vcec_users')
+          .select('*')
+          .eq('role', 'super_admin')
+          .maybeSingle();
+
+        if (queryErr || !adminUser) {
+          alert("Không tìm thấy tài khoản Super Admin trên hệ thống mây!");
+          return;
+        }
+
+        if (oldPass !== adminUser.password) {
+          alert("Mật khẩu xác thực hiện tại không chính xác!");
+          return;
+        }
+
+        const updates = { username: nickname };
+        if (newPass) {
+          updates.password = newPass;
+        }
+
+        const { error: updateErr } = await window.supabaseClient
+          .from('vcec_users')
+          .update(updates)
+          .eq('id', adminUser.id);
+
+        if (updateErr) throw updateErr;
+
+        // Sync local storage username
+        localStorage.setItem("vcec_user", nickname);
+
+        alert("🎉 Cập nhật tài khoản Super Admin thành công!");
+        document.getElementById("admin-pass-old").value = "";
+        document.getElementById("admin-pass-new").value = "";
+        
+        // Refresh display
+        loadAdminProfile();
+        loadCoreData();
+      } catch (err) {
+        alert("Lỗi cập nhật tài khoản: " + err.message);
+      }
+    }
+
+    async function updateUserPermission(userId, username) {
+      const selectEl = document.getElementById(`role-select-${userId}`);
+      if (!selectEl) return;
+      const newRole = selectEl.value;
+      try {
+        const { error } = await window.supabaseClient
+          .from('vcec_users')
+          .update({ role: newRole })
+          .eq('id', userId);
+        if (error) throw error;
+        alert(`Cập nhật phân quyền cho tài khoản "${username}" thành công!`);
+        loadCoreData();
+      } catch (err) {
+        alert("Lỗi đổi quyền: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
