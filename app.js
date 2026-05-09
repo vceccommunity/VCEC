@@ -51,7 +51,7 @@ const translations = {
     "lbl-size": "Quỹ đất yêu cầu",
 
     // Sectors Section
-    "sectors-title": "8 Mảng Hợp Tác Trọng Điểm",
+    "sectors-title": "8 MẢNG HỢP TÁC TRỌNG ĐIỂM",
     "sectors-subtitle": "Các lĩnh vực chiến lược thúc đẩy xúc tiến dòng vốn FDI chính ngạch sang Việt Nam",
     "sec-electronics": "Công nghệ cao & Điện tử",
     "sec-electronics-desc": "Sản xuất chất bán dẫn, vi mạch điện tử, lắp ráp thiết bị công nghệ cao.",
@@ -106,7 +106,7 @@ const translations = {
     // Bilateral Relation
     "bilateral-title": "Quan Hệ Kinh Tế Việt - Trung",
     "bilateral-subtitle": "Số liệu kim ngạch xuất nhập khẩu và các dấu mốc giao thương quan trọng",
-    "chart-title": "Biểu đồ Kim ngạch Thương mại Song phương (Tỷ USD)",
+    "chart-title": "Kim ngạch Thương mại Song phương (Tỷ USD)",
     "export-label": "Việt Nam xuất khẩu sang Trung Quốc",
     "import-label": "Việt Nam nhập khẩu từ Trung Quốc",
 
@@ -267,7 +267,7 @@ const translations = {
     "lbl-size": "Requested Land Area",
 
     // Sectors Section
-    "sectors-title": "8 Key Cooperation Sectors",
+    "sectors-title": "8 KEY COOPERATION SECTORS",
     "sectors-subtitle": "Strategic fields driving sustainable and official FDI capital flows into Vietnam",
     "sec-electronics": "High-Tech & Electronics",
     "sec-electronics-desc": "Semiconductor manufacturing, integrated circuit development, and high-tech equipment assembly.",
@@ -608,11 +608,11 @@ function renderHeader() {
       e.stopPropagation();
       const user = localStorage.getItem("vcec_user");
       if (user) {
-        // Toggle dropdown
-        const dropdown = header.querySelector("#member-dropdown");
-        if (dropdown) {
-          const isDisp = dropdown.style.display === "block";
-          dropdown.style.display = isDisp ? "none" : "block";
+        const role = localStorage.getItem("vcec_role") || "member";
+        if (role === "super_admin" || role === "admin") {
+          window.location.href = "quan-tri.html";
+        } else {
+          window.location.href = "profile.html";
         }
       } else {
         // Open Login/Register Modal

@@ -162,7 +162,7 @@ button, input, select, textarea {
 }
 
 .section {
-  padding: 100px 0;
+  padding: 60px 0;
 }
 
 .section-grey {
@@ -182,13 +182,13 @@ button, input, select, textarea {
 
 .section-title {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 45px;
   position: relative;
 }
 
 .section-title h2 {
   font-family: var(--vcec-font-title);
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--vcec-text-dark);
@@ -402,7 +402,7 @@ button, input, select, textarea {
 .footer {
   background-color: var(--vcec-dark-bg);
   color: #9CA3AF;
-  padding: 80px 0 40px 0; /* Slightly reduced top padding for better proportion */
+  padding: 40px 0 30px 0; /* Reduced top/bottom padding for a tighter, premium feel */
   border-top: 2px solid var(--vcec-gold);
   font-size: 0.8rem;
   position: relative;
@@ -440,11 +440,12 @@ button, input, select, textarea {
   background-color: var(--vcec-gold);
 }
 
+/* Premium Footer */
 .footer-grid {
   display: grid;
   grid-template-columns: 1.8fr 0.9fr 0.9fr 1.4fr;
   gap: 50px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .footer-logo-block {
@@ -489,7 +490,7 @@ button, input, select, textarea {
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 40px;
+  padding-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -555,7 +556,7 @@ button, input, select, textarea {
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-left: 6px solid var(--vcec-red);
   color: #FFFFFF;
-  margin-top: -50px;
+  margin-top: 15px;
   position: relative;
   z-index: 10;
   animation: modalIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -724,7 +725,7 @@ button, input, select, textarea {
 }
 
 .sector-card-link {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--vcec-gold);
   display: flex;
@@ -739,7 +740,7 @@ button, input, select, textarea {
 
 .sector-card-link .arrow-symbol {
   transition: var(--vcec-transition);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 /* Hover premium interaction - Absolute 3D floating state */
@@ -1219,7 +1220,7 @@ button, input, select, textarea {
     grid-template-columns: repeat(2, 1fr);
   }
   .search-widget {
-    margin-top: -20px;
+    margin-top: 15px;
   }
   
   .filters-layout {
@@ -1249,16 +1250,29 @@ button, input, select, textarea {
 }
 
 @media (max-width: 768px) {
+  /* Automatic scale down of all global typography by lowering base font-size */
+  html {
+    font-size: 87.5% !important; /* Scales down all rem-based typography to 14px base */
+  }
+
   .section {
-    padding: 80px 0;
+    padding: 40px 0;
   }
   
   .hero {
-    padding: 100px 0;
+    padding: 90px 0;
   }
   
   .hero h1 {
-    font-size: 1.8rem;
+    font-size: 1.65rem !important;
+  }
+
+  .sub-hero h1 {
+    font-size: 1.6rem !important;
+  }
+
+  .section-title h2 {
+    font-size: 1.7rem !important;
   }
   
   .widget-grid {
@@ -1312,17 +1326,56 @@ button, input, select, textarea {
   
   /* Reduce logo size on mobile to prevent wrapping and overlapping with menu toggle */
   .logo-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
   .logo-subtitle {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
   }
 }
 
 @media (max-width: 480px) {
+  /* Automatic scale down of all global typography further on compact smartphones */
+  html {
+    font-size: 81.25% !important; /* Scales down all rem-based typography to 13px base */
+  }
+
   /* Give content more breathing room on narrow mobile screens */
   .container {
     padding: 0 16px;
+  }
+
+  .section {
+    padding: 32px 0;
+  }
+
+  .hero {
+    padding: 70px 0;
+  }
+
+  .hero h1 {
+    font-size: 1.45rem !important;
+  }
+
+  .sub-hero h1 {
+    font-size: 1.35rem !important;
+  }
+
+  .section-title h2 {
+    font-size: 1.45rem !important;
+  }
+
+  .logo-title {
+    font-size: 1.05rem !important;
+  }
+
+  .logo-subtitle {
+    font-size: 0.52rem !important;
+  }
+
+  /* Compact button paddings for micro-screens */
+  .btn {
+    padding: 10px 18px !important;
+    font-size: 0.85rem !important;
   }
 }
 
@@ -1424,4 +1477,15 @@ button, input, select, textarea {
     padding: 0 !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1);
   }
+}
+
+/* Custom adjustments for subpage header layout (Added by Antigravity) */
+.sub-hero {
+  padding: 40px 0 10px 0;
+}
+.sub-hero h1 {
+  text-transform: uppercase;
+}
+.sub-hero + .section {
+  padding-top: 20px;
 }

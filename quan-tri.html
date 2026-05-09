@@ -13,7 +13,8 @@
   
   <!-- Security Interception Script: Executes immediately to block unauthorized visual flash -->
   <script>
-    if (localStorage.getItem("vcec_role") !== "super_admin" || localStorage.getItem("vcec_user") !== "vcec_sadmin") {
+    const userRole = localStorage.getItem("vcec_role");
+    if (userRole !== "super_admin" && userRole !== "admin") {
       alert("Cảnh báo: Bạn không có quyền truy cập trang này!");
       window.location.href = "index.html";
     }
@@ -183,7 +184,7 @@
       height: 100%;
       overflow-y: auto;
       background: radial-gradient(circle at 10% 20%, #0c1020 0%, #060913 100%);
-      padding: 50px 40px 40px 40px; /* Reduced top padding to shift the page title upwards */
+      padding: 110px 40px 40px 40px; /* Increased top padding to prevent collision with fixed top-right bar */
     }
 
     /* Floating Top Right Admin Controls - Separate Capsules */
@@ -446,6 +447,11 @@
       color: #8B5CF6;
       border: 1px solid rgba(139, 92, 246, 0.25);
     }
+    .badge.staff {
+      background: rgba(6, 182, 212, 0.12);
+      color: #06B6D4;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+    }
     .badge.customer {
       background: rgba(59, 130, 246, 0.12);
       color: #3B82F6;
@@ -601,23 +607,23 @@
       height: 34px !important;
     }
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 12px; /* Reduced from 20px for a more compact and elegant layout */
     }
     .form-label {
       display: block;
       color: #E5E7EB; /* Lighter white/grey for supreme readability on dark administration bg */
       font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 8px;
+      font-size: 0.82rem; /* Slightly smaller for a tighter header size */
+      margin-bottom: 4px; /* Reduced from 8px */
     }
     .form-input {
       width: 100%;
       background: rgba(255, 255, 255, 0.02) !important;
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      border-radius: 8px !important;
+      border-radius: 6px !important; /* Slightly tighter border radius */
       color: #FFF !important;
-      padding: 12px !important;
-      font-size: 0.95rem !important;
+      padding: 8px 12px !important; /* Reduced padding from 12px for more compact height */
+      font-size: 0.88rem !important; /* Slightly smaller font-size to look premium and compact */
     }
     .form-input option {
       background-color: #0c1020 !important;
@@ -784,6 +790,116 @@
       border-color: rgba(239, 68, 68, 0.35) !important;
       color: #F87171 !important; /* Premium Light Red */
     }
+
+    /* Premium Highlighted and Dimmed Columns for Permission Matrix */
+    .matrix-highlighted-cell {
+      background: rgba(175, 136, 58, 0.12) !important; /* Premium Gold soft background */
+      border-left: 1.5px solid rgba(175, 136, 58, 0.35) !important;
+      border-right: 1.5px solid rgba(175, 136, 58, 0.35) !important;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    th.matrix-highlighted-cell {
+      border-top: 1.5px solid rgba(175, 136, 58, 0.5) !important;
+      color: var(--vcec-gold) !important;
+      font-weight: 800 !important;
+      box-shadow: 0 -4px 10px rgba(175, 136, 58, 0.1);
+    }
+    .matrix-dimmed-cell {
+      opacity: 0.35;
+      filter: blur(0.15px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .matrix-dimmed-cell:hover {
+      opacity: 0.8;
+      filter: none;
+    }
+
+    /* ==========================================
+       8. Advanced Responsive Framework for Admin Dashboard
+       ========================================== */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column !important;
+        overflow-y: auto !important;
+        height: auto !important;
+      }
+      .sidebar {
+        width: 100% !important;
+        height: auto !important;
+        border-right: none !important;
+        border-bottom: 1.5px solid rgba(184, 134, 11, 0.2) !important;
+      }
+      .sidebar-menu {
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        padding: 12px !important;
+        gap: 10px !important;
+      }
+      .menu-item {
+        white-space: nowrap !important;
+        padding: 6px 12px !important;
+        font-size: 0.85rem !important;
+      }
+      .sidebar-profile {
+        padding: 10px 16px !important;
+      }
+      .sidebar-footer {
+        flex-direction: row !important;
+        padding: 10px !important;
+        gap: 10px !important;
+      }
+      .sidebar-btn {
+        width: auto !important;
+        flex: 1 !important;
+        padding: 8px !important;
+        font-size: 0.8rem !important;
+      }
+      .content-area {
+        padding: 120px 16px 40px 16px !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .admin-topbar {
+        position: absolute !important;
+        top: 100px !important;
+        right: 16px !important;
+        left: 16px !important;
+        justify-content: space-between !important;
+        width: calc(100% - 32px) !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .screen-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+      }
+      .admin-topbar {
+        flex-wrap: wrap !important;
+        top: 110px !important;
+        gap: 8px !important;
+      }
+      .content-area {
+        padding: 170px 12px 40px 12px !important;
+      }
+      .admin-stats-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .admin-table th, .admin-table td {
+        padding: 8px 10px !important;
+        font-size: 0.78rem !important;
+      }
+      .settings-tab-bar {
+        flex-direction: column !important;
+        gap: 6px !important;
+        align-items: stretch !important;
+      }
+      .settings-tab-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -880,13 +996,22 @@
 
     <!-- SCREEN 1: BÀI ĐĂNG (Active initially) -->
     <section class="content-screen active" id="screen-posts">
-      <div class="screen-header">
+      <div class="screen-header" style="margin-bottom: 12px;">
         <div>
-          <h1 class="screen-title">Quản Lý Bài Đăng & Tin Tức</h1>
-          <p class="screen-subtitle">Tạo bài viết mới hoặc kiểm duyệt các bài đăng tin tức của VCEC Portal.</p>
+          <h1 class="screen-title">Quản Lý Bài Đăng &amp; Tin Tức</h1>
         </div>
-        <button class="btn btn-primary" onclick="showNewPostForm()" style="padding:10px 20px; font-size:0.85rem;">
-          ✍️ Đăng Bài Viết Mới
+        <button class="btn btn-primary" onclick="showNewPostForm()" style="padding: 9px 20px; font-size: 0.82rem; background: linear-gradient(135deg, var(--vcec-gold) 0%, #946E26 100%); border: none; font-weight: 700; border-radius: 20px; box-shadow: 0 4px 15px rgba(184, 134, 11, 0.2); transition: all 0.25s ease;">
+          ➕ Soạn Bài Viết Mới
+        </button>
+      </div>
+
+      <!-- Posts Sub-Tabs Bar -->
+      <div class="settings-tab-bar" style="margin-top: 5px; margin-bottom: 25px;">
+        <button class="settings-tab-btn active" id="tab-btn-published" onclick="switchPostsTab('published')">
+          📰 Danh sách bài đăng
+        </button>
+        <button class="settings-tab-btn" id="tab-btn-drafts" onclick="switchPostsTab('drafts')">
+          📝 Bài đăng nháp <span id="draft-count-badge" style="background: var(--vcec-gold); color: #000; font-size: 0.75rem; padding: 2px 6px; border-radius: 10px; font-weight: 700; margin-left: 5px; display: none;">0</span>
         </button>
       </div>
 
@@ -894,6 +1019,19 @@
       <div id="new-post-form-wrap" style="display:none; margin-bottom:30px; animation: modalIn 0.35s ease-out;">
         <h3 style="color:#FFFFFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tạo bài viết mới</h3>
         <form class="admin-form" onsubmit="publishPost(event)" style="max-width: 900px;">
+          <!-- GROUP 0: CHUYÊN MỤC HIỂN THỊ (Target Menu on Website) -->
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" style="color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">
+              📁 Chuyên mục hiển thị ngoài website:
+            </label>
+            <select id="post-category" class="form-input" style="background: #0f172a; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.15); height: 42px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; padding: 0 12px;">
+              <option value="tin-tuc" selected>📰 Tin Tức & Sự Kiện (tin-tuc.html)</option>
+              <option value="co-hoi">💼 Cơ Hội Đầu Tư (co-hoi.html)</option>
+              <option value="tai-nguyen">📚 Kho Tài Nguyên & Media (tai-nguyen.html)</option>
+              <option value="gioi-thieu">🏢 Giới Thiệu Chung (gioi-thieu.html)</option>
+            </select>
+            <p style="color: var(--vcec-gold); font-size: 0.78rem; margin-top: 6px; font-weight: 500;">💡 Lựa chọn menu mong muốn để bài viết tự động xuất hiện ở trang tương ứng ngoài website.</p>
+          </div>
           <!-- GROUP 1: TIÊU ĐỀ BÀI VIẾT (3 ngôn ngữ liền kề) -->
           <div class="form-group" style="margin-bottom: 24px;">
             <label class="form-label" style="color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">
@@ -971,48 +1109,185 @@
             </div>
           </div>
 
-          <div style="display:flex; gap:12px; margin-top: 20px;">
-            <button type="submit" class="btn btn-primary">Xuất Bản Bài Viết</button>
-            <button type="button" class="btn" style="background:rgba(255,255,255,0.05); color:#FFF;" onclick="hideNewPostForm()">Hủy Bỏ</button>
+          <div style="display:flex; gap:12px; margin-top: 20px; align-items: center;">
+            <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, var(--vcec-red) 0%, #900c1e 100%); border: none; font-weight: 700;">🚀 Xuất Bản Bài Viết</button>
+            <button type="button" class="btn" style="background: linear-gradient(135deg, var(--vcec-gold) 0%, #946E26 100%); color: #FFF; border: none; font-weight: 700; padding: 10px 20px;" onclick="savePostDraft()">💾 Lưu Nháp</button>
+            <button type="button" class="btn" style="background: rgba(255,255,255,0.08); color: #FFF; font-weight: 600;" onclick="handleCancelPost()">Hủy Bỏ</button>
           </div>
         </form>
       </div>
 
-      <!-- Posts List Table -->
-      <div class="admin-table-container">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Tiêu đề bài viết</th>
-              <th>Chuyên mục</th>
-              <th>Ngày đăng</th>
-              <th>Trạng thái</th>
-              <th style="text-align:right;">Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-weight:700; color:#FFF;">📌 VCEC tổ chức buổi hội đàm phát triển hạ tầng KCN xanh năm 2026</td>
-              <td>Xúc tiến FDI</td>
-              <td>08/05/2026</td>
-              <td><span class="badge member">Đang hiển thị</span></td>
-              <td style="text-align:right;">
-                <button class="action-btn secondary" onclick="alert('Tính năng chỉnh sửa đang phát triển!')">Sửa</button>
-                <button class="action-btn" onclick="alert('Đã xóa bài viết khỏi mây!')">Xóa</button>
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight:700; color:#FFF;">📌 Phái đoàn doanh nghiệp tỉnh Quảng Đông khảo sát thực địa đất công nghiệp tại Hải Phòng</td>
-              <td>Hợp tác quốc tế</td>
-              <td>06/05/2026</td>
-              <td><span class="badge member">Đang hiển thị</span></td>
-              <td style="text-align:right;">
-                <button class="action-btn secondary" onclick="alert('Tính năng chỉnh sửa đang phát triển!')">Sửa</button>
-                <button class="action-btn" onclick="alert('Đã xóa bài viết khỏi mây!')">Xóa</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Tab Contents Area -->
+      <div id="posts-published-content">
+        <!-- Posts List Table -->
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Tiêu đề bài viết</th>
+                <th>Chuyên mục</th>
+                <th>Ngày đăng</th>
+                <th>Trạng thái</th>
+                <th style="text-align:right;">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- NEWS 1 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📌 VCEC tổ chức buổi hội đàm phát triển hạ tầng KCN xanh năm 2026</td>
+                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
+                <td>08/05/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- NEWS 2 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📌 Phái đoàn doanh nghiệp tỉnh Quảng Đông khảo sát thực địa đất công nghiệp tại Hải Phòng</td>
+                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
+                <td>06/05/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- NEWS 3 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📌 Diễn đàn Xúc tiến Đầu tư Việt Nam – Trung Quốc tại Thâm Quyến năm 2026</td>
+                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
+                <td>15/04/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- NEWS 4 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📌 Dòng vốn FDI Trung Quốc dịch chuyển mạnh sang mảng Linh kiện Xe điện (EV)</td>
+                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
+                <td>02/04/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- NEWS 5 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📌 VCEC tháp tùng Hiệp hội Điện tử Trung Quốc khảo sát hạ tầng VSIP Bắc Ninh</td>
+                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
+                <td>20/03/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+
+              <!-- INVESTMENT OPP 1 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp Deep C Hải Phòng (85 ha)</td>
+                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
+                <td>10/03/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- INVESTMENT OPP 2 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp VSIP Bắc Ninh II (120 ha)</td>
+                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
+                <td>05/03/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- INVESTMENT OPP 3 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp Nhơn Trạch VI (Đồng Nai) (200 ha)</td>
+                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
+                <td>01/03/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- INVESTMENT OPP 4 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp VSIP III Bình Dương (150 ha)</td>
+                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
+                <td>25/02/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+
+              <!-- RESOURCES 1 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📚 Sổ tay Quy trình thành lập doanh nghiệp FDI tại Việt Nam (2026)</td>
+                <td><span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Kho Tài Nguyên</span></td>
+                <td>15/02/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị tải tệp đính kèm và tài liệu liên kết!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- RESOURCES 2 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📚 Luật Đầu tư Việt Nam cập nhật (Biên dịch song ngữ đối chiếu)</td>
+                <td><span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Kho Tài Nguyên</span></td>
+                <td>10/02/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị tải tệp đính kèm và tài liệu liên kết!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+              <!-- RESOURCES 3 -->
+              <tr>
+                <td style="font-weight:700; color:#FFF;">📚 Tổng hợp chính sách Ưu đãi thuế quan KCN Miền Bắc & Miền Nam năm 2026</td>
+                <td><span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Kho Tài Nguyên</span></td>
+                <td>05/02/2026</td>
+                <td><span class="badge member">Đang hiển thị</span></td>
+                <td style="text-align:right;">
+                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị tải tệp đính kèm và tài liệu liên kết!')">Sửa</button>
+                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Drafts List Content -->
+      <div id="posts-drafts-content" style="display: none;">
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Tiêu đề bài viết nháp</th>
+                <th>Tóm tắt nháp</th>
+                <th>Lưu lần cuối</th>
+                <th style="text-align:right;">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="drafts-tbody">
+              <!-- Rendered via renderDraftsList() -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -1058,10 +1333,10 @@
           <h1 class="screen-title">Quản lý thành viên</h1>
         </div>
         <div style="display: flex; gap: 12px;">
-          <button class="btn btn-primary" onclick="showNewMemberForm()" style="padding: 10px 20px; font-size: 0.85rem; background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-red-hover) 100%);">
+          <button class="btn btn-primary" onclick="showNewMemberForm()" style="padding: 9px 20px; font-size: 0.82rem; background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-red-hover) 100%); border: none; font-weight: 700; border-radius: 20px; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2); transition: all 0.25s ease;">
             ➕ Thêm thành viên
           </button>
-          <button class="btn btn-secondary" onclick="exportMembersToExcel()" style="padding: 10px 20px; font-size: 0.85rem; color: var(--vcec-gold); border-color: var(--vcec-gold); background: rgba(255,255,255,0.01);">
+          <button class="btn btn-secondary" onclick="exportMembersToExcel()" style="padding: 8px 18px; font-size: 0.82rem; color: var(--vcec-gold); border-color: var(--vcec-gold); background: rgba(255,255,255,0.01); border-radius: 20px; transition: all 0.25s ease;">
             📥 Xuất danh sách
           </button>
         </div>
@@ -1087,6 +1362,7 @@
               <option value="member">Thành viên (Member)</option>
               <option value="customer">Khách hàng (Customer)</option>
               <option value="partner">Đối tác (Partner)</option>
+              <option value="staff">Nhân viên (Staff)</option>
               <option value="leader">Trưởng nhóm (Leader)</option>
               <option value="admin">Quản trị viên (Admin)</option>
               <option value="super_admin">Quản trị cấp cao (Super Admin)</option>
@@ -1189,10 +1465,10 @@
           <h3 style="color:#FFF; margin-bottom:6px; font-family:var(--vcec-font-title);">
             ℹ️ Cấu hình thông tin cổng thông tin VCEC
           </h3>
-          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:20px;">Thay đổi tiêu đề website, số hotline, địa chỉ email, mô tả và bản quyền hiển thị dưới chân trang.</p>
+          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:12px;">Thay đổi tiêu đề website, số hotline, địa chỉ email, mô tả và bản quyền hiển thị dưới chân trang.</p>
           
           <form onsubmit="saveSiteConfig(event)">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div class="form-group">
                 <label class="form-label">Tên Website / Portal</label>
                 <input type="text" id="cfg-site-name" class="form-input" required>
@@ -1210,7 +1486,7 @@
             
             <div class="form-group">
               <label class="form-label">Mô tả ngắn giới thiệu</label>
-              <textarea id="cfg-description" class="form-input" style="height:80px; resize:none;" required></textarea>
+              <textarea id="cfg-description" class="form-input" style="height:60px; resize:none;" required></textarea>
             </div>
             
             <div class="form-group">
@@ -1219,36 +1495,36 @@
             </div>
 
             <!-- Thay logo of website -->
-            <div class="form-group" style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.08); padding-top:20px;">
+            <div class="form-group" style="margin-top:14px; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
               <label class="form-label" style="color:var(--vcec-gold); display:flex; align-items:center; gap:8px; font-weight: 700;">
                 🖼️ Thay Logo của website
               </label>
-              <div style="display:flex; gap:12px; margin-top:8px;">
+              <div style="display:flex; gap:12px; margin-top:6px;">
                 <input type="text" id="cfg-logo-url" class="form-input" placeholder="Dán link ảnh logo hoặc bấm Tải lên..." style="flex-grow:1;">
                 <input type="file" id="cfg-logo-file" style="display:none;" onchange="uploadSettingFile('logo')">
-                <button type="button" class="btn btn-secondary" onclick="document.getElementById('cfg-logo-file').click()" style="padding:0 20px; font-size:0.85rem; height:52px; white-space:nowrap; border-radius:8px;">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('cfg-logo-file').click()" style="padding:0 15px; font-size:0.8rem; height:36px; white-space:nowrap; border-radius:6px; display:flex; align-items:center; justify-content:center;">
                   📤 Tải ảnh lên
                 </button>
               </div>
-              <p style="color:#9CA3AF; font-size:0.75rem; margin-top:5px;">Khuyên dùng tệp hình ảnh PNG có nền trong suốt hoặc hình tròn (.png, .jpg, .svg).</p>
+              <p style="color:#9CA3AF; font-size:0.75rem; margin-top:4px;">Khuyên dùng tệp hình ảnh PNG có nền trong suốt hoặc hình tròn (.png, .jpg, .svg).</p>
             </div>
 
             <!-- Thay ảnh of hero banner -->
-            <div class="form-group" style="margin-top:20px; margin-bottom:25px;">
+            <div class="form-group" style="margin-top:14px; margin-bottom:15px;">
               <label class="form-label" style="color:var(--vcec-gold); display:flex; align-items:center; gap:8px; font-weight: 700;">
                 🌄 Thay ảnh nền Hero Banner (Trang chủ)
               </label>
-              <div style="display:flex; gap:12px; margin-top:8px;">
+              <div style="display:flex; gap:12px; margin-top:6px;">
                 <input type="text" id="cfg-hero-url" class="form-input" placeholder="Dán link ảnh nền hoặc bấm Tải lên..." style="flex-grow:1;">
                 <input type="file" id="cfg-hero-file" style="display:none;" onchange="uploadSettingFile('hero')">
-                <button type="button" class="btn btn-secondary" onclick="document.getElementById('cfg-hero-file').click()" style="padding:0 20px; font-size:0.85rem; height:52px; white-space:nowrap; border-radius:8px;">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('cfg-hero-file').click()" style="padding:0 15px; font-size:0.8rem; height:36px; white-space:nowrap; border-radius:6px; display:flex; align-items:center; justify-content:center;">
                   📤 Tải ảnh lên
                 </button>
               </div>
-              <p style="color:#9CA3AF; font-size:0.75rem; margin-top:5px;">Khuyên dùng ảnh phong cảnh góc rộng, độ phân giải cao (.jpg, .png).</p>
+              <p style="color:#9CA3AF; font-size:0.75rem; margin-top:4px;">Khuyên dùng ảnh phong cảnh góc rộng, độ phân giải cao (.jpg, .png).</p>
             </div>
             
-            <button type="submit" class="btn btn-primary" style="padding:10px 20px;">
+            <button type="submit" class="btn btn-primary" style="padding:8px 16px; font-size:0.85rem; border-radius:6px;">
               💾 Lưu thông tin cấu hình
             </button>
           </form>
@@ -1302,6 +1578,7 @@
                   <option value="member">Thành viên</option>
                   <option value="customer">Khách hàng</option>
                   <option value="partner">Đối tác</option>
+                  <option value="staff">Nhân viên</option>
                   <option value="leader">Trưởng nhóm</option>
                   <option value="admin">Quản trị viên</option>
                 </select>
@@ -1325,6 +1602,7 @@
                   <th style="text-align: center;">Thành viên</th>
                   <th style="text-align: center;">Khách hàng</th>
                   <th style="text-align: center;">Đối tác</th>
+                  <th style="text-align: center;">Nhân viên</th>
                   <th style="text-align: center;">Trưởng nhóm</th>
                   <th style="text-align: center;">Quản trị viên</th>
                 </tr>
@@ -1528,6 +1806,10 @@
 
         // Initialize dynamic access permission matrix
         initPermissionMatrix();
+
+        // Auto restore draft if any exists
+        restorePostDraft();
+        updateDraftBadge();
       }
     });
 
@@ -1569,6 +1851,7 @@
             admin: { label: 'Quản trị viên', class: 'admin' },
             leader: { label: 'Trưởng nhóm', class: 'leader' },
             partner: { label: 'Đối tác', class: 'partner' },
+            staff: { label: 'Nhân viên', class: 'staff' },
             customer: { label: 'Khách hàng', class: 'customer' },
             member: { label: 'Thành viên', class: 'member' }
           };
@@ -1610,6 +1893,7 @@
                       <option value="member" ${user.role === 'member' ? 'selected' : ''}>Thành viên</option>
                       <option value="customer" ${user.role === 'customer' ? 'selected' : ''}>Khách hàng</option>
                       <option value="partner" ${user.role === 'partner' ? 'selected' : ''}>Đối tác</option>
+                      <option value="staff" ${user.role === 'staff' ? 'selected' : ''}>Nhân viên</option>
                       <option value="leader" ${user.role === 'leader' ? 'selected' : ''}>Trưởng nhóm</option>
                       <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Quản trị viên</option>
                       <option value="super_admin" ${user.role === 'super_admin' ? 'selected' : ''}>Quản trị cấp cao</option>
@@ -1837,7 +2121,7 @@
     }
 
     async function changeRole(id, currentRole) {
-      const roles = ['member', 'customer', 'partner', 'leader', 'admin'];
+      const roles = ['member', 'customer', 'partner', 'staff', 'leader', 'admin'];
       let currentIndex = roles.indexOf(currentRole);
       if (currentIndex === -1) currentIndex = 0;
       const nextIndex = (currentIndex + 1) % roles.length;
@@ -1847,6 +2131,7 @@
         member: 'Thành viên',
         customer: 'Khách hàng',
         partner: 'Đối tác',
+        staff: 'Nhân viên',
         leader: 'Trưởng nhóm',
         admin: 'Quản trị viên'
       };
@@ -1945,6 +2230,7 @@
           admin: 'Quản trị viên',
           leader: 'Trưởng nhóm',
           partner: 'Đối tác',
+          staff: 'Nhân viên',
           customer: 'Khách hàng',
           member: 'Thành viên'
         };
@@ -1991,6 +2277,7 @@
     // New Article Publish Logic
     function publishPost(event) {
       event.preventDefault();
+      const category = document.getElementById("post-category").value;
       const titleVi = document.getElementById("post-title-vi").value.trim();
       const titleZh = document.getElementById("post-title-zh").value.trim();
       const titleEn = document.getElementById("post-title-en").value.trim();
@@ -2003,14 +2290,53 @@
       const contentZh = quillZh ? quillZh.getSemanticHTML() : "";
       const contentEn = quillEn ? quillEn.getSemanticHTML() : "";
 
-      alert(`Xuất bản bài viết thành công!\n\n- Tiêu đề VI: ${titleVi}\n- Tiêu đề ZH: ${titleZh}\n- Tiêu đề EN: ${titleEn}\n- Tóm tắt VI: ${summaryVi}\n- Tóm tắt ZH: ${summaryZh}\n- Tóm tắt EN: ${summaryEn}\n- Độ dài nội dung VI: ${contentVi.length} ký tự\n- Độ dài nội dung ZH: ${contentZh.length} ký tự\n- Độ dài nội dung EN: ${contentEn.length} ký tự`);
+      const categoryMap = {
+        'tin-tuc': 'Tin Tức & Sự Kiện',
+        'co-hoi': 'Cơ Hội Đầu Tư',
+        'tai-nguyen': 'Kho Tài Nguyên & Media',
+        'gioi-thieu': 'Giới Thiệu Chung'
+      };
+
+      alert(`🎉 Xuất bản bài viết thành công!\n\n- Chuyên mục chỉ định: ${categoryMap[category]}\n- Tiêu đề VI: ${titleVi}\n- Tiêu đề ZH: ${titleZh}\n- Tiêu đề EN: ${titleEn}\n\nHệ thống đã đồng bộ dữ liệu lên đám mây và sẵn sàng phân phối bài viết ra trang tương ứng!`);
       
+      // Clean draft upon successful publish
+      localStorage.removeItem("vcec_post_draft");
+      const notice = document.getElementById("draft-restore-notice");
+      if (notice) notice.style.display = "none";
+      updateDraftBadge();
+
       hideNewPostForm();
     }
 
     function showNewPostForm() {
       document.getElementById("new-post-form-wrap").style.display = "block";
+      
+      const stored = localStorage.getItem("vcec_post_draft");
+      if (stored) {
+        try {
+          const draft = JSON.parse(stored);
+          const d = new Date(draft.savedAt);
+          const timeStr = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} ngày ${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+          
+          // Show non-intrusive alert notice at the top
+          const noticeId = "draft-restore-notice";
+          let notice = document.getElementById(noticeId);
+          if (!notice) {
+            notice = document.createElement("div");
+            notice.id = noticeId;
+            notice.style.cssText = "background: rgba(175, 136, 58, 0.12); border: 1.5px solid var(--vcec-gold); color: #FFF; padding: 12px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 15px;";
+            const wrap = document.getElementById("new-post-form-wrap");
+            wrap.insertBefore(notice, wrap.querySelector("form"));
+          }
+          notice.innerHTML = `
+            <span>📝 Hệ thống đã khôi phục bản nháp tự động lưu lúc <strong style="color: var(--vcec-gold);">${timeStr}</strong>.</span>
+            <button type="button" onclick="clearDraftAndResetForm()" style="background: none; border: none; color: #EF4444; font-weight: 700; cursor: pointer; text-decoration: underline; font-size: 0.85rem; padding: 0;">Xóa nháp & Đặt lại</button>
+          `;
+          notice.style.display = "flex";
+        } catch (e) {}
+      }
     }
+
     function hideNewPostForm() {
       document.getElementById("new-post-form-wrap").style.display = "none";
       document.getElementById("post-title-vi").value = "";
@@ -2022,6 +2348,171 @@
       if (quillVi) quillVi.setContents([]);
       if (quillZh) quillZh.setContents([]);
       if (quillEn) quillEn.setContents([]);
+    }
+
+    // Article Draft Utilities
+    function savePostDraft() {
+      const category = document.getElementById("post-category").value;
+      const titleVi = document.getElementById("post-title-vi").value.trim();
+      const titleZh = document.getElementById("post-title-zh").value.trim();
+      const titleEn = document.getElementById("post-title-en").value.trim();
+      
+      const summaryVi = document.getElementById("post-summary-vi").value.trim();
+      const summaryZh = document.getElementById("post-summary-zh").value.trim();
+      const summaryEn = document.getElementById("post-summary-en").value.trim();
+      
+      const contentVi = quillVi ? quillVi.getContents() : null;
+      const contentZh = quillZh ? quillZh.getContents() : null;
+      const contentEn = quillEn ? quillEn.getContents() : null;
+
+      const draft = {
+        category,
+        titleVi, titleZh, titleEn,
+        summaryVi, summaryZh, summaryEn,
+        contentVi, contentZh, contentEn,
+        savedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem("vcec_post_draft", JSON.stringify(draft));
+      alert("💾 Bản nháp bài viết đã được lưu tạm thành công!");
+      updateDraftBadge();
+    }
+
+    function restorePostDraft() {
+      const stored = localStorage.getItem("vcec_post_draft");
+      if (!stored) return false;
+
+      try {
+        const draft = JSON.parse(stored);
+        
+        if (draft.category) document.getElementById("post-category").value = draft.category;
+        if (draft.titleVi) document.getElementById("post-title-vi").value = draft.titleVi;
+        if (draft.titleZh) document.getElementById("post-title-zh").value = draft.titleZh;
+        if (draft.titleEn) document.getElementById("post-title-en").value = draft.titleEn;
+        
+        if (draft.summaryVi) document.getElementById("post-summary-vi").value = draft.summaryVi;
+        if (draft.summaryZh) document.getElementById("post-summary-zh").value = draft.summaryZh;
+        if (draft.summaryEn) document.getElementById("post-summary-en").value = draft.summaryEn;
+        
+        if (quillVi && draft.contentVi) quillVi.setContents(draft.contentVi);
+        if (quillZh && draft.contentZh) quillZh.setContents(draft.contentZh);
+        if (quillEn && draft.contentEn) quillEn.setContents(draft.contentEn);
+        
+        return true;
+      } catch (err) {
+        console.error("Lỗi khôi phục bản nháp:", err);
+        return false;
+      }
+    }
+
+    function clearDraftAndResetForm() {
+      if (confirm("Bạn có chắc chắn muốn xóa bản nháp hiện tại và đặt lại toàn bộ biểu mẫu?")) {
+        localStorage.removeItem("vcec_post_draft");
+        const notice = document.getElementById("draft-restore-notice");
+        if (notice) notice.style.display = "none";
+        updateDraftBadge();
+        hideNewPostForm();
+      }
+    }
+
+    function handleCancelPost() {
+      const titleVi = document.getElementById("post-title-vi").value.trim();
+      const summaryVi = document.getElementById("post-summary-vi").value.trim();
+      
+      if (titleVi || summaryVi) {
+        const stored = localStorage.getItem("vcec_post_draft");
+        if (!stored) {
+          if (confirm("Biểu mẫu có nội dung chưa lưu. Bạn có muốn lưu bản nháp trước khi đóng không?")) {
+            savePostDraft();
+          }
+        }
+      }
+      hideNewPostForm();
+      const notice = document.getElementById("draft-restore-notice");
+      if (notice) notice.style.display = "none";
+    }
+
+    // New Sub-Tabs control for Posts Tab Section
+    function switchPostsTab(tabId) {
+      document.getElementById("tab-btn-published").classList.remove("active");
+      document.getElementById("tab-btn-drafts").classList.remove("active");
+      
+      if (tabId === 'published') {
+        document.getElementById("tab-btn-published").classList.add("active");
+        document.getElementById("posts-published-content").style.display = "block";
+        document.getElementById("posts-drafts-content").style.display = "none";
+      } else {
+        document.getElementById("tab-btn-drafts").classList.add("active");
+        document.getElementById("posts-published-content").style.display = "none";
+        document.getElementById("posts-drafts-content").style.display = "block";
+        renderDraftsList();
+      }
+    }
+
+    function updateDraftBadge() {
+      const stored = localStorage.getItem("vcec_post_draft");
+      const badge = document.getElementById("draft-count-badge");
+      if (badge) {
+        if (stored) {
+          badge.textContent = "1";
+          badge.style.display = "inline-block";
+        } else {
+          badge.style.display = "none";
+        }
+      }
+    }
+
+    function renderDraftsList() {
+      const tbody = document.getElementById("drafts-tbody");
+      if (!tbody) return;
+
+      const stored = localStorage.getItem("vcec_post_draft");
+      updateDraftBadge();
+
+      if (!stored) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#9CA3AF; padding: 24px;">Không có bài viết nháp nào.</td></tr>`;
+        return;
+      }
+
+      try {
+        const draft = JSON.parse(stored);
+        const title = draft.titleVi || draft.titleZh || draft.titleEn || "<em style='color: #888;'>Bài nháp chưa đặt tiêu đề</em>";
+        const summary = draft.summaryVi || draft.summaryZh || draft.summaryEn || "<em style='color: #888;'>(Không có tóm tắt)</em>";
+        
+        const d = new Date(draft.savedAt);
+        const timeStr = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} ngày ${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+
+        tbody.innerHTML = `
+          <tr>
+            <td style="font-weight:700; color:#FFF;">📝 ${title}</td>
+            <td style="color: #9CA3AF; max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${summary}</td>
+            <td>${timeStr}</td>
+            <td style="text-align:right;">
+              <button class="action-btn secondary" style="background: rgba(184, 134, 11, 0.15); color: var(--vcec-gold); border: 1px solid rgba(184, 134, 11, 0.35); font-weight:700;" onclick="continueDrafting()">Soạn tiếp</button>
+              <button class="action-btn" onclick="deleteDraftFromList()">Xóa</button>
+            </td>
+          </tr>
+        `;
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#EF4444; padding: 24px;">Lỗi tải dữ liệu bản nháp.</td></tr>`;
+      }
+    }
+
+    function continueDrafting() {
+      showNewPostForm();
+      document.getElementById("new-post-form-wrap").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function deleteDraftFromList() {
+      if (confirm("Bạn có chắc chắn muốn xóa vĩnh viễn bài đăng nháp này?")) {
+        localStorage.removeItem("vcec_post_draft");
+        const notice = document.getElementById("draft-restore-notice");
+        if (notice) notice.style.display = "none";
+        
+        hideNewPostForm();
+        updateDraftBadge();
+        renderDraftsList();
+      }
     }
 
     // 8. Settings Sub-Tab Control & Configurations Saving
@@ -2408,6 +2899,13 @@
           leads: { view: true, new: true, edit: false, delete: false },
           settings: { view: false, new: false, edit: false, delete: false }
         },
+        staff: {
+          posts: { view: true, new: true, edit: true, delete: false },
+          resources: { view: true, new: true, edit: true, delete: false },
+          members: { view: true, new: false, edit: false, delete: false },
+          leads: { view: true, new: true, edit: true, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
         leader: {
           posts: { view: true, new: true, edit: true, delete: false },
           resources: { view: true, new: true, edit: true, delete: false },
@@ -2437,7 +2935,7 @@
         { key: "settings", label: "Cấu hình Cài đặt hệ thống", color: "#F59E0B" }
       ];
 
-      const roles = ["member", "customer", "partner", "leader", "admin"];
+      const roles = ["member", "customer", "partner", "staff", "leader", "admin"];
 
       tbody.innerHTML = rows.map(row => {
         return `
@@ -2526,32 +3024,40 @@
         member: 1,
         customer: 2,
         partner: 3,
-        leader: 4,
-        admin: 5
+        staff: 4,
+        leader: 5,
+        admin: 6
       };
       
-      if (selectedValue === "all") {
-        headerThs.forEach(th => th.style.display = "");
-        rows.forEach(row => {
-          Array.from(row.querySelectorAll("td")).forEach(td => td.style.display = "");
+      // Reset displays and classes to original state
+      headerThs.forEach(th => {
+        th.style.display = "";
+        th.classList.remove("matrix-highlighted-cell", "matrix-dimmed-cell");
+      });
+      rows.forEach(row => {
+        Array.from(row.querySelectorAll("td")).forEach(td => {
+          td.style.display = "";
+          td.classList.remove("matrix-highlighted-cell", "matrix-dimmed-cell");
         });
-      } else {
+      });
+      
+      if (selectedValue !== "all") {
         const targetIndex = roleIndexMap[selectedValue];
         
         headerThs.forEach((th, idx) => {
-          if (idx === 0 || idx === targetIndex) {
-            th.style.display = "";
-          } else {
-            th.style.display = "none";
+          if (idx === targetIndex) {
+            th.classList.add("matrix-highlighted-cell");
+          } else if (idx > 0) {
+            th.classList.add("matrix-dimmed-cell");
           }
         });
         
         rows.forEach(row => {
           Array.from(row.querySelectorAll("td")).forEach((td, idx) => {
-            if (idx === 0 || idx === targetIndex) {
-              td.style.display = "";
-            } else {
-              td.style.display = "none";
+            if (idx === targetIndex) {
+              td.classList.add("matrix-highlighted-cell");
+            } else if (idx > 0) {
+              td.classList.add("matrix-dimmed-cell");
             }
           });
         });

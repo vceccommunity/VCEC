@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Cá Nhân Thành Viên - VCEC Portal</title>
+  <meta name="description" content="Quản lý thông tin cá nhân, cập nhật tài khoản và theo dõi dự án quan tâm dành cho thành viên chính thức của VCEC Portal.">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Security check: block unauthorized access instantly -->
+  <script>
+    if (!localStorage.getItem("vcec_user")) {
+      alert("Cảnh báo: Vui lòng đăng nhập để truy cập trang cá nhân!");
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <style>
+    /* Profile Premium Layout */
+    .profile-container {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    /* Glassmorphic Cards */
+    .profile-glass-card {
+      background: rgba(9, 13, 26, 0.75);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1.5px solid rgba(175, 136, 58, 0.15);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--shadow-lg), 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    .profile-glass-card:hover {
+      border-color: rgba(175, 136, 58, 0.3);
+      box-shadow: var(--shadow-lg), 0 15px 40px rgba(175, 136, 58, 0.05);
+    }
+
+    /* Left Sidebar Profile Card Details */
+    .profile-sidebar {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .profile-avatar-large {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-gold) 100%);
+      color: #FFFFFF;
+      border: 3px solid var(--vcec-gold);
+      font-size: 2.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(175, 136, 58, 0.4);
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(175, 136, 58, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(175, 136, 58, 0.6); }
+    }
+    .profile-username {
+      font-family: var(--vcec-font-title);
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .profile-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #10B981;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .profile-sidebar-menu {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .profile-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      color: #9CA3AF;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+      background: transparent;
+      text-align: left;
+    }
+    .profile-menu-item:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .profile-menu-item.active {
+      color: #FFFFFF;
+      background: linear-gradient(135deg, var(--vcec-red) 0%, #900c1e 100%);
+      border-color: var(--vcec-gold-border);
+      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.2);
+    }
+
+    /* Content Area styling */
+    .profile-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .profile-pane {
+      display: none;
+      animation: fadeInEffect 0.4s ease;
+    }
+    .profile-pane.active {
+      display: block;
+    }
+    @keyframes fadeInEffect {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pane-title {
+      font-family: var(--vcec-font-title);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 24px;
+      border-bottom: 1.5px solid rgba(175, 136, 58, 0.2);
+      padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* High-Density Luxurious Profile Fields Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .field-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--vcec-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .field-val {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: #FFFFFF;
+      padding: 12px 16px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    /* Saved Projects Premium Design */
+    .saved-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .saved-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1.5px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .saved-card:hover {
+      border-color: var(--vcec-gold);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(175, 136, 58, 0.1);
+    }
+    .saved-thumb {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .saved-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background-color: var(--vcec-red);
+      color: #FFF;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .saved-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+    }
+    .saved-title {
+      color: #FFF;
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0;
+    }
+    .saved-desc {
+      font-size: 0.8rem;
+      color: #9CA3AF;
+      line-height: 1.5;
+    }
+
+    /* Alert Boxes */
+    .profile-alert {
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: none;
+    }
+    .profile-alert.success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: #34D399;
+    }
+    .profile-alert.error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #F87171;
+    }
+
+    /* Form Fields for password change */
+    .profile-form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 8px !important;
+      color: #FFF !important;
+      padding: 12px 16px !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .profile-form-input:focus {
+      border-color: var(--vcec-gold) !important;
+      background: rgba(255, 255, 255, 0.04) !important;
+    }
+
+    @media (max-width: 900px) {
+      .profile-container {
+        grid-template-columns: 1fr;
+      }
+      .saved-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Global Header -->
+  <header id="global-header"></header>
+
+  <!-- Main Content with Dong Son drum watermark background -->
+  <main class="bg-vietnam-motif">
+    <div class="section-content">
+      
+      <!-- Sub-page Title Block -->
+      <section class="sub-hero">
+        <div class="container">
+          <h1>Trang Cá Nhân Thành Viên</h1>
+          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0; text-transform: uppercase;">VCEC PORTAL EXECUTIVE</p>
+        </div>
+      </section>
+
+      <!-- Account Content Section -->
+      <section class="section">
+        <div class="container" style="max-width: 1100px;">
+          
+          <div class="profile-container">
+            
+            <!-- Left Column: Member Summary Card -->
+            <div class="profile-glass-card profile-sidebar">
+              <div class="profile-avatar-large" id="profile-avatar-char">U</div>
+              <div>
+                <h3 class="profile-username" id="profile-username-lbl">Username</h3>
+                <span class="profile-badge" id="profile-role-badge">Thành viên</span>
+              </div>
+              
+              <div class="profile-sidebar-menu">
+                <button class="profile-menu-item active" onclick="switchPane('pane-info', this)">
+                  👤 Thông Tin Tài Khoản
+                </button>
+                <button class="profile-menu-item" onclick="switchPane('pane-security', this)">
+                  🔒 Bảo Mật & Mật Khẩu
+                </button>
+                <button class="profile-menu-item" onclick="switchPane('pane-saved', this)">
+                  ⭐ Dự Án Quan Tâm
+                </button>
+                <button class="profile-menu-item" id="profile-logout-btn" style="color: #EF4444; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; margin-top: 10px;">
+                  🚪 Đăng Xuất Tài Khoản
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Column: Sub-screens display -->
+            <div class="profile-glass-card profile-content">
+              
+              <!-- Success/Error Alert Bar -->
+              <div id="profile-alert" class="profile-alert"></div>
+
+              <!-- Screen 1: Account Information -->
+              <div id="pane-info" class="profile-pane active">
+                <h2 class="pane-title">👤 Thông Tin Tài Khoản</h2>
+                <div class="info-grid">
+                  <div class="field-group">
+                    <span class="field-label">Tên tài khoản</span>
+                    <span class="field-val" id="profile-info-username">username</span>
+                  </div>
+                  <div class="field-group">
+                    <span class="field-label">Mã số thành viên</span>
+                    <span class="field-val" id="profile-info-id">VCEC-0000</span>
+                  </div>
+                  <div class="field-group">
+                    <span class="field-label">Cấp bậc tài khoản</span>
+                    <span class="field-val" id="profile-info-role" style="text-transform: capitalize;">Thành viên</span>
+                  </div>
+                  <div class="field-group">
+                    <span class="field-label">Ngày gia nhập</span>
+                    <span class="field-val" id="profile-info-date">09/05/2026</span>
+                  </div>
+                  <div class="field-group" style="grid-column: span 2;">
+                    <span class="field-label">Đơn vị quản lý</span>
+                    <span class="field-val">Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam - Trung Quốc (VCEC)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Screen 2: Security & Password edit -->
+              <div id="pane-security" class="profile-pane">
+                <h2 class="pane-title">🔒 Bảo Mật & Đổi Mật Khẩu</h2>
+                
+                <form id="profile-password-form" style="display: flex; flex-direction: column; gap: 18px; max-width: 500px;">
+                  <div class="field-group">
+                    <label class="field-label" for="profile-new-pass">Mật khẩu mới</label>
+                    <input type="password" id="profile-new-pass" class="profile-form-input" required placeholder="Nhập mật khẩu mới">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="profile-confirm-pass">Xác nhận mật khẩu mới</label>
+                    <input type="password" id="profile-confirm-pass" class="profile-form-input" required placeholder="Nhập lại mật khẩu mới">
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary" id="profile-submit-pass-btn" style="align-self: flex-start; padding: 12px 24px; font-size: 0.9rem; font-weight: 700; margin-top: 10px;">
+                    Cập Nhật Mật Khẩu
+                  </button>
+                </form>
+              </div>
+
+              <!-- Screen 3: Saved Projects/Interests -->
+              <div id="pane-saved" class="profile-pane">
+                <h2 class="pane-title">⭐ Dự Án Quan Tâm</h2>
+                
+                <div class="saved-grid">
+                  <!-- Project 1 -->
+                  <div class="saved-card">
+                    <div class="saved-thumb" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=500&q=80');">
+                      <span class="saved-badge">FDI Sẵn Sàng</span>
+                    </div>
+                    <div class="saved-body">
+                      <h4 class="saved-title">KCN DEEP C Hải Phòng</h4>
+                      <p class="saved-desc">Quỹ đất công nghiệp sạch sẵn sàng bàn giao, sở hữu vị trí chiến lược kết nối trực tiếp cảng nước sâu Lạch Huyện và đường cao tốc Hà Nội - Hải Phòng.</p>
+                      <a href="co-hoi.html" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.75rem; align-self: flex-start; margin-top: auto;">Xem chi tiết</a>
+                    </div>
+                  </div>
+
+                  <!-- Project 2 -->
+                  <div class="saved-card">
+                    <div class="saved-thumb" style="background-image: url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=500&q=80');">
+                      <span class="saved-badge">Ưu Đãi Thuế</span>
+                    </div>
+                    <div class="saved-body">
+                      <h4 class="saved-title">Khu Công Nghiệp VSIP Bắc Ninh II</h4>
+                      <p class="saved-desc">Trung tâm logistics và lắp ráp điện tử công nghệ cao trọng điểm của khu vực Đông Bắc Bộ, cơ sở hạ tầng đồng bộ đạt chuẩn quốc tế.</p>
+                      <a href="co-hoi.html" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.75rem; align-self: flex-start; margin-top: auto;">Xem chi tiết</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <script src="app.js"></script>
+  
+  <script>
+    // Tab switching controller
+    function switchPane(paneId, button) {
+      // Hide all panes
+      document.querySelectorAll('.profile-pane').forEach(pane => pane.classList.remove('active'));
+      // Deselect all buttons
+      document.querySelectorAll('.profile-menu-item').forEach(btn => btn.classList.remove('active'));
+      
+      // Activate selected pane and button
+      document.getElementById(paneId).classList.add('active');
+      button.classList.add('active');
+      
+      // Clean alert
+      const alertBar = document.getElementById("profile-alert");
+      alertBar.style.display = "none";
+    }
+
+    // Populate profile content from localStorage and DB
+    document.addEventListener("DOMContentLoaded", async () => {
+      const username = localStorage.getItem("vcec_user");
+      const role = localStorage.getItem("vcec_role") || "member";
+
+      if (!username) return;
+
+      // Render general details
+      document.getElementById("profile-avatar-char").innerText = username.charAt(0).toUpperCase();
+      document.getElementById("profile-username-lbl").innerText = username;
+      document.getElementById("profile-info-username").innerText = username;
+      
+      // Map Role text
+      const roleMapVi = {
+        'member': 'Thành viên Chính thức',
+        'customer': 'Khách hàng FDI',
+        'partner': 'Đối tác Đầu tư',
+        'staff': 'Nhân viên Phát triển',
+        'leader': 'Trưởng nhóm Tư vấn',
+        'admin': 'Quản trị viên Hệ thống',
+        'super_admin': 'Quản trị viên Cấp cao'
+      };
+      
+      const roleText = roleMapVi[role] || 'Thành viên';
+      document.getElementById("profile-role-badge").innerText = roleText;
+      document.getElementById("profile-info-role").innerText = roleText;
+
+      // Unique member ID based on username
+      const memberId = "VCEC-" + username.length + Math.floor(Math.sin(username.length) * 100 + 200);
+      document.getElementById("profile-info-id").innerText = memberId;
+
+      // Fetch join date from Supabase
+      try {
+        // Wait for supabaseClient to initialize (it is initialized asynchronously in app.js)
+        let checkCount = 0;
+        while (!window.supabaseClient && checkCount < 10) {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          checkCount++;
+        }
+
+        if (window.supabaseClient) {
+          const { data, error } = await window.supabaseClient
+            .from('vcec_users')
+            .select('created_at')
+            .eq('username', username.toLowerCase())
+            .single();
+
+          if (data && data.created_at) {
+            const d = new Date(data.created_at);
+            const formattedDate = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+            document.getElementById("profile-info-date").innerText = formattedDate;
+          }
+        }
+      } catch (err) {
+        console.error("Lỗi khi tải thông tin ngày tham gia:", err);
+      }
+      
+      // Setup Logout Action
+      document.getElementById("profile-logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("vcec_user");
+        localStorage.removeItem("vcec_role");
+        window.location.href = "index.html";
+      });
+
+      // Handle Password Change Submit
+      const passwordForm = document.getElementById("profile-password-form");
+      passwordForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const alertBar = document.getElementById("profile-alert");
+        alertBar.style.display = "none";
+        alertBar.className = "profile-alert";
+
+        const newPass = document.getElementById("profile-new-pass").value;
+        const confirmPass = document.getElementById("profile-confirm-pass").value;
+
+        if (newPass !== confirmPass) {
+          alertBar.innerText = "Lỗi: Mật khẩu xác nhận không khớp!";
+          alertBar.classList.add("error");
+          alertBar.style.display = "block";
+          return;
+        }
+
+        const submitBtn = document.getElementById("profile-submit-pass-btn");
+        const originalText = submitBtn.innerText;
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Đang xử lý...";
+
+        try {
+          if (!window.supabaseClient) {
+            throw new Error("Supabase client chưa sẵn sàng. Vui lòng tải lại trang.");
+          }
+
+          const { error } = await window.supabaseClient
+            .from('vcec_users')
+            .update({ password: newPass })
+            .eq('username', username.toLowerCase());
+
+          if (error) throw error;
+
+          alertBar.innerText = "Thành công: Đã cập nhật mật khẩu mới!";
+          alertBar.classList.add("success");
+          alertBar.style.display = "block";
+          passwordForm.reset();
+        } catch (err) {
+          console.error("Change Password error:", err);
+          alertBar.innerText = "Lỗi: " + (err.message || "Không thể kết nối đến đám mây.");
+          alertBar.classList.add("error");
+          alertBar.style.display = "block";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalText;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
