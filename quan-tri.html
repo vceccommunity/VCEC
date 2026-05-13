@@ -1624,14 +1624,14 @@
       <div class="settings-tab-content" id="settings-account" style="display:none;">
         <div class="admin-form" style="width: 100%; max-width: 600px;">
           <h3 style="color:#FFF; margin-bottom:6px; font-family:var(--vcec-font-title);">
-            👤 Quản trị tài khoản Admin tối cao
+            👤 Quản lý tài khoản cá nhân
           </h3>
-          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:20px;">Thay đổi tên hiển thị (nickname) và cập nhật mật khẩu bảo mật truy cập của Super Admin.</p>
+          <p style="color:#9CA3AF; font-size:0.85rem; margin-bottom:20px;">Thay đổi tên hiển thị (nickname) và cập nhật mật khẩu bảo mật truy cập của bạn.</p>
           
           <form onsubmit="updateAdminAccount(event)">
             <div class="form-group">
-              <label class="form-label">Tên hiển thị / Nickname của Super Admin</label>
-              <input type="text" id="admin-nickname" class="form-input" required value="vcec_sadmin">
+              <label class="form-label">Tên hiển thị / Nickname tài khoản</label>
+              <input type="text" id="admin-nickname" class="form-input" required placeholder="Nhập nickname của bạn...">
             </div>
             
             <div style="border-top:1px solid rgba(255,255,255,0.08); margin:20px 0; padding-top:20px;">
@@ -1660,6 +1660,24 @@
   <script src="app.js"></script>
 
   <script>
+    // Update role-based display immediately on script parse
+    (function() {
+      const loggedInUser = localStorage.getItem("vcec_user");
+      const userRole = localStorage.getItem("vcec_role");
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        const topbarNameEl = document.querySelector(".admin-topbar .user-name");
+        if (topbarNameEl && loggedInUser) {
+          topbarNameEl.textContent = loggedInUser;
+        }
+        
+        const roleBadgeEl = document.querySelector(".sidebar-brand .brand-text p");
+        if (roleBadgeEl && userRole) {
+          roleBadgeEl.textContent = userRole === "super_admin" ? "QUẢN TRỊ TỐI CAO" : "QUẢN TRỊ VIÊN";
+        }
+      });
+    })();
+
     // 1. Interactive SPA Screen Switching Logic
     function switchScreen(screenId) {
       // Deactivate all sidebar items and screens
@@ -2629,11 +2647,14 @@
 
     async function loadAdminProfile() {
       if (!window.supabaseClient) return;
+      const loggedInUser = localStorage.getItem("vcec_user");
+      if (!loggedInUser) return;
+      
       try {
         const { data, error } = await window.supabaseClient
           .from('vcec_users')
           .select('username')
-          .eq('role', 'super_admin')
+          .eq('username', loggedInUser.toLowerCase())
           .maybeSingle();
         if (data && !error) {
           const nickEl = document.getElementById("admin-nickname");
@@ -2653,17 +2674,18 @@
       const nickname = document.getElementById("admin-nickname").value.trim();
       const oldPass = document.getElementById("admin-pass-old").value;
       const newPass = document.getElementById("admin-pass-new").value;
+      const loggedInUser = localStorage.getItem("vcec_user");
 
       try {
-        // Query current super admin account details
+        // Query current logged in user details
         const { data: adminUser, error: queryErr } = await window.supabaseClient
           .from('vcec_users')
           .select('*')
-          .eq('role', 'super_admin')
+          .eq('username', loggedInUser.toLowerCase())
           .maybeSingle();
 
         if (queryErr || !adminUser) {
-          alert("Không tìm thấy tài khoản Super Admin trên hệ thống mây!");
+          alert("Không tìm thấy tài khoản quản trị trên hệ thống mây!");
           return;
         }
 
@@ -2672,7 +2694,7 @@
           return;
         }
 
-        const updates = { username: nickname };
+        const updates = { username: nickname.toLowerCase() };
         if (newPass) {
           updates.password = newPass;
         }
@@ -2685,9 +2707,9 @@
         if (updateErr) throw updateErr;
 
         // Sync local storage username
-        localStorage.setItem("vcec_user", nickname);
+        localStorage.setItem("vcec_user", nickname.toLowerCase());
 
-        alert("🎉 Cập nhật tài khoản Super Admin thành công!");
+        alert("🎉 Cập nhật tài khoản quản trị thành công!");
         document.getElementById("admin-pass-old").value = "";
         document.getElementById("admin-pass-new").value = "";
         
