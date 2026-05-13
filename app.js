@@ -71,7 +71,7 @@ const translations = {
     "sec-medical-desc": "Hợp tác chuyển giao công nghệ dược phẩm, phân phối thiết bị y khoa.",
 
     // Opportunities Filters
-    "filter-title": "Bộ Lọc Cơ Hội Đầu Tư",
+    "filter-title": "Lựa chọn tiêu chí",
     "filter-region": "Vùng Địa Lý",
     "filter-north": "Miền Bắc Việt Nam",
     "filter-south": "Miền Nam Việt Nam",

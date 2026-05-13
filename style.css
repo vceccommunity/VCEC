@@ -18,22 +18,22 @@
   --vcec-gold: #AF883A;         /* Premium Champagne Gold - Heritage, wealth, success */
   --vcec-gold-hover: #96712D;
   --vcec-gold-light: rgba(175, 136, 58, 0.06);
-  --vcec-gold-border: rgba(175, 136, 58, 0.25);
-  --vcec-gold-glow: rgba(175, 136, 58, 0.3);
+  --vcec-gold-border: rgba(168, 27, 52, 0.4); /* Refined deep red gold border transition */
+  --vcec-gold-glow: rgba(168, 27, 52, 0.2);
 
-  /* Deep Obsidian Palette */
-  --vcec-dark: #090D1A;         /* Deepest Slate Blue / Obsidian */
-  --vcec-dark-bg: #070911;      /* Abyssal Black for premium contrast */
-  --vcec-dark-card: rgba(255, 255, 255, 0.02);
-  --vcec-slate: #131A2E;        /* Medium Slate Blue */
+  /* Deep Obsidian Palette -> Upgraded to World-class White/Light Palette */
+  --vcec-dark: #FFFFFF;         /* Premium White */
+  --vcec-dark-bg: #FFFFFF;      /* Pure White for bright theme */
+  --vcec-dark-card: #FFFFFF;
+  --vcec-slate: #FFFFFF;        
   
   /* Light Neutral Palette */
-  --vcec-text-main: #4A5568;    /* Charcoal Body Text */
-  --vcec-text-dark: #0B0F19;    /* Executive Title Dark */
+  --vcec-text-main: #2D3748;    /* Dark Charcoal Body Text for absolute readability */
+  --vcec-text-dark: #A81B34;    /* Headings in Deep Red to match borders */
   --vcec-text-light: #718096;   /* Subtitles, greyed text */
-  --vcec-bg: #FCFDFE;           /* Premium soft alabaster white */
-  --vcec-light-bg: #F4F6F9;     /* Warm grey card background */
-  --vcec-border: #E4E9F2;       /* Slate border grey */
+  --vcec-bg: #FFFFFF;           /* Premium soft white background */
+  --vcec-light-bg: #FFFFFF;     /* Pure white card/section background */
+  --vcec-border: #A81B34;       /* All borders and frames are now majestic deep red */
   
   /* Elite Typographic Stack */
   --vcec-font-title: 'Plus Jakarta Sans', 'Inter', sans-serif;
@@ -47,12 +47,12 @@
   --vcec-transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Ultra-premium fluid animation */
   --max-width: 1520px; /* Expanded for high-end wide screens */
   
-  /* Rich Shadow Profiles */
-  --shadow-sm: 0 4px 12px rgba(9, 13, 26, 0.02);
-  --shadow-md: 0 12px 30px rgba(9, 13, 26, 0.04);
-  --shadow-lg: 0 30px 60px -15px rgba(9, 13, 26, 0.08);
-  --shadow-glow: 0 0 25px rgba(175, 136, 58, 0.15);
-  --shadow-red-glow: 0 0 25px rgba(168, 27, 52, 0.15);
+  /* Rich Shadow Profiles with Red Highlights */
+  --shadow-sm: 0 4px 12px rgba(168, 27, 52, 0.04);
+  --shadow-md: 0 12px 30px rgba(168, 27, 52, 0.06);
+  --shadow-lg: 0 30px 60px -15px rgba(168, 27, 52, 0.1);
+  --shadow-glow: 0 0 25px rgba(168, 27, 52, 0.15);
+  --shadow-red-glow: 0 0 25px rgba(168, 27, 52, 0.25);
 }
 
 /* 2. Global Reset & Base Setup */
@@ -172,12 +172,13 @@ button, input, select, textarea {
 }
 
 .section-dark {
-  background-color: var(--vcec-dark-bg);
-  color: #FFFFFF;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--vcec-bg);
+  color: var(--vcec-text-main);
+  border-top: 2px solid var(--vcec-border);
+  border-bottom: 2px solid var(--vcec-border);
 }
 .section-dark h2 {
-  color: #FFFFFF;
+  color: var(--vcec-red);
 }
 
 .section-title {
@@ -260,12 +261,12 @@ button, input, select, textarea {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(9, 13, 26, 0.88); /* Royal Obsidian translucent */
+  background-color: rgba(255, 255, 255, 0.96); /* Clean premium white background */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1.5px solid var(--vcec-gold-border);
+  border-bottom: 3px solid var(--vcec-red); /* Majestic deep red bottom border */
   z-index: 1000;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(168, 27, 52, 0.05);
 }
 
 .header-container {
@@ -294,16 +295,16 @@ button, input, select, textarea {
   align-items: center;
   justify-content: center;
   border: 2px solid var(--vcec-gold);
-  box-shadow: 0 0 15px rgba(175, 136, 58, 0.4);
+  box-shadow: 0 0 15px rgba(168, 27, 52, 0.3);
   transition: var(--vcec-transition);
 }
 .logo-link:hover .logo-icon {
   transform: rotate(15deg) scale(1.05);
-  box-shadow: 0 0 25px rgba(175, 136, 58, 0.7);
+  box-shadow: 0 0 25px rgba(168, 27, 52, 0.5);
 }
 
 .logo-text {
-  color: #FFFFFF;
+  color: var(--vcec-red); /* Deep red logo text on white background */
   font-family: var(--vcec-font-heritage);
 }
 
@@ -329,9 +330,9 @@ button, input, select, textarea {
 }
 
 .nav-link {
-  color: #D1D5DB;
+  color: var(--vcec-red); /* Majestic deep red navigation link color */
   font-family: var(--vcec-font-title);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.85rem; /* Elite compact typography */
   padding: 10px 0;
   position: relative;
@@ -341,7 +342,7 @@ button, input, select, textarea {
 }
 
 .nav-link:hover, .nav-link.active {
-  color: #FFFFFF;
+  color: var(--vcec-gold); /* Gold active/hover states */
 }
 
 .nav-link::after {
@@ -350,7 +351,7 @@ button, input, select, textarea {
   bottom: 0;
   left: 50%;
   width: 0;
-  height: 2px;
+  height: 2.5px;
   background: linear-gradient(90deg, var(--vcec-gold), var(--vcec-red));
   transition: var(--vcec-transition);
   transform: translateX(-50%);
@@ -365,16 +366,16 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(168, 27, 52, 0.05); /* Light red translucent background */
   padding: 4px;
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--vcec-red); /* Majestic deep red border */
 }
 
 .lang-btn {
   background: none;
   border: none;
-  color: #9CA3AF;
+  color: var(--vcec-red); /* Red inactive states */
   font-size: 0.8rem;
   font-weight: 800;
   cursor: pointer;
@@ -384,8 +385,8 @@ button, input, select, textarea {
 }
 
 .lang-btn.active {
-  color: #FFFFFF;
-  background-color: var(--vcec-red);
+  color: #FFFFFF; /* White active text */
+  background-color: var(--vcec-red); /* Solid red background */
   box-shadow: 0 4px 10px rgba(168, 27, 52, 0.3);
 }
 
@@ -393,23 +394,24 @@ button, input, select, textarea {
   display: none;
   background: none;
   border: none;
-  color: #FFFFFF;
+  color: var(--vcec-red); /* Deep red mobile menu toggle on white header */
   font-size: 1.8rem;
   cursor: pointer;
 }
 
 /* Premium Footer */
 .footer {
-  background-color: var(--vcec-dark-bg);
-  color: #9CA3AF;
+  background-color: #FFFFFF; /* Pure White background */
+  color: var(--vcec-text-main); /* Dark charcoal text */
   padding: 40px 0 30px 0; /* Reduced top/bottom padding for a tighter, premium feel */
-  border-top: 2px solid var(--vcec-gold);
+  border-top: 3px solid var(--vcec-red); /* Thick deep red border */
+  border-bottom: 1px solid rgba(168, 27, 52, 0.1);
   font-size: 0.8rem;
   position: relative;
 }
 
 .footer h3 {
-  color: #FFFFFF;
+  color: var(--vcec-red); /* Majestic deep red headings */
   font-size: 1.05rem;
   margin-bottom: 24px;
   font-family: var(--vcec-font-title);
@@ -423,10 +425,12 @@ button, input, select, textarea {
 .footer-logo-block .logo-icon {
   width: 40px;
   height: 40px;
+  box-shadow: 0 0 10px rgba(168, 27, 52, 0.2);
 }
 
 .footer-logo-block .logo-title {
   font-size: 1.35rem;
+  color: var(--vcec-red);
 }
 
 
@@ -440,7 +444,7 @@ button, input, select, textarea {
   background-color: var(--vcec-gold);
 }
 
-/* Premium Footer */
+/* Premium Footer Grid */
 .footer-grid {
   display: grid;
   grid-template-columns: 1.8fr 0.9fr 0.9fr 1.4fr;
@@ -456,6 +460,7 @@ button, input, select, textarea {
 
 .footer-logo-desc {
   line-height: 1.8;
+  color: var(--vcec-text-main);
 }
 
 .footer-links {
@@ -467,10 +472,11 @@ button, input, select, textarea {
 }
 
 .footer-links a {
+  color: var(--vcec-text-main);
   transition: var(--vcec-transition);
 }
 .footer-links a:hover {
-  color: #FFFFFF;
+  color: var(--vcec-gold);
   padding-left: 8px;
 }
 
@@ -486,16 +492,18 @@ button, input, select, textarea {
 }
 .footer-contact-item p {
   line-height: 1.6;
+  color: var(--vcec-text-main);
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(168, 27, 52, 0.1);
   padding-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 24px;
+  color: var(--vcec-text-light);
 }
 
 /* 6. Page-Specific Stylings */
@@ -503,21 +511,22 @@ button, input, select, textarea {
 /* 6.1. Hero Section & Premium Search Widget */
 .hero {
   position: relative;
-  min-height: 520px;
-  background: linear-gradient(135deg, rgba(9, 13, 26, 0.92) 0%, rgba(9, 13, 26, 0.75) 100%),
+  min-height: 360px; /* Reduced vertical height */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.85) 100%),
               url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1920&q=80');
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
-  color: #FFFFFF;
-  padding: 70px 0;
+  color: var(--vcec-text-main);
+  padding: 25px 0; /* Reduced top/bottom padding to compress vertical space */
   overflow: hidden;
+  border-bottom: 2px solid var(--vcec-red);
 }
 
 .hero-content {
   max-width: 100%; /* Spreads the text fully across the container width */
-  margin-bottom: 35px;
+  margin-bottom: 12px; /* Reduced margin to pull up search widget */
   animation: modalIn 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -525,38 +534,38 @@ button, input, select, textarea {
   font-family: var(--vcec-font-title);
   font-size: 2.5rem; /* Reduced by 2 steps from 3.5rem */
   font-weight: 800;
-  color: #FFFFFF;
-  margin-bottom: 24px;
+  color: var(--vcec-red); /* Majestic deep red */
+  margin-bottom: 8px; /* Reduced bottom margin */
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .hero h1 span {
-  background: linear-gradient(135deg, var(--vcec-gold), #EBD096);
+  background: linear-gradient(135deg, var(--vcec-gold), #96712D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero p {
   font-size: 1.25rem;
-  color: #9CA3AF;
+  color: var(--vcec-text-main);
   line-height: 1.8;
-  font-weight: 400;
+  font-weight: 500;
   text-align: justify; /* Justify text lines evenly to both left and right margins */
 }
 
 /* Premium Floating Search Widget */
 .search-widget {
-  background: rgba(255, 255, 255, 0.03);
+  background: #FFFFFF; /* Pure white background */
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-radius: var(--vcec-border-radius);
-  padding: 35px;
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-left: 6px solid var(--vcec-red);
-  color: #FFFFFF;
-  margin-top: 15px;
+  padding: 18px 25px; /* Compact padding to reduce empty space inside the widget */
+  box-shadow: 0 15px 40px rgba(168, 27, 52, 0.1); /* Soft crimson shadow */
+  border: 2px solid var(--vcec-red);
+  border-left: 8px solid var(--vcec-red); /* Majestic deep red left-accent */
+  color: var(--vcec-text-main);
+  margin-top: 10px; /* Reduced top margin to pull up search widget */
   position: relative;
   z-index: 10;
   animation: modalIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -566,8 +575,8 @@ button, input, select, textarea {
   font-family: var(--vcec-font-title);
   font-weight: 800;
   font-size: 1.3rem;
-  margin-bottom: 20px;
-  color: #FFFFFF;
+  margin-bottom: 12px; /* Compressed bottom margin */
+  color: var(--vcec-red); /* Deep red header */
   display: flex;
   align-items: center;
   gap: 12px;
@@ -591,15 +600,15 @@ button, input, select, textarea {
 .form-group label {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--vcec-gold);
+  color: var(--vcec-red);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 8px;
 }
 
-/* Force white color on search widget labels for premium legibility over dark background */
+/* Force deep red color on search widget labels for premium legibility over light background */
 .search-widget .form-group label {
-  color: #FFFFFF !important;
+  color: var(--vcec-red) !important;
   opacity: 0.95;
 }
 
@@ -607,10 +616,10 @@ button, input, select, textarea {
   width: 100%;
   height: 52px; /* Fixed height matching the action button */
   padding: 0 18px; /* Standardize padding */
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--vcec-red); /* Majestic deep red border */
   border-radius: var(--vcec-border-radius-sm);
-  background-color: rgba(255, 255, 255, 0.04);
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: var(--vcec-text-main);
   font-weight: 500;
   transition: var(--vcec-transition);
   appearance: none;
@@ -622,14 +631,14 @@ button, input, select, textarea {
 }
 
 .form-select option {
-  background-color: var(--vcec-dark);
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: var(--vcec-red);
 }
 
 .form-select:focus, .form-input:focus {
   border-color: var(--vcec-gold);
-  background-color: rgba(9, 13, 26, 0.95);
-  box-shadow: var(--shadow-glow);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(168, 27, 52, 0.15);
 }
 
 /* 6.2. 8 Sectors Responsive Grid (Home & Sectors Page) */
@@ -640,10 +649,10 @@ button, input, select, textarea {
 }
 
 .sector-card {
-  background: linear-gradient(135deg, #111625 0%, #080C16 100%);
+  background: #FFFFFF; /* Pure White background */
   border-radius: var(--vcec-border-radius);
   padding: 40px 32px;
-  border: 1px solid rgba(175, 136, 58, 0.22); /* Metallic refined gold border */
+  border: 2px solid var(--vcec-red); /* Majestic deep red border */
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   display: flex;
@@ -651,11 +660,8 @@ button, input, select, textarea {
   gap: 20px;
   position: relative;
   overflow: hidden;
-  /* Multi-layered premium 3D shadows + Inner light reflection edge */
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.45), 
-    0 5px 15px rgba(0, 0, 0, 0.25), 
-    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  /* Multi-layered premium light shadows */
+  box-shadow: 0 10px 30px rgba(168, 27, 52, 0.05);
 }
 
 /* Elegant geometric cultural watermark (Dong Son drum sunburst geometric lines) in the corner */
@@ -666,12 +672,12 @@ button, input, select, textarea {
   right: -40px;
   width: 140px;
   height: 140px;
-  border: 1px dashed rgba(175, 136, 58, 0.08);
+  border: 1px dashed rgba(168, 27, 52, 0.08);
   border-radius: 50%;
   transition: var(--vcec-transition);
   pointer-events: none;
-  background: radial-gradient(circle, rgba(175, 136, 58, 0.04) 10%, transparent 11%),
-              radial-gradient(circle, rgba(168, 27, 52, 0.02) 30%, transparent 31%);
+  background: radial-gradient(circle, rgba(168, 27, 52, 0.04) 10%, transparent 11%),
+              radial-gradient(circle, rgba(175, 136, 58, 0.02) 30%, transparent 31%);
   background-size: 14px 14px;
 }
 
@@ -683,7 +689,7 @@ button, input, select, textarea {
   width: 100%;
   height: 4px;
   background: linear-gradient(90deg, var(--vcec-red), var(--vcec-gold));
-  opacity: 0.4; /* Soft continuous gold glow accent */
+  opacity: 0.8; /* Solid continuous red/gold glow accent */
   transition: var(--vcec-transition);
   z-index: 2;
 }
@@ -692,34 +698,33 @@ button, input, select, textarea {
   width: 65px;
   height: 65px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(175, 136, 58, 0.15) 0%, rgba(8, 12, 22, 0.6) 100%);
+  background: var(--vcec-red); /* Premium solid deep red background */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--vcec-gold);
+  color: #FFFFFF; /* White icon color */
   transition: var(--vcec-transition);
-  border: 1.5px solid rgba(175, 136, 58, 0.3);
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  border: 1.5px solid var(--vcec-red);
+  box-shadow: 0 4px 12px rgba(168, 27, 52, 0.2);
 }
 
 .sector-card-icon svg {
   transition: var(--vcec-transition);
-  filter: drop-shadow(0 2px 8px rgba(175, 136, 58, 0.3));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
 .sector-card-title {
   font-size: 1.25rem;
   font-weight: 800;
   line-height: 1.4;
-  color: #FFFFFF; /* Maximum legibility title */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: var(--vcec-red); /* Majestic deep red title */
   letter-spacing: -0.01em;
   transition: var(--vcec-transition);
 }
 
 .sector-card-desc {
   font-size: 0.9rem;
-  color: #9CA3AF; /* Luxury silver text for crystal clear contrast */
+  color: var(--vcec-text-main); /* Dark charcoal body text for crystal clear contrast */
   line-height: 1.7;
   transition: var(--vcec-transition);
 }
@@ -735,7 +740,6 @@ button, input, select, textarea {
   transition: var(--vcec-transition);
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .sector-card-link .arrow-symbol {
@@ -749,10 +753,9 @@ button, input, select, textarea {
   border-color: var(--vcec-gold);
   /* Massive 3D Shadow Stack + Golden Ember Underglow */
   box-shadow: 
-    0 35px 70px rgba(0, 0, 0, 0.8),
-    0 0 50px rgba(175, 136, 58, 0.22),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  background: linear-gradient(135deg, #161D30 0%, #0C1222 100%);
+    0 25px 50px rgba(168, 27, 52, 0.12),
+    0 0 35px rgba(175, 136, 58, 0.15);
+  background: #FFFFFF;
 }
 
 .sector-card:hover::before {
@@ -766,27 +769,25 @@ button, input, select, textarea {
 }
 
 .sector-card:hover .sector-card-icon {
-  background: linear-gradient(135deg, var(--vcec-red) 0%, #D32F2F 100%);
+  background: var(--vcec-gold);
   color: #FFFFFF;
-  border-color: var(--vcec-red);
+  border-color: var(--vcec-gold);
   box-shadow: 
-    0 12px 24px rgba(168, 27, 52, 0.45),
-    0 0 15px rgba(168, 27, 52, 0.2);
+    0 12px 24px rgba(175, 136, 58, 0.45),
+    0 0 15px rgba(175, 136, 58, 0.2);
   transform: translateY(-4px) scale(1.05);
 }
 
 .sector-card:hover .sector-card-title {
   color: var(--vcec-gold); /* Elegantly gold transition on title hover */
-  text-shadow: 0 0 10px rgba(175, 136, 58, 0.4);
 }
 
 .sector-card:hover .sector-card-desc {
-  color: #F3F4F6; /* Enhanced contrast text on hover */
+  color: var(--vcec-text-main); /* Enhanced contrast text on hover */
 }
 
 .sector-card:hover .sector-card-link {
-  color: #FFFFFF;
-  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+  color: var(--vcec-red);
 }
 
 .sector-card:hover .sector-card-link .arrow-symbol {
@@ -803,15 +804,16 @@ button, input, select, textarea {
 .stat-item {
   text-align: center;
   padding: 30px 20px;
-  background: rgba(255, 255, 255, 0.02);
+  background: #FFFFFF; /* Pure White background */
   border-radius: var(--vcec-border-radius);
-  border: 1.5px solid rgba(255, 255, 255, 0.03);
+  border: 2px solid var(--vcec-red); /* Majestic deep red border */
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(168, 27, 52, 0.04);
   transition: var(--vcec-transition);
 }
 .stat-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--vcec-gold-border);
+  background: #FAFAFA;
+  border-color: var(--vcec-gold);
   transform: translateY(-4px);
 }
 
@@ -819,7 +821,7 @@ button, input, select, textarea {
   font-family: var(--vcec-font-heritage);
   font-size: 3.4rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--vcec-gold), #EBD096);
+  background: linear-gradient(135deg, var(--vcec-red), var(--vcec-gold)); /* Majestic Red-Gold gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
@@ -829,7 +831,7 @@ button, input, select, textarea {
 .stat-label {
   font-weight: 700;
   font-size: 0.85rem;
-  color: #D1D5DB;
+  color: var(--vcec-red); /* Majestic deep red */
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -1184,11 +1186,11 @@ button, input, select, textarea {
 
 /* 6.7. Premium Vision Cards (About Page) */
 .about-vision-card {
-  background: linear-gradient(135deg, var(--vcec-dark) 0%, var(--vcec-slate) 100%);
+  background: #FFFFFF; /* Pure White background */
   border-radius: var(--vcec-border-radius);
   padding: 50px;
-  color: #FFFFFF;
-  border: 1.5px solid var(--vcec-gold-border);
+  color: var(--vcec-text-main); /* Dark charcoal text */
+  border: 2px solid var(--vcec-red); /* Majestic deep red border */
   box-shadow: var(--shadow-lg), var(--shadow-glow);
   position: relative;
   overflow: hidden;
@@ -1200,7 +1202,7 @@ button, input, select, textarea {
   right: -10px;
   font-size: 6rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.03);
+  color: rgba(168, 27, 52, 0.04); /* Soft red watermark */
   font-family: var(--vcec-font-heritage);
 }
 
