@@ -1331,15 +1331,35 @@ function applyCustomSiteConfig() {
   try {
     const cfg = JSON.parse(storedConfig);
     
-    // 7.1 Override Website Logo (if configured)
+    // 7.1 Override Website Logo (if configured) and Browser Favicon (Tab Icon)
     if (cfg.logoUrl && cfg.logoUrl.trim()) {
+      const trimmedLogo = cfg.logoUrl.trim();
       const logoIcons = document.querySelectorAll(".logo-icon");
       logoIcons.forEach(logoIcon => {
         logoIcon.style.background = "none";
         logoIcon.style.border = "none";
         logoIcon.style.boxShadow = "none";
-        logoIcon.innerHTML = `<img src="${cfg.logoUrl.trim()}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">`;
+        logoIcon.innerHTML = `<img src="${trimmedLogo}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">`;
       });
+
+      // Update Browser Favicon
+      let favLinks = document.querySelectorAll("link[rel*='icon']");
+      if (favLinks.length === 0) {
+        const linkShortcut = document.createElement("link");
+        linkShortcut.rel = "shortcut icon";
+        linkShortcut.href = trimmedLogo;
+        document.head.appendChild(linkShortcut);
+
+        const linkIcon = document.createElement("link");
+        linkIcon.rel = "icon";
+        linkIcon.type = "image/png";
+        linkIcon.href = trimmedLogo;
+        document.head.appendChild(linkIcon);
+      } else {
+        favLinks.forEach(link => {
+          link.href = trimmedLogo;
+        });
+      }
     }
 
     // 7.2 Override Hero Banner Image (if configured)
