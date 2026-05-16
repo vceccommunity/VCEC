@@ -6,98 +6,18 @@
   <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Bài Viết - VCEC Portal</title>
   <meta id="meta-description" name="description" content="Bài viết từ VCEC Portal.">
+  <!-- OpenGraph -->
+  <meta id="og-title" property="og:title" content="VCEC Portal">
+  <meta id="og-description" property="og:description" content="Bài viết từ VCEC Portal.">
+  <meta id="og-image" property="og:image" content="public/logo_VCEC.jpg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="VCEC Portal">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta id="tw-title" name="twitter:title" content="VCEC Portal">
+  <meta id="tw-description" name="twitter:description" content="Bài viết từ VCEC Portal.">
+  <meta id="tw-image" name="twitter:image" content="public/logo_VCEC.jpg">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .article-wrap {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-    .article-breadcrumb {
-      font-size: 0.82rem;
-      color: #888;
-      margin-bottom: 28px;
-    }
-    .article-breadcrumb a {
-      color: var(--vcec-red);
-      text-decoration: none;
-    }
-    .article-breadcrumb a:hover { text-decoration: underline; }
-    .article-breadcrumb span { margin: 0 6px; }
-    .article-hero-img {
-      width: 100%;
-      max-height: 420px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 32px;
-      display: block;
-    }
-    .article-cat-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      background: var(--vcec-red);
-      color: #fff;
-    }
-    .article-title {
-      font-family: var(--vcec-font-title);
-      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
-      color: var(--vcec-text-dark);
-      line-height: 1.35;
-      margin-bottom: 16px;
-    }
-    .article-meta {
-      font-size: 0.82rem;
-      color: #888;
-      margin-bottom: 36px;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .article-divider {
-      border: none;
-      border-top: 2px solid var(--vcec-gold-border);
-      margin-bottom: 36px;
-    }
-    .article-content p {
-      font-size: 1rem;
-      color: var(--vcec-text-dark);
-      line-height: 1.85;
-      margin-bottom: 20px;
-    }
-    .article-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 48px;
-      padding: 12px 28px;
-      background: var(--vcec-red);
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: opacity 0.2s;
-    }
-    .article-back:hover { opacity: 0.85; }
-    #article-loading {
-      text-align: center;
-      padding: 80px 20px;
-      color: #9CA3AF;
-      font-size: 1rem;
-    }
-    #article-error {
-      display: none;
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--vcec-red);
-    }
-  </style>
 </head>
 <body>
 
@@ -106,22 +26,22 @@
   <main class="bg-china-motif">
     <div class="section-content">
 
-      <div id="article-loading">⏳ Đang tải bài viết...</div>
-      <div id="article-error"><p>Không tìm thấy bài viết hoặc đã bị xóa.</p><a href="index.html" class="article-back">← Trang Chủ</a></div>
+      <div id="article-loading" style="text-align:center; padding:80px 20px;">⏳ Đang tải bài viết...</div>
+      <div id="article-error" style="display:none; text-align:center; padding:80px 20px;"><p>Không tìm thấy bài viết hoặc đã bị xóa.</p><a href="index.html" class="btn-back-article">← Trang Chủ</a></div>
 
       <div id="article-container" style="display:none">
         <div class="article-wrap">
-          <div id="article-breadcrumb" class="article-breadcrumb"></div>
+          <div id="article-breadcrumb" class="breadcrumb-nav" style="background:none; border:none; padding:0; margin-bottom:28px;"></div>
           <img id="article-img" class="article-hero-img" src="" alt="" loading="lazy" style="display:none">
           <div id="article-cat-badge" class="article-cat-badge"></div>
-          <h1 id="article-title" class="article-title"></h1>
-          <div class="article-meta">
+          <h1 id="article-title" class="article-title-main"></h1>
+          <div class="article-meta-info">
             <span id="article-date"></span>
             <span id="article-author"></span>
           </div>
           <hr class="article-divider">
-          <div id="article-content" class="article-content"></div>
-          <a id="article-back-btn" href="index.html" class="article-back">← Quay Lại</a>
+          <div id="article-content" class="article-body"></div>
+          <a id="article-back-btn" href="index.html" class="btn-back-article">← Quay Lại</a>
         </div>
       </div>
 
@@ -172,8 +92,15 @@
 
       // Update page title & meta
       document.title = title + ' - VCEC Portal';
-      var metaDesc = document.getElementById('meta-description');
-      if (metaDesc) metaDesc.setAttribute('content', summary || title);
+      var desc = summary || title;
+      var img = post.cover_image || 'public/logo_VCEC.jpg';
+      if (document.getElementById('meta-description')) document.getElementById('meta-description').setAttribute('content', desc);
+      if (document.getElementById('og-title')) document.getElementById('og-title').setAttribute('content', title + ' - VCEC Portal');
+      if (document.getElementById('og-description')) document.getElementById('og-description').setAttribute('content', desc);
+      if (document.getElementById('og-image')) document.getElementById('og-image').setAttribute('content', img);
+      if (document.getElementById('tw-title')) document.getElementById('tw-title').setAttribute('content', title + ' - VCEC Portal');
+      if (document.getElementById('tw-description')) document.getElementById('tw-description').setAttribute('content', desc);
+      if (document.getElementById('tw-image')) document.getElementById('tw-image').setAttribute('content', img);
 
       // Breadcrumb
       document.getElementById('article-breadcrumb').innerHTML =
@@ -199,7 +126,20 @@
 
       // Meta
       document.getElementById('article-date').textContent = '📅 ' + fmtDate(post.created_at);
-      document.getElementById('article-author').textContent = '✍️ ' + (post.author || 'VCEC');
+      var authorEl = document.getElementById('article-author');
+      authorEl.textContent = '✍️ ' + (post.author || 'VCEC');
+      if (post.author) {
+        window.supabaseClient
+          .from('vcec_users')
+          .select('id')
+          .eq('username', post.author)
+          .single()
+          .then(function(r) {
+            if (!r.error && r.data) {
+              authorEl.innerHTML = '✍️ <a href="ho-so-thanh-vien.html?id=' + r.data.id + '" style="color:var(--vcec-red);text-decoration:none;font-weight:700;" onmouseover="this.style.textDecoration=\'underline\'" onmouseout="this.style.textDecoration=\'none\'">' + post.author + '</a>';
+            }
+          });
+      }
 
       // Content
       var contentEl = document.getElementById('article-content');

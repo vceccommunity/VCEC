@@ -1076,11 +1076,11 @@
             <polyline points="10 9 9 9 8 9"></polyline>
           </svg>
           <span>Bài đăng</span>
-          <svg class="arrow-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none" style="margin-left:auto; transition: transform 0.3s ease;">
+          <svg class="admin-arrow-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </div>
-        <div class="sub-menu" id="posts-submenu" style="display: none; padding-left: 20px; flex-direction: column; gap: 4px; margin-bottom: 8px;">
+        <div class="admin-submenu" id="posts-submenu">
           <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu')" data-cat="gioi-thieu">○ Giới Thiệu</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('quan-he-viet-trung')" data-cat="quan-he-viet-trung">○ Quan Hệ Việt-Trung</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('linh-vuc')" data-cat="linh-vuc">○ Lĩnh Vực</div>
@@ -1249,6 +1249,23 @@
                 <div id="post-body-en" style="height: 250px; margin-bottom: 8px;"></div>
               </div>
             </div>
+          </div>
+
+          <!-- GROUP 4: ẢNH BÌA BÀI VIẾT -->
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" style="color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">
+              🖼️ ẢNH BÌA BÀI VIẾT:
+            </label>
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
+              <input type="text" id="post-cover-url" class="form-input" placeholder="Dán URL ảnh hoặc bấm Tải ảnh lên..." style="flex-grow:1;" oninput="previewCoverImage(this.value)">
+              <button type="button" class="btn" onclick="document.getElementById('post-cover-file-input').click()" style="background:rgba(255,255,255,0.08);color:#FFF;font-weight:600;white-space:nowrap;padding:10px 16px;flex-shrink:0;">📤 Tải ảnh lên</button>
+              <input type="file" id="post-cover-file-input" style="display:none;" accept="image/*" onchange="uploadCoverImage(this)">
+            </div>
+            <div id="post-cover-preview" style="display:none; position:relative; max-width:420px; border-radius:8px; overflow:hidden;">
+              <img id="post-cover-img" src="" alt="Xem trước ảnh bìa" style="width:100%; object-fit:cover; max-height:200px; display:block;">
+              <button type="button" onclick="clearCoverImage()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#FFF;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:0.9rem;line-height:1;" title="Xóa ảnh">✕</button>
+            </div>
+            <p style="color:#6B7280; font-size:0.78rem; margin-top:6px;">💡 Ảnh sẽ hiển thị ngoài trang web và trang chi tiết bài viết.</p>
           </div>
 
           <div style="display:flex; gap:12px; margin-top: 20px; align-items: center;">
@@ -2122,6 +2139,52 @@
     }
 
     // Upload file lên bucket đang active
+    function previewCoverImage(url) {
+      var preview = document.getElementById('post-cover-preview');
+      var img = document.getElementById('post-cover-img');
+      if (!preview || !img) return;
+      if (url && url.trim()) {
+        img.src = url.trim();
+        preview.style.display = 'block';
+      } else {
+        preview.style.display = 'none';
+        img.src = '';
+      }
+    }
+
+    function clearCoverImage() {
+      var urlInput = document.getElementById('post-cover-url');
+      if (urlInput) urlInput.value = '';
+      previewCoverImage('');
+    }
+
+    async function uploadCoverImage(input) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const urlInput = document.getElementById('post-cover-url');
+      const ts = Date.now();
+      const cleanName = 'covers/' + ts + '_' + file.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_.-]/g, '');
+
+      urlInput.value = '⏳ Đang tải ảnh lên đám mây...';
+      urlInput.disabled = true;
+
+      try {
+        const { error } = await window.supabaseClient.storage
+          .from('vcec')
+          .upload(cleanName, file, { cacheControl: '3600', upsert: true });
+        if (error) throw error;
+        const { data: { publicUrl } } = window.supabaseClient.storage.from('vcec').getPublicUrl(cleanName);
+        urlInput.value = publicUrl;
+        previewCoverImage(publicUrl);
+      } catch (err) {
+        urlInput.value = '';
+        alert("Lỗi tải ảnh bìa: " + err.message);
+      } finally {
+        urlInput.disabled = false;
+        input.value = '';
+      }
+    }
+
     async function uploadToBucket(input) {
       if (!input.files || input.files.length === 0) return;
       const file = input.files[0];
@@ -2383,6 +2446,8 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Đang lưu..."; }
 
       try {
+        const coverImage = (document.getElementById("post-cover-url").value || '').trim();
+
         if (window.currentEditingPostId) {
           // UPDATE Existing Post
           const { error } = await window.supabaseClient
@@ -2392,6 +2457,7 @@
               title_vi: titleVi, title_zh: titleZh, title_en: titleEn,
               summary_vi: summaryVi, summary_zh: summaryZh, summary_en: summaryEn,
               content_vi: contentVi, content_zh: contentZh, content_en: contentEn,
+              cover_image: coverImage,
               status: 'published'
             })
             .eq('id', window.currentEditingPostId);
@@ -2406,6 +2472,7 @@
               title_vi: titleVi, title_zh: titleZh, title_en: titleEn,
               summary_vi: summaryVi, summary_zh: summaryZh, summary_en: summaryEn,
               content_vi: contentVi, content_zh: contentZh, content_en: contentEn,
+              cover_image: coverImage,
               status: 'published',
               author: window.vcec_user || 'admin'
             }]);
@@ -2574,6 +2641,10 @@
         if (quillZh) quillZh.setContents(quillZh.clipboard.convert(post.content_zh || ""));
         if (quillEn) quillEn.setContents(quillEn.clipboard.convert(post.content_en || ""));
 
+        const coverUrlInput = document.getElementById("post-cover-url");
+        if (coverUrlInput) { coverUrlInput.value = post.cover_image || ""; }
+        previewCoverImage(post.cover_image || "");
+
         // Show form and scroll up
         document.getElementById("new-post-form-wrap").style.display = "block";
         document.querySelector("#new-post-form-wrap h3").textContent = "Chỉnh sửa bài viết";
@@ -2643,6 +2714,7 @@
       if (quillVi) quillVi.setContents([]);
       if (quillZh) quillZh.setContents([]);
       if (quillEn) quillEn.setContents([]);
+      clearCoverImage();
     }
 
     // Article Draft Utilities

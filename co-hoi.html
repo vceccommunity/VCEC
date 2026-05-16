@@ -179,13 +179,13 @@
         }
         if (section) section.style.display = '';
         grid.innerHTML = data.map(function(p) {
-          return '<div class="news-card">' +
+          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="news-card" style="display:block;text-decoration:none;color:inherit;">' +
             (p.cover_image ? '<img src="' + p.cover_image + '" alt="" class="news-img" loading="lazy">' : '') +
             '<div class="news-body">' +
               '<span class="news-meta">📅 ' + fmtDate(p.created_at) + ' | CƠ HỘI ĐẦU TƯ</span>' +
               '<h3 class="news-title">' + tf(p,'title') + '</h3>' +
               '<p class="news-desc">' + tf(p,'summary') + '</p>' +
-            '</div></div>';
+            '</div></a>';
         }).join('');
       }
 

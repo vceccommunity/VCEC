@@ -127,10 +127,13 @@
           return '<div class="resource-item">' +
             '<div class="resource-icon-box">📄</div>' +
             '<div class="resource-info">' +
-              '<h3 class="resource-title">' + tf(p,'title') + '</h3>' +
+              '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" style="text-decoration:none;color:inherit;"><h3 class="resource-title" style="transition:color 0.2s;" onmouseover="this.style.color=\'var(--vcec-red)\'" onmouseout="this.style.color=\'inherit\'">' + tf(p,'title') + '</h3></a>' +
               '<p class="resource-meta">' + tf(p,'summary') + ' | Cập nhật: ' + fmtDate(p.created_at) + '</p>' +
             '</div>' +
-            '<a href="lien-he.html" class="btn btn-primary" style="padding:10px 20px;font-size:0.85rem;white-space:nowrap;">Yêu cầu tài liệu</a>' +
+            '<div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">' +
+              '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="btn" style="padding:10px 18px;font-size:0.85rem;background:#f3f4f6;color:#374151;border:1px solid #e5e7eb;white-space:nowrap;">Xem chi tiết</a>' +
+              '<a href="lien-he.html" class="btn btn-primary" style="padding:10px 20px;font-size:0.85rem;white-space:nowrap;">Yêu cầu tài liệu</a>' +
+            '</div>' +
           '</div>';
         }).join('');
       }

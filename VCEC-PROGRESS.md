@@ -18,6 +18,7 @@
     + Tích hợp bộ lọc chuyên mục: Cho phép xem danh sách bài viết theo từng mục nhỏ ngay từ sidebar với hiệu ứng chuyển đổi mượt mà.
     + Trang chi tiết Lĩnh vực: Giảm 50% chiều cao banner (190px) và cập nhật màu sắc Hero Text (Số thứ tự: Vàng chanh, Tiêu đề: Trắng) giúp tăng độ tương phản và thẩm mỹ.
     + Tối ưu Global Header: Giảm chiều cao thanh điều hướng từ 90px xuống 70px.
+    + Refactor Design System: Chuyển toàn bộ inline styles và CSS nội bộ từ 3 file mới (Quản trị, Chi tiết lĩnh vực, Chi tiết bài viết) vào `style.css` để đảm bảo tính đồng nhất và dễ bảo trì.
 - Người thực hiện: MI
 - Ghi chú cho KA: Đã mở rộng danh sách `category` trong bảng `vcec_posts`. KA vui lòng kiểm tra nếu cần thêm ràng buộc dữ liệu (Check constraint) cho các slug mới này.
 ====== MI - END ======
@@ -158,4 +159,126 @@ electronics, energy, logistics, infra, agri, textile, digital, medical
 ### Lưu ý cho MI:
 - Trang dùng inline `<style>` riêng (không ảnh hưởng style.css)
 - Class `.sector-hero-overlay`, `.opp-card`, `.why-item`, `.cta-band`, `.stats-row` — MI có thể style lại nếu cần
+====== KA - END ======
+
+
+====== KA - START ======
+## [16/05/2026] Fix CHECK Constraint category + Trang Chi Tiết Bài Đăng
+
+### 1. Fix CHECK constraint vcec_posts.category
+
+**File đã tạo:** `vcec-category-constraint-fix.sql`
+
+**Nguyên nhân:** MI đã mở rộng danh sách category trong dropdown admin (quan-tri.html) lên 7 slug, nhưng bảng `vcec_posts` trên Supabase vẫn chỉ cho phép 4 slug cũ → INSERT bài viết với category mới sẽ bị Supabase reject.
+
+**MIKE cần làm thủ công (1 lần):**
+> Supabase Dashboard > SQL Editor > New query > Paste nội dung file `vcec-category-constraint-fix.sql` > Run
+
+**7 category hợp lệ sau khi chạy SQL:**
+- `tin-tuc`, `co-hoi`, `tai-nguyen`, `gioi-thieu` (cũ)
+- `quan-he-viet-trung`, `linh-vuc`, `dich-vu` (mới — MI đã thêm vào dropdown)
+
+---
+
+### 2. Trang Chi Tiết Bài Đăng
+
+**File đã tạo:** `bai-viet-chi-tiet.html`
+
+**Cách dùng:** `bai-viet-chi-tiet.html?id=UUID` — đọc UUID từ URL, fetch `vcec_posts` bằng `.single()`, render toàn bộ nội dung bài viết.
+
+**Tính năng:**
+- Breadcrumb tự động: Trang Chủ › [Category Page] › Tiêu đề bài
+- Cover image (hero) — ẩn nếu không có ảnh
+- Category badge màu theo loại bài (7 màu khác nhau)
+- Render nội dung `content_vi/zh/en` — tách đoạn theo `\n\n`
+- Nút "Quay Lại" dẫn về đúng trang category
+- Multilingual: đọc `localStorage.vcec_lang` + lắng nghe `vcec-lang-change`
+- Xử lý lỗi: hiện thông báo nếu không tìm thấy bài (sai ID hoặc bị xóa)
+
+**Bảng mapping category → URL trang chủ:**
+| category | URL |
+|---|---|
+| tin-tuc | tin-tuc.html |
+| co-hoi | co-hoi.html |
+| tai-nguyen | tai-nguyen.html |
+| gioi-thieu | gioi-thieu.html |
+| quan-he-viet-trung | quan-he.html |
+| linh-vuc | linh-vuc.html |
+| dich-vu | dich-vu.html |
+
+---
+
+### 3. Wiring Link Trang Công Khai → Trang Chi Tiết
+
+**Files đã sửa:** `tin-tuc.html`, `co-hoi.html`, `tai-nguyen.html`
+
+- `tin-tuc.html` + `co-hoi.html`: Đổi wrapper `<div class="news-card">` → `<a href="bai-viet-chi-tiet.html?id=...">` — click cả card dẫn tới chi tiết
+- `tai-nguyen.html`: Thêm nút "Xem chi tiết" cạnh nút "Yêu cầu tài liệu"; tiêu đề bài thành link hover đổi màu đỏ
+
+### Lưu ý cho MI:
+- `bai-viet-chi-tiet.html` dùng inline `<style>` riêng, có các class: `.article-wrap`, `.article-breadcrumb`, `.article-hero-img`, `.article-cat-badge`, `.article-title`, `.article-meta`, `.article-divider`, `.article-content`, `.article-back` — MI có thể style lại nếu cần
+- `tai-nguyen.html`: button "Xem chi tiết" dùng inline style tạm thời (`background:#f3f4f6`), MI có thể tạo class riêng trong style.css cho đồng nhất hơn
+====== KA - END ======
+
+
+====== KA - START ======
+## [16/05/2026] Hoàn thành TODO List: Cover Image Upload + Profile Công Khai + SEO
+
+---
+
+### 1. Upload ảnh bìa trực tiếp khi đăng bài
+
+**File đã sửa:** `quan-tri.html`
+
+**Logic thêm:**
+- Thêm GROUP 4 "ẢNH BÌA BÀI VIẾT" vào form đăng bài (giữa nội dung và nút submit)
+- Gồm: text input URL + nút "Tải ảnh lên" + xem trước ảnh (preview realtime) + nút ✕ xóa ảnh
+- Hàm `uploadCoverImage(input)`: upload file vào bucket `vcec` → thư mục `covers/` → lấy publicUrl điền vào input
+- Hàm `previewCoverImage(url)`: hiện/ẩn preview khi gõ URL hoặc sau khi upload xong
+- Hàm `clearCoverImage()`: xóa URL và preview
+- `publishPost()`: đọc `post-cover-url` → thêm vào payload INSERT/UPDATE
+- `editPost()`: load `post.cover_image` vào input + kích hoạt preview khi mở form sửa
+- `hideNewPostForm()`: gọi `clearCoverImage()` khi đóng form
+
+**Lưu ý cho MI:** Group ảnh bìa chưa có CSS riêng, hiện dùng class `.form-group` + `.form-input` sẵn có. Preview container có `max-width: 420px`, MI style lại thoải mái.
+
+---
+
+### 2. Trang Hồ Sơ Thành Viên Công Khai
+
+**File đã tạo:** `ho-so-thanh-vien.html`
+
+**Truy cập:** `ho-so-thanh-vien.html?id=UUID` (UUID là `id` trong bảng `vcec_users`)
+
+**Hiển thị:**
+- Avatar chữ cái đầu + gradient đỏ-vàng
+- Tên thành viên (username) + role badge màu theo cấp bậc
+- Ngày tham gia (created_at)
+- Danh sách bài viết đã đăng (query `vcec_posts` theo `author = username`, chỉ published)
+- Click bài → `bai-viet-chi-tiet.html?id=UUID`
+- Ẩn section bài viết nếu chưa có bài
+
+**Kết nối từ bai-viet-chi-tiet.html:** tên tác giả → link đỏ tự động (lookup user ID theo username, nếu không tìm thấy thì vẫn hiện text thường)
+
+**Lưu ý bảo mật:** Query chỉ fetch `id, username, role, created_at` — KHÔNG fetch `password`.
+
+---
+
+### 3. SEO Meta Tags Động (bai-viet-chi-tiet.html)
+
+**File đã sửa:** `bai-viet-chi-tiet.html`
+
+**Tags được thêm:**
+- `<meta property="og:title">` → title bài viết
+- `<meta property="og:description">` → summary bài viết
+- `<meta property="og:image">` → cover_image hoặc fallback logo_VCEC.jpg
+- `<meta property="og:type">` = `article`, `og:site_name` = `VCEC Portal`
+- `<meta name="twitter:card">` = `summary_large_image`
+- `<meta name="twitter:title/description/image">` tương tự OG
+
+Tất cả được cập nhật động trong hàm `renderArticle()` sau khi fetch post xong.
+
+### Lưu ý cho MI:
+- `ho-so-thanh-vien.html` dùng inline `<style>` riêng: `.member-card`, `.member-avatar`, `.member-role-badge`, `.member-post-item`, `.member-post-thumb` — MI style lại thoải mái
+- Hiện chưa có trang danh sách thành viên công khai — link vào profile chỉ qua bài viết (author click)
 ====== KA - END ======
