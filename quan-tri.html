@@ -2522,10 +2522,10 @@
         };
         const catLabel = { 
           'tin-tuc': 'Tin Tức', 
-          'co-hoi': 'Cơ Hội', 
+          'co-hoi': 'Cơ Hội Đầu Tư', 
           'tai-nguyen': 'Tài Nguyên', 
           'gioi-thieu': 'Giới Thiệu',
-          'quan-he-viet-trung': 'Việt - Trung',
+          'quan-he-viet-trung': 'Quan Hệ Việt-Trung',
           'linh-vuc': 'Lĩnh Vực',
           'dich-vu': 'Dịch Vụ'
         };
@@ -2574,7 +2574,7 @@
 
       // Update screen title if needed
       const catLabel = { 
-        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội', 'tai-nguyen': 'Tài Nguyên', 'gioi-thieu': 'Giới Thiệu',
+        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội Đầu Tư', 'tai-nguyen': 'Tài Nguyên', 'gioi-thieu': 'Giới Thiệu',
         'quan-he-viet-trung': 'Quan Hệ Việt-Trung', 'linh-vuc': 'Lĩnh Vực', 'dich-vu': 'Dịch Vụ'
       };
       document.querySelector('#screen-posts .screen-title').textContent = `Quản Lý Bài Đăng: ${catLabel[category]}`;
@@ -2584,27 +2584,20 @@
 
     function toggleSubMenu(submenuId, screenId) {
       const submenu = document.getElementById(submenuId);
-      const isOpening = submenu.style.display === 'none';
+      const parentMenuItem = submenu.previousElementSibling;
+      const isOpening = !submenu.classList.contains('active');
       
-      // Close all other submenus and reset arrows first
-      document.querySelectorAll('.sub-menu').forEach(sm => {
-        if (sm.id !== submenuId) sm.style.display = 'none';
+      // Close all other submenus
+      document.querySelectorAll('.admin-submenu').forEach(sm => {
+        sm.classList.remove('active');
       });
-      document.querySelectorAll('.menu-item .arrow-icon').forEach(arrow => {
-        const parent = arrow.closest('.menu-item');
-        if (!parent.getAttribute('onclick').includes(submenuId)) arrow.style.transform = 'rotate(0deg)';
+      document.querySelectorAll('.menu-item').forEach(mi => {
+        mi.classList.remove('active');
       });
 
       if (isOpening) {
-        submenu.style.display = 'flex';
-        const parent = submenu.previousElementSibling;
-        const arrow = parent.querySelector('.arrow-icon');
-        if (arrow) arrow.style.transform = 'rotate(180deg)';
-      } else {
-        submenu.style.display = 'none';
-        const parent = submenu.previousElementSibling;
-        const arrow = parent.querySelector('.arrow-icon');
-        if (arrow) arrow.style.transform = 'rotate(0deg)';
+        submenu.classList.add('active');
+        parentMenuItem.classList.add('active');
       }
       
       switchScreen(screenId);

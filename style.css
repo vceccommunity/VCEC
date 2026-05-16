@@ -1545,6 +1545,56 @@ button, input, select, textarea {
   }
 }
 
+/* 11. Admin Dashboard Extensions (Elite Sidebar) */
+.admin-arrow-icon {
+  margin-left: auto;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-item.active .admin-arrow-icon {
+  transform: rotate(180deg);
+}
+
+.admin-submenu {
+  display: none;
+  flex-direction: column; /* Quan trọng: Xếp dọc */
+  padding-left: 20px;
+  gap: 2px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  animation: slideInDown 0.3s ease;
+}
+.admin-submenu.active {
+  display: flex;
+}
+
+.sub-menu-item {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--vcec-transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%; /* Chiếm hết chiều ngang để xếp dọc chuẩn */
+}
+.sub-menu-item::before {
+  content: "○";
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+.sub-menu-item:hover {
+  background-color: rgba(255,255,255,0.05);
+  color: #FFFFFF;
+  padding-left: 16px;
+}
+.sub-menu-item.active {
+  color: var(--vcec-gold);
+  font-weight: 700;
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
 /* 12. Sector Detail System */
 .sector-hero-overlay {
   position: relative;

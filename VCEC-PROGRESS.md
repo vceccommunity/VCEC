@@ -21,6 +21,7 @@
     + Refactor Design System: Chuyển toàn bộ inline styles và CSS nội bộ từ 3 file mới (Quản trị, Chi tiết lĩnh vực, Chi tiết bài viết) vào `style.css` để đảm bảo tính đồng nhất và dễ bảo trì.
     + Nâng cấp thẩm mỹ (Dịch vụ & Giới thiệu): Sử dụng hệ thống `.service-card` riêng biệt, loại bỏ ngày tháng và tích hợp Icon minh họa thông minh theo tiêu đề.
     + Chuẩn hóa Timeline (Quan hệ): Đồng bộ màu sắc qua CSS class và biến `var(--vcec-gold)`, loại bỏ mã màu hardcoded.
+    + Fix lỗi Admin Dashboard: Sửa lỗi layout Sidebar (xếp dọc menu con) và đồng bộ 100% tên Chuyên mục trong bảng bài viết khớp với danh mục Sidebar.
 - Người thực hiện: MI
 - Ghi chú cho KA: Đã mở rộng danh sách `category` trong bảng `vcec_posts`. KA vui lòng kiểm tra nếu cần thêm ràng buộc dữ liệu (Check constraint) cho các slug mới này.
 ====== MI - END ======
