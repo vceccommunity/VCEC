@@ -273,7 +273,7 @@ button, input, select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 90px;
+  height: 70px;
   width: 100%;
   max-width: 1750px; /* Expanded specifically for wide monitors to give links breathing room */
   margin: 0 auto;

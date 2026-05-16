@@ -17,6 +17,7 @@
     + Cơ chế Auto-collapse: Menu con mặc định ẩn và tự động thu gọn khi người dùng chuyển sang các màn hình quản trị khác, giúp giao diện luôn tinh gọn.
     + Tích hợp bộ lọc chuyên mục: Cho phép xem danh sách bài viết theo từng mục nhỏ ngay từ sidebar với hiệu ứng chuyển đổi mượt mà.
     + Trang chi tiết Lĩnh vực: Giảm 50% chiều cao banner (từ 380px xuống 190px) giúp tối ưu không gian hiển thị nội dung chính ngay từ cái nhìn đầu tiên.
+    + Tối ưu Global Header: Giảm chiều cao thanh điều hướng từ 90px xuống 70px, tạo cảm giác tinh gọn và hiện đại hơn cho toàn bộ website.
 - Người thực hiện: MI
 - Ghi chú cho KA: Đã mở rộng danh sách `category` trong bảng `vcec_posts`. KA vui lòng kiểm tra nếu cần thêm ràng buộc dữ liệu (Check constraint) cho các slug mới này.
 ====== MI - END ======
