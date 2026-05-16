@@ -17,11 +17,14 @@
   <main class="bg-china-motif">
     <div class="section-content">
       
-      <!-- Sub-page Title Block -->
-      <section class="sub-hero">
-        <div class="container">
-          <h1 data-i18n="nav-about">Giới Thiệu VCEC</h1>
-          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">ĐẦU TƯ SONG PHƯƠNG</p>
+      <!-- Sub-page Title Block (Executive Upgrade) -->
+      <section class="sub-hero" style="background: linear-gradient(rgba(10, 15, 30, 0.8), rgba(10, 15, 30, 0.8)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80') center/cover; padding: 100px 0; border-bottom: 3px solid var(--vcec-gold);">
+        <div class="container text-center">
+          <h1 style="font-family: var(--vcec-font-title); font-size: 3.5rem; color: #FFF; text-shadow: 0 4px 15px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px;">
+            <span style="color: var(--vcec-gold);">VCEC</span> Profile
+          </h1>
+          <p style="color: rgba(255,255,255,0.8); font-size: 1.2rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;" data-i18n="sub-title">Hệ Sinh Thái Xúc Tiến Đầu Tư Song Phương</p>
+          <div style="width: 80px; height: 4px; background: var(--vcec-red); margin: 20px auto;"></div>
         </div>
       </section>
 
@@ -128,15 +131,19 @@
           var isEven = idx % 2 === 0;
           var title = tf(p, 'title');
           var content = tf(p, 'content');
-          var img = p.cover_image ? '<div class="full-content-image"><img src="' + p.cover_image + '" class="rounded-lg shadow-lg"></div>' : '';
+          var hasImage = !!p.cover_image;
+          
+          var imgBlock = hasImage ? '<div class="full-content-image"><img src="' + p.cover_image + '" class="rounded-lg shadow-lg"></div>' : '';
           
           var textPart = '<div class="full-content-text">' +
             '<h2 class="full-content-title">' + title + '</h2>' +
             '<div class="full-content-body">' + content + '</div>' +
             '</div>';
 
-          return '<div class="full-content-block ' + (isEven ? 'row-reverse' : '') + '">' +
-            (isEven ? img + textPart : textPart + img) +
+          var blockClass = 'full-content-block' + (hasImage ? '' : ' no-image') + (isEven ? ' row-reverse' : '');
+          
+          return '<div class="' + blockClass + '">' +
+            (isEven ? imgBlock + textPart : textPart + imgBlock) +
             '</div>';
         }).join('');
       }
