@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Tin Tức & Sự Kiện - VCEC Portal</title>
   <meta name="description" content="Cập nhật tin tức kinh tế vĩ mô song phương Việt - Trung, lịch trình hội nghị xúc tiến đầu tư, và các hoạt động khảo sát thực địa của doanh nghiệp FDI.">
   <link rel="stylesheet" href="style.css">
@@ -84,38 +85,8 @@
             <p>Thông tin cập nhật chính thống về chính sách và tiến độ các đoàn khảo sát FDI Việt - Trung</p>
           </div>
 
-          <div class="news-grid">
-            
-            <!-- News 1 -->
-            <div class="news-card">
-              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=500&q=80" alt="Summit" class="news-img">
-              <div class="news-body">
-                <span class="news-meta">📅 15 Tháng 4, 2026 | SỰ KIỆN</span>
-                <h3 class="news-title">Diễn đàn Xúc tiến Đầu tư Việt Nam – Trung Quốc tại Thâm Quyến năm 2026</h3>
-                <p class="news-desc">Hơn 250 tập đoàn công nghệ và bán dẫn Thâm Quyến tham gia đối thoại trực tiếp với ban quản lý các KCN Hải Phòng, Bắc Ninh về kế hoạch dịch chuyển chuỗi cung ứng.</p>
-              </div>
-            </div>
-
-            <!-- News 2 -->
-            <div class="news-card">
-              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80" alt="FDI" class="news-img">
-              <div class="news-body">
-                <span class="news-meta">📅 02 Tháng 4, 2026 | KINH TẾ</span>
-                <h3 class="news-title">Dòng vốn FDI Trung Quốc dịch chuyển mạnh sang mảng Linh kiện Xe điện (EV)</h3>
-                <p class="news-desc">Các chính sách ưu đãi thuế của Việt Nam đối với năng lượng sạch đang thu hút dòng vốn lớn từ các nhà sản xuất pin lithium Thượng Hải và Chiết Giang đầu tư vào Bình Dương.</p>
-              </div>
-            </div>
-
-            <!-- News 3 -->
-            <div class="news-card">
-              <img src="https://images.unsplash.com/photo-1521791136368-1a46827d3ad4?auto=format&fit=crop&w=500&q=80" alt="Cooperation" class="news-img">
-              <div class="news-body">
-                <span class="news-meta">📅 20 Tháng 3, 2026 | THỰC ĐỊA</span>
-                <h3 class="news-title">VCEC tháp tùng Hiệp hội Điện tử Trung Quốc khảo sát hạ tầng VSIP Bắc Ninh</h3>
-                <p class="news-desc">Đoàn khảo sát đã trực tiếp đối thoại, khảo sát tiến độ cấp điện của trạm biến áp 110kV và tìm hiểu thủ tục làm hồ sơ đăng ký đầu tư IRC cực kỳ chi tiết.</p>
-              </div>
-            </div>
-
+          <div id="posts-grid" class="news-grid">
+            <p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">⏳ Đang tải bài viết...</p>
           </div>
         </div>
       </section>
@@ -127,5 +98,48 @@
   <footer id="global-footer"></footer>
 
   <script src="app.js"></script>
+  <script>
+    (function() {
+      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
+      function fmtDate(iso) {
+        var d = new Date(iso);
+        return d.getDate() + ' Tháng ' + (d.getMonth()+1) + ', ' + d.getFullYear();
+      }
+
+      var cachedData = null;
+
+      function renderPosts(data) {
+        var grid = document.getElementById('posts-grid');
+        if (!grid) return;
+        if (!data || data.length === 0) {
+          grid.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">Chưa có bài viết nào.</p>';
+          return;
+        }
+        grid.innerHTML = data.map(function(p) {
+          return '<div class="news-card">' +
+            (p.cover_image ? '<img src="' + p.cover_image + '" alt="" class="news-img" loading="lazy">' : '') +
+            '<div class="news-body">' +
+              '<span class="news-meta">📅 ' + fmtDate(p.created_at) + ' | TIN TỨC</span>' +
+              '<h3 class="news-title">' + tf(p,'title') + '</h3>' +
+              '<p class="news-desc">' + tf(p,'summary') + '</p>' +
+            '</div></div>';
+        }).join('');
+      }
+
+      function loadPosts() {
+        if (!window.supabaseClient) { setTimeout(loadPosts, 150); return; }
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
+          .eq('category','tin-tuc').eq('status','published')
+          .order('created_at', { ascending: false })
+          .then(function(res) { cachedData = res.data; renderPosts(res.error ? null : res.data); });
+      }
+
+      loadPosts();
+      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderPosts(cachedData); });
+    })();
+  </script>
 </body>
 </html>

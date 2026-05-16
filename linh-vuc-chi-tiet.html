@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
+  <title id="page-title">Lĩnh Vực - VCEC Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sector-hero-img {
+      width: 100%; height: 190px; object-fit: cover;
+      display: block; position: relative;
+    }
+    .sector-hero-overlay {
+      position: relative; overflow: hidden;
+    }
+    .sector-hero-overlay::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(30,58,95,0.55) 0%, rgba(200,16,46,0.45) 100%);
+    }
+    .sector-hero-overlay img { display: block; width: 100%; height: 190px; object-fit: cover; }
+    .sector-hero-text {
+      position: absolute; bottom: 40px; left: 0; right: 0;
+      z-index: 2; text-align: center; color: #fff; padding: 0 20px;
+    }
+    .sector-hero-num {
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--vcec-gold); margin-bottom: 10px; display: block;
+    }
+    .sector-hero-title {
+      font-family: var(--vcec-font-title); font-size: 2.4rem;
+      line-height: 1.2; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .sector-hero-tagline {
+      font-size: 1rem; color: rgba(255,255,255,0.88); max-width: 600px; margin: 0 auto;
+    }
+
+    .breadcrumb {
+      background: #f9f9f9; border-bottom: 1px solid #eee;
+      padding: 12px 0; font-size: 0.82rem; color: #888;
+    }
+    .breadcrumb a { color: var(--vcec-red); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 8px; }
+
+    .overview-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .overview-text h2 {
+      font-family: var(--vcec-font-title); font-size: 1.8rem;
+      color: var(--vcec-text-dark); margin-bottom: 20px;
+    }
+    .overview-text p {
+      font-size: 0.95rem; color: #555; line-height: 1.8; margin-bottom: 16px;
+    }
+    .overview-img {
+      width: 100%; border-radius: 16px; object-fit: cover; height: 320px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .stats-row {
+      display: flex; gap: 0; margin-top: 36px;
+      border: 1.5px solid var(--vcec-gold-border); border-radius: 12px; overflow: hidden;
+    }
+    .stat-box {
+      flex: 1; text-align: center; padding: 24px 16px;
+      border-right: 1.5px solid var(--vcec-gold-border);
+    }
+    .stat-box:last-child { border-right: none; }
+    .stat-val {
+      font-family: var(--vcec-font-title); font-size: 2rem;
+      color: var(--vcec-red); font-weight: 900; display: block;
+    }
+    .stat-label { font-size: 0.8rem; color: #777; margin-top: 4px; display: block; }
+
+    .opp-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px;
+    }
+    .opp-card {
+      background: #fff; border: 1.5px solid var(--vcec-gold-border);
+      border-radius: 14px; padding: 28px 24px;
+      transition: all 0.3s ease;
+    }
+    .opp-card:hover {
+      border-color: var(--vcec-red);
+      box-shadow: 0 8px 20px rgba(200,16,46,0.08);
+      transform: translateY(-4px);
+    }
+    .opp-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .opp-title {
+      font-family: var(--vcec-font-title); font-size: 1.05rem;
+      color: var(--vcec-text-dark); margin-bottom: 10px;
+    }
+    .opp-desc { font-size: 0.87rem; color: #666; line-height: 1.6; }
+
+    .why-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 36px;
+    }
+    .why-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: #fff; border-radius: 12px; padding: 22px;
+      border-left: 4px solid var(--vcec-red);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .why-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .why-title { font-weight: 700; color: var(--vcec-text-dark); margin-bottom: 6px; font-size: 0.95rem; }
+    .why-desc { font-size: 0.85rem; color: #666; line-height: 1.6; }
+
+    .cta-band {
+      background: linear-gradient(135deg, var(--vcec-navy) 0%, var(--vcec-red) 100%);
+      border-radius: 20px; padding: 50px 40px; text-align: center; color: #fff;
+    }
+    .cta-band h2 { font-family: var(--vcec-font-title); font-size: 1.9rem; margin-bottom: 14px; }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,0.82); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 900px) {
+      .overview-grid { grid-template-columns: 1fr; gap: 30px; }
+      .opp-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .sector-hero-title { font-size: 1.7rem; }
+    }
+    @media (max-width: 600px) {
+      .opp-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; }
+      .stat-box { border-right: none; border-bottom: 1.5px solid var(--vcec-gold-border); }
+      .stat-box:last-child { border-bottom: none; }
+      .cta-band { padding: 36px 20px; }
+    }
+
+    #not-found { text-align: center; padding: 100px 20px; color: #888; }
+  </style>
+</head>
+<body>
+
+  <header id="global-header"></header>
+
+  <main>
+    <div id="sector-not-found" style="display:none;">
+      <div id="not-found">
+        <h2 style="color:var(--vcec-red);font-size:2rem;">404</h2>
+        <p>Không tìm thấy lĩnh vực này. <a href="linh-vuc.html" style="color:var(--vcec-red);">Quay lại danh sách lĩnh vực</a></p>
+      </div>
+    </div>
+
+    <div id="sector-content" style="display:none;">
+
+      <!-- Hero -->
+      <div class="sector-hero-overlay">
+        <img id="hero-img" src="" alt="">
+        <div class="sector-hero-text">
+          <span class="sector-hero-num" id="hero-num"></span>
+          <h1 class="sector-hero-title" id="hero-title"></h1>
+          <p class="sector-hero-tagline" id="hero-tagline"></p>
+        </div>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <div class="container">
+          <a href="index.html">Trang Chủ</a>
+          <span>›</span>
+          <a href="linh-vuc.html">Lĩnh Vực</a>
+          <span>›</span>
+          <span id="bc-title" style="color:#333;"></span>
+        </div>
+      </div>
+
+      <div class="section-content bg-china-motif">
+
+        <!-- Overview -->
+        <section class="section">
+          <div class="container">
+            <div class="overview-grid">
+              <div class="overview-text">
+                <h2 id="ov-title"></h2>
+                <div id="ov-body"></div>
+                <div class="stats-row" id="stats-row"></div>
+              </div>
+              <img id="ov-img" src="" alt="" class="overview-img">
+            </div>
+          </div>
+        </section>
+
+        <!-- Opportunities -->
+        <section class="section section-grey">
+          <div class="container">
+            <div class="section-title">
+              <h2 id="opp-heading">Cơ Hội Đầu Tư Nổi Bật</h2>
+              <p id="opp-sub"></p>
+            </div>
+            <div class="opp-grid" id="opp-grid"></div>
+          </div>
+        </section>
+
+        <!-- Why Vietnam -->
+        <section class="section">
+          <div class="container">
+            <div class="section-title">
+              <h2 id="why-heading">Tại Sao Chọn Việt Nam & VCEC?</h2>
+            </div>
+            <div class="why-grid" id="why-grid"></div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section">
+          <div class="container">
+            <div class="cta-band">
+              <h2 id="cta-title"></h2>
+              <p id="cta-desc"></p>
+              <a href="lien-he.html" class="btn btn-primary" style="font-size:1rem;padding:14px 36px;">Đăng Ký Tư Vấn Ngay</a>
+              &nbsp;&nbsp;
+              <a href="linh-vuc.html" class="btn" style="font-size:1rem;padding:14px 36px;background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.4);">Xem Lĩnh Vực Khác</a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="global-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>
+  (function() {
+    var SECTORS = {
+      electronics: {
+        num: 'SECTOR 01',
+        img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Công nghệ cao & Điện tử', zh: '高新技术与电子', en: 'High-Tech & Electronics' },
+        tagline: { vi: 'Trung tâm sản xuất điện tử chiến lược của Châu Á', zh: '亚洲战略性电子制造中心', en: "Asia's Strategic Electronics Manufacturing Hub" },
+        overview_title: { vi: 'Làn sóng dịch chuyển chuỗi cung ứng điện tử', zh: '电子供应链迁移浪潮', en: 'Electronics Supply Chain Relocation Wave' },
+        overview: {
+          vi: '<p>Việt Nam đang trở thành điểm đến hàng đầu của chuỗi cung ứng điện tử toàn cầu, đặc biệt trong bối cảnh các tập đoàn lớn như Samsung, Intel, LG và Foxconn không ngừng mở rộng quy mô sản xuất tại đây. Điện tử – bán dẫn hiện chiếm hơn 35% tổng kim ngạch xuất khẩu của Việt Nam.</p><p>Các doanh nghiệp Trung Quốc chuyên sản xuất linh kiện bán dẫn, bo mạch PCB, module camera và màn hình đang tìm kiếm địa điểm đặt nhà máy vệ tinh tại các KCN miền Bắc Việt Nam để hưởng lợi từ EVFTA và giảm thiểu rủi ro thuế quan.</p>',
+          zh: '<p>越南正成为全球电子供应链的首选目的地，三星、英特尔、LG和富士康等大型集团不断扩大在越生产规模。电子与半导体行业目前占越南出口总额的35%以上。</p><p>专注于半导体零部件、PCB电路板、摄像头模块和显示屏生产的中国企业，正在越南北部工业区寻找卫星工厂选址，以受益于EVFTA并降低关税风险。</p>',
+          en: '<p>Vietnam is becoming the top destination for global electronics supply chains, with major groups like Samsung, Intel, LG and Foxconn continuously expanding production here. Electronics and semiconductors now account for over 35% of Vietnam\'s total export value.</p><p>Chinese companies specializing in semiconductor components, PCBs, camera modules and displays are seeking satellite factory locations in northern Vietnam\'s industrial zones to benefit from EVFTA and minimize tariff risks.</p>'
+        },
+        stats: [
+          { val: '35%', label: { vi: 'Tỷ trọng xuất khẩu', zh: '出口份额', en: 'Export share' } },
+          { val: '1,200+', label: { vi: 'Nhà máy điện tử', zh: '电子工厂数', en: 'Electronics factories' } },
+          { val: '10 năm', label: { vi: 'Ưu đãi thuế R&D', zh: 'R&D税收优惠', en: 'R&D tax benefit' } }
+        ],
+        opp_sub: { vi: 'Các phân khúc đầu tư tiềm năng cao trong lĩnh vực điện tử tại Việt Nam', zh: '越南电子领域高潜力投资细分市场', en: 'High-potential investment segments in Vietnam\'s electronics sector' },
+        opportunities: [
+          { icon: '🔬', title: { vi: 'Lắp ráp bán dẫn & Vi mạch', zh: '半导体封装与微电路', en: 'Semiconductor Assembly & ICs' }, desc: { vi: 'Xây dựng nhà máy lắp ráp và kiểm thử chip tại các KCN Hải Phòng, Bắc Giang với ưu đãi thuế 10 năm.', zh: '在海防、北江工业区建设芯片封装测试工厂，享受10年税收优惠。', en: 'Build chip assembly and testing facilities in Hai Phong, Bac Giang industrial zones with 10-year tax incentives.' } },
+          { icon: '📱', title: { vi: 'Linh kiện thiết bị thông minh', zh: '智能设备零部件', en: 'Smart Device Components' }, desc: { vi: 'Sản xuất module camera, màn hình OLED, pin Li-ion cung cấp cho chuỗi sản xuất smartphone và laptop.', zh: '生产摄像头模块、OLED屏幕、锂离子电池，供应智能手机和笔记本电脑生产链。', en: 'Manufacture camera modules, OLED displays, and Li-ion batteries for smartphone and laptop supply chains.' } },
+          { icon: '🏭', title: { vi: 'PCB & Cụm linh kiện điện tử', zh: 'PCB与电子组件', en: 'PCBs & Electronic Assemblies' }, desc: { vi: 'Đầu tư nhà máy sản xuất bo mạch, dây cáp điện tử và cụm linh kiện phục vụ xuất khẩu sang EU, Mỹ.', zh: '投资电路板、电子线束和组件工厂，出口欧美市场。', en: 'Invest in PCB, electronic cable and assembly component factories for export to EU and US markets.' } }
+        ],
+        why: [
+          { icon: '🎓', title: { vi: 'Nguồn nhân lực kỹ thuật trẻ', zh: '年轻技术人才', en: 'Young Technical Workforce' }, desc: { vi: '65% dân số dưới 35 tuổi, 400,000 kỹ sư tốt nghiệp mỗi năm, chi phí nhân lực cạnh tranh.', zh: '65%人口35岁以下，每年40万工程师毕业，劳动力成本具有竞争力。', en: '65% of population under 35, 400,000 engineers graduate annually, competitive labor costs.' } },
+          { icon: '🛣️', title: { vi: 'Hạ tầng KCN sát biên giới Trung Quốc', zh: '毗邻中国边境的工业区基础设施', en: 'Industrial Zones near China Border' }, desc: { vi: 'Hành lang kinh tế Hà Nội–Lạng Sơn–Nam Ninh rút ngắn thời gian vận chuyển linh kiện xuống còn 8 giờ.', zh: '河内—谅山—南宁经济走廊将零部件运输时间缩短至8小时。', en: 'Hanoi–Lang Son–Nanning corridor reduces component transport time to 8 hours.' } },
+          { icon: '📜', title: { vi: 'Ưu đãi thuế EVFTA & CPTPP', zh: 'EVFTA和CPTPP税收优惠', en: 'EVFTA & CPTPP Tax Benefits' }, desc: { vi: 'Thuế xuất khẩu điện tử sang EU giảm về 0% theo EVFTA, mở ra thị trường 450 triệu người tiêu dùng.', zh: '根据EVFTA，电子产品出口欧盟关税降至0%，开放4.5亿消费者市场。', en: 'Electronics export tariffs to EU reduced to 0% under EVFTA, opening a 450M consumer market.' } },
+          { icon: '⚡', title: { vi: 'Điện năng ổn định từ đa nguồn', zh: '多源稳定电力供应', en: 'Stable Multi-source Power Supply' }, desc: { vi: 'Các KCN trọng điểm được cấp điện từ 2–3 nguồn độc lập, đảm bảo liên tục sản xuất 24/7.', zh: '重点工业区由2至3个独立电源供电，确保24/7连续生产。', en: 'Key industrial zones powered by 2–3 independent sources, ensuring 24/7 continuous production.' } }
+        ],
+        cta_title: { vi: 'Sẵn sàng khảo sát mặt bằng tại Hải Phòng hoặc Bắc Ninh?', zh: '准备好在海防或北宁考察场地了吗？', en: 'Ready to Survey Sites in Hai Phong or Bac Ninh?' },
+        cta_desc: { vi: 'VCEC cung cấp dịch vụ khảo sát KCN miễn phí, tư vấn thủ tục IRC/ERC và kết nối trực tiếp ban quản lý KCN.', zh: 'VCEC提供免费工业区考察服务、IRC/ERC手续咨询以及与工业区管委会的直接对接。', en: 'VCEC offers free industrial zone surveys, IRC/ERC procedure consulting, and direct connection with IZ management boards.' }
+      },
+
+      energy: {
+        num: 'SECTOR 02',
+        img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Năng lượng tái tạo & Xe điện (EV)', zh: '可再生能源与电动汽车', en: 'Renewable Energy & EV' },
+        tagline: { vi: 'Chuỗi cung ứng xanh – Thị trường tăng trưởng nhanh nhất Đông Nam Á', zh: '绿色供应链——东南亚增长最快的市场', en: 'Green Supply Chain – Southeast Asia\'s Fastest Growing Market' },
+        overview_title: { vi: 'Việt Nam – Điểm đến mới của chuỗi EV châu Á', zh: '越南——亚洲电动汽车供应链新目的地', en: 'Vietnam – New Destination for Asia\'s EV Supply Chain' },
+        overview: {
+          vi: '<p>Chính phủ Việt Nam đặt mục tiêu đạt 50% tỷ trọng năng lượng tái tạo vào năm 2030 và phê duyệt lộ trình điện khí hóa 100% phương tiện giao thông đô thị trước 2035. Đây là động lực tạo ra thị trường tỷ đô cho chuỗi cung ứng pin, linh kiện EV và hạ tầng sạc.</p><p>Các doanh nghiệp Trung Quốc hàng đầu trong lĩnh vực pin lithium, tấm pin mặt trời và tua-bin gió đang tích cực tìm kiếm đối tác và địa điểm đầu tư tại Việt Nam để tận dụng ưu đãi thuế 10% trong 15 năm.</p>',
+          zh: '<p>越南政府目标在2030年前将可再生能源比例提高到50%，并批准了2035年前实现城市交通工具100%电气化的路线图。这为电池供应链、电动汽车零部件和充电基础设施创造了数十亿美元的市场。</p><p>中国顶级锂电池、太阳能电池板和风力涡轮机企业正在越南积极寻找合作伙伴和投资地点，以享受15年10%税率优惠。</p>',
+          en: '<p>The Vietnamese government targets 50% renewable energy by 2030 and has approved a roadmap for 100% electrification of urban transport before 2035. This creates a multi-billion dollar market for battery supply chains, EV components, and charging infrastructure.</p><p>China\'s top lithium battery, solar panel, and wind turbine companies are actively seeking partners and investment locations in Vietnam to leverage 10% preferential tax rates for 15 years.</p>'
+        },
+        stats: [
+          { val: '50%', label: { vi: 'Mục tiêu tái tạo 2030', zh: '2030年可再生能源目标', en: 'Renewable target 2030' } },
+          { val: '15 năm', label: { vi: 'Ưu đãi thuế NLTT', zh: '新能源税收优惠期', en: 'Renewable tax benefit' } },
+          { val: '$8B+', label: { vi: 'Đầu tư EV dự kiến', zh: '预计EV投资', en: 'Expected EV investment' } }
+        ],
+        opp_sub: { vi: 'Phân khúc đầu tư tiềm năng trong lĩnh vực năng lượng sạch và xe điện', zh: '清洁能源与电动汽车领域的高潜力投资细分市场', en: 'High-potential investment segments in clean energy and EV' },
+        opportunities: [
+          { icon: '🔋', title: { vi: 'Sản xuất pin EV & Lưu trữ năng lượng', zh: '电动汽车电池与储能制造', en: 'EV Battery & Energy Storage Manufacturing' }, desc: { vi: 'Đầu tư nhà máy sản xuất pin lithium, pack pin và hệ thống quản lý năng lượng BMS tại các KCN Bình Dương, Bắc Giang.', zh: '在平阳、北江工业区投资建设锂电池、电池组和BMS能源管理系统生产工厂。', en: 'Invest in lithium battery, battery pack, and BMS manufacturing in Binh Duong and Bac Giang industrial zones.' } },
+          { icon: '☀️', title: { vi: 'Tấm pin mặt trời & Inverter', zh: '太阳能电池板与逆变器', en: 'Solar Panels & Inverters' }, desc: { vi: 'Lắp ráp và xuất khẩu module quang điện, microinverter sang thị trường EU và Mỹ hưởng ưu đãi EVFTA.', zh: '组装和出口光伏模块、微逆变器至欧美市场，享受EVFTA优惠。', en: 'Assemble and export photovoltaic modules and microinverters to EU and US markets under EVFTA.' } },
+          { icon: '🚗', title: { vi: 'Linh kiện & Hạ tầng xe điện', zh: '电动汽车零部件与基础设施', en: 'EV Components & Infrastructure' }, desc: { vi: 'Sản xuất motor điện, bộ sạc nhanh, thanh đồng dẫn điện và thiết bị kiểm thử cho thị trường ASEAN đang tăng trưởng nhanh.', zh: '为快速增长的东盟市场生产电机、快速充电器、铜排和测试设备。', en: 'Manufacture electric motors, fast chargers, copper busbars and testing equipment for the fast-growing ASEAN market.' } }
+        ],
+        why: [
+          { icon: '🌊', title: { vi: 'Tiềm năng điện gió ngoài khơi khổng lồ', zh: '巨大的海上风电潜力', en: 'Massive Offshore Wind Potential' }, desc: { vi: 'Đường bờ biển 3,200 km với tốc độ gió trung bình 8–10 m/s — tiềm năng điện gió lớn nhất Đông Nam Á.', zh: '3200公里海岸线，平均风速8-10米/秒——东南亚最大的风电潜力。', en: '3,200 km coastline with average wind speed 8–10 m/s – the largest offshore wind potential in Southeast Asia.' } },
+          { icon: '💰', title: { vi: 'Ưu đãi thuế đặc biệt ngành NLTT', zh: '可再生能源特殊税收优惠', en: 'Special Renewable Energy Tax Benefits' }, desc: { vi: 'Thuế suất ưu đãi 10% trong 15 năm, miễn 4 năm đầu, giảm 50% cho 9 năm tiếp theo.', zh: '15年10%优惠税率，前4年免税，随后9年减税50%。', en: '10% preferential rate for 15 years, 4-year exemption, 50% reduction for the next 9 years.' } },
+          { icon: '🏗️', title: { vi: 'Quy hoạch điện VIII tạo nhu cầu lớn', zh: '第八期电力规划创造巨大需求', en: 'Power Plan VIII Creates Massive Demand' }, desc: { vi: 'Kế hoạch 130 GW công suất lắp đặt đến 2030 tạo ra nhu cầu khổng lồ cho thiết bị và dịch vụ kỹ thuật.', zh: '2030年前130吉瓦装机容量计划为设备和技术服务创造巨大需求。', en: 'Plan for 130 GW installed capacity by 2030 creates massive demand for equipment and technical services.' } },
+          { icon: '🌿', title: { vi: 'Thị trường carbon và tín chỉ xanh', zh: '碳市场与绿色信用', en: 'Carbon Market & Green Credits' }, desc: { vi: 'Việt Nam triển khai thị trường carbon nội địa 2026, tạo doanh thu bổ sung cho các nhà đầu tư NLTT.', zh: '越南2026年推出国内碳市场，为可再生能源投资者创造额外收入。', en: 'Vietnam launches domestic carbon market in 2026, creating additional revenue for renewable energy investors.' } }
+        ],
+        cta_title: { vi: 'Khám phá cơ hội đầu tư năng lượng tái tạo tại Việt Nam', zh: '探索越南可再生能源投资机会', en: 'Explore Renewable Energy Investment Opportunities in Vietnam' },
+        cta_desc: { vi: 'VCEC kết nối trực tiếp với Cục Điện lực và Năng lượng tái tạo, EVN và các chủ đầu tư dự án điện gió, điện mặt trời hàng đầu.', zh: 'VCEC直接对接电力和可再生能源局、越南电力集团以及顶级风能、太阳能项目投资商。', en: 'VCEC connects directly with the Electricity and Renewable Energy Authority, EVN, and top wind and solar project investors.' }
+      },
+
+      logistics: {
+        num: 'SECTOR 03',
+        img: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1494522855154-9297ac14b55f?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Logistics & Chuỗi cung ứng', zh: '物流与供应链', en: 'Logistics & Supply Chain' },
+        tagline: { vi: 'Hành lang kết nối Trung Quốc – ASEAN qua cửa ngõ Việt Nam', zh: '连接中国与东盟的越南走廊', en: 'China–ASEAN Connection Corridor via Vietnam' },
+        overview_title: { vi: 'Vị trí địa chiến lược – Cửa ngõ thương mại Trung Quốc – ASEAN', zh: '地缘战略位置——中国与东盟的贸易门户', en: 'Geostrategic Position – China–ASEAN Trade Gateway' },
+        overview: {
+          vi: '<p>Việt Nam nằm trên hành lang thương mại chiến lược nối liền miền Nam Trung Quốc với toàn bộ thị trường ASEAN. Với 3,200 km bờ biển, 22 cảng biển quốc tế và hành lang đường sắt Hà Nội–Lạng Sơn–Nam Ninh đang được nâng cấp, Việt Nam đang trở thành trung tâm logistics hàng đầu Đông Nam Á.</p><p>Cơ hội đầu tư vào kho bãi thông minh, hệ thống cold chain, trung tâm phân phối xuyên biên giới và công nghệ hải quan tích hợp đang mở ra dành cho các nhà đầu tư Trung Quốc.</p>',
+          zh: '<p>越南位于连接中国南部与整个东盟市场的战略贸易走廊上。凭借3200公里海岸线、22个国际港口以及正在升级的河内—谅山—南宁铁路走廊，越南正成为东南亚首要物流中心。</p><p>智能仓储、冷链系统、跨境配送中心和综合海关技术的投资机会正向中国投资者敞开。</p>',
+          en: '<p>Vietnam lies on the strategic trade corridor connecting southern China with the entire ASEAN market. With 3,200 km of coastline, 22 international seaports, and the Hanoi–Lang Son–Nanning rail corridor being upgraded, Vietnam is becoming Southeast Asia\'s premier logistics hub.</p><p>Investment opportunities in smart warehousing, cold chain systems, cross-border distribution centers, and integrated customs technology are opening up for Chinese investors.</p>'
+        },
+        stats: [
+          { val: '22', label: { vi: 'Cảng biển quốc tế', zh: '国际海港', en: 'International seaports' } },
+          { val: '3,200km', label: { vi: 'Chiều dài bờ biển', zh: '海岸线长度', en: 'Coastline length' } },
+          { val: 'Top 3', label: { vi: 'Logistics ASEAN', zh: '东南亚物流排名', en: 'ASEAN logistics rank' } }
+        ],
+        opp_sub: { vi: 'Các phân khúc logistics đang thiếu hụt đầu tư lớn tại thị trường Việt Nam', zh: '越南市场严重缺乏投资的物流细分市场', en: 'Logistics segments with major investment gaps in Vietnam' },
+        opportunities: [
+          { icon: '🏪', title: { vi: 'Kho bãi thông minh & Tự động hóa', zh: '智能仓储与自动化', en: 'Smart Warehousing & Automation' }, desc: { vi: 'Đầu tư hệ thống kho AGV, WMS tích hợp AI và robot phân loại hàng hóa tại các trung tâm logistics Hà Nội, TP.HCM.', zh: '在河内、胡志明市物流中心投资AGV仓储系统、AI集成WMS和货物分拣机器人。', en: 'Invest in AGV warehouse systems, AI-integrated WMS, and sorting robots at Hanoi and HCMC logistics centers.' } },
+          { icon: '❄️', title: { vi: 'Chuỗi lạnh nông sản & Dược phẩm', zh: '农产品与药品冷链', en: 'Agri & Pharma Cold Chain' }, desc: { vi: 'Xây dựng kho lạnh chuẩn GDP, xe tải lạnh và hệ thống giám sát nhiệt độ IoT phục vụ xuất khẩu nông sản và y tế.', zh: '建设符合GDP标准的冷库、冷藏车和物联网温度监控系统，服务农产品和医疗品出口。', en: 'Build GDP-standard cold storage, refrigerated trucks, and IoT temperature monitoring for agri and medical exports.' } },
+          { icon: '🚂', title: { vi: 'Vận tải liên vận đường sắt xuyên biên giới', zh: '跨境铁路联运', en: 'Cross-border Rail Intermodal' }, desc: { vi: 'Khai thác dịch vụ tàu hàng Việt Nam–Trung Quốc–châu Âu qua cửa khẩu Lào Cai, Lạng Sơn, Móng Cái.', zh: '通过老街、谅山、芒街口岸运营越南—中国—欧洲货运班列服务。', en: 'Operate Vietnam–China–Europe freight train services through Lao Cai, Lang Son, and Mong Cai border gates.' } }
+        ],
+        why: [
+          { icon: '🗺️', title: { vi: 'Vị trí trung tâm ASEAN', zh: '东盟中心位置', en: 'Central ASEAN Location' }, desc: { vi: 'Bán kính 2,000 km từ Hà Nội bao phủ thị trường 2.4 tỷ người tiêu dùng của toàn bộ ASEAN + Nam Trung Quốc.', zh: '以河内为中心2000公里半径覆盖东盟+中国南部24亿消费者市场。', en: 'A 2,000 km radius from Hanoi covers a 2.4 billion consumer market across ASEAN and southern China.' } },
+          { icon: '🚢', title: { vi: 'Hệ thống cảng nước sâu chiến lược', zh: '战略性深水港体系', en: 'Strategic Deep-water Port System' }, desc: { vi: 'Cảng Lạch Huyện (Hải Phòng) tiếp nhận tàu 100,000 DWT, kết nối trực tiếp tuyến châu Á–châu Âu.', zh: '锦墟港（海防）可接纳10万吨级船舶，直接连接亚欧航线。', en: 'Lach Huyen Port (Hai Phong) accepts 100,000 DWT vessels with direct Asia–Europe route connections.' } },
+          { icon: '📊', title: { vi: 'Thương mại song phương tăng mạnh', zh: '双边贸易强劲增长', en: 'Strong Bilateral Trade Growth' }, desc: { vi: 'Kim ngạch thương mại Việt–Trung đạt $180 tỷ USD năm 2025, tăng trưởng 15% mỗi năm.', zh: '越中贸易额2025年达1800亿美元，每年增长15%。', en: 'Vietnam–China trade reached $180 billion in 2025, growing 15% annually.' } },
+          { icon: '🤖', title: { vi: 'Hải quan điện tử thông minh', zh: '智能电子海关', en: 'Smart Electronic Customs' }, desc: { vi: 'Hệ thống VNACCS tích hợp AI giảm thời gian thông quan xuống còn 4 giờ, hỗ trợ doanh nghiệp ưu tiên.', zh: 'AI集成的VNACCS系统将通关时间缩短至4小时，支持优先级企业。', en: 'AI-integrated VNACCS system reduces customs clearance time to 4 hours, supporting priority businesses.' } }
+        ],
+        cta_title: { vi: 'Tìm hiểu cơ hội logistics & chuỗi cung ứng tại Việt Nam', zh: '了解越南物流与供应链投资机会', en: 'Discover Logistics & Supply Chain Opportunities in Vietnam' },
+        cta_desc: { vi: 'VCEC hỗ trợ kết nối doanh nghiệp logistics Trung Quốc với các KCN logistics Hà Nội, Hải Phòng, TP.HCM.', zh: 'VCEC支持中国物流企业与河内、海防、胡志明市物流工业区对接。', en: 'VCEC helps Chinese logistics companies connect with logistics industrial zones in Hanoi, Hai Phong, and HCMC.' }
+      },
+
+      infra: {
+        num: 'SECTOR 04',
+        img: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Hạ tầng Khu công nghiệp', zh: '工业区基础设施', en: 'Industrial Zone Infrastructure' },
+        tagline: { vi: 'Hơn 400 KCN sẵn sàng tiếp nhận — Đất công nghiệp bàn giao ngay', zh: '400多个工业区准备就绪——工业用地即时交付', en: 'Over 400 Industrial Zones Ready – Industrial Land Available Immediately' },
+        overview_title: { vi: 'Hệ sinh thái KCN hoàn chỉnh – Sẵn sàng đón nhà đầu tư', zh: '完善的工业区生态系统——准备好迎接投资者', en: 'Complete IZ Ecosystem – Ready to Welcome Investors' },
+        overview: {
+          vi: '<p>Việt Nam sở hữu hơn 400 khu công nghiệp trải dài từ Bắc đến Nam, trong đó hơn 200 KCN đã có hạ tầng hoàn chỉnh với điện, nước, viễn thông, xử lý nước thải đạt chuẩn sinh thái. Tổng diện tích đất KCN sẵn sàng cho thuê đạt 85,000 ha.</p><p>Chính phủ vừa phê duyệt quy hoạch 5 KCN hạng A mới tại miền Bắc giai đoạn 2026–2030 với tổng diện tích 3,200 ha, ưu tiên thu hút đầu tư vào chip bán dẫn, công nghiệp hỗ trợ và logistics thông minh.</p>',
+          zh: '<p>越南拥有400多个从北到南的工业区，其中200多个已具备完整基础设施，包括电力、供水、电信和达到生态标准的污水处理系统。可租赁工业用地总面积达8.5万公顷。</p><p>政府刚批准2026-2030年在北部新建5个A级工业区的规划，总面积3200公顷，优先吸引半导体芯片、配套工业和智慧物流投资。</p>',
+          en: '<p>Vietnam has over 400 industrial zones spanning from North to South, with over 200 having complete infrastructure including power, water, telecoms, and eco-standard wastewater treatment. Total leasable industrial land area reaches 85,000 hectares.</p><p>The government has just approved 5 new Grade-A industrial zones in the North for 2026–2030 with a total area of 3,200 hectares, prioritizing semiconductor chips, supporting industries, and smart logistics.</p>'
+        },
+        stats: [
+          { val: '400+', label: { vi: 'Khu công nghiệp', zh: '工业区数量', en: 'Industrial zones' } },
+          { val: '85,000ha', label: { vi: 'Đất KCN sẵn sàng', zh: '可用工业用地', en: 'Available IZ land' } },
+          { val: '14', label: { vi: 'Tỉnh trọng điểm', zh: '重点省份', en: 'Key provinces' } }
+        ],
+        opp_sub: { vi: 'Cơ hội đầu tư hạ tầng và phát triển KCN tại Việt Nam', zh: '越南工业区基础设施和开发投资机会', en: 'Infrastructure investment and IZ development opportunities in Vietnam' },
+        opportunities: [
+          { icon: '🏗️', title: { vi: 'Xây dựng & Cho thuê nhà xưởng sẵn', zh: '厂房建设与租赁', en: 'Ready-built Factory Construction & Leasing' }, desc: { vi: 'Đầu tư xây dựng nhà xưởng tiêu chuẩn cao để cho thuê tại các KCN đang thiếu hụt cung cấp, tỷ suất lợi nhuận 8–12%/năm.', zh: '在供应短缺的工业区投资建设高标准厂房出租，年回报率8-12%。', en: 'Invest in high-standard factory construction for leasing in supply-short industrial zones, 8–12% annual return.' } },
+          { icon: '🌿', title: { vi: 'KCN Sinh thái & Tiêu chuẩn xanh', zh: '生态工业区与绿色标准', en: 'Eco-industrial Zones & Green Standards' }, desc: { vi: 'Phát triển KCN theo tiêu chuẩn LEED, ISO 14001 phục vụ nhà đầu tư FDI châu Âu yêu cầu tiêu chuẩn ESG.', zh: '按LEED、ISO 14001标准开发工业区，服务有ESG要求的欧洲FDI投资者。', en: 'Develop industrial zones to LEED and ISO 14001 standards serving European FDI investors with ESG requirements.' } },
+          { icon: '🤝', title: { vi: 'Hợp tác đầu tư phát triển hạ tầng', zh: '基础设施开发投资合作', en: 'Infrastructure Development Investment Partnership' }, desc: { vi: 'Tham gia consortium đầu tư vào hạ tầng điện, nước, xử lý nước thải cho KCN mới với bảo lãnh doanh thu 15 năm.', zh: '参与电力、供水、污水处理基础设施投资联合体，享受15年收入保障。', en: 'Join investment consortiums in power, water, and wastewater infrastructure for new IZs with 15-year revenue guarantees.' } }
+        ],
+        why: [
+          { icon: '📍', title: { vi: 'Vị trí chiến lược đa dạng', zh: '多样化战略位置', en: 'Diverse Strategic Locations' }, desc: { vi: 'KCN phân bố từ Hà Nội, Hải Phòng, Quảng Ninh đến TP.HCM, Bình Dương, Đồng Nai phủ khắp chuỗi cung ứng.', zh: '工业区分布从河内、海防、广宁到胡志明市、平阳、同奈，覆盖整个供应链。', en: 'IZs distributed from Hanoi, Hai Phong, Quang Ninh to HCMC, Binh Duong, Dong Nai, covering the full supply chain.' } },
+          { icon: '⚖️', title: { vi: 'Thủ tục đầu tư KCN đơn giản', zh: '工业区投资手续简便', en: 'Simple IZ Investment Procedures' }, desc: { vi: 'Ban quản lý KCN là đầu mối duy nhất cấp phép đầu tư, rút ngắn thời gian từ 6 tháng xuống còn 45 ngày.', zh: '工业区管委会是唯一的投资许可证发放机构，将审批时间从6个月缩短至45天。', en: 'The IZ management board is the single-stop licensing authority, reducing processing time from 6 months to 45 days.' } },
+          { icon: '💼', title: { vi: 'Thị trường cho thuê tăng trưởng mạnh', zh: '强劲增长的租赁市场', en: 'Strong Growing Rental Market' }, desc: { vi: 'Tỷ lệ lấp đầy KCN hạng A đạt 92%+ tại Hà Nội và TP.HCM, tạo áp lực nhu cầu lớn cho KCN mới.', zh: '河内和胡志明市A级工业区入驻率达92%以上，为新工业区创造巨大需求压力。', en: 'Grade-A IZ occupancy rates exceed 92% in Hanoi and HCMC, creating strong demand pressure for new zones.' } },
+          { icon: '🔌', title: { vi: 'Hạ tầng kỹ thuật đồng bộ', zh: '配套完整的技术基础设施', en: 'Complete Technical Infrastructure' }, desc: { vi: 'Điện 3 pha ổn định, nước công nghiệp đảm bảo, internet cáp quang và hệ thống xử lý chất thải tập trung đầy đủ.', zh: '稳定三相电、工业用水保障、光纤互联网和集中废物处理系统一应俱全。', en: 'Stable 3-phase power, guaranteed industrial water, fiber-optic internet, and centralized waste treatment fully available.' } }
+        ],
+        cta_title: { vi: 'Cần mặt bằng nhà xưởng hoặc đất KCN tại Việt Nam?', zh: '需要在越南找厂房或工业用地？', en: 'Need Factory Space or Industrial Land in Vietnam?' },
+        cta_desc: { vi: 'VCEC cung cấp dịch vụ tư vấn chọn KCN, khảo sát thực địa và đàm phán hợp đồng thuê đất tại hơn 50 KCN đối tác trên toàn quốc.', zh: 'VCEC提供工业区选址咨询、实地考察以及全国50多个合作工业区土地租赁合同谈判服务。', en: 'VCEC provides IZ selection consulting, site surveys, and land lease negotiation at over 50 partner IZs nationwide.' }
+      },
+
+      agri: {
+        num: 'SECTOR 05',
+        img: 'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Nông nghiệp công nghệ cao', zh: '高新技术农业', en: 'High-Tech Agriculture' },
+        tagline: { vi: 'Vựa lúa – Vườn trái cây của châu Á đang chuyển mình với công nghệ', zh: '亚洲粮仓和果园正借助技术转型升级', en: 'Asia\'s Rice Bowl & Fruit Garden Transforming with Technology' },
+        overview_title: { vi: 'Nông nghiệp thông minh – Cơ hội xuất khẩu chính ngạch qua cửa khẩu số', zh: '智慧农业——通过数字口岸正规出口的机遇', en: 'Smart Agriculture – Formal Export Opportunities via Digital Border Gates' },
+        overview: {
+          vi: '<p>Việt Nam là một trong những nước xuất khẩu nông sản lớn nhất thế giới: Top 3 xuất khẩu gạo, Top 2 cà phê, Top 1 hạt tiêu và hạt điều. Kim ngạch xuất khẩu nông lâm thủy sản năm 2025 đạt $55 tỷ USD.</p><p>Tuy nhiên, 60% giá trị xuất khẩu bị mất do chế biến thô, bảo quản kém và chuỗi lạnh thiếu hụt. Đây chính là cơ hội lớn cho các nhà đầu tư Trung Quốc trong lĩnh vực công nghệ sau thu hoạch, chế biến sâu và xuất khẩu chính ngạch.</p>',
+          zh: '<p>越南是世界最大农产品出口国之一：大米出口全球前三、咖啡全球第二、胡椒和腰果全球第一。2025年农林水产品出口额达550亿美元。</p><p>然而，由于粗加工、保存不当和冷链短缺，60%的出口价值流失。这正是中国投资者在采后技术、深加工和正规出口领域的重大机遇。</p>',
+          en: '<p>Vietnam is one of the world\'s largest agricultural exporters: Top 3 in rice, Top 2 in coffee, #1 in pepper and cashews. Agricultural, forestry and fishery exports reached $55 billion in 2025.</p><p>However, 60% of export value is lost due to crude processing, poor storage, and cold chain shortages. This is a major opportunity for Chinese investors in post-harvest technology, deep processing, and formal export channels.</p>'
+        },
+        stats: [
+          { val: '$55B', label: { vi: 'Xuất khẩu nông sản 2025', zh: '2025年农产品出口', en: 'Agri export 2025' } },
+          { val: 'Top 3', label: { vi: 'Xuất khẩu gạo toàn cầu', zh: '全球大米出口排名', en: 'Global rice export rank' } },
+          { val: '60%', label: { vi: 'Tiềm năng tăng giá trị', zh: '增值潜力', en: 'Value-add potential' } }
+        ],
+        opp_sub: { vi: 'Phân khúc đầu tư nông nghiệp công nghệ cao tại Việt Nam', zh: '越南高新技术农业投资细分市场', en: 'High-tech agriculture investment segments in Vietnam' },
+        opportunities: [
+          { icon: '🏭', title: { vi: 'Nhà máy chế biến nông sản xuất khẩu', zh: '农产品出口加工厂', en: 'Agricultural Processing Factories for Export' }, desc: { vi: 'Đầu tư nhà máy đóng gói, sấy lạnh, tiệt trùng và cấp đông nông sản phục vụ xuất khẩu chính ngạch sang Trung Quốc và EU.', zh: '投资农产品包装、冷干燥、灭菌和速冻工厂，服务中国和欧盟正规出口。', en: 'Invest in packaging, freeze-drying, sterilization, and quick-freeze factories for formal export to China and EU.' } },
+          { icon: '🌱', title: { vi: 'Công nghệ nông nghiệp thông minh', zh: '智慧农业技术', en: 'Smart Farming Technology' }, desc: { vi: 'Triển khai hệ thống nhà màng thông minh, tưới nhỏ giọt IoT và quản lý nông trại bằng drone và AI tại các vùng nông nghiệp trọng điểm.', zh: '在重点农业区部署智能温室系统、物联网滴灌和无人机、人工智能农场管理。', en: 'Deploy smart greenhouse systems, IoT drip irrigation, and drone and AI farm management in key agricultural areas.' } },
+          { icon: '📦', title: { vi: 'Thương mại điện tử nông sản xuyên biên giới', zh: '跨境农产品电子商务', en: 'Cross-border Agricultural E-commerce' }, desc: { vi: 'Xây dựng nền tảng TMĐT kết nối nông sản Việt Nam với người tiêu dùng Trung Quốc qua các cửa khẩu số Lào Cai, Lạng Sơn.', zh: '建立电子商务平台，通过老街、谅山数字口岸将越南农产品与中国消费者连接。', en: 'Build e-commerce platforms connecting Vietnamese agricultural products with Chinese consumers via digital border gates at Lao Cai and Lang Son.' } }
+        ],
+        why: [
+          { icon: '☀️', title: { vi: 'Khí hậu nông nghiệp đa dạng', zh: '多样化农业气候', en: 'Diverse Agricultural Climate' }, desc: { vi: 'Từ vùng rau ôn đới Đà Lạt, lúa Đồng bằng sông Cửu Long đến trái cây nhiệt đới miền Đông – đa dạng nhất Đông Nam Á.', zh: '从大叻温带蔬菜区、湄公河三角洲水稻到东部热带水果——东南亚最多样化。', en: 'From Da Lat temperate vegetables, Mekong Delta rice to eastern tropical fruits – the most diverse in Southeast Asia.' } },
+          { icon: '🚪', title: { vi: 'Cửa khẩu số thông minh Việt–Trung', zh: '越中智能数字口岸', en: 'Vietnam–China Smart Digital Border Gates' }, desc: { vi: 'Hệ thống thông quan điện tử 24/7 tại Lào Cai, Lạng Sơn, Móng Cái rút ngắn thời gian thông quan nông sản xuống 2 giờ.', zh: '老街、谅山、芒街24/7电子通关系统将农产品通关时间缩短至2小时。', en: '24/7 electronic customs at Lao Cai, Lang Son, Mong Cai reduces agri clearance time to 2 hours.' } },
+          { icon: '👨‍🌾', title: { vi: 'Lực lượng lao động nông nghiệp dồi dào', zh: '丰富的农业劳动力', en: 'Abundant Agricultural Workforce' }, desc: { vi: '10 triệu hộ nông dân sẵn sàng tham gia mô hình liên kết chuỗi giá trị với doanh nghiệp FDI.', zh: '1000万农户准备参与FDI企业价值链连接模式。', en: '10 million farming households ready to join value chain linkage models with FDI enterprises.' } },
+          { icon: '🌏', title: { vi: 'Thị trường tiêu dùng 1.4 tỷ người kề cận', zh: '毗邻14亿消费者市场', en: '1.4 Billion Consumer Market Next Door' }, desc: { vi: 'Nhu cầu nhập khẩu nông sản nhiệt đới của Trung Quốc tăng 20%/năm, Việt Nam là nguồn cung gần nhất và đạt chuẩn.', zh: '中国热带农产品进口需求每年增长20%，越南是最近的达标供应来源。', en: 'China\'s tropical agri import demand grows 20%/year; Vietnam is the nearest compliant supply source.' } }
+        ],
+        cta_title: { vi: 'Đầu tư nông nghiệp công nghệ cao tại Việt Nam cùng VCEC', zh: '与VCEC共同投资越南高新技术农业', en: 'Invest in Vietnam High-Tech Agriculture with VCEC' },
+        cta_desc: { vi: 'VCEC kết nối doanh nghiệp với Bộ Nông nghiệp, các Hiệp hội xuất khẩu và hệ thống KCN nông nghiệp công nghệ cao tại Đà Lạt, Tây Nguyên và ĐBSCL.', zh: 'VCEC将企业与农业部、出口协会以及大叻、西原和湄公河三角洲高新技术农业工业区体系对接。', en: 'VCEC connects businesses with the Ministry of Agriculture, export associations, and high-tech agri IZ systems in Da Lat, Central Highlands, and the Mekong Delta.' }
+      },
+
+      textile: {
+        num: 'SECTOR 06',
+        img: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Dệt may & Công nghiệp phụ trợ', zh: '纺织服装与配套工业', en: 'Textiles & Supporting Industries' },
+        tagline: { vi: 'Top 3 xuất khẩu dệt may thế giới – Cần đầu tư thượng nguồn khẩn cấp', zh: '全球纺织品出口前三——急需上游投资', en: 'World Top-3 Garment Exporter – Urgent Upstream Investment Needed' },
+        overview_title: { vi: 'Việt Nam xuất khẩu dệt may $44 tỷ – Nhưng 70% nguyên liệu nhập từ Trung Quốc', zh: '越南纺织服装出口440亿美元——但70%原材料从中国进口', en: 'Vietnam Exports $44B in Textiles – But 70% of Raw Materials Imported from China' },
+        overview: {
+          vi: '<p>Việt Nam là nước xuất khẩu dệt may lớn thứ 3 thế giới với kim ngạch $44 tỷ USD năm 2025. Tuy nhiên, 70% nguyên liệu (vải, sợi, phụ liệu) phải nhập khẩu từ Trung Quốc, khiến ngành đang gặp điểm nghẽn nghiêm trọng về xuất xứ để hưởng ưu đãi EVFTA.</p><p>Đây là cơ hội vàng cho doanh nghiệp Trung Quốc đầu tư nhà máy kéo sợi, dệt vải, nhuộm hoàn tất ngay tại Việt Nam – vừa cung cấp nguyên liệu xuất xứ Việt cho ngành may mặc, vừa hưởng toàn bộ ưu đãi thuế EU/US.</p>',
+          zh: '<p>越南是全球第三大纺织品出口国，2025年出口额达440亿美元。然而，70%的原材料（面料、纱线、辅料）须从中国进口，导致该行业在享受EVFTA优惠方面面临严重的原产地瓶颈。</p><p>这对中国企业是绝佳机遇——在越南直接投资纺纱、织布、染色整理工厂，既向制衣业提供越南原产地原材料，又享受全部欧美关税优惠。</p>',
+          en: '<p>Vietnam is the world\'s 3rd largest garment exporter with $44 billion in 2025. However, 70% of raw materials (fabrics, yarn, accessories) must be imported from China, creating a critical bottleneck in origin requirements for EVFTA benefits.</p><p>This is a golden opportunity for Chinese companies to invest in spinning, weaving, and dyeing factories directly in Vietnam – supplying Vietnamese-origin raw materials to the garment industry while enjoying full EU/US tariff preferences.</p>'
+        },
+        stats: [
+          { val: '$44B', label: { vi: 'Xuất khẩu dệt may 2025', zh: '2025年纺织服装出口', en: 'Textile export 2025' } },
+          { val: 'Top 3', label: { vi: 'Xuất khẩu dệt may toàn cầu', zh: '全球纺织品出口排名', en: 'Global garment export rank' } },
+          { val: '0%', label: { vi: 'Thuế EU theo EVFTA', zh: 'EVFTA欧盟税率', en: 'EU tariff under EVFTA' } }
+        ],
+        opp_sub: { vi: 'Điểm nghẽn chuỗi cung ứng – Cơ hội đầu tư thượng nguồn cho doanh nghiệp Trung Quốc', zh: '供应链瓶颈——中国企业上游投资机遇', en: 'Supply Chain Bottleneck – Upstream Investment Opportunity for Chinese Companies' },
+        opportunities: [
+          { icon: '🧵', title: { vi: 'Nhà máy kéo sợi & Dệt vải', zh: '纺纱与织布工厂', en: 'Spinning & Weaving Factories' }, desc: { vi: 'Đầu tư nhà máy kéo sợi OE, ring spinning và dệt vải thoi, vải dệt kim với năng lực sản xuất 10,000–50,000 tấn/năm.', zh: '投资OE气流纺、环锭纺纱和梭织、针织面料工厂，年产能1万至5万吨。', en: 'Invest in OE, ring spinning, and shuttle/knit fabric factories with 10,000–50,000 ton/year capacity.' } },
+          { icon: '🎨', title: { vi: 'Nhuộm hoàn tất & In kỹ thuật số', zh: '染色整理与数字印花', en: 'Dyeing, Finishing & Digital Printing' }, desc: { vi: 'Xây dựng nhà máy nhuộm công nghệ thân thiện môi trường đạt chuẩn Bluesign/GOTS cung cấp cho nhà máy may xuất khẩu EU.', zh: '建设符合Bluesign/GOTS标准的环保染整工厂，为欧盟出口成衣工厂供货。', en: 'Build Bluesign/GOTS certified eco-dyeing factories supplying EU-export garment manufacturers.' } },
+          { icon: '🔧', title: { vi: 'Phụ liệu may mặc & Công nghiệp hỗ trợ', zh: '服装辅料与配套工业', en: 'Garment Accessories & Supporting Industries' }, desc: { vi: 'Sản xuất cúc, kéo, phéc-mơ-tuya, chỉ may, nhãn mác và bao bì tại Việt Nam để loại trừ chi phí nhập khẩu và đáp ứng yêu cầu xuất xứ.', zh: '在越南生产纽扣、拉链、缝纫线、标签和包装，消除进口成本并满足原产地要求。', en: 'Manufacture buttons, zippers, sewing threads, labels, and packaging in Vietnam to eliminate import costs and meet origin requirements.' } }
+        ],
+        why: [
+          { icon: '📋', title: { vi: 'EVFTA – Thuế 0% vào thị trường EU 450 triệu người', zh: 'EVFTA——向4.5亿人口欧盟市场零关税', en: 'EVFTA – 0% Tariff to 450M EU Market' }, desc: { vi: 'Dệt may xuất khẩu từ Việt Nam vào EU giảm thuế từ 12% xuống 0% theo EVFTA, điều kiện: xuất xứ hai công đoạn.', zh: '从越南出口至欧盟的纺织品关税按EVFTA从12%降至0%，条件：双重加工原产地。', en: 'Textiles exported from Vietnam to EU reduced from 12% to 0% under EVFTA, condition: double-stage origin requirement.' } },
+          { icon: '🏭', title: { vi: 'KCN dệt may chuyên dụng đang hình thành', zh: '专业纺织工业区正在形成', en: 'Dedicated Textile Industrial Zones Taking Shape' }, desc: { vi: 'KCN dệt may tập trung tại Nam Định, Thái Bình, Long An với hệ thống xử lý nước thải dùng chung, hạ tầng điện mạnh.', zh: '南定、太平、隆安集中纺织工业区，配备共用污水处理系统和强大电力基础设施。', en: 'Concentrated textile IZs in Nam Dinh, Thai Binh, Long An with shared wastewater treatment and strong power infrastructure.' } },
+          { icon: '👗', title: { vi: 'Chuỗi may mặc lớn nhất châu Á tại chỗ', zh: '亚洲最大服装生产链就在本地', en: 'Asia\'s Largest Garment Chain On-site' }, desc: { vi: '6,000+ nhà máy may sẵn sàng mua vải nội địa, loại bỏ phụ thuộc nhập khẩu và tăng giá trị gia tăng ngay lập tức.', zh: '6000多家成衣工厂随时购买国产面料，消除进口依赖并立即提升附加值。', en: '6,000+ garment factories ready to purchase domestic fabric, eliminating import dependency and adding value immediately.' } },
+          { icon: '🌍', title: { vi: 'Tiếp cận thị trường Mỹ qua CPTPP', zh: '通过CPTPP进入美国市场', en: 'US Market Access via CPTPP' }, desc: { vi: 'Hiệp định CPTPP mở cửa thị trường 500 triệu dân với thuế suất ưu đãi cho sản phẩm dệt may có xuất xứ từ Việt Nam.', zh: 'CPTPP协定为越南原产地纺织品打开5亿人口市场，享受优惠税率。', en: 'CPTPP agreement opens a 500 million population market with preferential tariffs for Vietnamese-origin textile products.' } }
+        ],
+        cta_title: { vi: 'Giải quyết bài toán xuất xứ dệt may – Đầu tư thượng nguồn tại Việt Nam', zh: '解决纺织品原产地问题——在越南投资上游产业', en: 'Solve the Textile Origin Problem – Invest Upstream in Vietnam' },
+        cta_desc: { vi: 'VCEC kết nối doanh nghiệp với Hiệp hội Dệt may Việt Nam (VITAS), các KCN dệt nhuộm và danh sách nhà máy may sẵn sàng mua hàng nội địa.', zh: 'VCEC将企业与越南纺织服装协会（VITAS）、纺织染色工业区以及准备购买国内产品的成衣工厂名单对接。', en: 'VCEC connects businesses with VITAS, textile-dyeing industrial zones, and a list of garment factories ready to purchase domestic products.' }
+      },
+
+      digital: {
+        num: 'SECTOR 07',
+        img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Kinh tế số & TMĐT song phương', zh: '数字经济与双边电子商务', en: 'Digital Economy & Bilateral E-commerce' },
+        tagline: { vi: 'Thị trường số $45 tỷ đang tăng trưởng nhanh nhất Đông Nam Á', zh: '东南亚增长最快的450亿美元数字市场', en: '$45B Digital Market Growing Fastest in Southeast Asia' },
+        overview_title: { vi: 'Kinh tế số Việt Nam – Từ tiêu dùng sang sản xuất kỹ thuật số', zh: '越南数字经济——从数字消费到数字生产', en: 'Vietnam Digital Economy – From Digital Consumption to Digital Production' },
+        overview: {
+          vi: '<p>Kinh tế số Việt Nam đạt $45 tỷ USD năm 2025, tăng trưởng 20%/năm – nhanh nhất Đông Nam Á. Với 78% tỷ lệ phổ cập internet, 70 triệu người dùng smartphone và tỷ lệ dân số trẻ cao, Việt Nam là thị trường tiêu dùng kỹ thuật số hấp dẫn bậc nhất khu vực.</p><p>TMĐT xuyên biên giới Việt–Trung đang đạt quy mô $8 tỷ USD/năm, với tiềm năng tăng gấp đôi trong 3 năm tới nhờ các cửa khẩu số thông minh và hệ thống hải quan tích hợp AI.</p>',
+          zh: '<p>越南数字经济2025年达450亿美元，年增20%——东南亚最快。凭借78%的互联网普及率、7000万智能手机用户和高度年轻化的人口，越南是该地区最具吸引力的数字消费市场之一。</p><p>越中跨境电商年规模达80亿美元，借助智能数字口岸和AI集成海关系统，未来3年有望翻倍。</p>',
+          en: '<p>Vietnam\'s digital economy reached $45 billion in 2025, growing 20%/year – the fastest in Southeast Asia. With 78% internet penetration, 70 million smartphone users, and a highly young population, Vietnam is one of the region\'s most attractive digital consumer markets.</p><p>Vietnam–China cross-border e-commerce is reaching $8 billion/year, with potential to double in 3 years thanks to smart digital border gates and AI-integrated customs systems.</p>'
+        },
+        stats: [
+          { val: '$45B', label: { vi: 'Quy mô kinh tế số 2025', zh: '2025年数字经济规模', en: 'Digital economy 2025' } },
+          { val: '20%', label: { vi: 'Tăng trưởng hàng năm', zh: '年增长率', en: 'Annual growth rate' } },
+          { val: '78%', label: { vi: 'Tỷ lệ phổ cập internet', zh: '互联网普及率', en: 'Internet penetration' } }
+        ],
+        opp_sub: { vi: 'Cơ hội kinh doanh số Việt–Trung đang bùng nổ', zh: '越中数字商业机遇正蓬勃发展', en: 'Booming Vietnam–China digital business opportunities' },
+        opportunities: [
+          { icon: '🛒', title: { vi: 'Nền tảng TMĐT xuyên biên giới Việt–Trung', zh: '越中跨境电商平台', en: 'Vietnam–China Cross-border E-commerce Platforms' }, desc: { vi: 'Xây dựng nền tảng kết nối hàng hóa Việt Nam với 1.4 tỷ người tiêu dùng Trung Quốc qua Tmall, JD và TikTok Shop.', zh: '通过天猫、京东和TikTok Shop建立平台，将越南商品与14亿中国消费者连接。', en: 'Build platforms connecting Vietnamese goods with 1.4 billion Chinese consumers via Tmall, JD, and TikTok Shop.' } },
+          { icon: '💳', title: { vi: 'Fintech & Thanh toán song phương', zh: '金融科技与双边支付', en: 'Fintech & Bilateral Payment Solutions' }, desc: { vi: 'Phát triển giải pháp thanh toán xuyên biên giới VND–CNY, ví điện tử và dịch vụ ngoại hối B2B cho doanh nghiệp Việt–Trung.', zh: '开发VND-CNY跨境支付解决方案、电子钱包和面向越中企业的B2B外汇服务。', en: 'Develop VND–CNY cross-border payment solutions, e-wallets, and B2B forex services for Vietnam–China businesses.' } },
+          { icon: '🤖', title: { vi: 'AI, Cloud & Dịch vụ số cho doanh nghiệp', zh: '人工智能、云计算与企业数字服务', en: 'AI, Cloud & Digital Services for Enterprises' }, desc: { vi: 'Cung cấp dịch vụ cloud, ERP và giải pháp AI cho 800,000+ doanh nghiệp vừa và nhỏ Việt Nam đang chuyển đổi số.', zh: '为80万家正在数字化转型的越南中小企业提供云、ERP和AI解决方案。', en: 'Provide cloud, ERP, and AI solutions for 800,000+ Vietnamese SMEs undergoing digital transformation.' } }
+        ],
+        why: [
+          { icon: '👤', title: { vi: 'Dân số trẻ, am hiểu công nghệ', zh: '年轻、技术娴熟的人口', en: 'Young, Tech-savvy Population' }, desc: { vi: 'Tuổi trung bình 30, 95% Gen Z sử dụng mua sắm trực tuyến và thanh toán số hàng ngày.', zh: '平均年龄30岁，95%的Z世代每天使用网购和数字支付。', en: 'Median age 30, 95% of Gen Z uses online shopping and digital payments daily.' } },
+          { icon: '📡', title: { vi: 'Hạ tầng 5G đang triển khai', zh: '5G基础设施正在部署', en: '5G Infrastructure Being Deployed' }, desc: { vi: 'Viettel, VNPT và MobiFone đang triển khai 5G tại 63 tỉnh, tạo nền tảng cho IoT, AI edge computing và thành phố thông minh.', zh: 'Viettel、VNPT和MobiFone正在63个省部署5G，为物联网、AI边缘计算和智慧城市奠定基础。', en: 'Viettel, VNPT and MobiFone are rolling out 5G in 63 provinces, laying the foundation for IoT, AI edge computing, and smart cities.' } },
+          { icon: '🏛️', title: { vi: 'Chính sách Chuyển đổi số Quốc gia', zh: '国家数字化转型政策', en: 'National Digital Transformation Policy' }, desc: { vi: 'Chương trình Chuyển đổi số Quốc gia 2025–2030 cam kết $10 tỷ đầu tư vào hạ tầng số và đào tạo 1 triệu nhân lực công nghệ.', zh: '2025-2030年国家数字化转型计划承诺投资100亿美元用于数字基础设施，培训100万科技人才。', en: 'National Digital Transformation Program 2025–2030 commits $10B to digital infrastructure and training 1 million tech workers.' } },
+          { icon: '🌐', title: { vi: 'Cổng thương mại số Việt–Trung', zh: '越中数字贸易门户', en: 'Vietnam–China Digital Trade Portal' }, desc: { vi: 'Hệ thống một cửa quốc gia tích hợp hải quan số, C/O điện tử và khai báo thuế xuất nhập khẩu trực tuyến 24/7.', zh: '国家单一窗口系统集成数字海关、电子原产地证书和24/7在线进出口税申报。', en: 'National single-window system integrating digital customs, electronic C/O, and 24/7 online import/export tax declaration.' } }
+        ],
+        cta_title: { vi: 'Khai thác thị trường số Việt Nam với sự hỗ trợ của VCEC', zh: '借助VCEC开拓越南数字市场', en: 'Tap into Vietnam\'s Digital Market with VCEC Support' },
+        cta_desc: { vi: 'VCEC kết nối doanh nghiệp Trung Quốc với các sàn TMĐT lớn, ngân hàng đối tác và cơ quan quản lý thương mại điện tử xuyên biên giới tại Việt Nam.', zh: 'VCEC将中国企业与越南主要电商平台、合作银行和跨境电商监管机构对接。', en: 'VCEC connects Chinese businesses with major e-commerce platforms, partner banks, and cross-border e-commerce regulatory bodies in Vietnam.' }
+      },
+
+      medical: {
+        num: 'SECTOR 08',
+        img: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=1200&q=80',
+        img2: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80',
+        title: { vi: 'Y tế & Thiết bị Y tế', zh: '医疗卫生与医疗设备', en: 'Healthcare & Medical Devices' },
+        tagline: { vi: 'Thị trường y tế $20 tỷ đang mở cửa cho công nghệ Trung Quốc', zh: '价值200亿美元的医疗市场向中国技术开放', en: '$20B Healthcare Market Opening to Chinese Technology' },
+        overview_title: { vi: 'Việt Nam đầu tư mạnh vào y tế – Nhu cầu thiết bị và công nghệ bùng nổ', zh: '越南大力投资医疗卫生——设备和技术需求爆发', en: 'Vietnam Investing Heavily in Healthcare – Equipment and Technology Demand Booming' },
+        overview: {
+          vi: '<p>Chính phủ Việt Nam đặt mục tiêu đầu tư $20 tỷ USD vào hệ thống y tế đến 2030, bao gồm nâng cấp 13,000 cơ sở y tế, xây mới 30 bệnh viện vùng hạng A và mở rộng hệ thống bảo hiểm y tế toàn dân. Nhu cầu thiết bị y tế nhập khẩu đang tăng 15%/năm.</p><p>Hiện 85% thiết bị y tế tại Việt Nam được nhập khẩu, trong đó 40% từ Trung Quốc. Đây là cơ hội để doanh nghiệp Trung Quốc dịch chuyển sản xuất sang Việt Nam để giảm thuế nhập khẩu và gần thị trường tiêu dùng.</p>',
+          zh: '<p>越南政府目标在2030年前向医疗体系投资200亿美元，包括升级1.3万个医疗机构、新建30家A级区域医院和扩大全民医疗保险体系。医疗设备进口需求每年增长15%。</p><p>目前越南85%的医疗设备依赖进口，其中40%来自中国。这为中国企业将生产转移至越南以降低进口税、贴近消费市场提供了机遇。</p>',
+          en: '<p>The Vietnamese government targets $20 billion investment in the healthcare system by 2030, including upgrading 13,000 medical facilities, building 30 new Grade-A regional hospitals, and expanding universal health insurance. Medical equipment import demand is growing 15%/year.</p><p>Currently 85% of medical equipment in Vietnam is imported, with 40% from China. This is an opportunity for Chinese companies to shift production to Vietnam to reduce import tariffs and be closer to the consumer market.</p>'
+        },
+        stats: [
+          { val: '$20B', label: { vi: 'Đầu tư y tế đến 2030', zh: '2030年医疗投资目标', en: 'Healthcare investment by 2030' } },
+          { val: '15%', label: { vi: 'Tăng trưởng nhập khẩu TB/năm', zh: '设备进口年均增长', en: 'Equipment import growth/yr' } },
+          { val: '200M', label: { vi: 'Lượt khám bệnh/năm', zh: '年诊疗次数', en: 'Patient visits/year' } }
+        ],
+        opp_sub: { vi: 'Phân khúc thiết bị và dịch vụ y tế đang thiếu cung trầm trọng tại Việt Nam', zh: '越南医疗设备和服务严重供不应求的细分市场', en: 'Seriously undersupplied medical equipment and service segments in Vietnam' },
+        opportunities: [
+          { icon: '🏥', title: { vi: 'Sản xuất thiết bị y tế nội địa', zh: '国产医疗设备制造', en: 'Domestic Medical Device Manufacturing' }, desc: { vi: 'Đầu tư nhà máy sản xuất thiết bị chẩn đoán hình ảnh, monitor bệnh nhân, thiết bị phòng mổ tại KCN y tế chuyên dụng Bình Dương.', zh: '在平阳专业医疗工业区投资建设影像诊断设备、患者监护仪、手术室设备生产工厂。', en: 'Invest in imaging diagnostic, patient monitor, and surgical equipment factories at Binh Duong medical IZ.' } },
+          { icon: '💊', title: { vi: 'Dược phẩm & Chuyển giao công nghệ', zh: '医药品与技术转让', en: 'Pharmaceuticals & Technology Transfer' }, desc: { vi: 'Hợp tác chuyển giao công nghệ sản xuất generic, vắc-xin và nguyên liệu dược (API) với các doanh nghiệp dược phẩm Việt Nam.', zh: '与越南制药企业合作转让仿制药、疫苗和原料药（API）生产技术。', en: 'Partner with Vietnamese pharmaceutical companies for generic medicine, vaccine, and API technology transfer.' } },
+          { icon: '🩺', title: { vi: 'Telemedicine & Y tế số', zh: '远程医疗与数字健康', en: 'Telemedicine & Digital Health' }, desc: { vi: 'Phát triển nền tảng tư vấn y tế từ xa, quản lý hồ sơ bệnh nhân số và AI chẩn đoán hỗ trợ cho 13,000 cơ sở y tế.', zh: '为1.3万个医疗机构开发远程医疗咨询、数字患者档案管理和AI辅助诊断平台。', en: 'Develop remote medical consultation platforms, digital patient record management, and AI diagnostic support for 13,000 medical facilities.' } }
+        ],
+        why: [
+          { icon: '📈', title: { vi: 'Nhu cầu y tế tăng vọt', zh: '医疗需求急剧上升', en: 'Soaring Healthcare Demand' }, desc: { vi: 'Dân số già hóa nhanh, tầng lớp trung lưu mở rộng và nhận thức y tế tăng cao tạo nhu cầu bùng nổ cho dịch vụ và thiết bị y tế chất lượng cao.', zh: '人口快速老龄化、中产阶级扩大和健康意识提升，为高质量医疗服务和设备创造爆发性需求。', en: 'Rapidly aging population, expanding middle class, and rising health awareness create explosive demand for quality healthcare services and equipment.' } },
+          { icon: '🔬', title: { vi: 'Chính sách nội địa hóa thiết bị y tế', zh: '医疗设备国产化政策', en: 'Medical Device Localization Policy' }, desc: { vi: 'Bộ Y tế ưu tiên mua sắm thiết bị sản xuất trong nước, ưu đãi thuế cho doanh nghiệp sản xuất thiết bị y tế tại Việt Nam.', zh: '卫生部优先采购国内生产设备，对在越南生产医疗设备的企业给予税收优惠。', en: 'Ministry of Health prioritizes domestic equipment procurement, with tax incentives for companies manufacturing medical devices in Vietnam.' } },
+          { icon: '🌏', title: { vi: 'Trung tâm y tế ASEAN đang hình thành', zh: '东盟医疗中心正在形成', en: 'ASEAN Medical Hub Taking Shape' }, desc: { vi: 'Việt Nam đang hướng tới vị trí trung tâm y tế khu vực, thu hút bệnh nhân y tế từ Campuchia, Lào, Myanmar và cả khách y tế từ Trung Quốc.', zh: '越南正致力于成为地区医疗中心，吸引来自柬埔寨、老挝、缅甸甚至中国的医疗游客。', en: 'Vietnam is positioning itself as a regional medical hub, attracting medical patients from Cambodia, Laos, Myanmar, and even China.' } },
+          { icon: '🤝', title: { vi: 'Môi trường hợp tác chuyển giao CN cởi mở', zh: '开放的技术转让合作环境', en: 'Open Technology Transfer Partnership Environment' }, desc: { vi: 'Chính phủ khuyến khích liên doanh y tế Việt–Trung với ưu đãi đặc biệt về thuế đất, thuế nhập khẩu máy móc và thủ tục cấp phép nhanh.', zh: '政府鼓励越中医疗合资企业，在土地税、机械进口税和快速许可程序方面给予特殊优惠。', en: 'Government encourages Vietnam–China medical joint ventures with special benefits on land tax, machinery import tax, and fast licensing.' } }
+        ],
+        cta_title: { vi: 'Đầu tư thiết bị y tế tại Việt Nam – Thị trường 200 triệu lượt khám/năm', zh: '在越南投资医疗设备——年诊疗2亿次的市场', en: 'Invest in Medical Devices in Vietnam – 200M Patient Visits/Year Market' },
+        cta_desc: { vi: 'VCEC kết nối với Cục Quản lý Dược, Cục Trang thiết bị Y tế và mạng lưới bệnh viện tư nhân hàng đầu để hỗ trợ doanh nghiệp đối tác.', zh: 'VCEC与国家药品局、医疗设备管理局和顶级私立医院网络对接，为合作企业提供支持。', en: 'VCEC connects with the Drug Administration, Medical Equipment Department, and top private hospital networks to support partner businesses.' }
+      }
+    };
+
+    function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+    function tf(obj, fallback) {
+      if (!obj) return fallback || '';
+      var l = getLang();
+      return obj[l] || obj['vi'] || fallback || '';
+    }
+
+    function render(sector) {
+      var l = getLang();
+      document.getElementById('page-title').textContent = tf(sector.title) + ' - VCEC Portal';
+      document.getElementById('hero-img').src = sector.img;
+      document.getElementById('hero-img').alt = tf(sector.title);
+      document.getElementById('hero-num').textContent = sector.num;
+      document.getElementById('hero-title').textContent = tf(sector.title);
+      document.getElementById('hero-tagline').textContent = tf(sector.tagline);
+      document.getElementById('bc-title').textContent = tf(sector.title);
+
+      document.getElementById('ov-title').textContent = tf(sector.overview_title);
+      document.getElementById('ov-body').innerHTML = tf(sector.overview);
+      document.getElementById('ov-img').src = sector.img2;
+      document.getElementById('ov-img').alt = tf(sector.title);
+
+      // Stats
+      document.getElementById('stats-row').innerHTML = sector.stats.map(function(s) {
+        return '<div class="stat-box"><span class="stat-val">' + s.val + '</span><span class="stat-label">' + tf(s.label) + '</span></div>';
+      }).join('');
+
+      // Opportunities
+      document.getElementById('opp-sub').textContent = tf(sector.opp_sub);
+      document.getElementById('opp-grid').innerHTML = sector.opportunities.map(function(o) {
+        return '<div class="opp-card"><span class="opp-icon">' + o.icon + '</span><h3 class="opp-title">' + tf(o.title) + '</h3><p class="opp-desc">' + tf(o.desc) + '</p></div>';
+      }).join('');
+
+      // Why
+      document.getElementById('why-grid').innerHTML = sector.why.map(function(w) {
+        return '<div class="why-item"><span class="why-icon">' + w.icon + '</span><div><div class="why-title">' + tf(w.title) + '</div><div class="why-desc">' + tf(w.desc) + '</div></div></div>';
+      }).join('');
+
+      // CTA
+      document.getElementById('cta-title').textContent = tf(sector.cta_title);
+      document.getElementById('cta-desc').textContent = tf(sector.cta_desc);
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id') || '';
+    var sector = SECTORS[id];
+
+    if (!sector) {
+      document.getElementById('sector-not-found').style.display = '';
+    } else {
+      document.getElementById('sector-content').style.display = '';
+      render(sector);
+      window.addEventListener('vcec-lang-change', function() { render(sector); });
+    }
+  })();
+  </script>
+</body>
+</html>

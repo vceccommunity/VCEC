@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Bảng Quản Trị Hệ Thống - VCEC Portal</title>
   <meta name="description" content="Hệ thống quản trị và kiểm duyệt dữ liệu chuyên dụng dành cho quản trị viên tối cao VCEC.">
   <link rel="stylesheet" href="style.css">
@@ -134,6 +135,37 @@
     }
     .menu-item:hover svg {
       transform: scale(1.1);
+    }
+
+    /* Sub-menu Styles */
+    .sub-menu {
+      display: none;
+      animation: slideDown 0.3s ease-out;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .sub-menu-item {
+      padding: 6px 12px;
+      color: #94A3B8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sub-menu-item:hover {
+      color: var(--vcec-gold);
+      background: rgba(175, 136, 58, 0.05);
+    }
+    .sub-menu-item.active {
+      color: var(--vcec-gold);
+      background: rgba(175, 136, 58, 0.1);
+      font-weight: 800;
     }
 
     .sidebar-footer {
@@ -534,51 +566,96 @@
     }
     .file-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
     }
     .file-card {
-      background: rgba(255, 255, 255, 0.01);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
-      padding: 16px;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: all 0.3s ease;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
     }
     .file-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--vcec-gold-border);
-      background: rgba(255, 255, 255, 0.02);
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--vcec-gold);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
     .file-preview {
-      height: 120px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.03);
     }
     .file-preview img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
     }
-    .file-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .file-card:hover .file-preview img {
+      transform: scale(1.1);
     }
-    .file-size {
-      font-size: 0.75rem;
-      color: #9CA3AF;
+    .file-icon-placeholder {
+      font-size: 3rem;
+      color: #4B5563;
+    }
+    
+    /* Overlay and Icons */
+    .file-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+    .file-card:hover .file-overlay {
+      opacity: 1;
+    }
+    .overlay-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .overlay-btn:hover {
+      transform: scale(1.2);
+      background: #FFF;
+      color: #000;
+    }
+    .overlay-btn.delete:hover {
+      background: #EF4444;
+      color: #FFF;
+      border-color: #EF4444;
+    }
+    .overlay-btn.copy:hover {
+      background: var(--vcec-gold);
+      color: #FFF;
+      border-color: var(--vcec-gold);
     }
 
     /* Create New Post Components */
@@ -814,6 +891,54 @@
       filter: none;
     }
 
+    /* Role Change Dropdown Styling - Added by MI */
+    .role-select-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .role-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: #0d1224;
+      border: 1.5px solid rgba(184, 134, 11, 0.3);
+      border-radius: 12px;
+      min-width: 170px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: none;
+      padding: 8px;
+      animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .role-dropdown-menu.show {
+      display: block;
+    }
+    .role-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      color: #D1D5DB;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      margin-bottom: 2px;
+    }
+    .role-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #FFFFFF;
+      transform: translateX(-4px);
+    }
+    .role-option.active {
+      background: rgba(184, 134, 11, 0.12);
+      color: var(--vcec-gold);
+      border-left: 3px solid var(--vcec-gold);
+    }
+
+
     /* ==========================================
        8. Advanced Responsive Framework for Admin Dashboard
        ========================================== */
@@ -941,15 +1066,29 @@
 
     <!-- Navigation Menu Items -->
     <nav class="sidebar-menu">
-      <div class="menu-item active" id="menu-posts" onclick="switchScreen('posts')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-        <span>Bài đăng</span>
+      <div class="menu-item-group">
+        <div class="menu-item" id="menu-posts" onclick="toggleSubMenu('posts-submenu', 'posts')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Bài đăng</span>
+          <svg class="arrow-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none" style="margin-left:auto; transition: transform 0.3s ease;">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="sub-menu" id="posts-submenu" style="display: none; padding-left: 20px; flex-direction: column; gap: 4px; margin-bottom: 8px;">
+          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu')" data-cat="gioi-thieu">○ Giới Thiệu</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('quan-he-viet-trung')" data-cat="quan-he-viet-trung">○ Quan Hệ Việt-Trung</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('linh-vuc')" data-cat="linh-vuc">○ Lĩnh Vực</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('dich-vu')" data-cat="dich-vu">○ Dịch Vụ</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('co-hoi')" data-cat="co-hoi">○ Cơ Hội Đầu Tư</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('tin-tuc')" data-cat="tin-tuc">○ Tin Tức</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('tai-nguyen')" data-cat="tai-nguyen">○ Tài Nguyên</div>
+        </div>
       </div>
 
       <div class="menu-item" id="menu-resources" onclick="switchScreen('resources')">
@@ -1025,10 +1164,13 @@
               📁 Chuyên mục hiển thị ngoài website:
             </label>
             <select id="post-category" class="form-input" style="background: #0f172a; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.15); height: 42px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; padding: 0 12px;">
-              <option value="tin-tuc" selected>📰 Tin Tức & Sự Kiện (tin-tuc.html)</option>
-              <option value="co-hoi">💼 Cơ Hội Đầu Tư (co-hoi.html)</option>
-              <option value="tai-nguyen">📚 Kho Tài Nguyên & Media (tai-nguyen.html)</option>
-              <option value="gioi-thieu">🏢 Giới Thiệu Chung (gioi-thieu.html)</option>
+              <option value="gioi-thieu">🏢 Giới Thiệu Chung</option>
+              <option value="quan-he-viet-trung">🤝 Quan Hệ Việt-Trung</option>
+              <option value="linh-vuc">🏗️ Lĩnh Vực Hợp Tác</option>
+              <option value="dich-vu">🛠️ Dịch Vụ Hỗ Trợ</option>
+              <option value="co-hoi">💼 Cơ Hội Đầu Tư</option>
+              <option value="tin-tuc" selected>📰 Tin Tức & Sự Kiện</option>
+              <option value="tai-nguyen">📚 Kho Tài Nguyên & Media</option>
             </select>
             <p style="color: var(--vcec-gold); font-size: 0.78rem; margin-top: 6px; font-weight: 500;">💡 Lựa chọn menu mong muốn để bài viết tự động xuất hiện ở trang tương ứng ngoài website.</p>
           </div>
@@ -1119,7 +1261,6 @@
 
       <!-- Tab Contents Area -->
       <div id="posts-published-content">
-        <!-- Posts List Table -->
         <div class="admin-table-container">
           <table class="admin-table">
             <thead>
@@ -1131,141 +1272,8 @@
                 <th style="text-align:right;">Thao tác</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- NEWS 1 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📌 VCEC tổ chức buổi hội đàm phát triển hạ tầng KCN xanh năm 2026</td>
-                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
-                <td>08/05/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- NEWS 2 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📌 Phái đoàn doanh nghiệp tỉnh Quảng Đông khảo sát thực địa đất công nghiệp tại Hải Phòng</td>
-                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
-                <td>06/05/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- NEWS 3 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📌 Diễn đàn Xúc tiến Đầu tư Việt Nam – Trung Quốc tại Thâm Quyến năm 2026</td>
-                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
-                <td>15/04/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- NEWS 4 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📌 Dòng vốn FDI Trung Quốc dịch chuyển mạnh sang mảng Linh kiện Xe điện (EV)</td>
-                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
-                <td>02/04/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- NEWS 5 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📌 VCEC tháp tùng Hiệp hội Điện tử Trung Quốc khảo sát hạ tầng VSIP Bắc Ninh</td>
-                <td><span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #EF4444; border: 1.5px solid rgba(239, 68, 68, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Tin tức & Sự kiện</span></td>
-                <td>20/03/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp giao diện soạn thảo song ngữ cho bài viết này!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-
-              <!-- INVESTMENT OPP 1 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp Deep C Hải Phòng (85 ha)</td>
-                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
-                <td>10/03/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- INVESTMENT OPP 2 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp VSIP Bắc Ninh II (120 ha)</td>
-                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
-                <td>05/03/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- INVESTMENT OPP 3 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp Nhơn Trạch VI (Đồng Nai) (200 ha)</td>
-                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
-                <td>01/03/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- INVESTMENT OPP 4 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">🏢 Khu Công Nghiệp VSIP III Bình Dương (150 ha)</td>
-                <td><span class="badge" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1.5px solid rgba(184, 134, 11, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cơ Hội Đầu Tư</span></td>
-                <td>25/02/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị nạp bản đồ tọa độ & hồ sơ dự án!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-
-              <!-- RESOURCES 1 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📚 Sổ tay Quy trình thành lập doanh nghiệp FDI tại Việt Nam (2026)</td>
-                <td><span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Kho Tài Nguyên</span></td>
-                <td>15/02/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị tải tệp đính kèm và tài liệu liên kết!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- RESOURCES 2 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📚 Luật Đầu tư Việt Nam cập nhật (Biên dịch song ngữ đối chiếu)</td>
-                <td><span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Kho Tài Nguyên</span></td>
-                <td>10/02/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị tải tệp đính kèm và tài liệu liên kết!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
-              <!-- RESOURCES 3 -->
-              <tr>
-                <td style="font-weight:700; color:#FFF;">📚 Tổng hợp chính sách Ưu đãi thuế quan KCN Miền Bắc & Miền Nam năm 2026</td>
-                <td><span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Kho Tài Nguyên</span></td>
-                <td>05/02/2026</td>
-                <td><span class="badge member">Đang hiển thị</span></td>
-                <td style="text-align:right;">
-                  <button class="action-btn secondary" onclick="alert('Hệ thống đang chuẩn bị tải tệp đính kèm và tài liệu liên kết!')">Sửa</button>
-                  <button class="action-btn" onclick="alert('Bài viết gốc thuộc lớp lõi tĩnh. Đã khóa thao tác xóa!')">Xóa</button>
-                </td>
-              </tr>
+            <tbody id="posts-list-tbody">
+              <tr><td colspan="5" style="text-align:center;color:#9CA3AF;padding:20px;">⏳ Đang tải bài viết...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1296,11 +1304,6 @@
       <div class="screen-header">
         <div>
           <h1 class="screen-title">Kho Tài Liệu &amp; Media</h1>
-          <p class="screen-subtitle">Quản lý tệp tin, hình ảnh đăng tải trực tiếp lên kho lưu trữ đám mây (Bucket <strong>vcec</strong>) của Supabase.</p>
-        </div>
-        <div class="sync-indicator">
-          <span class="sync-dot"></span>
-          <span>Supabase Storage Connected</span>
         </div>
       </div>
 
@@ -1316,10 +1319,21 @@
         <input type="file" id="bucket-file-input" style="display:none;" onchange="uploadToBucket(this)">
       </div>
 
+      <!-- Bucket Tabs & Search Row -->
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin:24px 0 16px;">
+        <div id="bucket-tabs" style="display:flex; gap:8px; flex-wrap:wrap;">
+          <div style="color:#9CA3AF; font-size:0.85rem; padding:8px 0;">⏳ Đang tải danh sách bucket...</div>
+        </div>
+        
+        <div class="search-box-wrap" style="position:relative; flex-grow:1; max-width:300px;">
+          <input type="text" id="file-search-input" onkeyup="filterFiles()" placeholder="Tìm tên tập tin..." 
+                 style="width:100%; padding:8px 16px 8px 36px; border-radius:20px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); color:#FFF; font-size:0.85rem;">
+          <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#9CA3AF;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+      </div>
+
       <!-- File Grid List -->
-      <h3 style="color:#FFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tài nguyên trong bucket "vcec"</h3>
       <div class="file-grid" id="bucket-files-list">
-        <!-- Live loaded file cards will go here -->
         <div style="grid-column:1/-1; text-align:center; padding:40px; color:#9CA3AF;">
           ⏳ Đang đồng bộ kho tệp tin từ Supabase...
         </div>
@@ -1688,6 +1702,12 @@
         screen.classList.remove("active");
       });
 
+      // AUTO-COLLAPSE sub-menus if switching to non-posts related screen
+      if (screenId !== 'posts') {
+        document.querySelectorAll('.sub-menu').forEach(sm => sm.style.display = 'none');
+        document.querySelectorAll('.menu-item .arrow-icon').forEach(arrow => arrow.style.transform = 'rotate(0deg)');
+      }
+
       // Activate selected item and screen
       const activeMenu = document.getElementById("menu-" + screenId);
       const activeScreen = document.getElementById("screen-" + screenId);
@@ -1700,6 +1720,8 @@
       // Load screen-specific data
       if (screenId === 'resources') {
         loadBucketFiles();
+      } else if (screenId === 'posts') {
+        loadPostsList();
       } else if (screenId === 'settings') {
         switchSettingsTab('site-info');
         loadSiteConfig();
@@ -1713,6 +1735,7 @@
         loadCoreData();
         loadSiteConfig();
         loadAdminProfile();
+        loadPostsList();
       } else {
         setTimeout(checkSupabaseReady, 300);
       }
@@ -1885,7 +1908,17 @@
                 <td style="color:#9CA3AF;">${formattedDate}</td>
                 <td style="text-align:right;">
                   ${!isSuper ? `
-                    <button class="action-btn secondary" onclick="changeRole('${user.id}', '${user.role}')">Đổi Cấp</button>
+                    <div class="role-select-wrapper">
+                      <button class="action-btn secondary" onclick="toggleRoleDropdown('${user.id}')">Đổi Cấp</button>
+                      <div id="role-dropdown-${user.id}" class="role-dropdown-menu">
+                        ${Object.entries(roleMap).filter(([k]) => k !== 'super_admin').map(([roleKey, info]) => `
+                          <div class="role-option ${user.role === roleKey ? 'active' : ''}" onclick="confirmRoleChange('${user.id}', '${roleKey}', '${info.label}', '${user.username}')">
+                            <span>${info.label}</span>
+                            <span class="badge ${info.class}" style="padding:2px 6px; font-size:0.6rem;">${roleKey.toUpperCase()}</span>
+                          </div>
+                        `).join('')}
+                      </div>
+                    </div>
                     <button class="action-btn" onclick="deleteUser('${user.id}', '${user.username}')">Xóa</button>
                   ` : `<span style="color:#6B7280; font-size:0.85rem; font-style:italic;">Hệ thống bảo vệ</span>`}
                 </td>
@@ -1955,8 +1988,8 @@
               <tr>
                 <td style="font-weight:700; color:#FFFFFF;">🏢 ${lead.company_name}</td>
                 <td>
-                  <div>👤 ${lead.contact_name}</div>
-                  <div style="font-size:0.75rem; color:var(--vcec-gold); margin-top:3px;">💬 WeChat: ${lead.wechat_id}</div>
+                  <span style="font-weight: 600;">👤 ${lead.contact_name}</span> 
+                  <span style="font-size:0.75rem; color:var(--vcec-gold); margin-left: 8px;">| 💬 WeChat: ${lead.wechat_id}</span>
                 </td>
                 <td><span style="color:var(--vcec-red); font-weight:600;">📌 ${lead.project_name || 'Liên hệ chung'}</span></td>
                 <td style="color:#9CA3AF;">${formattedDate}</td>
@@ -1973,72 +2006,110 @@
       }
     }
 
+    // Bucket hiện đang active (dùng cho upload/delete)
+    window.currentBucket = 'vcec';
+
+    // listBuckets() yêu cầu service_role key — anon key không có quyền.
+    // Danh sách bucket được khai báo thẳng từ Supabase project thực tế.
+    const VCEC_BUCKETS = ['vcec', 'vcec_other', 'vcec_users', 'vcec_posts'];
+
     async function loadBucketFiles() {
       const grid = document.getElementById("bucket-files-list");
+      const tabsEl = document.getElementById("bucket-tabs");
       if (!grid) return;
 
       if (!window.supabaseClient) {
-        grid.innerHTML = `
-          <div style="grid-column:1/-1; text-align:center; padding:40px; color:#9CA3AF;">
-            ⏳ Đang kết nối mây lưu trữ Supabase...
-          </div>
-        `;
         setTimeout(loadBucketFiles, 300);
         return;
       }
 
+      if (tabsEl) {
+        tabsEl.innerHTML = VCEC_BUCKETS.map((name, i) => `
+          <button
+            class="bucket-tab-btn${i === 0 ? ' active' : ''}"
+            data-bucket="${name}"
+            onclick="loadBucketTab('${name}', this)"
+          >
+            🗂️ ${name}
+          </button>
+        `).join('');
+      }
+
+      window.currentBucket = VCEC_BUCKETS[0];
+      await loadBucketTab(VCEC_BUCKETS[0]);
+    }
+
+    async function loadBucketTab(bucketName, tabEl) {
+      // Cập nhật active tab
+      document.querySelectorAll('.bucket-tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-bucket') === bucketName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      window.currentBucket = bucketName;
+
+      const grid = document.getElementById("bucket-files-list");
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#9CA3AF;">⏳ Đang tải...</div>';
+
       try {
         const { data: files, error } = await window.supabaseClient
           .storage
-          .from('vcec')
-          .list('', {
-            limit: 100,
-            offset: 0,
-            sortBy: { column: 'name', order: 'asc' }
-          });
+          .from(bucketName)
+          .list('', { limit: 200, offset: 0, sortBy: { column: 'created_at', order: 'desc' } });
 
         if (error) throw error;
 
-        if (!files || files.length === 0) {
-          grid.innerHTML = `
-            <div style="grid-column:1/-1; text-align:center; padding:40px; color:#6B7280; font-style:italic;">
-              📭 Thư mục trống. Hãy kéo thả file vào vùng tải lên phía trên để lưu trữ.
-            </div>
-          `;
+        // Lọc folder placeholder (file không có id)
+        const realFiles = (files || []).filter(f => f.id);
+
+        if (realFiles.length === 0) {
+          grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#6B7280;font-style:italic;">📭 Thư mục trống. Hãy kéo thả file vào vùng tải lên phía trên.</div>';
           return;
         }
 
-        grid.innerHTML = files.map(file => {
-          const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file.name);
-          const { data: { publicUrl } } = window.supabaseClient.storage.from('vcec').getPublicUrl(file.name);
-          const sizeKb = (file.metadata ? (file.metadata.size / 1024).toFixed(1) : 0) + ' KB';
-          
-          let previewHtml = '';
-          if (isImage) {
-            previewHtml = `<img src="${publicUrl}" alt="${file.name}">`;
-          } else {
-            previewHtml = `
-              <div style="font-size:2.5rem;">📄</div>
-            `;
-          }
+        grid.innerHTML = realFiles.map(file => {
+          const isImage = /\.(jpg|jpeg|png|gif|webp|svg|ico)$/i.test(file.name);
+          const { data: { publicUrl } } = window.supabaseClient.storage.from(bucketName).getPublicUrl(file.name);
 
           return `
-            <div class="file-card">
-              <div class="file-preview">${previewHtml}</div>
-              <div class="file-name" title="${file.name}">${file.name}</div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="file-size">${sizeKb}</span>
-                <button class="action-btn secondary" style="padding:4px 8px; font-size:0.7rem;" onclick="copyToClipboard('${publicUrl}')">🔗 Copy Link</button>
+            <div class="file-card" data-filename="${file.name.toLowerCase()}">
+              <div class="file-preview">
+                ${isImage
+                  ? `<img src="${publicUrl}" alt="${file.name}" loading="lazy">`
+                  : `<div class="file-icon-placeholder">📄</div>`
+                }
               </div>
-              <button class="action-btn" style="width:100%; font-size:0.72rem; padding:4px;" onclick="deleteBucketFile('${file.name}')">🗑️ Xóa tệp</button>
+              <div class="file-overlay">
+                <button class="overlay-btn copy" title="Copy URL" onclick="copyToClipboard('${publicUrl}')">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                </button>
+                <button class="overlay-btn delete" title="Xóa tệp" onclick="deleteBucketFile('${file.name}')">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                </button>
+              </div>
             </div>
           `;
         }).join('');
 
       } catch (err) {
         console.error("Error loading bucket files:", err);
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#EF4444;">Lỗi tải tệp tin: ${err.message}</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#EF4444;">Lỗi tải tệp tin: ${err.message}</div>`;
       }
+    }
+
+    function filterFiles() {
+      const query = document.getElementById('file-search-input').value.toLowerCase();
+      document.querySelectorAll('.file-card').forEach(card => {
+        const filename = card.getAttribute('data-filename');
+        if (filename.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
 
     // File copy tool helper
@@ -2050,46 +2121,41 @@
       });
     }
 
-    // Direct Upload to Supabase Storage Bucket
+    // Upload file lên bucket đang active
     async function uploadToBucket(input) {
       if (!input.files || input.files.length === 0) return;
       const file = input.files[0];
-      
-      // Clean up filename (replace spaces & weird characters to avoid url encoding bugs)
+      const bucket = window.currentBucket || 'vcec';
       const cleanName = file.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_.-]/g, '');
-
-      try {
-        const { data, error } = await window.supabaseClient
-          .storage
-          .from('vcec')
-          .upload(cleanName, file, {
-            cacheControl: '3600',
-            upsert: true // Overwrite if same name
-          });
-
-        if (error) throw error;
-        alert(`Tải tệp "${cleanName}" lên mây Supabase thành công!`);
-        loadBucketFiles();
-      } catch (err) {
-        alert("Lỗi tải tệp lên: " + err.message);
-      }
-      
-      input.value = ""; // clear input
-    }
-
-    // Delete file from Supabase Storage
-    async function deleteBucketFile(filename) {
-      if (!confirm(`Bạn có muốn xóa vĩnh viễn tệp "${filename}" khỏi kho đám mây không?`)) return;
 
       try {
         const { error } = await window.supabaseClient
           .storage
-          .from('vcec')
+          .from(bucket)
+          .upload(cleanName, file, { cacheControl: '3600', upsert: true });
+
+        if (error) throw error;
+        alert(`Tải tệp "${cleanName}" lên bucket "${bucket}" thành công!`);
+        await loadBucketTab(bucket);
+      } catch (err) {
+        alert("Lỗi tải tệp lên: " + err.message);
+      }
+      input.value = "";
+    }
+
+    // Xóa file khỏi bucket đang active
+    async function deleteBucketFile(filename) {
+      const bucket = window.currentBucket || 'vcec';
+      if (!confirm(`Xóa vĩnh viễn "${filename}" khỏi bucket "${bucket}"?`)) return;
+
+      try {
+        const { error } = await window.supabaseClient
+          .storage
+          .from(bucket)
           .remove([filename]);
 
         if (error) throw error;
-        alert(`Đã xóa tệp "${filename}" thành công!`);
-        loadBucketFiles();
+        await loadBucketTab(bucket);
       } catch (err) {
         alert("Lỗi xóa tệp: " + err.message);
       }
@@ -2138,27 +2204,30 @@
       }
     }
 
-    async function changeRole(id, currentRole) {
-      const roles = ['member', 'customer', 'partner', 'staff', 'leader', 'admin'];
-      let currentIndex = roles.indexOf(currentRole);
-      if (currentIndex === -1) currentIndex = 0;
-      const nextIndex = (currentIndex + 1) % roles.length;
-      const newRole = roles[nextIndex];
+    function toggleRoleDropdown(userId) {
+      // Đóng tất cả dropdown khác trước
+      document.querySelectorAll('.role-dropdown-menu').forEach(el => {
+        if (el.id !== `role-dropdown-${userId}`) el.classList.remove('show');
+      });
+      const el = document.getElementById(`role-dropdown-${userId}`);
+      if (el) el.classList.toggle('show');
       
-      const roleMapVi = {
-        member: 'Thành viên',
-        customer: 'Khách hàng',
-        partner: 'Đối tác',
-        staff: 'Nhân viên',
-        leader: 'Trưởng nhóm',
-        admin: 'Quản trị viên'
+      // Đóng khi click ra ngoài
+      const closeHandler = (e) => {
+        if (!e.target.closest('.role-select-wrapper')) {
+          el.classList.remove('show');
+          document.removeEventListener('click', closeHandler);
+        }
       };
+      setTimeout(() => document.addEventListener('click', closeHandler), 10);
+    }
 
-      if (!confirm(`Đổi quyền tài khoản này thành "${roleMapVi[newRole]}"?`)) return;
+    async function confirmRoleChange(id, newRole, roleLabel, username) {
+      if (!confirm(`Xác nhận đổi quyền tài khoản "${username}" thành "${roleLabel}"?`)) return;
       try {
         const { error } = await window.supabaseClient.from('vcec_users').update({ role: newRole }).eq('id', id);
         if (error) throw error;
-        alert(`Đã cập nhật cấp quyền thành công!`);
+        alert(`🎉 Đã cập nhật cấp quyền cho "${username}" thành "${roleLabel}"!`);
         loadCoreData();
       } catch (err) {
         alert("Lỗi: " + err.message);
@@ -2293,37 +2362,240 @@
     }
 
     // New Article Publish Logic
-    function publishPost(event) {
+    async function publishPost(event) {
       event.preventDefault();
       const category = document.getElementById("post-category").value;
       const titleVi = document.getElementById("post-title-vi").value.trim();
       const titleZh = document.getElementById("post-title-zh").value.trim();
       const titleEn = document.getElementById("post-title-en").value.trim();
-      
+
       const summaryVi = document.getElementById("post-summary-vi").value.trim();
       const summaryZh = document.getElementById("post-summary-zh").value.trim();
       const summaryEn = document.getElementById("post-summary-en").value.trim();
-      
+
       const contentVi = quillVi ? quillVi.getSemanticHTML() : "";
       const contentZh = quillZh ? quillZh.getSemanticHTML() : "";
       const contentEn = quillEn ? quillEn.getSemanticHTML() : "";
 
-      const categoryMap = {
-        'tin-tuc': 'Tin Tức & Sự Kiện',
-        'co-hoi': 'Cơ Hội Đầu Tư',
-        'tai-nguyen': 'Kho Tài Nguyên & Media',
-        'gioi-thieu': 'Giới Thiệu Chung'
-      };
+      if (!titleVi) { alert("Vui lòng nhập tiêu đề tiếng Việt!"); return; }
 
-      alert(`🎉 Xuất bản bài viết thành công!\n\n- Chuyên mục chỉ định: ${categoryMap[category]}\n- Tiêu đề VI: ${titleVi}\n- Tiêu đề ZH: ${titleZh}\n- Tiêu đề EN: ${titleEn}\n\nHệ thống đã đồng bộ dữ liệu lên đám mây và sẵn sàng phân phối bài viết ra trang tương ứng!`);
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Đang lưu..."; }
+
+      try {
+        if (window.currentEditingPostId) {
+          // UPDATE Existing Post
+          const { error } = await window.supabaseClient
+            .from('vcec_posts')
+            .update({
+              category,
+              title_vi: titleVi, title_zh: titleZh, title_en: titleEn,
+              summary_vi: summaryVi, summary_zh: summaryZh, summary_en: summaryEn,
+              content_vi: contentVi, content_zh: contentZh, content_en: contentEn,
+              status: 'published'
+            })
+            .eq('id', window.currentEditingPostId);
+          if (error) throw error;
+          alert("🎉 Cập nhật bài viết thành công!");
+        } else {
+          // INSERT New Post
+          const { error } = await window.supabaseClient
+            .from('vcec_posts')
+            .insert([{
+              category,
+              title_vi: titleVi, title_zh: titleZh, title_en: titleEn,
+              summary_vi: summaryVi, summary_zh: summaryZh, summary_en: summaryEn,
+              content_vi: contentVi, content_zh: contentZh, content_en: contentEn,
+              status: 'published',
+              author: window.vcec_user || 'admin'
+            }]);
+          if (error) throw error;
+          alert(`🚀 Xuất bản bài viết thành công!`);
+        }
+
+        localStorage.removeItem("vcec_post_draft");
+        const notice = document.getElementById("draft-restore-notice");
+        if (notice) notice.style.display = "none";
+        updateDraftBadge();
+        hideNewPostForm();
+        loadPostsList();
+      } catch (err) {
+        alert("Lỗi khi lưu bài viết: " + err.message);
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Xuất bản ngay"; }
+      }
+    }
+
+    async function loadPostsList() {
+      const tbody = document.getElementById("posts-list-tbody");
+      if (!tbody || !window.supabaseClient) return;
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9CA3AF;padding:20px;">⏳ Đang tải...</td></tr>';
+
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('vcec_posts')
+          .select('id, category, title_vi, status, author, created_at')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9CA3AF;padding:20px;">Chưa có bài viết nào.</td></tr>';
+          return;
+        }
+
+        const catColor = { 
+          'tin-tuc': '#C8102E', 
+          'co-hoi': '#AF883A', 
+          'tai-nguyen': '#1A6B3C', 
+          'gioi-thieu': '#1E3A5F',
+          'quan-he-viet-trung': '#A81B34',
+          'linh-vuc': '#8C1327',
+          'dich-vu': '#AF883A'
+        };
+        const catLabel = { 
+          'tin-tuc': 'Tin Tức', 
+          'co-hoi': 'Cơ Hội', 
+          'tai-nguyen': 'Tài Nguyên', 
+          'gioi-thieu': 'Giới Thiệu',
+          'quan-he-viet-trung': 'Việt - Trung',
+          'linh-vuc': 'Lĩnh Vực',
+          'dich-vu': 'Dịch Vụ'
+        };
+
+        const filteredData = window.currentFilterCategory 
+          ? data.filter(p => p.category === window.currentFilterCategory)
+          : data;
+
+        if (filteredData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#9CA3AF;padding:20px;">Không có bài viết nào trong mục này.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = filteredData.map(p => {
+          const d = new Date(p.created_at);
+          const dateStr = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+          const color = catColor[p.category] || '#555';
+          const label = catLabel[p.category] || p.category;
+          return `<tr>
+            <td style="font-weight:600;">${p.title_vi}</td>
+            <td><span style="background:${color};color:#fff;padding:2px 8px;border-radius:4px;font-size:0.78rem;">${label}</span></td>
+            <td>${dateStr}</td>
+            <td><span style="color:${p.status==='published'?'#1A6B3C':'#888'};font-weight:600;">${p.status==='published'?'Đã đăng':'Nháp'}</span></td>
+            <td style="text-align:right;">
+              <button onclick="editPost('${p.id}')" style="background:none;border:none;color:var(--vcec-gold);cursor:pointer;font-size:0.85rem;font-weight:600;margin-right:12px;">Sửa</button>
+              <button onclick="deletePost('${p.id}','${p.title_vi.replace(/'/g,"\\'")}')" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:0.85rem;font-weight:600;">Xóa</button>
+            </td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#EF4444;padding:20px;">Lỗi: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Filter logic for sub-menus
+    window.currentFilterCategory = null;
+    function filterPostsByCategory(category) {
+      window.currentFilterCategory = category;
+      switchScreen('posts');
       
-      // Clean draft upon successful publish
-      localStorage.removeItem("vcec_post_draft");
-      const notice = document.getElementById("draft-restore-notice");
-      if (notice) notice.style.display = "none";
-      updateDraftBadge();
+      // Highlight sub-menu item
+      document.querySelectorAll('.sub-menu-item').forEach(el => {
+        el.classList.remove('active');
+        if (el.getAttribute('data-cat') === category) el.classList.add('active');
+      });
 
-      hideNewPostForm();
+      // Update screen title if needed
+      const catLabel = { 
+        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội', 'tai-nguyen': 'Tài Nguyên', 'gioi-thieu': 'Giới Thiệu',
+        'quan-he-viet-trung': 'Quan Hệ Việt-Trung', 'linh-vuc': 'Lĩnh Vực', 'dich-vu': 'Dịch Vụ'
+      };
+      document.querySelector('#screen-posts .screen-title').textContent = `Quản Lý Bài Đăng: ${catLabel[category]}`;
+      
+      loadPostsList();
+    }
+
+    function toggleSubMenu(submenuId, screenId) {
+      const submenu = document.getElementById(submenuId);
+      const isOpening = submenu.style.display === 'none';
+      
+      // Close all other submenus and reset arrows first
+      document.querySelectorAll('.sub-menu').forEach(sm => {
+        if (sm.id !== submenuId) sm.style.display = 'none';
+      });
+      document.querySelectorAll('.menu-item .arrow-icon').forEach(arrow => {
+        const parent = arrow.closest('.menu-item');
+        if (!parent.getAttribute('onclick').includes(submenuId)) arrow.style.transform = 'rotate(0deg)';
+      });
+
+      if (isOpening) {
+        submenu.style.display = 'flex';
+        const parent = submenu.previousElementSibling;
+        const arrow = parent.querySelector('.arrow-icon');
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+      } else {
+        submenu.style.display = 'none';
+        const parent = submenu.previousElementSibling;
+        const arrow = parent.querySelector('.arrow-icon');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      }
+      
+      switchScreen(screenId);
+      if (screenId === 'posts') {
+        window.currentFilterCategory = null;
+        document.querySelector('#screen-posts .screen-title').textContent = "Quản Lý Bài Đăng & Tin Tức";
+        document.querySelectorAll('.sub-menu-item').forEach(el => el.classList.remove('active'));
+        loadPostsList();
+      }
+    }
+
+    async function editPost(id) {
+      if (!window.supabaseClient) return;
+      try {
+        const { data: post, error } = await window.supabaseClient
+          .from('vcec_posts')
+          .select('*')
+          .eq('id', id)
+          .maybeSingle();
+        
+        if (error || !post) throw error || new Error("Không tìm thấy bài viết");
+
+        // Fill the form
+        window.currentEditingPostId = post.id;
+        document.getElementById("post-category").value = post.category;
+        document.getElementById("post-title-vi").value = post.title_vi || "";
+        document.getElementById("post-title-zh").value = post.title_zh || "";
+        document.getElementById("post-title-en").value = post.title_en || "";
+        document.getElementById("post-summary-vi").value = post.summary_vi || "";
+        document.getElementById("post-summary-zh").value = post.summary_zh || "";
+        document.getElementById("post-summary-en").value = post.summary_en || "";
+        
+        if (quillVi) quillVi.setContents(quillVi.clipboard.convert(post.content_vi || ""));
+        if (quillZh) quillZh.setContents(quillZh.clipboard.convert(post.content_zh || ""));
+        if (quillEn) quillEn.setContents(quillEn.clipboard.convert(post.content_en || ""));
+
+        // Show form and scroll up
+        document.getElementById("new-post-form-wrap").style.display = "block";
+        document.querySelector("#new-post-form-wrap h3").textContent = "Chỉnh sửa bài viết";
+        document.getElementById("new-post-form-wrap").scrollIntoView({ behavior: 'smooth' });
+        
+        // Update button text
+        const submitBtn = document.querySelector('#new-post-form-wrap button[type="submit"]');
+        if (submitBtn) submitBtn.textContent = "💾 Cập Nhật Bài Viết";
+      } catch (err) {
+        alert("Lỗi khi tải bài viết: " + err.message);
+      }
+    }
+
+    async function deletePost(id, title) {
+      if (!confirm(`Xác nhận xóa bài viết:\n"${title}"\n\nHành động này không thể hoàn tác!`)) return;
+      try {
+        const { error } = await window.supabaseClient.from('vcec_posts').delete().eq('id', id);
+        if (error) throw error;
+        loadPostsList();
+      } catch (err) {
+        alert("Lỗi khi xóa: " + err.message);
+      }
     }
 
     function showNewPostForm() {
@@ -2356,7 +2628,12 @@
     }
 
     function hideNewPostForm() {
+      window.currentEditingPostId = null;
       document.getElementById("new-post-form-wrap").style.display = "none";
+      document.querySelector("#new-post-form-wrap h3").textContent = "Tạo bài viết mới";
+      const submitBtn = document.querySelector('#new-post-form-wrap button[type="submit"]');
+      if (submitBtn) submitBtn.textContent = "🚀 Xuất Bản Bài Viết";
+      
       document.getElementById("post-title-vi").value = "";
       document.getElementById("post-title-zh").value = "";
       document.getElementById("post-title-en").value = "";
@@ -2631,7 +2908,7 @@
         if (error) throw error;
 
         // Get public URL
-        const publicUrl = `https://jhebreoxwuimlqwvjdok.supabase.co/storage/v1/object/public/vcec/${cleanName}`;
+        const publicUrl = `https://uksvxqhclwjrzeoqsfxr.supabase.co/storage/v1/object/public/vcec/${cleanName}`;
         if (inputUrl) {
           inputUrl.value = publicUrl;
         }

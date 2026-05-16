@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Cơ Hội Đầu Tư & Dự Án Khu Công Nghiệp - VCEC Portal</title>
   <meta name="description" content="Danh mục cơ hội đầu tư, dự án khu công nghiệp trọng điểm tại Việt Nam. Sử dụng bộ lọc thông minh tra cứu bản đồ tọa độ miễn phí và đăng ký xúc tiến nhanh.">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
+    .news-card { background: #FFFFFF; border: 1px solid var(--vcec-gold-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; }
+    .news-card:hover { transform: translateY(-4px); border-color: var(--vcec-red); box-shadow: 0 10px 15px rgba(200,16,46,0.04); }
+    .news-img { height: 180px; width: 100%; object-fit: cover; }
+    .news-body { padding: 20px; }
+    .news-meta { font-size: 0.8rem; color: #888; margin-bottom: 8px; display: block; font-weight: 600; }
+    .news-title { font-family: var(--vcec-font-title); font-size: 1.1rem; color: var(--vcec-text-dark); line-height: 1.4; margin-bottom: 10px; }
+    .news-desc { font-size: 0.85rem; color: #666; line-height: 1.5; }
+    @media (max-width: 768px) { .news-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
@@ -82,6 +94,19 @@
         </div>
       </section>
 
+      <!-- Investment Opportunity Articles from Supabase -->
+      <section id="cohoi-posts-section" class="section" style="display:none;">
+        <div class="container">
+          <div class="section-title">
+            <h2>Bài Viết Cơ Hội Đầu Tư</h2>
+            <p>Phân tích chuyên sâu về các cơ hội và chính sách đầu tư song phương Việt – Trung</p>
+          </div>
+          <div id="cohoi-posts-grid" class="news-grid">
+            <p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">⏳ Đang tải...</p>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -133,5 +158,50 @@
 
   <!-- Scripts -->
   <script src="app.js"></script>
+  <script>
+    (function() {
+      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
+      function fmtDate(iso) {
+        var d = new Date(iso);
+        return d.getDate() + ' Tháng ' + (d.getMonth()+1) + ', ' + d.getFullYear();
+      }
+
+      var cachedData = null;
+
+      function renderPosts(data) {
+        var grid = document.getElementById('cohoi-posts-grid');
+        var section = document.getElementById('cohoi-posts-section');
+        if (!grid) return;
+        if (!data || data.length === 0) {
+          if (section) section.style.display = 'none';
+          return;
+        }
+        if (section) section.style.display = '';
+        grid.innerHTML = data.map(function(p) {
+          return '<div class="news-card">' +
+            (p.cover_image ? '<img src="' + p.cover_image + '" alt="" class="news-img" loading="lazy">' : '') +
+            '<div class="news-body">' +
+              '<span class="news-meta">📅 ' + fmtDate(p.created_at) + ' | CƠ HỘI ĐẦU TƯ</span>' +
+              '<h3 class="news-title">' + tf(p,'title') + '</h3>' +
+              '<p class="news-desc">' + tf(p,'summary') + '</p>' +
+            '</div></div>';
+        }).join('');
+      }
+
+      function loadPosts() {
+        if (!window.supabaseClient) { setTimeout(loadPosts, 150); return; }
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
+          .eq('category','co-hoi').eq('status','published')
+          .order('created_at', { ascending: false })
+          .then(function(res) { cachedData = res.data; renderPosts(res.error ? null : res.data); });
+      }
+
+      loadPosts();
+      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderPosts(cachedData); });
+    })();
+  </script>
 </body>
 </html>

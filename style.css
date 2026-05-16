@@ -1207,9 +1207,15 @@ button, input, select, textarea {
 }
 
 /* 7. Advanced Responsive Framework */
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
   .sectors-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 Columns on smaller desktops */
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns on medium desktops */
+  }
+}
+
+@media (max-width: 900px) {
+  .sectors-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns on small desktops/tablets */
   }
 }
 
@@ -1491,3 +1497,51 @@ button, input, select, textarea {
 .sub-hero + .section {
   padding-top: 20px;
 }
+
+/* ==========================================
+   9. Bucket Management Tab Styling - Added by MI
+   ========================================== */
+.bucket-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #9CA3AF;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+
+.bucket-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bucket-tab-btn.active {
+  background: linear-gradient(135deg, var(--vcec-red) 0%, #900c1e 100%) !important;
+  color: #FFFFFF !important;
+  border-color: var(--vcec-gold) !important;
+  box-shadow: 0 4px 15px rgba(168, 27, 52, 0.3) !important;
+}
+
+.bucket-tab-btn.active:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(168, 27, 52, 0.4);
+}
+
+@media (max-width: 600px) {
+  .bucket-tab-btn {
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
+}
+

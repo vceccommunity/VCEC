@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Lĩnh Vực Hợp Tác Trọng Điểm - VCEC Portal</title>
   <meta name="description" content="Chi tiết 8 lĩnh vực hợp tác kinh tế - thương mại chiến lược được VCEC thúc đẩy, bao gồm bán dẫn điện tử, năng lượng sạch, KCN, dệt may, kinh tế số.">
   <link rel="stylesheet" href="style.css">
   <style>
     .sector-detail-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
       margin-top: 40px;
     }
     .sector-detail-card {
@@ -20,6 +21,10 @@
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
     }
     .sector-detail-card:hover {
       transform: translateY(-6px);
@@ -54,6 +59,11 @@
       color: #555555;
       line-height: 1.6;
     }
+    @media (max-width: 1024px) {
+      .sector-detail-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
     @media (max-width: 768px) {
       .sector-detail-grid {
         grid-template-columns: 1fr;
@@ -84,84 +94,84 @@
           <div class="sector-detail-grid">
             
             <!-- Sector 1 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=electronics" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=500&q=80" alt="Electronics" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 01</span>
                 <h3 class="sector-detail-title" data-i18n="sec-electronics">Công nghệ cao & Điện tử</h3>
                 <p class="sector-detail-desc" data-i18n="sec-electronics-desc">Sản xuất chất bán dẫn, vi mạch điện tử, thiết bị thông minh và lắp ráp công nghệ cao.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 2 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=energy" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=500&q=80" alt="Energy" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 02</span>
                 <h3 class="sector-detail-title" data-i18n="sec-energy">Năng lượng tái tạo & Xe điện (EV)</h3>
                 <p class="sector-detail-desc" data-i18n="sec-energy-desc">Tập trung chuỗi cung ứng pin xe điện, lắp ráp thiết bị tích năng lượng và linh kiện quang điện.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 3 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=logistics" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=500&q=80" alt="Logistics" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 03</span>
                 <h3 class="sector-detail-title" data-i18n="sec-logistics">Logistics & Chuỗi cung ứng</h3>
                 <p class="sector-detail-desc" data-i18n="sec-logistics-desc">Xây dựng chuỗi vận chuyển liên vận đường sắt và đường biển kết hợp kho bãi thông minh tự động hóa.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 4 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=infra" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=500&q=80" alt="Infra" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 04</span>
                 <h3 class="sector-detail-title" data-i18n="sec-infra">Hạ tầng Khu công nghiệp</h3>
                 <p class="sector-detail-desc" data-i18n="sec-infra-desc">Phát triển hạ tầng đồng bộ, xử lý nước thải chuẩn sinh thái, sẵn sàng mặt bằng bàn giao.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 5 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=agri" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=500&q=80" alt="Agri" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 05</span>
                 <h3 class="sector-detail-title" data-i18n="sec-agri">Nông nghiệp công nghệ cao</h3>
                 <p class="sector-detail-desc" data-i18n="sec-agri-desc">Nghiên cứu ứng dụng giống kháng sâu bệnh và công nghệ sấy khô xuất khẩu trái cây chính ngạch.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 6 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=textile" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=500&q=80" alt="Textile" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 06</span>
                 <h3 class="sector-detail-title" data-i18n="sec-textile">Dệt may & Công nghiệp phụ trợ</h3>
                 <p class="sector-detail-desc" data-i18n="sec-textile-desc">Hiện đại hóa chuỗi kéo sợi, nhuộm màu sinh học không ảnh hưởng môi trường theo chuẩn EU.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 7 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=digital" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Digital" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 07</span>
                 <h3 class="sector-detail-title" data-i18n="sec-digital">Kinh tế số & TMĐT song phương</h3>
                 <p class="sector-detail-desc" data-i18n="sec-digital-desc">Tổ chức lưu thông hàng hóa nhanh chóng qua cửa khẩu số thông minh và hệ thống hải quan tích hợp.</p>
               </div>
-            </div>
+            </a>
 
             <!-- Sector 8 -->
-            <div class="sector-detail-card">
+            <a href="linh-vuc-chi-tiet.html?id=medical" class="sector-detail-card">
               <img src="https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=500&q=80" alt="Medical" class="sector-detail-img">
               <div class="sector-detail-body">
                 <span class="sector-number">Sector 08</span>
                 <h3 class="sector-detail-title" data-i18n="sec-medical">Y tế & Thiết bị Y tế</h3>
                 <p class="sector-detail-desc" data-i18n="sec-medical-desc">Đầu tư phân phối và sản xuất trang thiết bị y tế tiên tiến cùng chuyển giao công nghệ dược phẩm.</p>
               </div>
-            </div>
+            </a>
 
           </div>
         </div>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Tài Nguyên & Kiến Thức Xúc Tiến Đầu Tư - VCEC Portal</title>
   <meta name="description" content="Thư viện cẩm nang đầu tư FDI, văn bản pháp luật đầu tư Việt Nam biên dịch song ngữ Việt Trung và hướng dẫn quy chuẩn kỹ thuật cho doanh nghiệp nước ngoài.">
   <link rel="stylesheet" href="style.css">
@@ -91,38 +92,8 @@
             <p>Tải xuống tài liệu hướng dẫn đầu tư song ngữ chính thống được biên soạn bởi Ban Pháp chế VCEC</p>
           </div>
 
-          <div class="resource-list">
-            
-            <!-- Resource 1 -->
-            <div class="resource-item">
-              <div class="resource-icon-box">PDF</div>
-              <div class="resource-info">
-                <h3 class="resource-title">Sổ tay hướng dẫn Quy trình thành lập doanh nghiệp FDI tại Việt Nam (2026)</h3>
-                <p class="resource-meta">Định dạng: PDF | Ngôn ngữ: Song ngữ Trung - Việt | Dung lượng: 4.2 MB</p>
-              </div>
-              <a href="lien-he.html" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Tải ngay (Mã OTP)</a>
-            </div>
-
-            <!-- Resource 2 -->
-            <div class="resource-item">
-              <div class="resource-icon-box">DOC</div>
-              <div class="resource-info">
-                <h3 class="resource-title">Luật Đầu tư Việt Nam cập nhật mới nhất (Bản biên dịch tiếng Trung đối chiếu)</h3>
-                <p class="resource-meta">Định dạng: DOCX | Ngôn ngữ: Tiếng Trung Giản thể | Dung lượng: 1.8 MB</p>
-              </div>
-              <a href="lien-he.html" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Tải ngay (Mã OTP)</a>
-            </div>
-
-            <!-- Resource 3 -->
-            <div class="resource-item">
-              <div class="resource-icon-box">PDF</div>
-              <div class="resource-info">
-                <h3 class="resource-title">Tổng hợp chính sách Ưu đãi thuế quan KCN Miền Bắc & Miền Nam năm 2026</h3>
-                <p class="resource-meta">Định dạng: PDF | Ngôn ngữ: Song ngữ Anh - Việt - Trung | Dung lượng: 3.5 MB</p>
-              </div>
-              <a href="lien-he.html" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Tải ngay (Mã OTP)</a>
-            </div>
-
+          <div id="resources-list" class="resource-list">
+            <p style="color:#9CA3AF;text-align:center;padding:40px 0;">⏳ Đang tải tài nguyên...</p>
           </div>
         </div>
       </section>
@@ -134,5 +105,49 @@
   <footer id="global-footer"></footer>
 
   <script src="app.js"></script>
+  <script>
+    (function() {
+      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
+      function fmtDate(iso) {
+        var d = new Date(iso);
+        return d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+      }
+
+      var cachedData = null;
+
+      function renderResources(data) {
+        var list = document.getElementById('resources-list');
+        if (!list) return;
+        if (!data || data.length === 0) {
+          list.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;">Chưa có tài nguyên nào.</p>';
+          return;
+        }
+        list.innerHTML = data.map(function(p) {
+          return '<div class="resource-item">' +
+            '<div class="resource-icon-box">📄</div>' +
+            '<div class="resource-info">' +
+              '<h3 class="resource-title">' + tf(p,'title') + '</h3>' +
+              '<p class="resource-meta">' + tf(p,'summary') + ' | Cập nhật: ' + fmtDate(p.created_at) + '</p>' +
+            '</div>' +
+            '<a href="lien-he.html" class="btn btn-primary" style="padding:10px 20px;font-size:0.85rem;white-space:nowrap;">Yêu cầu tài liệu</a>' +
+          '</div>';
+        }).join('');
+      }
+
+      function loadResources() {
+        if (!window.supabaseClient) { setTimeout(loadResources, 150); return; }
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,created_at')
+          .eq('category','tai-nguyen').eq('status','published')
+          .order('created_at', { ascending: false })
+          .then(function(res) { cachedData = res.data; renderResources(res.error ? null : res.data); });
+      }
+
+      loadResources();
+      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderResources(cachedData); });
+    })();
+  </script>
 </body>
 </html>

@@ -5,9 +5,9 @@
   Author: Senior Frontend Architect
 */
 
-// Supabase Configuration (Added by Antigravity)
-const supabaseUrl = "https://jhebreoxwuimlqwvjdok.supabase.co";
-const supabaseKey = "sb_publishable_ycoHhRg7v4s11N6AKoUsEA_9wLW6L1s";
+// Supabase Configuration
+const supabaseUrl = "https://uksvxqhclwjrzeoqsfxr.supabase.co";
+const supabaseKey = "sb_publishable_LiblBao7DK6HZIZhHskXCg_Kfohb65Y";
 let supabaseClient = null;
 
 // Dynamically inject Supabase CDN script
@@ -410,6 +410,8 @@ function setLanguage(lang) {
   if (homeLink) {
     homeLink.title = translations[lang]["nav-home"];
   }
+
+  window.dispatchEvent(new CustomEvent('vcec-lang-change', { detail: { lang } }));
 }
 
 // 3. Shared Header and Footer Dynamic Renderers (To keep code dry and optimize SEO)
@@ -553,11 +555,7 @@ function renderHeader() {
   header.innerHTML = `
     <div class="container header-container">
       <a href="index.html" class="logo-link">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="%23FFFFFF" stroke-width="2.5">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
+        <img src="public/logo_VCEC.jpg" alt="VCEC Logo" class="logo-img" style="height: 40px; width: auto; border-radius: 4px;">
         <div class="logo-text">
           <div class="logo-title">VCEC</div>
           <div class="logo-subtitle" data-i18n="sub-title">${translations[currentLang]["sub-title"]}</div>
