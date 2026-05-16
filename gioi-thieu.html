@@ -25,11 +25,20 @@
         </div>
       </section>
 
-      <!-- Dynamic Posts from 'gioi-thieu' category -->
+      <!-- Dynamic Main Brand Story -->
+      <section class="section" id="story-section" style="display:none; border-bottom: 1px solid rgba(168, 27, 52, 0.05);">
+        <div class="container">
+          <div id="gioi-thieu-story" class="brand-story-wrap">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Highlights Cards -->
       <section class="section">
         <div class="container">
           <div class="section-title">
-            <h2>Giới Thiệu VCEC</h2>
+            <h2 data-i18n="about-highlights">Điểm Nhấn Chiến Lược</h2>
             <p>Tầm nhìn, sứ mệnh, giá trị cốt lõi và ban điều hành</p>
           </div>
           <div id="gioi-thieu-grid" class="service-grid">
@@ -64,7 +73,20 @@
         return ICON_MAP['default'];
       }
 
-      var cachedData = null;
+      function renderStory(post) {
+        var storyDiv = document.getElementById('gioi-thieu-story');
+        var section = document.getElementById('story-section');
+        if (!storyDiv || !post) return;
+        section.style.display = 'block';
+        var title = tf(post, 'title');
+        var content = tf(post, 'content');
+        storyDiv.innerHTML = '<div class="story-content">' +
+          '<h2 class="story-title">' + title + '</h2>' +
+          '<div class="story-text">' + content + '</div>' +
+          '</div>' +
+          (post.cover_image ? '<div class="story-image"><img src="' + post.cover_image + '" alt="' + title + '" class="img-fluid rounded-lg shadow-lg"></div>' : '');
+      }
+
       function renderPosts(data) {
         var grid = document.getElementById('gioi-thieu-grid');
         if (!grid) return;
@@ -81,17 +103,34 @@
             '</a>';
         }).join('');
       }
-      function loadPosts() {
-        if (!window.supabaseClient) { setTimeout(loadPosts, 150); return; }
+
+      function loadData() {
+        if (!window.supabaseClient) { setTimeout(loadData, 150); return; }
+        
+        // Load Main Story
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('*')
+          .eq('category','gioi-thieu-main').eq('status','published')
+          .limit(1).single()
+          .then(function(res) { if (res.data) { cachedStory = res.data; renderStory(res.data); } });
+
+        // Load Highlights
         window.supabaseClient
           .from('vcec_posts')
           .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
           .eq('category','gioi-thieu').eq('status','published')
           .order('created_at', { ascending: true })
-          .then(function(res) { cachedData = res.data; renderPosts(res.error ? null : res.data); });
+          .then(function(res) { cachedPosts = res.data; renderPosts(res.error ? null : res.data); });
       }
-      loadPosts();
-      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderPosts(cachedData); });
+
+      var cachedStory = null;
+      var cachedPosts = null;
+      loadData();
+      window.addEventListener('vcec-lang-change', function() { 
+        if (cachedStory) renderStory(cachedStory);
+        if (cachedPosts) renderPosts(cachedPosts); 
+      });
     })();
   </script>
 </body>

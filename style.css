@@ -2054,6 +2054,57 @@ button, input, select, textarea {
   text-transform: uppercase;
 }
 
+/* 19. Brand Story & Professional Introduction */
+.brand-story-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 40px 0;
+}
+.story-title {
+  font-family: var(--vcec-font-title);
+  font-size: 2.2rem;
+  color: var(--vcec-red);
+  margin-bottom: 24px;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+}
+.story-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px; left: 0;
+  width: 80px; height: 4px;
+  background: var(--vcec-gold);
+  border-radius: 2px;
+}
+.story-text {
+  font-size: 1.05rem;
+  color: var(--vcec-text-main);
+  line-height: 1.8;
+}
+.story-text p {
+  margin-bottom: 20px;
+}
+.story-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--vcec-gold-border);
+}
+@media (max-width: 992px) {
+  .brand-story-wrap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .story-title::after {
+    left: 50%;
+    margin-left: -40px;
+  }
+}
+
 /* 16. News & Articles Cards (Standard Editorial Style) */
 .news-grid {
   display: grid;

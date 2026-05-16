@@ -1081,7 +1081,8 @@
           </svg>
         </div>
         <div class="admin-submenu" id="posts-submenu">
-          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu')" data-cat="gioi-thieu">○ Giới Thiệu</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu-main')" data-cat="gioi-thieu-main">○ Bài Giới Thiệu Chính</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu')" data-cat="gioi-thieu">○ Giới Thiệu Highlights</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('quan-he-viet-trung')" data-cat="quan-he-viet-trung">○ Quan Hệ Việt-Trung</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('linh-vuc')" data-cat="linh-vuc">○ Lĩnh Vực</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('dich-vu')" data-cat="dich-vu">○ Dịch Vụ</div>
@@ -1164,7 +1165,8 @@
               📁 Chuyên mục hiển thị ngoài website:
             </label>
             <select id="post-category" class="form-input" style="background: #0f172a; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.15); height: 42px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; padding: 0 12px;">
-              <option value="gioi-thieu">🏢 Giới Thiệu Chung</option>
+              <option value="gioi-thieu-main">🏢 Bài Giới Thiệu Chính (Brand Story)</option>
+              <option value="gioi-thieu">📋 Giới Thiệu Highlights (Cards)</option>
               <option value="quan-he-viet-trung">🤝 Quan Hệ Việt-Trung</option>
               <option value="linh-vuc">🏗️ Lĩnh Vực Hợp Tác</option>
               <option value="dich-vu">🛠️ Dịch Vụ Hỗ Trợ</option>
@@ -2515,6 +2517,7 @@
           'tin-tuc': '#C8102E', 
           'co-hoi': '#AF883A', 
           'tai-nguyen': '#1A6B3C', 
+          'gioi-thieu-main': '#C8102E',
           'gioi-thieu': '#1E3A5F',
           'quan-he-viet-trung': '#A81B34',
           'linh-vuc': '#8C1327',
@@ -2524,7 +2527,8 @@
           'tin-tuc': 'Tin Tức', 
           'co-hoi': 'Cơ Hội Đầu Tư', 
           'tai-nguyen': 'Tài Nguyên', 
-          'gioi-thieu': 'Giới Thiệu',
+          'gioi-thieu-main': 'Giới Thiệu Chính',
+          'gioi-thieu': 'Giới Thiệu Highlights',
           'quan-he-viet-trung': 'Quan Hệ Việt-Trung',
           'linh-vuc': 'Lĩnh Vực',
           'dich-vu': 'Dịch Vụ'
@@ -2574,7 +2578,8 @@
 
       // Update screen title if needed
       const catLabel = { 
-        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội Đầu Tư', 'tai-nguyen': 'Tài Nguyên', 'gioi-thieu': 'Giới Thiệu',
+        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội Đầu Tư', 'tai-nguyen': 'Tài Nguyên', 
+        'gioi-thieu-main': 'Giới Thiệu Chính', 'gioi-thieu': 'Giới Thiệu Highlights',
         'quan-he-viet-trung': 'Quan Hệ Việt-Trung', 'linh-vuc': 'Lĩnh Vực', 'dich-vu': 'Dịch Vụ'
       };
       document.querySelector('#screen-posts .screen-title').textContent = `Quản Lý Bài Đăng: ${catLabel[category]}`;
