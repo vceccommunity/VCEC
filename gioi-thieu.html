@@ -25,24 +25,34 @@
         </div>
       </section>
 
-      <!-- Dynamic Main Brand Story -->
-      <section class="section" id="story-section" style="display:none; border-bottom: 1px solid rgba(168, 27, 52, 0.05);">
+      <!-- 1. General Introduction & Brand Story -->
+      <section class="section" id="intro-section" style="padding-top: 80px;">
         <div class="container">
-          <div id="gioi-thieu-story" class="brand-story-wrap">
-            <!-- Rendered by JS -->
+          <div id="gioi-thieu-intro" class="brand-story-wrap">
+            <!-- Rendered by JS: Chuyên mục 'gioi-thieu-main' -->
           </div>
         </div>
       </section>
 
-      <!-- Highlights Cards -->
-      <section class="section">
+      <!-- 2. Vertical Milestones -->
+      <section class="section" id="milestones-section" style="background: #F8FAFC; border-top: 1px solid #EEF2F6; border-bottom: 1px solid #EEF2F6;">
         <div class="container">
           <div class="section-title">
-            <h2 data-i18n="about-highlights">Điểm Nhấn Chiến Lược</h2>
-            <p>Tầm nhìn, sứ mệnh, giá trị cốt lõi và ban điều hành</p>
+            <h2 data-i18n="about-milestones">Lộ Trình Phát Triển VCEC</h2>
+            <p>Những cột mốc quan trọng trong hành trình xúc tiến đầu tư song phương</p>
           </div>
-          <div id="gioi-thieu-grid" class="service-grid">
-            <p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">⏳ Đang tải nội dung...</p>
+          <div id="gioi-thieu-milestones" class="timeline-vcec">
+            <!-- Rendered by JS: Chuyên mục 'gioi-thieu-milestone' -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Key Details (Vision, Mission, Leadership) - Full Text -->
+      <section class="section" id="details-section">
+        <div class="container">
+          <div id="gioi-thieu-full-content" class="full-content-stack">
+            <!-- Rendered by JS: Chuyên mục 'gioi-thieu' -->
+            <p style="color:#9CA3AF;text-align:center;padding:40px 0;">⏳ Đang đồng bộ nội dung chi tiết...</p>
           </div>
         </div>
       </section>
@@ -73,63 +83,100 @@
         return ICON_MAP['default'];
       }
 
-      function renderStory(post) {
-        var storyDiv = document.getElementById('gioi-thieu-story');
-        var section = document.getElementById('story-section');
-        if (!storyDiv || !post) return;
-        section.style.display = 'block';
+      function renderIntro(post) {
+        var wrap = document.getElementById('gioi-thieu-intro');
+        if (!wrap || !post) return;
         var title = tf(post, 'title');
         var content = tf(post, 'content');
-        storyDiv.innerHTML = '<div class="story-content">' +
+        wrap.innerHTML = '<div class="story-content">' +
           '<h2 class="story-title">' + title + '</h2>' +
           '<div class="story-text">' + content + '</div>' +
           '</div>' +
           (post.cover_image ? '<div class="story-image"><img src="' + post.cover_image + '" alt="' + title + '" class="img-fluid rounded-lg shadow-lg"></div>' : '');
       }
 
-      function renderPosts(data) {
-        var grid = document.getElementById('gioi-thieu-grid');
-        if (!grid) return;
+      function renderMilestones(data) {
+        var wrap = document.getElementById('gioi-thieu-milestones');
+        if (!wrap) return;
         if (!data || data.length === 0) {
-          grid.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">Chưa có nội dung.</p>';
+          wrap.innerHTML = '<p style="text-align:center;color:#9CA3AF;padding:20px;">Đang cập nhật lộ trình...</p>';
           return;
         }
-        grid.innerHTML = data.map(function(p) {
-          var title = tf(p,'title');
-          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="service-card" style="text-decoration:none;">' +
-            '<div class="service-icon">' + getIcon(title) + '</div>' +
-            '<h3 class="service-title">' + title + '</h3>' +
-            '<p class="service-desc">' + tf(p,'summary') + '</p>' +
-            '</a>';
+        wrap.innerHTML = data.map(function(p, idx) {
+          var side = idx % 2 === 0 ? 'left' : 'right';
+          var title = tf(p, 'title');
+          var date = new Date(p.created_at);
+          var dateStr = 'Tháng ' + (date.getMonth() + 1) + '/' + date.getFullYear();
+          return '<div class="timeline-item ' + side + '">' +
+            '<div class="timeline-dot"></div>' +
+            '<div class="timeline-content">' +
+            '<span class="timeline-date-label">' + dateStr + '</span>' +
+            '<h3>' + title + '</h3>' +
+            '<div class="timeline-text">' + tf(p, 'content') + '</div>' +
+            '</div></div>';
+        }).join('');
+      }
+
+      function renderFullContent(data) {
+        var wrap = document.getElementById('gioi-thieu-full-content');
+        if (!wrap) return;
+        if (!data || data.length === 0) {
+          wrap.innerHTML = '';
+          return;
+        }
+        wrap.innerHTML = data.map(function(p, idx) {
+          var isEven = idx % 2 === 0;
+          var title = tf(p, 'title');
+          var content = tf(p, 'content');
+          var img = p.cover_image ? '<div class="full-content-image"><img src="' + p.cover_image + '" class="rounded-lg shadow-lg"></div>' : '';
+          
+          var textPart = '<div class="full-content-text">' +
+            '<h2 class="full-content-title">' + title + '</h2>' +
+            '<div class="full-content-body">' + content + '</div>' +
+            '</div>';
+
+          return '<div class="full-content-block ' + (isEven ? 'row-reverse' : '') + '">' +
+            (isEven ? img + textPart : textPart + img) +
+            '</div>';
         }).join('');
       }
 
       function loadData() {
         if (!window.supabaseClient) { setTimeout(loadData, 150); return; }
         
-        // Load Main Story
+        // 1. Load Main Intro
         window.supabaseClient
           .from('vcec_posts')
           .select('*')
           .eq('category','gioi-thieu-main').eq('status','published')
           .limit(1).single()
-          .then(function(res) { if (res.data) { cachedStory = res.data; renderStory(res.data); } });
+          .then(function(res) { if (res.data) { cachedIntro = res.data; renderIntro(res.data); } });
 
-        // Load Highlights
+        // 2. Load Milestones
         window.supabaseClient
           .from('vcec_posts')
-          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
+          .select('*')
+          .eq('category','gioi-thieu-milestone').eq('status','published')
+          .order('created_at', { ascending: true })
+          .then(function(res) { if (res.data) { cachedMilestones = res.data; renderMilestones(res.data); } });
+
+        // 3. Load Details
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('*')
           .eq('category','gioi-thieu').eq('status','published')
           .order('created_at', { ascending: true })
-          .then(function(res) { cachedPosts = res.data; renderPosts(res.error ? null : res.data); });
+          .then(function(res) { if (res.data) { cachedFull = res.data; renderFullContent(res.data); } });
       }
 
-      var cachedStory = null;
-      var cachedPosts = null;
+      var cachedIntro = null;
+      var cachedMilestones = null;
+      var cachedFull = null;
       loadData();
       window.addEventListener('vcec-lang-change', function() { 
-        if (cachedStory) renderStory(cachedStory);
-        if (cachedPosts) renderPosts(cachedPosts); 
+        if (cachedIntro) renderIntro(cachedIntro);
+        if (cachedMilestones) renderMilestones(cachedMilestones);
+        if (cachedFull) renderFullContent(cachedFull);
       });
     })();
   </script>
