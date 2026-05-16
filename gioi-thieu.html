@@ -25,15 +25,13 @@
         </div>
       </section>
 
-      <!-- Dynamic Posts from 'gioi-thieu' category -->
-      <section class="section">
+      <!-- Professional Introduction Content -->
+      <section class="section" style="padding: 60px 0;">
         <div class="container">
-          <div class="section-title">
-            <h2>Giới Thiệu VCEC</h2>
-            <p>Tầm nhìn, sứ mệnh, giá trị cốt lõi và ban điều hành</p>
-          </div>
-          <div id="gioi-thieu-grid" class="service-grid">
-            <p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">⏳ Đang tải nội dung...</p>
+          <div id="gioi-thieu-container" class="article-detail-wrap">
+            <div class="loading-placeholder" style="text-align:center; padding: 100px 0;">
+              <p style="color: var(--vcec-gold); font-size: 1.2rem;" data-i18n="loading">⏳ Đang tải nội dung giới thiệu...</p>
+            </div>
           </div>
         </div>
       </section>
@@ -44,54 +42,62 @@
   <!-- Shared Global Footer -->
   <footer id="global-footer"></footer>
 
-  <script src="app.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
   <script>
     (function() {
       function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
       function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
-      
-      var ICON_MAP = {
-        'tầm nhìn': '👁️', 'sứ mệnh': '🚀', 'giá trị': '💎', 'cốt lõi': '🌟',
-        'nhân sự': '🏛️', 'ban điều hành': '👨‍💼', 'tổ chức': '🏢',
-        'default': '📜'
-      };
 
-      function getIcon(title) {
-        var t = title.toLowerCase();
-        for (var key in ICON_MAP) {
-          if (t.includes(key)) return ICON_MAP[key];
-        }
-        return ICON_MAP['default'];
-      }
+      var cachedPost = null;
 
-      var cachedData = null;
-      function renderPosts(data) {
-        var grid = document.getElementById('gioi-thieu-grid');
-        if (!grid) return;
-        if (!data || data.length === 0) {
-          grid.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">Chưa có nội dung.</p>';
+      function renderPost(post) {
+        var container = document.getElementById('gioi-thieu-container');
+        if (!container) return;
+        
+        if (!post) {
+          container.innerHTML = '<div style="text-align:center; padding: 60px 0; color: #999;">Chưa có nội dung giới thiệu chính thức.</div>';
           return;
         }
-        grid.innerHTML = data.map(function(p) {
-          var title = tf(p,'title');
-          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="service-card" style="text-decoration:none;">' +
-            '<div class="service-icon">' + getIcon(title) + '</div>' +
-            '<h3 class="service-title">' + title + '</h3>' +
-            '<p class="service-desc">' + tf(p,'summary') + '</p>' +
-            '</a>';
-        }).join('');
+
+        var title = tf(post, 'title');
+        var summary = tf(post, 'summary');
+        var content = tf(post, 'content');
+        var coverImg = post.cover_image ? '<img src="' + post.cover_image + '" class="img-fluid rounded-lg shadow-sm mb-5" style="width:100%; max-height:500px; object-fit:cover;">' : '';
+
+        container.innerHTML = 
+          '<div class="about-main-article">' +
+            '<div class="section-title text-center mb-5">' +
+              '<h2 style="color: var(--vcec-red); font-weight: 800; font-size: 2.5rem; font-family: var(--vcec-font-title);">' + title + '</h2>' +
+              '<div style="width: 60px; height: 3px; background: var(--vcec-gold); margin: 20px auto;"></div>' +
+              '<p class="lead" style="color: #666; max-width: 800px; margin: 0 auto;">' + summary + '</p>' +
+            '</div>' +
+            '<div class="article-content-box" style="background: #FFF; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">' +
+              coverImg +
+              '<div class="rich-text-vcec" style="font-size: 1.15rem; line-height: 1.8; color: #333;">' + content + '</div>' +
+            '</div>' +
+          '</div>';
       }
-      function loadPosts() {
-        if (!window.supabaseClient) { setTimeout(loadPosts, 150); return; }
+
+      function loadPost() {
+        if (!window.supabaseClient) { setTimeout(loadPost, 150); return; }
         window.supabaseClient
           .from('vcec_posts')
-          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
-          .eq('category','gioi-thieu').eq('status','published')
+          .select('*')
+          .eq('category', 'gioi-thieu')
+          .eq('status', 'published')
           .order('created_at', { ascending: true })
-          .then(function(res) { cachedData = res.data; renderPosts(res.error ? null : res.data); });
+          .limit(1)
+          .single()
+          .then(function(res) {
+            cachedPost = res.data;
+            renderPost(res.error ? null : res.data);
+          });
       }
-      loadPosts();
-      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderPosts(cachedData); });
+
+      loadPost();
+      window.addEventListener('vcec-lang-change', function() { if (cachedPost) renderPost(cachedPost); });
     })();
   </script>
 </body>
