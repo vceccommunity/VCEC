@@ -251,8 +251,8 @@
             '<div class="timeline-content">' +
               '<span class="timeline-year">' + fmtYear(p.created_at) + '</span>' +
               '<h4 class="timeline-title">' + tf(p,'title') + '</h4>' +
-              '<p class="timeline-desc" style="font-size:0.85rem; color:#666; line-height:1.6;">' + tf(p,'summary') + '</p>' +
-              '<small style="color:var(--vcec-gold); font-weight:700; display:block; margin-top:8px;">' + fmtDateLabel(p.created_at) + '</small>' +
+              '<p class="timeline-desc">' + tf(p,'summary') + '</p>' +
+              '<small class="timeline-date-label">' + fmtDateLabel(p.created_at) + '</small>' +
             '</div></div>';
         }).join('');
       }

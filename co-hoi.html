@@ -7,17 +7,6 @@
   <title>Cơ Hội Đầu Tư & Dự Án Khu Công Nghiệp - VCEC Portal</title>
   <meta name="description" content="Danh mục cơ hội đầu tư, dự án khu công nghiệp trọng điểm tại Việt Nam. Sử dụng bộ lọc thông minh tra cứu bản đồ tọa độ miễn phí và đăng ký xúc tiến nhanh.">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
-    .news-card { background: #FFFFFF; border: 1px solid var(--vcec-gold-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; }
-    .news-card:hover { transform: translateY(-4px); border-color: var(--vcec-red); box-shadow: 0 10px 15px rgba(200,16,46,0.04); }
-    .news-img { height: 180px; width: 100%; object-fit: cover; }
-    .news-body { padding: 20px; }
-    .news-meta { font-size: 0.8rem; color: #888; margin-bottom: 8px; display: block; font-weight: 600; }
-    .news-title { font-family: var(--vcec-font-title); font-size: 1.1rem; color: var(--vcec-text-dark); line-height: 1.4; margin-bottom: 10px; }
-    .news-desc { font-size: 0.85rem; color: #666; line-height: 1.5; }
-    @media (max-width: 768px) { .news-grid { grid-template-columns: 1fr; } }
-  </style>
 </head>
 <body>
 
@@ -179,7 +168,7 @@
         }
         if (section) section.style.display = '';
         grid.innerHTML = data.map(function(p) {
-          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="news-card" style="display:block;text-decoration:none;color:inherit;">' +
+          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="news-card">' +
             (p.cover_image ? '<img src="' + p.cover_image + '" alt="" class="news-img" loading="lazy">' : '') +
             '<div class="news-body">' +
               '<span class="news-meta">📅 ' + fmtDate(p.created_at) + ' | CƠ HỘI ĐẦU TƯ</span>' +
