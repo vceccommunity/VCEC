@@ -19,6 +19,8 @@
     + Trang chi tiết Lĩnh vực: Giảm 50% chiều cao banner (190px) và cập nhật màu sắc Hero Text (Số thứ tự: Vàng chanh, Tiêu đề: Trắng) giúp tăng độ tương phản và thẩm mỹ.
     + Tối ưu Global Header: Giảm chiều cao thanh điều hướng từ 90px xuống 70px.
     + Refactor Design System: Chuyển toàn bộ inline styles và CSS nội bộ từ 3 file mới (Quản trị, Chi tiết lĩnh vực, Chi tiết bài viết) vào `style.css` để đảm bảo tính đồng nhất và dễ bảo trì.
+    + Nâng cấp thẩm mỹ (Dịch vụ & Giới thiệu): Sử dụng hệ thống `.service-card` riêng biệt, loại bỏ ngày tháng và tích hợp Icon minh họa thông minh theo tiêu đề.
+    + Chuẩn hóa Timeline (Quan hệ): Đồng bộ màu sắc qua CSS class và biến `var(--vcec-gold)`, loại bỏ mã màu hardcoded.
 - Người thực hiện: MI
 - Ghi chú cho KA: Đã mở rộng danh sách `category` trong bảng `vcec_posts`. KA vui lòng kiểm tra nếu cần thêm ràng buộc dữ liệu (Check constraint) cho các slug mới này.
 ====== MI - END ======
@@ -281,4 +283,65 @@ Tất cả được cập nhật động trong hàm `renderArticle()` sau khi fe
 ### Lưu ý cho MI:
 - `ho-so-thanh-vien.html` dùng inline `<style>` riêng: `.member-card`, `.member-avatar`, `.member-role-badge`, `.member-post-item`, `.member-post-thumb` — MI style lại thoải mái
 - Hiện chưa có trang danh sách thành viên công khai — link vào profile chỉ qua bài viết (author click)
+====== KA - END ======
+
+
+====== KA - START ======
+## [16/05/2026] Chuyển Nội Dung Tĩnh → Bài Đăng Admin (gioi-thieu, dich-vu, quan-he)
+
+**Mục tiêu:** MIKE muốn chỉnh sửa nội dung các trang Giới Thiệu / Dịch Vụ / Quan Hệ qua Admin Panel thay vì sửa thẳng HTML.
+
+---
+
+### Files đã tạo / sửa:
+
+**`vcec-static-pages-posts.sql`** ← **MIKE cần chạy thủ công (1 lần)**
+> Supabase Dashboard > SQL Editor > Paste nội dung file > Run
+
+Inserts 6 bài viết vào `vcec_posts`:
+| Category | Tiêu đề |
+|---|---|
+| `gioi-thieu` | Tầm Nhìn & Sứ Mệnh VCEC |
+| `gioi-thieu` | Ban Điều Hành VCEC |
+| `dich-vu` | Giải Pháp Hỗ Trợ Doanh Nghiệp Toàn Diện |
+| `dich-vu` | Quy Trình Triển Khai Xúc Tiến 4 Bước |
+| `quan-he-viet-trung` | Tháng 12/2023 — Tuyên bố chung Việt Nam - Trung Quốc |
+| `quan-he-viet-trung` | Tháng 8/2024 — Ký kết 14 Văn kiện Hợp tác |
+
+Nội dung được lưu dạng HTML (`content_vi/zh/en`) — Quill editor sẽ đọc và render đúng khi MIKE bấm "Sửa".
+
+---
+
+**`bai-viet-chi-tiet.html`** — sửa hàm `renderContent(text)`:
+- Nếu content bắt đầu bằng `<` (HTML từ Quill) → render trực tiếp qua innerHTML
+- Nếu là plain text cũ → giữ nguyên logic tách `\n\n` cũ
+- Lý do: `publishPost()` dùng `quillVi.getSemanticHTML()` → lưu HTML; các bài cũ lưu plain text
+
+**`gioi-thieu.html`** — thay 2 section tĩnh (Vision/Mission + Team) bằng:
+- Dynamic news-card grid fetch `vcec_posts` category=`gioi-thieu`
+- Thêm `<style>` block `.news-grid / .news-card` (như pattern tin-tuc/co-hoi)
+- Script IIFE: `loadPosts()` → `renderPosts()` + re-render khi đổi ngôn ngữ
+
+**`dich-vu.html`** — thay 2 section tĩnh (Service Grid + Steps) bằng:
+- Dynamic news-card grid fetch `vcec_posts` category=`dich-vu`
+- Thay `.service-grid/.service-card` CSS bằng `.news-grid/.news-card`
+
+**`quan-he.html`** — giữ nguyên biểu đồ kim ngạch, thay section milestones:
+- Dynamic timeline fetch `vcec_posts` category=`quan-he-viet-trung`
+- Render mỗi post theo layout timeline (dot đỏ + ngày Tháng/Năm từ `created_at` + title + summary + link chi tiết)
+
+---
+
+### Cách chỉnh sửa nội dung (luồng của MIKE):
+1. Vào `quan-tri.html` → Bài đăng → chọn chuyên mục (Giới Thiệu / Dịch Vụ / Quan Hệ Việt-Trung)
+2. Bấm nút **Sửa** trên bài muốn chỉnh → form hiện ra với nội dung đầy đủ
+3. Sửa nội dung trong Quill editor → bấm **Cập Nhật Bài Viết**
+4. Trang công khai tự cập nhật ngay (không cần deploy)
+
+---
+
+### Lưu ý cho MI:
+- `gioi-thieu.html` và `dich-vu.html`: cards hiện render với `.news-card` style thuần túy (giống trang tin-tuc). **MI có thể tạo style riêng** để phân biệt với trang tin tức nếu cần thẩm mỹ khác biệt (ví dụ: thêm icon dịch vụ, bỏ meta date).
+- `quan-he.html`: milestones timeline dùng inline style hardcoded (#C8102E cho dot, #AF883A đã thay var(--vcec-gold) vì VS Code linter). **MI có thể đồng bộ lại màu** qua CSS class nếu muốn.
+- Bài viết mới thêm qua Admin (cùng category) sẽ tự xuất hiện trên trang — không cần sửa HTML.
 ====== KA - END ======

@@ -7,47 +7,8 @@
   <title>Dịch Vụ Doanh Nghiệp - VCEC Portal</title>
   <meta name="description" content="Các giải pháp hỗ trợ doanh nghiệp toàn diện từ tư vấn pháp lý thành lập công ty, hỗ trợ khảo sát KCN, cho đến kết nối đối tác B2B thực chiến Việt - Trung.">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .service-card {
-      background: #FFFFFF;
-      border: 1px solid var(--vcec-gold-border);
-      border-radius: 12px;
-      padding: 30px;
-      transition: all 0.3s ease;
-    }
-    .service-card:hover {
-      border-color: var(--vcec-red);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px rgba(200,16,46,0.05);
-    }
-    .service-icon {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      color: var(--vcec-red);
-    }
-    .service-title {
-      font-family: var(--vcec-font-title);
-      font-size: 1.2rem;
-      color: var(--vcec-text-dark);
-      margin-bottom: 12px;
-    }
-    .service-desc {
-      font-size: 0.9rem;
-      color: #666;
-      line-height: 1.6;
-    }
-    @media (max-width: 768px) {
-      .service-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
 </head>
 <body>
 
@@ -66,88 +27,15 @@
         </div>
       </section>
 
-      <!-- Services Grid Section -->
+      <!-- Dynamic Posts from 'dich-vu' category -->
       <section class="section">
         <div class="container">
           <div class="section-title">
-            <h2>Giải Pháp Hỗ Trợ Doanh Nghiệp Toàn Diện</h2>
-            <p>Hành trình 360 độ từ khảo sát ban đầu đến khi nhà máy chính thức đi vào hoạt động ổn định</p>
+            <h2>Dịch Vụ Hỗ Trợ Doanh Nghiệp</h2>
+            <p>Giải pháp toàn diện và quy trình triển khai xúc tiến đầu tư Việt - Trung</p>
           </div>
-
-          <div class="service-grid">
-            
-            <!-- Service 1 -->
-            <div class="service-card">
-              <div class="service-icon">🔍</div>
-              <h3 class="service-title">Tư vấn Nghiên cứu Thị trường & Khảo sát KCN</h3>
-              <p class="service-desc">Cung cấp báo cáo chuyên sâu về giá thuê, chính sách ưu đãi của từng địa phương, tổ chức các phái đoàn khảo sát thực tế vị trí lô đất.</p>
-            </div>
-
-            <!-- Service 2 -->
-            <div class="service-card">
-              <div class="service-icon">📝</div>
-              <h3 class="service-title">Hỗ trợ Pháp lý & Cấp phép Đầu tư (IRC/ERC)</h3>
-              <p class="service-desc">Soạn thảo, dịch thuật và đối chiếu hồ sơ cấp Giấy chứng nhận đăng ký đầu tư (IRC), đăng ký doanh nghiệp (ERC), giấy phép môi trường và phòng cháy chữa cháy.</p>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="service-card">
-              <div class="service-icon">🗣️</div>
-              <h3 class="service-title">Phiên dịch & Đại diện Ủy quyền thực địa</h3>
-              <p class="service-desc">Đội ngũ chuyên viên phiên dịch kỹ thuật cao cấp tháp tùng các buổi làm việc với UBND Tỉnh, Ban Quản lý các KCN và các đối tác hạ tầng.</p>
-            </div>
-
-            <!-- Service 4 -->
-            <div class="service-card">
-              <div class="service-icon">🤝</div>
-              <h3 class="service-title">Kết nối B2B & Xây dựng Chuỗi Cung ứng Bản địa</h3>
-              <p class="service-desc">Tổ chức các buổi giao lưu thương mại, tìm kiếm các nhà cung cấp linh kiện phụ trợ nội địa giúp tăng tỷ lệ nội địa hóa cho dự án FDI.</p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- Standard Workflow Steps -->
-      <section class="section section-grey">
-        <div class="container" style="max-width: 800px;">
-          <div class="section-title">
-            <h2>Quy Trình Triển Khai Xúc Tiến 4 Bước</h2>
-            <p>Rút ngắn 50% thời gian chuẩn bị và đi vào sản xuất thực tế tại Việt Nam</p>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 40px;">
-            <div style="display: flex; gap: 20px; align-items: start;">
-              <span style="background: var(--vcec-red); color: #FFF; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</span>
-              <div>
-                <h4 style="font-size: 1.1rem; color: var(--vcec-text-dark); margin-bottom: 4px;">Đăng ký Yêu cầu Đặt chỗ & Bộ lọc Thông số</h4>
-                <p style="font-size: 0.9rem; color: #555; margin: 0;">Doanh nghiệp gửi nhu cầu quỹ đất, ngành nghề và yêu cầu cấp điện/nước qua cổng thông tin VCEC.</p>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 20px; align-items: start;">
-              <span style="background: var(--vcec-red); color: #FFF; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</span>
-              <div>
-                <h4 style="font-size: 1.1rem; color: var(--vcec-text-dark); margin-bottom: 4px;">Đối chiếu Hồ sơ & Khảo sát Thực tế</h4>
-                <p style="font-size: 0.9rem; color: #555; margin: 0;">Ban Xúc tiến sắp xếp xe đưa đón chuyên viên, bố trí lịch làm việc trực tiếp tại Ban quản lý KCN mục tiêu.</p>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 20px; align-items: start;">
-              <span style="background: var(--vcec-red); color: #FFF; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</span>
-              <div>
-                <h4 style="font-size: 1.1rem; color: var(--vcec-text-dark); margin-bottom: 4px;">Nộp Hồ sơ & Hoàn thiện Thủ tục Hành chính</h4>
-                <p style="font-size: 0.9rem; color: #555; margin: 0;">Thực hiện nộp tờ trình lên sở Kế hoạch Đầu tư tỉnh để nhận chấp thuận chủ trương đầu tư và cấp mã số doanh nghiệp.</p>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 20px; align-items: start;">
-              <span style="background: var(--vcec-red); color: #FFF; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">4</span>
-              <div>
-                <h4 style="font-size: 1.1rem; color: var(--vcec-text-dark); margin-bottom: 4px;">Khánh thành Nhà máy & Kết nối chuỗi B2B</h4>
-                <p style="font-size: 0.9rem; color: #555; margin: 0;">VCEC tiếp tục đồng hành tư vấn thuế, lao động và tuyển dụng nhân sự cấp cao tại địa bàn.</p>
-              </div>
-            </div>
+          <div id="dich-vu-grid" class="service-grid">
+            <p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">⏳ Đang tải nội dung...</p>
           </div>
         </div>
       </section>
@@ -159,5 +47,54 @@
   <footer id="global-footer"></footer>
 
   <script src="app.js"></script>
+  <script>
+    (function() {
+      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
+      
+      var ICON_MAP = {
+        'pháp lý': '⚖️', 'thành lập': '🏗️', 'khảo sát': '🔍', 'kcn': '🏭', 
+        'b2b': '🤝', 'đối tác': '👥', 'vận tải': '🚛', 'hậu cần': '📦',
+        'default': '💼'
+      };
+
+      function getIcon(title) {
+        var t = title.toLowerCase();
+        for (var key in ICON_MAP) {
+          if (t.includes(key)) return ICON_MAP[key];
+        }
+        return ICON_MAP['default'];
+      }
+
+      var cachedData = null;
+      function renderPosts(data) {
+        var grid = document.getElementById('dich-vu-grid');
+        if (!grid) return;
+        if (!data || data.length === 0) {
+          grid.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">Chưa có nội dung.</p>';
+          return;
+        }
+        grid.innerHTML = data.map(function(p) {
+          var title = tf(p,'title');
+          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="service-card" style="text-decoration:none;">' +
+            '<div class="service-icon">' + getIcon(title) + '</div>' +
+            '<h3 class="service-title">' + title + '</h3>' +
+            '<p class="service-desc">' + tf(p,'summary') + '</p>' +
+            '</a>';
+        }).join('');
+      }
+      function loadPosts() {
+        if (!window.supabaseClient) { setTimeout(loadPosts, 150); return; }
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
+          .eq('category','dich-vu').eq('status','published')
+          .order('created_at', { ascending: true })
+          .then(function(res) { cachedData = res.data; renderPosts(res.error ? null : res.data); });
+      }
+      loadPosts();
+      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderPosts(cachedData); });
+    })();
+  </script>
 </body>
 </html>

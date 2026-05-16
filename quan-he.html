@@ -203,30 +203,15 @@
         </div>
       </section>
 
-      <!-- Key Bilateral Milestones Timeline -->
+      <!-- Dynamic Milestones from 'quan-he-viet-trung' category -->
       <section class="section section-grey">
         <div class="container" style="max-width: 900px;">
           <div class="section-title">
             <h2>Các Cột Mốc Giao Thương Trọng Đại</h2>
             <p>Hành trình thúc đẩy hợp tác chiến lược toàn diện thúc đẩy luân chuyển chuỗi cung ứng</p>
           </div>
-
-          <div style="margin-top: 40px; border-left: 3px solid var(--vcec-gold); padding-left: 25px; position: relative;">
-            
-            <div style="margin-bottom: 40px; position: relative;">
-              <div style="width: 15px; height: 15px; border-radius: 50%; background: var(--vcec-red); position: absolute; left: -34px; top: 5px; border: 3px solid #FFF;"></div>
-              <span style="font-weight: bold; color: var(--vcec-red); font-size: 1.2rem; display: block; margin-bottom: 5px;">Tháng 12 / 2023</span>
-              <h4 style="font-size: 1.15rem; color: var(--vcec-text-dark); margin-bottom: 8px;">Tuyên bố chung Việt Nam - Trung Quốc về xây dựng Cộng đồng chia sẻ tương lai</h4>
-              <p style="font-size: 0.95rem; color: #4A5568; line-height: 1.6;">Lãnh đạo cấp cao hai nước nhất trí tăng cường kết nối sáng kiến “Hai hành lang, một vành đai” với “Một vành đai, một con đường”, tạo cơ sở pháp lý vững chắc cho dòng vốn FDI đầu tư hạ tầng và công nghiệp chất lượng cao.</p>
-            </div>
-
-            <div style="margin-bottom: 40px; position: relative;">
-              <div style="width: 15px; height: 15px; border-radius: 50%; background: var(--vcec-red); position: absolute; left: -34px; top: 5px; border: 3px solid #FFF;"></div>
-              <span style="font-weight: bold; color: var(--vcec-red); font-size: 1.2rem; display: block; margin-bottom: 5px;">Tháng 08 / 2024</span>
-              <h4 style="font-size: 1.15rem; color: var(--vcec-text-dark); margin-bottom: 8px;">Ký kết 14 Văn kiện Hợp tác Kinh tế - Thương mại Xuyên Biên Giới</h4>
-              <p style="font-size: 0.95rem; color: #4A5568; line-height: 1.6;">Trong khuôn khổ chuyến thăm cấp nhà nước, các bộ ngành hai nước đã hoàn thành đàm phán ký kết biên bản kết nối cửa khẩu thông minh, liên kết hạ tầng đường sắt tiêu chuẩn khổ rộng và tối ưu hóa thủ tục hải quan.</p>
-            </div>
-
+          <div id="milestone-timeline" class="timeline-vcec">
+            <p style="color:#9CA3AF; padding: 20px 0; text-align: center;">⏳ Đang tải...</p>
           </div>
         </div>
       </section>
@@ -238,5 +223,51 @@
   <footer id="global-footer"></footer>
 
   <script src="app.js"></script>
+  <script>
+    (function() {
+      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
+      function fmtYear(iso) {
+        var d = new Date(iso);
+        return d.getFullYear();
+      }
+      function fmtDateLabel(iso) {
+        var d = new Date(iso);
+        var m = d.getMonth() + 1;
+        return 'Tháng ' + String(m).padStart(2, '0') + ' / ' + d.getFullYear();
+      }
+
+      var cachedData = null;
+      function renderMilestones(data) {
+        var container = document.getElementById('milestone-timeline');
+        if (!container) return;
+        if (!data || data.length === 0) {
+          container.innerHTML = '<p style="color:#9CA3AF; padding:20px 0; text-align: center;">Chưa có dấu mốc nào.</p>';
+          return;
+        }
+        container.innerHTML = data.map(function(p, index) {
+          var side = (index % 2 === 0) ? 'left-item' : 'right-item';
+          return '<div class="timeline-item ' + side + '">' +
+            '<div class="timeline-content">' +
+              '<span class="timeline-year">' + fmtYear(p.created_at) + '</span>' +
+              '<h4 class="timeline-title">' + tf(p,'title') + '</h4>' +
+              '<p class="timeline-desc" style="font-size:0.85rem; color:#666; line-height:1.6;">' + tf(p,'summary') + '</p>' +
+              '<small style="color:var(--vcec-gold); font-weight:700; display:block; margin-top:8px;">' + fmtDateLabel(p.created_at) + '</small>' +
+            '</div></div>';
+        }).join('');
+      }
+      function loadMilestones() {
+        if (!window.supabaseClient) { setTimeout(loadMilestones, 150); return; }
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,created_at')
+          .eq('category','quan-he-viet-trung').eq('status','published')
+          .order('created_at', { ascending: true })
+          .then(function(res) { cachedData = res.data; renderMilestones(res.error ? null : res.data); });
+      }
+      loadMilestones();
+      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderMilestones(cachedData); });
+    })();
+  </script>
 </body>
 </html>
