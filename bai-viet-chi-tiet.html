@@ -26,22 +26,36 @@
   <main class="bg-china-motif">
     <div class="section-content">
 
-      <div id="article-loading" style="text-align:center; padding:80px 20px;">⏳ Đang tải bài viết...</div>
-      <div id="article-error" style="display:none; text-align:center; padding:80px 20px;"><p>Không tìm thấy bài viết hoặc đã bị xóa.</p><a href="index.html" class="btn-back-article">← Trang Chủ</a></div>
+      <div id="article-loading" class="article-wrap" style="text-align:center; padding:100px 0;">
+        <p style="color: var(--vcec-gold); font-size: 1.2rem;">⏳ Đang tải bài viết...</p>
+      </div>
+
+      <div id="article-error" class="article-wrap" style="display:none; text-align:center; padding:100px 0;">
+        <h2 class="article-title-main">404</h2>
+        <p style="color: var(--vcec-text-light); margin-bottom: 30px;">Không tìm thấy bài viết hoặc đã bị xóa.</p>
+        <a href="index.html" class="btn-back-article">← Trang Chủ</a>
+      </div>
 
       <div id="article-container" style="display:none">
         <div class="article-wrap">
-          <div id="article-breadcrumb" class="breadcrumb-nav" style="background:none; border:none; padding:0; margin-bottom:28px;"></div>
+          <div id="article-breadcrumb" class="breadcrumb-nav" style="margin-bottom: 30px;"></div>
           <img id="article-img" class="article-hero-img" src="" alt="" loading="lazy" style="display:none">
-          <div id="article-cat-badge" class="article-cat-badge"></div>
-          <h1 id="article-title" class="article-title-main"></h1>
-          <div class="article-meta-info">
-            <span id="article-date"></span>
-            <span id="article-author"></span>
+          
+          <div class="article-header">
+            <div id="article-cat-badge" class="article-cat-badge"></div>
+            <h1 id="article-title" class="article-title-main"></h1>
+            <div class="article-meta-info" style="justify-content: center;">
+              <span id="article-date"></span>
+              <span id="article-author"></span>
+            </div>
           </div>
-          <hr class="article-divider">
+
+          <div class="article-divider"></div>
           <div id="article-content" class="article-body"></div>
-          <a id="article-back-btn" href="index.html" class="btn-back-article">← Quay Lại</a>
+          
+          <div style="text-align: center; margin-top: 40px;">
+            <a id="article-back-btn" href="index.html" class="btn-back-article">← Quay Lại</a>
+          </div>
         </div>
       </div>
 

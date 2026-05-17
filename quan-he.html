@@ -6,6 +6,15 @@
   <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
   <title>Quan Hệ Kinh Tế Việt Nam - Trung Quốc - VCEC Portal</title>
   <meta name="description" content="Thống kê số liệu kinh tế song phương Việt - Trung mới nhất, các sự kiện hợp tác nổi bật và dữ liệu thương mại song phương thúc đẩy dòng vốn đầu tư.">
+  <meta property="og:title" content="Quan Hệ Kinh Tế Việt Nam - Trung Quốc - VCEC Portal">
+  <meta property="og:description" content="Thống kê số liệu kinh tế song phương Việt - Trung mới nhất, các sự kiện hợp tác nổi bật và dữ liệu thương mại song phương thúc đẩy dòng vốn đầu tư.">
+  <meta property="og:image" content="public/logo_VCEC.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VCEC Portal">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Quan Hệ Kinh Tế Việt Nam - Trung Quốc - VCEC Portal">
+  <meta name="twitter:description" content="Thống kê số liệu kinh tế song phương Việt - Trung mới nhất, các sự kiện hợp tác nổi bật và dữ liệu thương mại song phương thúc đẩy dòng vốn đầu tư.">
+  <meta name="twitter:image" content="public/logo_VCEC.jpg">
   <link rel="stylesheet" href="style.css">
   <style>
     /* Custom simple styled responsive chart for maximum visual elegance */
@@ -129,76 +138,11 @@
         </div>
       </section>
 
-      <!-- Trade Data Section -->
-      <section class="section">
+      <!-- Trade Data Section — Dynamic from vcec_posts category='quan-he-viet-trung', title='Số Liệu Hợp Tác Việt - Trung' -->
+      <section class="section" id="stats-section">
         <div class="container">
-          <div class="section-title">
-            <h2 data-i18n="chart-title">Kim ngạch Thương mại Song phương (Tỷ USD)</h2>
-            <p style="color: #000000;">Dữ liệu hợp tác thương mại liên tục tăng trưởng mạnh mẽ, định hình chuỗi sản xuất chung trong kỷ nguyên số.</p>
-          </div>
-
-          <!-- Pure CSS Premium Chart -->
-          <div class="chart-container">
-            <div class="chart-bars-wrapper">
-              <span class="chart-y-axis">Đơn vị: Tỷ USD</span>
-              
-              <!-- 2021 -->
-              <div class="chart-bar-group">
-                <div class="chart-bars">
-                  <div class="bar bar-export" style="height: 33.3%;" data-value="56"></div>
-                  <div class="bar bar-import" style="height: 65.4%;" data-value="110"></div>
-                </div>
-                <span class="chart-label">2021</span>
-              </div>
-              
-              <!-- 2022 -->
-              <div class="chart-bar-group">
-                <div class="chart-bars">
-                  <div class="bar bar-export" style="height: 35.1%;" data-value="59"></div>
-                  <div class="bar bar-import" style="height: 70.2%;" data-value="118"></div>
-                </div>
-                <span class="chart-label">2022</span>
-              </div>
-              
-              <!-- 2023 -->
-              <div class="chart-bar-group">
-                <div class="chart-bars">
-                  <div class="bar bar-export" style="height: 36.9%;" data-value="61"></div>
-                  <div class="bar bar-import" style="height: 66.0%;" data-value="111"></div>
-                </div>
-                <span class="chart-label">2023</span>
-              </div>
-              
-              <!-- 2024 -->
-              <div class="chart-bar-group">
-                <div class="chart-bars">
-                  <div class="bar bar-export" style="height: 41.7%;" data-value="70"></div>
-                  <div class="bar bar-import" style="height: 80.3%;" data-value="135"></div>
-                </div>
-                <span class="chart-label">2024</span>
-              </div>
-              
-              <!-- 2025 (Dự kiến) -->
-              <div class="chart-bar-group">
-                <div class="chart-bars">
-                  <div class="bar bar-export" style="height: 47.6%;" data-value="80"></div>
-                  <div class="bar bar-import" style="height: 89.2%;" data-value="150"></div>
-                </div>
-                <span class="chart-label">2025</span>
-              </div>
-            </div>
-
-            <!-- Legend -->
-            <div class="chart-legend">
-              <div class="legend-item">
-                <div class="legend-color" style="background: var(--vcec-gold);"></div>
-                <span data-i18n="export-label">Việt Nam xuất khẩu sang Trung Quốc</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-color" style="background: var(--vcec-red);"></div>
-                <span data-i18n="import-label">Việt Nam nhập khẩu từ Trung Quốc</span>
-              </div>
-            </div>
+          <div id="stats-post-container">
+            <p style="color:#9CA3AF;text-align:center;padding:40px 0;">⏳ Đang tải số liệu...</p>
           </div>
         </div>
       </section>
@@ -225,24 +169,57 @@
   <script src="app.js"></script>
   <script>
     (function() {
+      var STATS_TITLE = 'Số Liệu Hợp Tác Việt - Trung';
+
       function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
       function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
-      function fmtYear(iso) {
-        var d = new Date(iso);
-        return d.getFullYear();
+      function fmtContent(text) {
+        if (!text) return '';
+        return text.trim().charAt(0) === '<' ? text : text.split(/\n\n+/).map(function(p){ return '<p>'+p.replace(/\n/g,'<br>')+'</p>'; }).join('');
       }
+      function fmtYear(iso) { return new Date(iso).getFullYear(); }
       function fmtDateLabel(iso) {
         var d = new Date(iso);
-        var m = d.getMonth() + 1;
-        return 'Tháng ' + String(m).padStart(2, '0') + ' / ' + d.getFullYear();
+        return 'Tháng ' + String(d.getMonth()+1).padStart(2,'0') + ' / ' + d.getFullYear();
       }
 
-      var cachedData = null;
+      var cachedStats = null;
+      var cachedMilestones = null;
+
+      // --- Stats Post ---
+      function renderStats(post) {
+        var el = document.getElementById('stats-post-container');
+        if (!el) return;
+        if (!post) {
+          el.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;">Chưa có số liệu.</p>';
+          return;
+        }
+        el.innerHTML =
+          '<div class="section-title">' +
+            '<h2>' + tf(post,'title') + '</h2>' +
+            '<p>' + tf(post,'summary') + '</p>' +
+          '</div>' +
+          '<div class="article-body">' + fmtContent(tf(post,'content')) + '</div>';
+      }
+
+      function loadStats() {
+        if (!window.supabaseClient) { setTimeout(loadStats, 150); return; }
+        window.supabaseClient
+          .from('vcec_posts')
+          .select('*')
+          .eq('category','quan-he-viet-trung')
+          .eq('status','published')
+          .eq('title_vi', STATS_TITLE)
+          .maybeSingle()
+          .then(function(res) { cachedStats = res.data; renderStats(res.error ? null : res.data); });
+      }
+
+      // --- Milestones Timeline ---
       function renderMilestones(data) {
         var container = document.getElementById('milestone-timeline');
         if (!container) return;
         if (!data || data.length === 0) {
-          container.innerHTML = '<p style="color:#9CA3AF; padding:20px 0; text-align: center;">Chưa có dấu mốc nào.</p>';
+          container.innerHTML = '<p style="color:#9CA3AF;padding:20px 0;text-align:center;">Chưa có dấu mốc nào.</p>';
           return;
         }
         container.innerHTML = data.map(function(p, index) {
@@ -256,17 +233,26 @@
             '</div></div>';
         }).join('');
       }
+
       function loadMilestones() {
         if (!window.supabaseClient) { setTimeout(loadMilestones, 150); return; }
         window.supabaseClient
           .from('vcec_posts')
           .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,created_at')
-          .eq('category','quan-he-viet-trung').eq('status','published')
-          .order('created_at', { ascending: true })
-          .then(function(res) { cachedData = res.data; renderMilestones(res.error ? null : res.data); });
+          .eq('category','quan-he-viet-trung')
+          .eq('status','published')
+          .neq('title_vi', STATS_TITLE)
+          .order('created_at', { ascending: false })
+          .then(function(res) { cachedMilestones = res.data; renderMilestones(res.error ? null : res.data); });
       }
+
+      loadStats();
       loadMilestones();
-      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderMilestones(cachedData); });
+
+      window.addEventListener('vcec-lang-change', function() {
+        if (cachedStats) renderStats(cachedStats);
+        if (cachedMilestones) renderMilestones(cachedMilestones);
+      });
     })();
   </script>
 </body>

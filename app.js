@@ -37,6 +37,7 @@ const translations = {
     "nav-news": "Tin Tức",
     "nav-resources": "Tài Nguyên",
     "nav-contact": "Liên Hệ",
+    "nav-members": "Thành Viên",
     "sub-title": "ĐẦU TƯ SONG PHƯƠNG",
 
     // Hero Section
@@ -145,6 +146,7 @@ const translations = {
     "nav-news": "新闻动态",
     "nav-resources": "政策资源",
     "nav-contact": "联系我们",
+    "nav-members": "会员",
     "sub-title": "越中双向投资促进门户网站",
 
     // Hero Section
@@ -253,6 +255,7 @@ const translations = {
     "nav-news": "News",
     "nav-resources": "Resources",
     "nav-contact": "Contact",
+    "nav-members": "Members",
     "sub-title": "BILATERAL INVESTMENT PROMOTION PORTAL",
 
     // Hero Section
@@ -432,7 +435,8 @@ function renderHeader() {
     { page: 'co-hoi.html', key: 'nav-opp' },
     { page: 'tin-tuc.html', key: 'nav-news' },
     { page: 'tai-nguyen.html', key: 'nav-resources' },
-    { page: 'lien-he.html', key: 'nav-contact' }
+    { page: 'lien-he.html', key: 'nav-contact' },
+    { page: 'profile.html', key: 'nav-members' }
   ];
 
   let menuHtml = '';
@@ -515,7 +519,7 @@ function renderHeader() {
           <div style="margin-bottom: 16px;">
             <p style="font-size: 0.8rem; color: #9CA3AF; line-height: 1.4;">ID: VCEC-${loggedInUser.length}${Math.floor(Math.sin(loggedInUser.length)*100 + 200)}</p>
           </div>
-          ${localStorage.getItem("vcec_role") === "super_admin" ? `
+          ${["super_admin", "admin", "staff", "leader"].includes(localStorage.getItem("vcec_role")) ? `
             <a href="quan-tri.html" class="btn btn-primary" style="display: block; text-decoration: none; text-align: center; width: 100%; padding: 10px; font-size: 0.85rem; margin-bottom: 8px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); border: none;">
               ⚙️ Quản Trị Hệ Thống
             </a>
@@ -607,7 +611,7 @@ function renderHeader() {
       const user = localStorage.getItem("vcec_user");
       if (user) {
         const role = localStorage.getItem("vcec_role") || "member";
-        if (role === "super_admin" || role === "admin") {
+        if (["super_admin", "admin", "staff", "leader"].includes(role)) {
           window.location.href = "quan-tri.html";
         } else {
           window.location.href = "profile.html";

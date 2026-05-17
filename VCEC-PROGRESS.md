@@ -1,29 +1,124 @@
 # VCEC PROJECT PROGRESS
 
-====== MI - START [15/05/2026] ======
-- Tên file vừa sửa: style.css, quan-tri.html
-- Tính năng: 
-    + Thiết kế lại giao diện Kho lưu trữ theo phong cách Gallery tối giản: Bỏ thông tin văn bản, chuyển card sang hình vuông (aspect-ratio: 1/1).
-    + Thêm thanh tìm kiếm (Search) tập tin theo tên, lọc dữ liệu tức thì (Real-time filtering).
-    + Thêm lớp phủ (Hover Overlay) chứa 2 icon chuyên dụng: Sao chép URL (🔗) và Xóa tệp (🗑️).
-    + Tối ưu hóa trải nghiệm người dùng với hiệu ứng Blur nền và Zoom ảnh nhẹ khi hover.
-    + Nâng cấp tính năng "Đổi Cấp" người dùng: Thay thế cơ chế click xoay vòng bằng Dropdown Menu chuyên nghiệp ngay tại vị trí nút bấm.
-    + Thêm hiệu ứng hiển thị Dropdown với Animation mượt mà và logic đóng menu khi click ra ngoài (Click-outside detection).
-    + Tối ưu hóa trải nghiệm: Hiển thị badge màu sắc tương ứng với từng cấp bậc trong menu xổ xuống.
-    + Điều chỉnh giao diện "8 Mảng hợp tác trọng điểm": Chuyển từ layout 3 cột sang 4 cột đồng nhất, giúp 8 bài viết hiển thị cân đối trên 2 hàng.
-    + Tối ưu Responsive: Cập nhật Media Queries để duy trì bố cục 4 cột trên các độ phân giải màn hình khác nhau.
-    + Khôi phục tính năng Chỉnh sửa bài viết: Thêm lại nút "Sửa" vào bảng danh sách bài đăng, tích hợp logic đổ dữ liệu vào form và cập nhật bài viết hiện có thay vì tạo mới.
-    + Nâng cấp Sidebar quản trị: Thêm hệ thống menu con (Sub-menu) dưới mục "Bài đăng" bao gồm 7 chuyên mục.
-    + Cơ chế Auto-collapse: Menu con mặc định ẩn và tự động thu gọn khi người dùng chuyển sang các màn hình quản trị khác, giúp giao diện luôn tinh gọn.
-    + Tích hợp bộ lọc chuyên mục: Cho phép xem danh sách bài viết theo từng mục nhỏ ngay từ sidebar với hiệu ứng chuyển đổi mượt mà.
-    + Trang chi tiết Lĩnh vực: Giảm 50% chiều cao banner (190px) và cập nhật màu sắc Hero Text (Số thứ tự: Vàng chanh, Tiêu đề: Trắng) giúp tăng độ tương phản và thẩm mỹ.
-    + Tối ưu Global Header: Giảm chiều cao thanh điều hướng từ 90px xuống 70px.
-    + Refactor Design System: Chuyển toàn bộ inline styles và CSS nội bộ từ 3 file mới (Quản trị, Chi tiết lĩnh vực, Chi tiết bài viết) vào `style.css` để đảm bảo tính đồng nhất và dễ bảo trì.
-    + Nâng cấp thẩm mỹ (Dịch vụ & Giới thiệu): Sử dụng hệ thống `.service-card` riêng biệt, loại bỏ ngày tháng và tích hợp Icon minh họa thông minh theo tiêu đề.
-    + Chuẩn hóa Timeline (Quan hệ): Đồng bộ màu sắc qua CSS class và biến `var(--vcec-gold)`, loại bỏ mã màu hardcoded.
-    + Fix lỗi Admin Dashboard: Sửa lỗi layout Sidebar (xếp dọc menu con) và đồng bộ 100% tên Chuyên mục trong bảng bài viết khớp với danh mục Sidebar.
-- Người thực hiện: MI
-- Ghi chú cho KA: Đã mở rộng danh sách `category` trong bảng `vcec_posts`. KA vui lòng kiểm tra nếu cần thêm ràng buộc dữ liệu (Check constraint) cho các slug mới này.
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: vcec_posts (Database)
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Đã tự động chèn một bài viết đặc biệt có tiêu đề "Số Liệu Hợp Tác Việt - Trung" vào chuyên mục "Quan Hệ Việt-Trung" trên cơ sở dữ liệu. Bài viết này được sử dụng riêng để chứa (upload) hình ảnh biểu đồ Kim ngạch Thương mại tại trang `quan-he.html`.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: quan-he.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Cập nhật thứ tự sắp xếp (Sorting) trong hàm `loadMilestones()`: Thay đổi `ascending: true` thành `ascending: false` để các cột mốc hiển thị theo trình tự thời gian mới nhất ở trên, cũ hơn ở dưới (Descending).
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: quan-tri.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Cập nhật gợi ý tỷ lệ ảnh ở mục Upload Ảnh Bìa Bài Viết: Thêm ghi chú yêu cầu "Kích thước khuyên dùng: 1200 x 675 px (tỷ lệ 16:9)" giúp nhân viên chuẩn bị ảnh chính xác và hiển thị đẹp hơn trên trang chi tiết.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: style.css
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Cập nhật hiển thị bài viết (`.article-body` và `.article-body p`): Giảm font-size xuống 1 bậc (còn `1.05rem`), giảm line-height xuống 1 bậc (còn `1.5`) và margin-bottom còn `12px` để nội dung gọn gàng, phù hợp hơn với layout tổng thể. Khắc phục triệt để các rule CSS bị trùng lặp trong file.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== KA - START ======
+## [17/05/2026] quan-he.html — Chuyển Khu Vực Thống Kê Sang Bài Đăng Dynamic
+
+**File đã sửa:** `quan-he.html`
+**File đã tạo:** `vcec-quan-he-stats-post.sql`
+
+### Thay đổi:
+- Xóa hardcoded CSS bar chart (biểu đồ cột) trong section "Trade Data"
+- Thay bằng `<div id="stats-post-container">` — render nội dung từ bài viết trong Supabase
+- **Bài đặc biệt** được nhận diện bởi: `category='quan-he-viet-trung'` **VÀ** `title_vi='Số Liệu Hợp Tác Việt - Trung'` (tiêu đề cố định, không đổi)
+- Milestones timeline đã được update `.neq('title_vi', STATS_TITLE)` để loại trừ bài thống kê
+
+### Luồng Admin:
+1. Bài đăng → Quan Hệ Việt-Trung → tìm bài "Số Liệu Hợp Tác Việt - Trung"
+2. Bấm Sửa → cập nhật bảng số liệu trong Quill editor
+3. Lưu → trang quan-he.html tự cập nhật ngay
+
+**MIKE cần làm thủ công (1 lần):**
+> Supabase Dashboard > SQL Editor > Paste file `vcec-quan-he-stats-post.sql` > Run
+
+Sau khi chạy SQL, bài "Số Liệu Hợp Tác Việt - Trung" sẽ xuất hiện trong admin và nội dung bảng dữ liệu sẽ hiển thị trên website.
+
+**Lưu ý quan trọng:** Không đổi tiêu đề bài "Số Liệu Hợp Tác Việt - Trung" vì trang web dùng tiêu đề này để nhận diện bài thống kê.
+
+### Lưu ý cho MI:
+- `#stats-post-container` render title (h2) + summary (p) + content (article-body)
+- CSS `.chart-container`, `.chart-bars-wrapper`, `.bar` vẫn còn trong `<style>` — MI có thể xóa nếu không dùng nữa
+====== KA - END ======
+
+
+====== KA - START ======
+## [17/05/2026] Fix 3 Bug Admin Panel
+
+### 1. Quill editor trống khi bấm Sửa bài viết
+**File:** `quan-tri.html` — hàm `editPost()`
+**Nguyên nhân:** Dùng API Quill v1 (`clipboard.convert(string)`) nhưng dự án dùng Quill **v2.0.2**. Quill v2 yêu cầu object `{ html: string }`.
+**Fix:** `clipboard.convert(post.content_vi || "")` → `clipboard.convert({ html: post.content_vi || '' })`
+
+### 2. Chọn chuyên mục khác nhưng form edit vẫn hiện bài cũ
+**File:** `quan-tri.html` — hàm `filterPostsByCategory()`
+**Nguyên nhân:** Hàm không đóng form edit trước khi load danh sách mới.
+**Fix:** Thêm `hideNewPostForm()` ở đầu `filterPostsByCategory()`. Đồng thời bỏ `loadPostsList()` thừa cuối hàm (đã được `switchScreen` gọi).
+
+### 3. Ma trận phân quyền không đồng bộ giữa các thiết bị
+**Nguyên nhân:** `savePermissionMatrix()` chỉ lưu vào localStorage của browser. Khi nhân viên đăng nhập trên thiết bị khác → không có matrix → dùng default → vẫn thấy menu.
+**Fix:**
+- `savePermissionMatrix()` → async, upsert vào bảng `vcec_config` trên Supabase + localStorage
+- Thêm `loadPermissionMatrixFromSupabase()` → gọi trong `checkSupabaseReady()` để fetch matrix mới nhất từ DB và re-apply permissions
+
+**MIKE cần làm thủ công (1 lần):**
+> Supabase Dashboard > SQL Editor > Paste file `vcec-config-table.sql` > Run
+
+Sau khi chạy SQL, vào Cài đặt → Phân quyền truy cập → cấu hình lại ma trận → bấm **"Lưu cấu hình ma trận"** để đồng bộ lên Supabase. Từ đó nhân viên trên mọi thiết bị đều nhận đúng phân quyền.
+====== KA - END ======
+
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: app.js, quan-tri.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + app.js: Bổ sung quyền hiển thị nút "Quản Trị Hệ Thống" cho vai trò "staff" (Nhân viên) và "leader" (Trưởng nhóm). Cập nhật logic chuyển hướng khi bấm vào avatar.
+    + quan-tri.html: Nới lỏng kiểm tra bảo mật ban đầu để cho phép "staff" và "leader" truy cập trang.
+    + quan-tri.html: Thêm hàm `applyMenuPermissions()` chạy khi tải trang (DOMContentLoaded) để đọc quyền từ Ma trận phân quyền (permissionMatrix) và ẩn các menu sidebar / chức năng không được phép. Tự động chuyển hướng tới tab chức năng đầu tiên mà user được phép truy cập.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: 
+    + Cấu hình phân quyền hiện đang được lưu ở client-side (`vcec_permission_matrix` trong localStorage). Nếu sau này dự án yêu cầu, KA có thể xem xét đồng bộ cấu hình ma trận này lên bảng settings của Supabase database để đảm bảo đồng nhất phân quyền trên nhiều thiết bị của Admin.
+====== MI - END ======
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: style.css
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Căn chỉnh class `.article-body` và `.article-body p`: Giảm `line-height` từ 1.9 xuống 1.6 và giảm `margin-bottom` từ 25px xuống 14px để thu gọn khoảng cách giữa các dòng và các đoạn văn trong bài viết.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Bổ sung từ khóa `"nav-members"` vào object `translations` cho cả 3 ngôn ngữ (vi, zh, en).
+    + Sửa hàm `renderHeader()`: Thêm phần tử `{ page: 'profile.html', key: 'nav-members' }` vào mảng `menuItems` để hiển thị link "Thành Viên" trên thanh Navigation.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có yêu cầu backend mới ở task này.
+====== MI - END ======
+====== MI - START [16/05/2026] ======
+- Tên file vừa sửa: style.css, gioi-thieu.html, bai-viet-chi-tiet.html, tai-nguyen.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + Xây dựng hệ thống **Editorial & Article Master System**: Định nghĩa các class chuẩn (.article-wrap, .article-body, .article-title-main) giúp hiển thị nội dung bài viết theo phong cách tạp chí cao cấp.
+    + Nâng cấp **News & Articles System**: Cải tiến giao diện `.news-card` với hiệu ứng đổ bóng đa lớp, hover zoom ảnh và typography sang trọng.
+    + Hoàn thiện **Resource & Knowledge Library**: Đồng bộ giao diện danh sách tài liệu, thay thế icon emoji bằng SVG chuyên nghiệp và tối ưu hóa trải nghiệm tải tài liệu.
+    + Tái cấu trúc và dọn dẹp `style.css`: Loại bỏ hoàn toàn các đoạn mã trùng lặp, hợp nhất các hệ thống CSS rời rạc vào một cấu trúc đồng nhất và dễ bảo trì.
+    + Thêm hệ thống **Animation Master**: Tích hợp các hiệu ứng `fadeUp`, `slideInDown` giúp giao diện Portal trở nên sinh động và hiện đại.
+    + Đồng bộ hóa Responsive: Tối ưu hiển thị cho hệ thống bài viết và tài nguyên trên các thiết bị di động (Mobile/Tablet).
+    + **Nâng cấp Layout 8 Mảng hợp tác (Executive Grid)**: Chuyển đổi từ layout cũ sang hệ thống Grid 4 cột ngang x 2 dòng chuyên nghiệp. Tối ưu hóa kích thước thẻ, bo góc 28px và thêm hiệu ứng "Lift & Glow" cao cấp khi hover.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: 
+    + Hệ thống bài viết chi tiết hiện đang tự động render cả Plain Text và HTML (từ Quill editor). KA hãy đảm bảo dữ liệu `content` trong DB luôn sạch để tránh lỗi hiển thị.
+    + Trang Tài nguyên hiện đang dùng chung bảng `vcec_posts`. Nếu KA có ý định thêm tính năng "Tải trực tiếp" (Direct Download), hãy thêm trường `file_url` vào database để MI cập nhật nút bấm.
 ====== MI - END ======
 
 
@@ -284,6 +379,100 @@ Tất cả được cập nhật động trong hàm `renderArticle()` sau khi fe
 ### Lưu ý cho MI:
 - `ho-so-thanh-vien.html` dùng inline `<style>` riêng: `.member-card`, `.member-avatar`, `.member-role-badge`, `.member-post-item`, `.member-post-thumb` — MI style lại thoải mái
 - Hiện chưa có trang danh sách thành viên công khai — link vào profile chỉ qua bài viết (author click)
+====== KA - END ======
+
+
+====== KA - START ======
+## [16/05/2026] Debug + Refactor gioi-thieu: 2 thẻ → 1 bài viết đầy đủ
+
+---
+
+### Vấn đề phát hiện:
+Trang `gioi-thieu.html` hiển thị "Chưa có nội dung" dù memory ghi nhận đã có bài.
+Nguyên nhân: `vcec-static-pages-posts.sql` chưa từng được chạy — DB không có bài nào với `category='gioi-thieu'`.
+
+---
+
+### Bước fix 1: Insert dữ liệu còn thiếu
+**MIKE đã chạy:** `vcec-static-pages-posts.sql` → insert 6 bài (gioi-thieu x2, dich-vu x2, quan-he-viet-trung x2).
+
+**Phát sinh:** `dich-vu` và `quan-he-viet-trung` bị duplicate do `vcec-posts-remaining.sql` đã chạy trước đó.
+
+**Fix duplicate:** SQL xóa bản trùng (giữ id nhỏ nhất qua `ROW_NUMBER() OVER PARTITION BY`):
+```sql
+DELETE FROM vcec_posts WHERE id IN (
+  SELECT id FROM (
+    SELECT id, ROW_NUMBER() OVER (PARTITION BY category, title_vi ORDER BY id) AS rn
+    FROM vcec_posts WHERE category IN ('dich-vu', 'quan-he-viet-trung')
+  ) t WHERE rn > 1
+);
+```
+
+---
+
+### Bước fix 2: Gộp 2 bài gioi-thieu → 1 bài "Bài Giới Thiệu Chính"
+
+**File đã tạo:** `vcec-gioi-thieu-single-post.sql` ← **MIKE cần chạy (1 lần)**
+
+Nội dung SQL: DELETE 2 bài cũ → INSERT 1 bài tổng hợp gồm 3 phần:
+- Tầm Nhìn & Sứ Mệnh
+- Giá Trị Cốt Lõi (3 điểm)
+- Ban Điều Hành VCEC (Nguyễn Hải Anh + Vương Mỹ Linh)
+
+---
+
+### Bước fix 3: Thay đổi cách hiển thị gioi-thieu.html
+
+**File đã sửa:** `gioi-thieu.html`
+
+**Trước:** service-card grid với 2 thẻ, dùng `loadPosts()` + `renderPosts()` render array.
+
+**Sau:** 1 bài viết đầy đủ dạng article, dùng `.single()` + render nội dung HTML vào container.
+
+Logic mới:
+- Container: `#gioi-thieu-container` (class `article-detail-wrap`)
+- Fetch: `.eq('category','gioi-thieu').limit(1).single()`
+- Render: title → h2, summary → lead, content_vi/zh/en → innerHTML trong `.rich-text-vcec`
+- Multilingual: re-render khi `vcec-lang-change`
+- MI đã style lại container với `about-main-article`, `article-content-box` (shadow card) + `rich-text-vcec`
+
+### Lưu ý cho MI:
+- `gioi-thieu.html` container dùng `article-detail-wrap` — cần kiểm tra class này trong style.css nếu muốn tùy chỉnh thêm
+- Cover image ảnh bìa tự hiện nếu bài có `cover_image`, ẩn nếu không
+====== KA - END ======
+
+
+====== KA - START ======
+## [17/05/2026] Trang Danh Sách Thành Viên Công Khai + SEO Meta Tags
+
+### 1. Trang Danh Sách Thành Viên — thanh-vien.html
+
+**File đã tạo:** `thanh-vien.html`
+
+**Truy cập:** `thanh-vien.html` (không cần tham số)
+
+**Tính năng:**
+- Grid responsive (auto-fill, min 260px mỗi card) hiển thị toàn bộ thành viên
+- Avatar chữ cái đầu + gradient đỏ-vàng (giống pattern ho-so-thanh-vien.html)
+- Role badge màu theo cấp bậc (7 roles)
+- Click card → `ho-so-thanh-vien.html?id=UUID`
+- Đếm tổng số thành viên hiển thị phía trên grid
+- Query chỉ fetch: `id, username, role, created_at` — KHÔNG fetch password
+- OG + Twitter Card meta tags tĩnh
+
+### 2. SEO Meta Tags — 3 trang listing
+
+**Files đã sửa:** `gioi-thieu.html`, `dich-vu.html`, `quan-he.html`
+
+**Tags đã thêm (tất cả 3 trang):**
+- `og:title`, `og:description`, `og:image` (fallback `public/logo_VCEC.jpg`), `og:type`, `og:site_name`
+- `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
+
+**Bonus — gioi-thieu.html:** Sau khi fetch bài viết thành công, hàm `updateSEO(post)` cập nhật dynamic OG tags theo title/summary/cover_image thực tế của bài — đảm bảo scraper (Facebook, Zalo) đọc đúng nội dung.
+
+### Lưu ý cho MI:
+- `thanh-vien.html`: đang dùng class `.mci-avatar`, `.mci-info`, `.mci-name`, `.mci-role` — MI có thể style lại
+- Nếu MI muốn thêm link "Thành Viên" vào nav header → cần sửa `renderHeader()` trong `app.js`
 ====== KA - END ======
 
 

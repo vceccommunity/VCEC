@@ -15,7 +15,7 @@
   <!-- Security Interception Script: Executes immediately to block unauthorized visual flash -->
   <script>
     const userRole = localStorage.getItem("vcec_role");
-    if (userRole !== "super_admin" && userRole !== "admin") {
+    if (!["super_admin", "admin", "staff", "leader"].includes(userRole)) {
       alert("Cảnh báo: Bạn không có quyền truy cập trang này!");
       window.location.href = "index.html";
     }
@@ -373,6 +373,7 @@
       margin: 0;
       background: linear-gradient(135deg, #FFF 0%, var(--vcec-gold) 100%);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .screen-subtitle {
@@ -1081,8 +1082,7 @@
           </svg>
         </div>
         <div class="admin-submenu" id="posts-submenu">
-          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu-main')" data-cat="gioi-thieu-main">○ Bài Giới Thiệu Chính</div>
-          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu')" data-cat="gioi-thieu">○ Giới Thiệu Highlights</div>
+          <div class="sub-menu-item" onclick="filterPostsByCategory('gioi-thieu')" data-cat="gioi-thieu">○ Giới Thiệu</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('quan-he-viet-trung')" data-cat="quan-he-viet-trung">○ Quan Hệ Việt-Trung</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('linh-vuc')" data-cat="linh-vuc">○ Lĩnh Vực</div>
           <div class="sub-menu-item" onclick="filterPostsByCategory('dich-vu')" data-cat="dich-vu">○ Dịch Vụ</div>
@@ -1165,8 +1165,7 @@
               📁 Chuyên mục hiển thị ngoài website:
             </label>
             <select id="post-category" class="form-input" style="background: #0f172a; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.15); height: 42px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; padding: 0 12px;">
-              <option value="gioi-thieu-main">🏢 Bài Giới Thiệu Chính (Brand Story)</option>
-              <option value="gioi-thieu">📋 Giới Thiệu Highlights (Cards)</option>
+              <option value="gioi-thieu">🏢 Giới Thiệu</option>
               <option value="quan-he-viet-trung">🤝 Quan Hệ Việt-Trung</option>
               <option value="linh-vuc">🏗️ Lĩnh Vực Hợp Tác</option>
               <option value="dich-vu">🛠️ Dịch Vụ Hỗ Trợ</option>
@@ -1267,7 +1266,7 @@
               <img id="post-cover-img" src="" alt="Xem trước ảnh bìa" style="width:100%; object-fit:cover; max-height:200px; display:block;">
               <button type="button" onclick="clearCoverImage()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#FFF;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:0.9rem;line-height:1;" title="Xóa ảnh">✕</button>
             </div>
-            <p style="color:#6B7280; font-size:0.78rem; margin-top:6px;">💡 Ảnh sẽ hiển thị ngoài trang web và trang chi tiết bài viết.</p>
+            <p style="color:#6B7280; font-size:0.78rem; margin-top:6px;">💡 Ảnh sẽ hiển thị ngoài trang web và trang chi tiết bài viết. <b>Kích thước khuyên dùng: 1200 x 675 px (tỷ lệ 16:9)</b>, định dạng JPG/PNG chất lượng cao.</p>
           </div>
 
           <div style="display:flex; gap:12px; margin-top: 20px; align-items: center;">
@@ -1755,8 +1754,27 @@
         loadSiteConfig();
         loadAdminProfile();
         loadPostsList();
+        loadPermissionMatrixFromSupabase();
       } else {
         setTimeout(checkSupabaseReady, 300);
+      }
+    }
+
+    async function loadPermissionMatrixFromSupabase() {
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('vcec_config')
+          .select('config_value')
+          .eq('config_key', 'permission_matrix')
+          .maybeSingle();
+
+        if (!error && data && data.config_value) {
+          permissionMatrix = JSON.parse(data.config_value);
+          localStorage.setItem("vcec_permission_matrix", data.config_value);
+          applyMenuPermissions();
+        }
+      } catch(e) {
+        // Supabase chưa có bảng vcec_config → dùng localStorage fallback (đã apply trong initPermissionMatrix)
       }
     }
 
@@ -1866,6 +1884,7 @@
 
         // Initialize dynamic access permission matrix
         initPermissionMatrix();
+        applyMenuPermissions();
 
         // Auto restore draft if any exists
         restorePostDraft();
@@ -2517,8 +2536,7 @@
           'tin-tuc': '#C8102E', 
           'co-hoi': '#AF883A', 
           'tai-nguyen': '#1A6B3C', 
-          'gioi-thieu-main': '#C8102E',
-          'gioi-thieu': '#1E3A5F',
+          'gioi-thieu': '#C8102E',
           'quan-he-viet-trung': '#A81B34',
           'linh-vuc': '#8C1327',
           'dich-vu': '#AF883A'
@@ -2527,8 +2545,7 @@
           'tin-tuc': 'Tin Tức', 
           'co-hoi': 'Cơ Hội Đầu Tư', 
           'tai-nguyen': 'Tài Nguyên', 
-          'gioi-thieu-main': 'Giới Thiệu Chính',
-          'gioi-thieu': 'Giới Thiệu Highlights',
+          'gioi-thieu': 'Giới Thiệu',
           'quan-he-viet-trung': 'Quan Hệ Việt-Trung',
           'linh-vuc': 'Lĩnh Vực',
           'dich-vu': 'Dịch Vụ'
@@ -2567,24 +2584,25 @@
     // Filter logic for sub-menus
     window.currentFilterCategory = null;
     function filterPostsByCategory(category) {
+      hideNewPostForm();
       window.currentFilterCategory = category;
-      switchScreen('posts');
-      
-      // Highlight sub-menu item
+
+      // Highlight sub-menu item before switchScreen renders the list
       document.querySelectorAll('.sub-menu-item').forEach(el => {
         el.classList.remove('active');
         if (el.getAttribute('data-cat') === category) el.classList.add('active');
       });
 
-      // Update screen title if needed
-      const catLabel = { 
-        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội Đầu Tư', 'tai-nguyen': 'Tài Nguyên', 
-        'gioi-thieu-main': 'Giới Thiệu Chính', 'gioi-thieu': 'Giới Thiệu Highlights',
+      // Update screen title
+      const catLabel = {
+        'tin-tuc': 'Tin Tức', 'co-hoi': 'Cơ Hội Đầu Tư', 'tai-nguyen': 'Tài Nguyên',
+        'gioi-thieu': 'Giới Thiệu',
         'quan-he-viet-trung': 'Quan Hệ Việt-Trung', 'linh-vuc': 'Lĩnh Vực', 'dich-vu': 'Dịch Vụ'
       };
       document.querySelector('#screen-posts .screen-title').textContent = `Quản Lý Bài Đăng: ${catLabel[category]}`;
-      
-      loadPostsList();
+
+      // switchScreen('posts') sẽ tự gọi loadPostsList() với currentFilterCategory đã set
+      switchScreen('posts');
     }
 
     function toggleSubMenu(submenuId, screenId) {
@@ -2635,9 +2653,9 @@
         document.getElementById("post-summary-zh").value = post.summary_zh || "";
         document.getElementById("post-summary-en").value = post.summary_en || "";
         
-        if (quillVi) quillVi.setContents(quillVi.clipboard.convert(post.content_vi || ""));
-        if (quillZh) quillZh.setContents(quillZh.clipboard.convert(post.content_zh || ""));
-        if (quillEn) quillEn.setContents(quillEn.clipboard.convert(post.content_en || ""));
+        if (quillVi) quillVi.setContents(quillVi.clipboard.convert({ html: post.content_vi || '' }));
+        if (quillZh) quillZh.setContents(quillZh.clipboard.convert({ html: post.content_zh || '' }));
+        if (quillEn) quillEn.setContents(quillEn.clipboard.convert({ html: post.content_en || '' }));
 
         const coverUrlInput = document.getElementById("post-cover-url");
         if (coverUrlInput) { coverUrlInput.value = post.cover_image || ""; }
@@ -2801,7 +2819,8 @@
     function switchPostsTab(tabId) {
       document.getElementById("tab-btn-published").classList.remove("active");
       document.getElementById("tab-btn-drafts").classList.remove("active");
-      
+      document.getElementById("new-post-form-wrap").style.display = "none";
+
       if (tabId === 'published') {
         document.getElementById("tab-btn-published").classList.add("active");
         document.getElementById("posts-published-content").style.display = "block";
@@ -3245,6 +3264,47 @@
       renderPermissionMatrix();
     }
 
+    function applyMenuPermissions() {
+      const userRole = localStorage.getItem("vcec_role") || "member";
+      if (userRole === "super_admin" || userRole === "admin") return;
+
+      const rolePerms = permissionMatrix[userRole];
+      if (!rolePerms) return;
+
+      const menus = ["posts", "resources", "members", "leads", "settings"];
+      let firstVisibleMenu = null;
+
+      menus.forEach(menuKey => {
+        const el = document.getElementById("menu-" + menuKey);
+        if (el) {
+          const p = rolePerms[menuKey];
+          const canView = typeof p === 'object' ? p.view : !!p;
+          if (!canView) {
+            if (menuKey === "posts") {
+              const group = el.closest(".menu-item-group");
+              if (group) group.style.display = "none";
+              else el.style.display = "none";
+            } else {
+              el.style.display = "none";
+            }
+          } else {
+            if (!firstVisibleMenu) firstVisibleMenu = menuKey;
+          }
+        }
+      });
+
+      if (firstVisibleMenu) {
+        // If default posts tab is not visible, switch to first available tab
+        switchScreen(firstVisibleMenu);
+      } else {
+        // If no permissions, clear content area to prevent access
+        const contentArea = document.querySelector(".content-area");
+        if (contentArea) {
+          contentArea.innerHTML = '<div style="padding: 60px 20px; color: #FFF; text-align: center; font-size: 1.1rem;">Bạn chưa được cấp quyền truy cập bất kỳ tính năng nào. Vui lòng liên hệ quản trị viên.</div>';
+        }
+      }
+    }
+
     function getDefaultMatrix() {
       return {
         member: {
@@ -3373,9 +3433,23 @@
       }
     }
 
-    function savePermissionMatrix() {
-      localStorage.setItem("vcec_permission_matrix", JSON.stringify(permissionMatrix));
-      alert("🎉 Đã lưu cấu hình Ma trận phân quyền truy cập thành công!");
+    async function savePermissionMatrix() {
+      const json = JSON.stringify(permissionMatrix);
+      localStorage.setItem("vcec_permission_matrix", json);
+
+      if (!window.supabaseClient) {
+        alert("Lưu cục bộ thành công nhưng chưa đồng bộ server (Supabase chưa sẵn sàng).");
+        return;
+      }
+      const { error } = await window.supabaseClient
+        .from('vcec_config')
+        .upsert({ config_key: 'permission_matrix', config_value: json, updated_at: new Date().toISOString() }, { onConflict: 'config_key' });
+
+      if (error) {
+        alert("Lưu cục bộ OK nhưng đồng bộ server thất bại: " + error.message);
+      } else {
+        alert("🎉 Đã lưu và đồng bộ cấu hình phân quyền lên server thành công!");
+      }
     }
 
     function filterMatrixColumns() {

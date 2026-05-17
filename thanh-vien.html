@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
+  <title>Cộng Đồng Thành Viên - VCEC Portal</title>
+  <meta name="description" content="Danh sách thành viên VCEC Portal - Cộng đồng doanh nhân và chuyên gia xúc tiến đầu tư song phương Việt Nam - Trung Quốc.">
+  <meta property="og:title" content="Cộng Đồng Thành Viên VCEC">
+  <meta property="og:description" content="Danh sách thành viên cộng đồng VCEC - Xúc tiến đầu tư Việt Nam - Trung Quốc.">
+  <meta property="og:image" content="public/logo_VCEC.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VCEC Portal">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cộng Đồng Thành Viên VCEC">
+  <meta name="twitter:description" content="Danh sách thành viên cộng đồng VCEC - Xúc tiến đầu tư Việt Nam - Trung Quốc.">
+  <meta name="twitter:image" content="public/logo_VCEC.jpg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .members-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .members-breadcrumb {
+      font-size: 0.82rem;
+      color: #888;
+      margin-bottom: 28px;
+    }
+    .members-breadcrumb a { color: var(--vcec-red); text-decoration: none; }
+    .members-breadcrumb a:hover { text-decoration: underline; }
+    .members-breadcrumb span { margin: 0 6px; }
+    .members-count {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 24px;
+    }
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .member-card-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      border: 1px solid var(--vcec-gold-border);
+      border-radius: 14px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s;
+    }
+    .member-card-item:hover {
+      border-color: var(--vcec-red);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(200,16,46,0.08);
+    }
+    .mci-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--vcec-red) 0%, var(--vcec-gold) 100%);
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 2px solid var(--vcec-gold-border);
+    }
+    .mci-info { flex: 1; min-width: 0; }
+    .mci-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--vcec-text-dark);
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mci-role {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    #members-loading { text-align: center; padding: 80px 20px; color: #9CA3AF; }
+  </style>
+</head>
+<body>
+
+  <header id="global-header"></header>
+
+  <main class="bg-china-motif">
+    <div class="section-content">
+
+      <section class="sub-hero" style="padding: 80px 0 40px;">
+        <div class="container text-center">
+          <h1 class="article-title-main" style="margin-bottom: 10px;" data-i18n="nav-members">Cộng Đồng Thành Viên</h1>
+          <div style="width: 40px; height: 3px; background: var(--vcec-gold); margin: 0 auto 15px;"></div>
+          <p style="color: var(--vcec-gold); font-size: 1rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;">VCEC PORTAL</p>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+
+          <div id="members-loading">⏳ Đang tải danh sách thành viên...</div>
+
+          <div id="members-main" style="display: none;">
+            <div class="members-wrap">
+              <div class="members-breadcrumb">
+                <a href="index.html">Trang Chủ</a><span>›</span>
+                <span>Thành Viên</span>
+              </div>
+              <div id="members-count" class="members-count"></div>
+              <div id="members-grid" class="members-grid"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer id="global-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>
+  (function() {
+    var ROLE_LABELS = {
+      super_admin: { vi: 'Quản Trị Cấp Cao', color: '#C8102E' },
+      admin:       { vi: 'Quản Trị Viên',    color: '#7C3AED' },
+      leader:      { vi: 'Trưởng Nhóm',      color: '#D97706' },
+      partner:     { vi: 'Đối Tác',           color: '#1D7D3C' },
+      staff:       { vi: 'Nhân Viên',         color: '#0891B2' },
+      customer:    { vi: 'Khách Hàng',        color: '#374151' },
+      member:      { vi: 'Thành Viên',        color: '#6B7280' }
+    };
+
+    function renderMembers(users) {
+      var grid = document.getElementById('members-grid');
+      var countEl = document.getElementById('members-count');
+
+      if (!users || users.length === 0) {
+        grid.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">Chưa có thành viên nào.</p>';
+      } else {
+        countEl.textContent = users.length + ' thành viên';
+        grid.innerHTML = users.map(function(u) {
+          var role = ROLE_LABELS[u.role] || { vi: u.role, color: '#6B7280' };
+          var initial = (u.username || '?')[0].toUpperCase();
+          return '<a href="ho-so-thanh-vien.html?id=' + u.id + '" class="member-card-item">' +
+            '<div class="mci-avatar">' + initial + '</div>' +
+            '<div class="mci-info">' +
+              '<div class="mci-name">' + u.username + '</div>' +
+              '<span class="mci-role" style="background:' + role.color + ';color:#fff;">' + role.vi + '</span>' +
+            '</div>' +
+          '</a>';
+        }).join('');
+      }
+
+      document.getElementById('members-loading').style.display = 'none';
+      document.getElementById('members-main').style.display = 'block';
+    }
+
+    function loadMembers() {
+      if (!window.supabaseClient) { setTimeout(loadMembers, 150); return; }
+      window.supabaseClient
+        .from('vcec_users')
+        .select('id, username, role, created_at')
+        .order('created_at', { ascending: true })
+        .then(function(res) {
+          renderMembers(res.error ? [] : (res.data || []));
+        });
+    }
+
+    loadMembers();
+  })();
+  </script>
+</body>
+</html>
