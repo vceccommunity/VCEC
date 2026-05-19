@@ -835,4 +835,54 @@ Nội dung được lưu dạng HTML (`content_vi/zh/en`) — Quill editor sẽ 
 - Các liên kết tải tệp trong trạng thái thành công đang chạy hàm giả định `alert()`. MI có thể cấu hình các đường dẫn PDF thật vào mảng `mockFiles` của mã nguồn để hoàn tất trải nghiệm tải xuống thực tế.
 ====== KA - END ======
 
+====== KA - START ======
+## Session 2026-05-19 — Full Responsive Audit & Mobile Fix
+
+### ✅ Rà soát toàn bộ responsive — 14 file HTML + style.css
+
+**Tình trạng trước:** Hầu hết các trang đã có breakpoint 768px/1024px nhưng thiếu breakpoint 480px (điện thoại nhỏ), thiếu fix cho bảng trong CMS zone, article-hero-img tràn viền trên màn hình hẹp.
+
+**Các thay đổi thực hiện:**
+
+#### `style.css` (thêm vào cuối):
+- `@media (max-width: 768px)`: `.cms-zone table { display: block; overflow-x: auto }` — bảng Quill render trên trang công khai cuộn ngang thay vì tràn
+- `@media (max-width: 480px)`:
+  - `article-wrap`: padding 28px 16px, border-radius 16px
+  - `article-hero-img`: width calc(100% + 32px), margin-left -16px — khớp với padding 16px mới
+  - `stats-grid`: 1 cột (thay vì 2 cột ở 768px) — dễ đọc hơn trên phone 320px
+  - `sector-card`: padding nhỏ hơn
+
+#### Tất cả trang (thêm `@media (max-width: 480px)` vào local `<style>`):
+- **`gioi-thieu.html`**: about-hero h1 → 1.5rem, about-hero-slogan → 0.95rem, vm-card & value-item padding giảm
+- **`quan-he.html`**: relation-hero h1 → 1.2rem, relation-hero-subtitle → 0.82rem, v-timeline-content padding giảm
+- **`co-hoi.html`**: invest-hero-title → 1.45rem, lead-section-wrapper & glass-form-container padding giảm; fix `-webkit-line-clamp` thêm `line-clamp` standard property
+- **`dich-vu.html`**: service-grid-card & membership-card padding giảm, timeline & form padding giảm
+- **`lien-he.html`**: form-section-bg, glass-form, info-card, map-embed-wrap, china-office-card padding/height giảm
+- **`linh-vuc-chi-tiet.html`**: sector-hero-overlay → 240px, sector-hero-title → 1.4rem, mobile-tab-link font giảm
+- **`tin-tuc.html`**: register-modal padding giảm, event-card border-radius giảm
+- **`tai-nguyen.html`**: resource-group-card & resource-item padding giảm, resource-actions → 1 cột
+- **`thanh-vien.html`**: members-grid → 1 cột (minmax(260px) → 1fr), member-card-item & avatar nhỏ hơn
+- **`ho-so-thanh-vien.html`**: member-card, avatar, member-name, member-post-item nhỏ hơn
+- **`profile.html`**: profile-glass-card padding giảm, gap giảm
+- **`quan-tri.html`**: admin-table-container → overflow-x: auto, admin-table th/td → white-space: nowrap (cuộn ngang thay vì bị clip)
+
+### Lưu ý cho MI:
+- Tất cả các trang giờ đã responsive 3 cấp: 1024px (tablet), 768px (mobile), 480px (compact phone)
+- Không cần thay đổi gì về design hay màu sắc — chỉ là padding, font-size, grid layout
+====== KA - END ======
+
+
+====== MI - START [19/05/2026] ======
+- Tên file vừa sửa/tạo mới: app.js, style.css
+- Các hàm (functions) và logic đã thêm/sửa:
+    + app.js: Thay đổi giao diện 3 nút ngôn ngữ tĩnh (VN, CN, EN) trên header thành 3 nút tròn chứa hình ảnh lá cờ hình tròn của 3 quốc gia tương ứng (Việt Nam 🇻🇳, Trung Quốc 🇨🇳, Vương quốc Anh 🇬🇧) sử dụng SVG chất lượng cao từ FlagCDN. Cập nhật hàm xử lý click lắng nghe sự kiện bằng cách sử dụng `e.currentTarget` thay cho `e.target` để đảm bảo độ bền vững tuyệt đối, tránh lỗi bubbling khi click trực tiếp vào ảnh lá cờ.
+    + style.css: Thiết kế giao diện Premium Glass & Circle cho nút chọn ngôn ngữ:
+        * 3 nút cờ hình tròn đồng bộ, bo tròn 50%, kích thước 32px x 32px căn giữa hoàn hảo.
+        * Ảnh lá cờ SVG tròn 20px x 20px với hiệu ứng bóng đổ nhẹ `box-shadow` tinh xảo.
+        * Hiệu ứng hover tactile phản hồi nhạy bén: phóng to nhẹ `scale(1.15)` và nền mờ dịu mắt khi di chuột qua.
+        * Vòng hào quang đỏ son hoàng gia (`--vcec-red`) bao bọc làm viền chỉ định trạng thái active của lá cờ cực kỳ rõ ràng và sang quý.
+        * Thêm `pointer-events: none` cho `.flag-icon` để click chuột mượt mà không bao giờ bị lỗi JS.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
 

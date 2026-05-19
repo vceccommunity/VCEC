@@ -365,7 +365,7 @@ button, input, select, textarea {
 .lang-switcher {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   background-color: rgba(168, 27, 52, 0.05); /* Light red translucent background */
   padding: 4px;
   border-radius: 30px;
@@ -375,19 +375,40 @@ button, input, select, textarea {
 .lang-btn {
   background: none;
   border: none;
-  color: var(--vcec-red); /* Red inactive states */
-  font-size: 0.8rem;
-  font-weight: 800;
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 4px;
+  border-radius: 50%;
   transition: var(--vcec-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.lang-btn:hover:not(.active) {
+  transform: scale(1.15);
+  background-color: rgba(168, 27, 52, 0.12);
 }
 
 .lang-btn.active {
-  color: #FFFFFF; /* White active text */
   background-color: var(--vcec-red); /* Solid red background */
   box-shadow: 0 4px 10px rgba(168, 27, 52, 0.3);
+}
+
+.lang-btn.active:hover {
+  transform: scale(1.15);
+  background-color: var(--vcec-red-hover);
+}
+
+.flag-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  pointer-events: none; /* Make click event pass through to button */
 }
 
 .mobile-menu-toggle {
@@ -4157,4 +4178,59 @@ button, input, select, textarea {
 .cms-page-guide-item .arrow {
   color: var(--vcec-gold);
   font-weight: 700;
+}
+
+/* ════════════════════════════════════════════════
+   Mobile Responsive Enhancements (480px & below)
+   ════════════════════════════════════════════════ */
+
+/* CMS zone tables scroll horizontally on narrow screens */
+@media (max-width: 768px) {
+  .cms-zone table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  .cms-zone table th,
+  .cms-zone table td {
+    white-space: normal;
+    min-width: 120px;
+  }
+}
+
+/* Article page — ultra-compact phones */
+@media (max-width: 480px) {
+  .article-wrap {
+    padding: 28px 16px;
+    border-radius: 16px;
+  }
+  .article-hero-img {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-top: -28px;
+    border-radius: 16px 16px 0 0;
+  }
+  .article-title-main {
+    font-size: 1.6rem !important;
+  }
+  .article-meta-info {
+    gap: 14px;
+    font-size: 0.85rem;
+  }
+  .btn-back-article {
+    font-size: 0.85rem;
+    padding: 10px 20px;
+  }
+
+  /* Stats grid — single column on very small phones */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Sector cards on index page — slightly less padding */
+  .sector-card {
+    padding: 24px 20px;
+  }
 }

@@ -802,9 +802,15 @@ function renderHeader() {
         ${memberHtml}
 
         <div class="lang-switcher">
-          <button class="lang-btn ${currentLang === 'vi' ? 'active' : ''}" data-lang="vi">VN</button>
-          <button class="lang-btn ${currentLang === 'zh' ? 'active' : ''}" data-lang="zh">CN</button>
-          <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" data-lang="en">EN</button>
+          <button class="lang-btn ${currentLang === 'vi' ? 'active' : ''}" data-lang="vi" title="Tiếng Việt">
+            <img src="https://flagcdn.com/vn.svg" alt="Vietnam" class="flag-icon">
+          </button>
+          <button class="lang-btn ${currentLang === 'zh' ? 'active' : ''}" data-lang="zh" title="中文">
+            <img src="https://flagcdn.com/cn.svg" alt="China" class="flag-icon">
+          </button>
+          <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" data-lang="en" title="English">
+            <img src="https://flagcdn.com/gb.svg" alt="United Kingdom" class="flag-icon">
+          </button>
         </div>
         
         <button class="mobile-menu-toggle" id="menu-toggle">☰</button>
@@ -825,7 +831,7 @@ function renderHeader() {
   // Setup Lang Switcher actions
   header.querySelectorAll(".lang-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      const selected = e.target.getAttribute("data-lang");
+      const selected = e.currentTarget.getAttribute("data-lang");
       setLanguage(selected);
     });
   });

@@ -91,6 +91,21 @@
       text-transform: uppercase;
     }
     #members-loading { text-align: center; padding: 80px 20px; color: #9CA3AF; }
+
+    @media (max-width: 480px) {
+      .members-grid {
+        grid-template-columns: 1fr;
+      }
+      .member-card-item {
+        padding: 16px;
+        gap: 12px;
+      }
+      .mci-avatar {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>

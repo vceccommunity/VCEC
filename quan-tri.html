@@ -1012,9 +1012,14 @@
       .admin-stats-grid {
         grid-template-columns: 1fr !important;
       }
+      .admin-table-container {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
       .admin-table th, .admin-table td {
         padding: 8px 10px !important;
         font-size: 0.78rem !important;
+        white-space: nowrap !important;
       }
       .settings-tab-bar {
         flex-direction: column !important;

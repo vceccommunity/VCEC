@@ -279,6 +279,7 @@
       flex-grow: 1;
       display: -webkit-box;
       -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -824,6 +825,15 @@
       .lead-grid-layout { grid-template-columns: 1fr; gap: 30px; }
       .glass-form-container { padding: 28px 20px; }
       .form-row-2col { grid-template-columns: 1fr; gap: 0; }
+    }
+    @media (max-width: 480px) {
+      .invest-hero { padding: 60px 0 50px; }
+      .invest-hero-title { font-size: 1.45rem; line-height: 1.35; }
+      .invest-hero-subtitle { font-size: 0.85rem; letter-spacing: 0.02em; }
+      .why-vn-card { padding: 22px; }
+      .lead-section-wrapper { padding: 30px 16px; }
+      .glass-form-container { padding: 22px 16px; }
+      .filter-panel-wrap { padding: 20px 16px; }
     }
   </style>
 </head>
