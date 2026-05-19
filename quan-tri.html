@@ -1157,6 +1157,23 @@
 
       <!-- Create New Post Form (Hidden by default) -->
       <div id="new-post-form-wrap" style="display:none; margin-bottom:30px; animation: modalIn 0.35s ease-out;">
+        <!-- ── HƯỚNG DẪN CMS: Chuyên mục → Trang web ── -->
+        <div style="background: linear-gradient(135deg, rgba(168,27,52,0.12) 0%, rgba(178,136,52,0.08) 100%); border: 1px solid rgba(178,136,52,0.25); border-radius: 14px; padding: 18px 22px; margin-bottom: 24px;">
+          <p style="color: var(--vcec-gold); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;">
+            📌 Mỗi chuyên mục điều khiển nội dung một trang trên website
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">🏢 <strong>Giới Thiệu</strong> → gioi-thieu.html</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">🤝 <strong>Quan Hệ Việt-Trung</strong> → quan-he.html</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">🏗️ <strong>Lĩnh Vực</strong> → linh-vuc.html (mỗi bài = 1 card lĩnh vực)</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">📰 <strong>Tin Tức</strong> → tin-tuc.html</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">📚 <strong>Tài Nguyên</strong> → tai-nguyen.html</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.5); font-size: 0.78rem; margin-top: 12px; margin-bottom: 0;">
+            💡 Tip: Bài viết <strong>được cập nhật gần nhất</strong> trong mỗi chuyên mục sẽ hiển thị trên trang tương ứng. Để cập nhật nội dung trang, chỉnh sửa và lưu lại bài viết đó.
+          </p>
+        </div>
+
         <h3 style="color:#FFFFFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tạo bài viết mới</h3>
         <form class="admin-form" onsubmit="publishPost(event)" style="max-width: 900px;">
           <!-- GROUP 0: CHUYÊN MỤC HIỂN THỊ (Target Menu on Website) -->
@@ -1392,6 +1409,10 @@
             <label class="form-label">Cấp bậc phân quyền (Role)</label>
             <select id="member-role" class="form-input" style="appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23AF883A\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; padding-right: 32px;">
               <option value="member">Thành viên (Member)</option>
+              <option value="cn_investor">Nhà đầu tư & DN TQ (cn_investor)</option>
+              <option value="vn_company">Doanh nghiệp VN (vn_company)</option>
+              <option value="department">Cơ quan & Hiệp hội (department)</option>
+              <option value="rnd_media">Truyền thông & Nghiên cứu (rnd_media)</option>
               <option value="customer">Khách hàng (Customer)</option>
               <option value="partner">Đối tác (Partner)</option>
               <option value="staff">Nhân viên (Staff)</option>
@@ -1608,6 +1629,10 @@
                 <select id="matrix-role-filter" onchange="filterMatrixColumns()" style="background: rgba(255,255,255,0.05); color: #FFF; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 8px; font-size: 0.72rem; cursor: pointer; outline: none;">
                   <option value="all">-- Tất cả vai trò --</option>
                   <option value="member">Thành viên</option>
+                  <option value="cn_investor">Nhà đầu tư TQ</option>
+                  <option value="vn_company">Doanh nghiệp VN</option>
+                  <option value="department">Cơ quan hiệp hội</option>
+                  <option value="rnd_media">Truyền thông</option>
                   <option value="customer">Khách hàng</option>
                   <option value="partner">Đối tác</option>
                   <option value="staff">Nhân viên</option>
@@ -1630,10 +1655,14 @@
             <table class="admin-table" id="access-matrix-table">
               <thead>
                 <tr>
-                  <th style="width: 250px;">Chức năng / Menu</th>
+                  <th style="width: 220px;">Chức năng / Menu</th>
                   <th style="text-align: center;">Thành viên</th>
                   <th style="text-align: center;">Khách hàng</th>
                   <th style="text-align: center;">Đối tác</th>
+                  <th style="text-align: center;">Nhà ĐT TQ</th>
+                  <th style="text-align: center;">DN Việt Nam</th>
+                  <th style="text-align: center;">Cơ quan & HH</th>
+                  <th style="text-align: center;">Truyền thông</th>
                   <th style="text-align: center;">Nhân viên</th>
                   <th style="text-align: center;">Trưởng nhóm</th>
                   <th style="text-align: center;">Quản trị viên</th>
@@ -1932,7 +1961,11 @@
             partner: { label: 'Đối tác', class: 'partner' },
             staff: { label: 'Nhân viên', class: 'staff' },
             customer: { label: 'Khách hàng', class: 'customer' },
-            member: { label: 'Thành viên', class: 'member' }
+            member: { label: 'Thành viên', class: 'member' },
+            cn_investor: { label: 'Nhà đầu tư & doanh nghiệp TQ', class: 'member' },
+            vn_company: { label: 'Doanh nghiệp Việt Nam', class: 'partner' },
+            department: { label: 'Cơ quan & hiệp hội', class: 'staff' },
+            rnd_media: { label: 'Truyền thông & nghiên cứu', class: 'leader' }
           };
 
           usersBody.innerHTML = displayUsers.map(user => {
@@ -1980,6 +2013,10 @@
                   <td>
                     <select id="role-select-${user.id}" class="form-input" style="padding: 4px 8px !important; font-size: 0.85rem !important; width: auto !important; height: auto !important;" ${isSuper ? 'disabled' : ''}>
                       <option value="member" ${user.role === 'member' ? 'selected' : ''}>Thành viên</option>
+                      <option value="cn_investor" ${user.role === 'cn_investor' ? 'selected' : ''}>Nhà đầu tư & doanh nghiệp TQ</option>
+                      <option value="vn_company" ${user.role === 'vn_company' ? 'selected' : ''}>Doanh nghiệp Việt Nam</option>
+                      <option value="department" ${user.role === 'department' ? 'selected' : ''}>Cơ quan & hiệp hội</option>
+                      <option value="rnd_media" ${user.role === 'rnd_media' ? 'selected' : ''}>Truyền thông & nghiên cứu</option>
                       <option value="customer" ${user.role === 'customer' ? 'selected' : ''}>Khách hàng</option>
                       <option value="partner" ${user.role === 'partner' ? 'selected' : ''}>Đối tác</option>
                       <option value="staff" ${user.role === 'staff' ? 'selected' : ''}>Nhân viên</option>
@@ -2403,7 +2440,11 @@
           partner: 'Đối tác',
           staff: 'Nhân viên',
           customer: 'Khách hàng',
-          member: 'Thành viên'
+          member: 'Thành viên',
+          cn_investor: 'Nhà đầu tư & doanh nghiệp TQ',
+          vn_company: 'Doanh nghiệp Việt Nam',
+          department: 'Cơ quan & hiệp hội',
+          rnd_media: 'Truyền thông & nghiên cứu'
         };
 
         // Construct CSV content with UTF-8 BOM so Excel opens Vietnamese characters perfectly
@@ -3255,6 +3296,12 @@
       if (saved) {
         try {
           permissionMatrix = JSON.parse(saved);
+          const defaults = getDefaultMatrix();
+          for (let role in defaults) {
+            if (!permissionMatrix[role]) {
+              permissionMatrix[role] = defaults[role];
+            }
+          }
         } catch(e) {
           permissionMatrix = getDefaultMatrix();
         }
@@ -3348,6 +3395,34 @@
           members: { view: true, new: true, edit: true, delete: true },
           leads: { view: true, new: true, edit: true, delete: true },
           settings: { view: true, new: true, edit: true, delete: true }
+        },
+        cn_investor: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: true, new: true, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: false, new: true, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        vn_company: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: true, new: true, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: false, new: true, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        department: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: true, new: true, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: false, new: true, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
+        },
+        rnd_media: {
+          posts: { view: true, new: false, edit: false, delete: false },
+          resources: { view: true, new: true, edit: false, delete: false },
+          members: { view: false, new: false, edit: false, delete: false },
+          leads: { view: false, new: true, edit: false, delete: false },
+          settings: { view: false, new: false, edit: false, delete: false }
         }
       };
     }
@@ -3364,7 +3439,7 @@
         { key: "settings", label: "Cấu hình Cài đặt hệ thống", color: "#F59E0B" }
       ];
 
-      const roles = ["member", "customer", "partner", "staff", "leader", "admin"];
+      const roles = ["member", "customer", "partner", "cn_investor", "vn_company", "department", "rnd_media", "staff", "leader", "admin"];
 
       tbody.innerHTML = rows.map(row => {
         return `
@@ -3467,9 +3542,13 @@
         member: 1,
         customer: 2,
         partner: 3,
-        staff: 4,
-        leader: 5,
-        admin: 6
+        cn_investor: 4,
+        vn_company: 5,
+        department: 6,
+        rnd_media: 7,
+        staff: 8,
+        leader: 9,
+        admin: 10
       };
       
       // Reset displays and classes to original state

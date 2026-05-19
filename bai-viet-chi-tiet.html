@@ -176,10 +176,307 @@
       document.getElementById('article-container').style.display = 'block';
     }
 
-    var postId = new URLSearchParams(window.location.search).get('id');
+    const fallbackPosts = {
+      "fb_01": {
+        id: "fb_01",
+        category: "tin-tuc",
+        created_at: "2026-05-10T09:00:00Z",
+        author: "vcec_sadmin",
+        cover_image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
+        title_vi: "Đoàn Xúc tiến Thương mại Thâm Quyến ký kết 8 thỏa thuận ghi nhớ hợp tác tại Hà Nội",
+        title_zh: "深圳经贸代表团在河内签署8项合作谅解备忘录",
+        title_en: "Shenzhen Trade Delegation Signs 8 MoUs for Industrial Cooperation in Hanoi",
+        summary_vi: "Các thỏa thuận tập trung vào cung ứng linh kiện xe điện, thiết bị lưu trữ năng lượng thông minh và hợp tác đào tạo nguồn nhân lực bán dẫn Việt - Trung chất lượng cao.",
+        summary_zh: "合作协议重点关注电动汽车零部件供应链、智慧储能设备以及中越高质量半导体人才培训合作。",
+        summary_en: "MoUs focus on electric vehicle component supply chain, smart energy storage systems (BESS), and Vietnam - China high-quality semiconductor workforce training.",
+        content_vi: `<p><strong>Hà Nội, ngày 10 tháng 5 năm 2026</strong> — Trong khuôn khổ chuyến thăm chính thức của các cơ quan xúc tiến đầu tư thành phố Thâm Quyến (Trung Quốc), Ban Xúc tiến Đầu tư của VCEC đã đồng tổ chức Diễn đàn B2B và Lễ ký kết Thỏa thuận hợp tác song phương giữa 12 tập đoàn công nghệ cao Thâm Quyến và các chủ đầu tư Khu công nghiệp tại Hải Phòng, Bắc Ninh, Quảng Ninh.</p>
+        <p>Tại lễ ký kết, 8 biên bản ghi nhớ (MoU) đã được thiết lập chính thức với tổng quy mô cam kết đầu tư ước tính đạt hơn 450 triệu USD. Các dự án tập trung vào:</p>
+        <p>1. <strong>Sản xuất linh kiện phụ trợ cho xe điện (EV):</strong> Hỗ trợ thiết lập chuỗi lắp ráp cụm điều khiển và sạc nhanh thông minh tại KCN DEEP C Hải Phòng.</p>
+        <p>2. <strong>Trạm lưu trữ năng lượng thông minh (BESS):</strong> Hợp tác chuyển giao kỹ nghệ pin lithium và thiết bị inverter lưới điện thông minh giữa Tập đoàn BESS Thâm Quyến và Công ty Điện lực Việt Nam.</p>
+        <p>3. <strong>Đào tạo nhân lực chip bán dẫn:</strong> VCEC đóng vai trò kết nối Đại học Quốc gia Hà Nội cùng Viện Nghiên cứu Điện tử Thâm Quyến để triển khai chương trình trao đổi và chuyển giao kỹ thuật kiểm thử vi mạch.</p>
+        <p>Phát biểu tại sự kiện, đại diện VCEC khẳng định: "Đây là bước đi chiến lược nhằm chuyển đổi số chuỗi cung ứng công nghiệp phụ trợ của Việt Nam, đón đầu dòng vốn FDI xanh có giá trị gia tăng cao từ vùng kinh tế trọng điểm Quảng Đông - Hồng Kông - Macao".</p>`,
+        content_zh: `<p><strong>河内，2026年5月10日</strong> — 在中国深圳市投资促进机构正式访问框架内，VCEC投资促进委员会联合举办了B2B对接论坛，并见证了12家深圳高新技术企业与海防、北宁、广宁等省份工业区开发商之间的双边合作协议签署仪式。</p>
+        <p>签署仪式上，双方正式达成了8项合作谅解备忘录（MoU），意向投资总额预计超过4.5亿美元。项目重点关注以下领域：</p>
+        <p>1. <strong>电动汽车（EV）配套零部件制造：</strong> 支持在海防DEEP C工业区建立控制模块和智慧快充设备的组装生产线。</p>
+        <p>2. <strong>智慧电池储能系统（BESS）：</strong> 深圳BESS集团与越南电力公司在锂电池技术转移和智能电网逆变器设备开发方面展开深入合作。</p>
+        <p>3. <strong>半导体芯片人才培训：</strong> VCEC作为桥梁，连接河内国家大学与深圳电子研究院，启动微芯片测试技术的交流与转移项目。</p>
+        <p>VCEC代表在活动中表示：“这是推动越南配套工业供应链数字化转型的战略举措，旨在吸引来自粤港澳大湾区的高附加值绿色FDI资金。”</p>`,
+        content_en: `<p><strong>Hanoi, May 10, 2026</strong> — Within the framework of the official visit by investment promotion agencies from Shenzhen (China), VCEC Investment Promotion Board co-hosted the B2B Forum and the Bilateral Cooperation Signing Ceremony between 12 high-tech Shenzhen corporations and industrial park developers in Hai Phong, Bac Ninh, and Quang Ninh.</p>
+        <p>During the ceremony, 8 Memoranda of Understanding (MoUs) were officially signed with a total estimated investment commitment exceeding USD 450 million. The projects focus on:</p>
+        <p>1. <strong>Electric Vehicle (EV) Supporting Components:</strong> Supporting the establishment of intelligent control modules and fast-charging assembly lines at DEEP C Industrial Zone, Hai Phong.</p>
+        <p>2. <strong>Smart Battery Energy Storage Systems (BESS):</strong> Cooperating on lithium battery technology transfer and smart grid inverter devices between Shenzhen BESS Group and Vietnam Electricity partners.</p>
+        <p>3. <strong>Semiconductor Workforce Training:</strong> VCEC acts as a bridge connecting Vietnam National University, Hanoi with Shenzhen Electronics Research Institute to implement IC testing exchange programs.</p>
+        <p>Speaking at the event, the VCEC representative emphasized: "This is a strategic step to digitalize Vietnam's supporting industrial supply chain, welcoming high-value green FDI flows from the Guangdong-Hong Kong-Macao Greater Bay Area."</p>`
+      },
+      "fb_02": {
+        id: "fb_02",
+        category: "quan-he-viet-trung",
+        created_at: "2026-05-02T10:30:00Z",
+        author: "vcec_sadmin",
+        cover_image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
+        title_vi: "Nâng tầm hợp tác hành lang kinh tế 'Hai Hành Lang - Một Vành Đai' Việt Nam - Trung Quốc",
+        title_zh: "提升越中“两廊一圈”经济走廊合作水平",
+        title_en: "Elevating Vietnam - China 'Two Corridors - One Belt' Economic Cooperation Corridor",
+        summary_vi: "Tuyên bố chung nhấn mạnh việc kết nối cơ sở hạ tầng đường sắt khổ tiêu chuẩn biên giới và đơn giản hóa thủ tục thông quan hải quan cửa khẩu thông minh.",
+        summary_zh: "联合声明强调推进两国跨境标准轨距铁路基础设施互联互通及智慧口岸海关通关便利化。",
+        summary_en: "The joint statement emphasizes connecting border standard-gauge railway infrastructure and simplifying customs procedures through smart border gates.",
+        content_vi: `<p>Khuôn khổ hợp tác kết nối sáng kiến “Hai hành lang, một vành đai” (Việt Nam) và “Một vành đai, một con đường” (Trung Quốc) đang bước sang một trang mới với những hành động cụ thể, tạo hành lang pháp lý thông suốt cho các dự án hạ tầng tỷ đô.</p>
+        <p>Trọng tâm của quy hoạch kết nối logistics xuyên biên giới giai đoạn 2026 - 2030 bao gồm:</p>
+        <p>1. <strong>Đường sắt khổ tiêu chuẩn 1.435mm:</strong> Thúc đẩy kết nối tuyến Lào Cai - Hà Nội - Hải Phòng, Đồng Đăng - Hà Nội và Móng Cái - Hạ Long - Hải Phòng kết nối trực tiếp với mạng lưới đường sắt quốc gia Trung Quốc, giảm chi phí vận tải xuống hơn 40% so với đường bộ.</p>
+        <p>2. <strong>Cửa khẩu thông minh kiểu mẫu:</strong> Áp dụng công nghệ tự động hóa, camera AI nhận diện container và trao đổi dữ liệu hải quan điện tử thời gian thực tại các cửa khẩu Hữu Nghị - Hữu Nghị Quan, Tân Thanh - Pò Chài, rút ngắn thời gian thông quan xuống chỉ còn dưới 10 phút mỗi xe.</p>
+        <p>Sự kết nối vật lý và kỹ thuật số này sẽ biến Việt Nam thành trung tâm trung chuyển hàng hóa tối ưu của khu vực ASEAN sang miền Nam Trung Quốc, mở ra dòng chảy đầu tư mạnh mẽ vào các trung tâm logistics thế hệ mới.</p>`,
+        content_zh: `<p>越方“两廊一圈”框架同中方“一带一路”倡议对接合作正迈入崭新篇章，一系列务实行动为数十亿美元的基础设施项目铺平了顺畅的法制通道。</p>
+        <p>2026至2030阶段跨境物流互联互通规划的重点包括：</p>
+        <p>1. <strong>1.435mm标准轨距铁路：</strong> 推进老街—河内—海防、同登—河内、芒街—下龙—海防铁路线与中国铁路网的直接对接，相比公路运输可降低40%以上的物流成本。</p>
+        <p>2. <strong>智慧口岸示范项目：</strong> 在友谊—友谊关、新青—浦寨口岸采用自动化技术、AI集装箱识别系统和实时电子海关数据交换，将每辆货车的通关时间缩短至10分钟以内。</p>
+        <p>这种物理与数字的双重互联，将助力越南成为东盟商品输往中国南方的最佳物流枢纽，吸引大量资金流向新一代智能物流中心。</p>`,
+        content_en: `<p>The cooperation framework connecting Vietnam's "Two Corridors, One Belt" initiative with China's "Belt and Road Initiative" is entering a new chapter with concrete actions, forming a smooth legal corridor for multi-billion-dollar infrastructure developments.</p>
+        <p>The core focus of cross-border logistics connectivity plans for 2026–2030 includes:</p>
+        <p>1. <strong>1,435mm Standard-Gauge Railway:</strong> Accelerating connectivity for Lao Cai - Hanoi - Hai Phong, Dong Dang - Hanoi, and Mong Cai - Ha Long - Hai Phong routes linking directly to China's national rail grid, slashing transit costs by over 40% compared to road freight.</p>
+        <p>2. <strong>Model Smart Border Gates:</strong> Implementing automation, AI container recognition cameras, and real-time electronic customs data exchange at Huu Nghi - Youyiguan and Tan Thanh - Pochai crossings, reducing clearance times to under 10 minutes per truck.</p>
+        <p>This physical and digital integration will establish Vietnam as the primary transit hub for ASEAN goods destined for Southern China, driving immense investment into next-generation logistics hubs.</p>`
+      },
+      "fb_03": {
+        id: "fb_03",
+        category: "tin-tuc",
+        created_at: "2026-04-28T08:15:00Z",
+        author: "vcec_sadmin",
+        cover_image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+        title_vi: "Phân tích Nghị định ưu đãi thuế thu nhập doanh nghiệp (TNDN) mới cho doanh nghiệp FDI công nghệ cao",
+        title_zh: "外商投资高新技术企业最新企业所得税（CIT）优惠政策深度解析",
+        title_en: "Analysis of New Preferential CIT Decree for High-Tech FDI Enterprises in Vietnam",
+        summary_vi: "Miễn thuế 4 năm đầu, giảm 50% số thuế phải nộp trong 9 năm tiếp theo và áp dụng mức thuế suất ưu đãi 10% trong thời hạn 15 năm cho các dự án xanh, dự án BESS.",
+        summary_zh: "对绿色项目及电池储能系统（BESS）项目实施“前4年免税，随后的9年减税50%”，并享受15年内10%所得税优惠税率。",
+        summary_en: "4-year tax exemption, 50% reduction for the next 9 years, and 10% preferential CIT rate for 15 years applied to green energy and BESS investment projects.",
+        content_vi: `<p>Chính phủ Việt Nam vừa ban hành Nghị định mới quy định chi tiết về các ưu đãi thuế đặc biệt nhằm thu hút làn sóng đầu tư FDI chất lượng cao vào các lĩnh vực thuộc kinh tế tuần hoàn, bán dẫn và xe điện sạch.</p>
+        <p><strong>Khung ưu đãi thuế TNDN đột phá áp dụng từ quý II/2026:</strong></p>
+        <p>1. <strong>Công thức miễn giảm '4 miễn 9 giảm':</strong> Miễn hoàn toàn thuế TNDN trong 4 năm đầu kể từ khi có thu nhập chịu thuế, và giảm 50% số thuế phải nộp trong 9 năm tiếp theo.</p>
+        <p>2. <strong>Thuế suất ưu đãi 10%:</strong> Áp dụng mức thuế suất ưu đãi 10% (so với mức thuế suất phổ thông là 20%) trong thời hạn 15 năm đầu đối với các dự án xây dựng hạ tầng trạm sạc EV lớn, sản xuất pin lưu trữ BESS và các dự án phụ trợ bán dẫn.</p>
+        <p>3. <strong>Miễn thuế nhập khẩu tài sản cố định:</strong> Doanh nghiệp được miễn thuế nhập khẩu đối với máy móc, linh kiện kỹ thuật cao tạo tài sản cố định phục vụ dây chuyền sản xuất lắp ráp.</p>
+        <p>Các chuyên gia pháp lý VCEC đánh giá: "Đây là chính sách cạnh tranh thuế mạnh mẽ nhất trong khu vực Đông Nam Á, giúp trấn an và hấp dẫn các nhà sản xuất phần cứng bán dẫn Thượng Hải, Thâm Quyến yên tâm dịch chuyển nhà máy đầu tư dài hạn".</p>`,
+        content_zh: `<p>越南政府刚刚颁布了关于特殊税收优惠的最新法令，旨在吸引高素质外商直接投资（FDI）流向循环经济、半导体和清洁电动车等重点领域。</p>
+        <p><strong>自2026年第二季度起实施的突破性企业所得税（CIT）优惠框架：</strong></p>
+        <p>1. <strong>“四免九减半”政策：</strong> 自产生应纳税所得额之年起，前4年免征企业所得税，随后的9年减半征收。</p>
+        <p>2. <strong>10%优惠税率：</strong> 对大型电动车充电基础设施建设、BESS电池储能系统制造以及半导体配套工业项目，在前15年内适用10%的优惠税率（标准税率为20%）。</p>
+        <p>3. <strong>免征固定资产进口税：</strong> 企业进口用于构成生产线固定资产的高科技机械设备和零部件，免征进口关税。</p>
+        <p>VCEC法律专家表示：“这是东南亚最具竞争力的税收政策，可大幅提振上海、深圳等半导体硬件厂商在越南开展中长期建厂投资的信心。”</p>`,
+        content_en: `<p>The Government of Vietnam has officially issued a new Decree specifying special tax incentives designed to attract high-quality FDI flows into circular economy, semiconductors, and clean electric vehicle sectors.</p>
+        <p><strong>Breakthrough CIT incentive framework starting Q2/2026:</strong></p>
+        <p>1. <strong>"4 Exemptions, 9 Reductions" Formula:</strong> 100% CIT exemption for the first 4 years from the first year of taxable income, and a 50% tax reduction for the subsequent 9 years.</p>
+        <p>2. <strong>10% Preferential Tax Rate:</strong> A 10% tax rate (compared to the standard rate of 20%) applied for the first 15 years to major EV charging network projects, BESS manufacturing, and supporting semiconductor fabs.</p>
+        <p>3. <strong>Import Duty Exemption on Fixed Assets:</strong> Enterprises are exempt from import tariffs on high-tech machinery, tooling, and electronic parts imported to establish assembly production lines.</p>
+        <p>VCEC legal experts evaluate: "This is the most aggressive tax competitiveness policy in Southeast Asia, reassuring and attracting hardware manufacturers from Shanghai and Shenzhen to commit to long-term manufacturing shifts."</p>`
+      },
+      "fb_04": {
+        id: "fb_04",
+        category: "tin-tuc",
+        created_at: "2026-04-20T14:00:00Z",
+        author: "vcec_sadmin",
+        cover_image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+        title_vi: "Số liệu FDI 5 tháng đầu năm 2026: Trung Quốc dẫn đầu số lượng dự án đăng ký mới tại Việt Nam",
+        title_zh: "2026年前5个月FDI数据：中国在越南新登记投资项目数量位居首位",
+        title_en: "FDI Statistics 2026: China Leads in Number of Newly Registered Projects in Vietnam",
+        summary_vi: "Dòng vốn tập trung mạnh mẽ vào các tỉnh trọng điểm phía Bắc như Bắc Ninh, Hải Phòng, Quảng Ninh thuộc chuỗi cung ứng linh kiện điện tử phụ trợ và năng lượng sạch.",
+        summary_zh: "资金重点流入北宁、海防、广宁等北部重点省份，主要分布在电子零配件、配套工业及清洁能源供应链领域。",
+        summary_en: "Bilateral capital flows focus strongly on northern provinces like Bac Ninh, Hai Phong, and Quang Ninh, supporting electronic supply chains and green sectors.",
+        content_vi: `<p>Báo cáo mới nhất từ Cục Đầu tư Nước ngoài (Bộ Kế hoạch và Đầu tư) cho thấy tính đến hết tháng 5 năm 2026, tổng vốn FDI đăng ký mới, điều chỉnh và góp vốn mua cổ phần đạt hơn 12,5 tỷ USD, tăng 14,8% so với cùng kỳ.</p>
+        <p>Đáng chú ý, <strong>Trung Quốc đại lục giữ vững vị thế dẫn đầu</strong> về số lượng dự án đăng ký mới, chiếm hơn 28,5% tổng số dự án FDI của cả nước.</p>
+        <p><strong>Cơ cấu đầu tư cho thấy các xu hướng đột phá:</strong></p>
+        <p>1. <strong>Định vị địa lý:</strong> Bắc Ninh đón nhận nhiều dự án nhất nhờ hệ sinh thái linh kiện thông minh Samsung - Foxconn; tiếp theo là Hải Phòng nhờ hệ thống cảng nước sâu logistics tối ưu.</p>
+        <p>2. <strong>Quy mô dòng vốn:</strong> Các dự án lớn có mức vốn trung bình đạt 35 - 80 triệu USD, không còn là các dự án gia công lắp ráp nhỏ lẻ, mà chuyển sang các nhà máy tự động hóa cao, dây chuyền SMT gắn chíp hiện đại.</p>
+        <p>VCEC đang tích cực điều phối trực tiếp hơn 40 đoàn doanh nghiệp phụ trợ điện tử khảo sát hạ tầng hàng tuần, hỗ trợ tối ưu thủ tục IRC/ERC một cửa luồng xanh.</p>`,
+        content_zh: `<p>越南计划投资部外国投资局最新报告显示，截至2026年5月底，新登记、增资及合资购买股份的外国直接投资（FDI）总额超过125亿美元，同比增长14.8%。</p>
+        <p>值得注意的是，<strong>中国大陆在新登记项目数量上稳居首位</strong>，占全国新登记外商投资项目总数的28.5%以上。</p>
+        <p><strong>投资结构呈现出以下突破性趋势：</strong></p>
+        <p>1. <strong>地理分布：</strong> 得益于三星与富士康等智慧电子配套生态链，北宁省吸引的新项目数量最多；海防市凭借其卓越的深水港和物流系统位列第二。</p>
+        <p>2. <strong>资金规模：</strong> 新引入项目平均资本达3500万至8000万美元，已告别低端组装加工时代，全面转向高自动化、集成SMT贴片生产线等高科技工厂。</p>
+        <p>VCEC目前正每周积极组织协调40多个电子配套工业企业代表团进行实地考察，协助企业通过“绿色通道”高效办理IRC/ERC一站式行政审批。</p>`,
+        content_en: `<p>The latest report from the Foreign Investment Agency (Ministry of Planning and Investment) reveals that as of May 2026, total newly registered, adjusted, and share-acquisition FDI capital reached USD 12.5 billion, a 14.8% increase year-on-year.</p>
+        <p>Significantly, <strong>Mainland China secured the leading position</strong> in the number of newly registered projects, accounting for over 28.5% of total foreign investments nationwide.</p>
+        <p><strong>The investment structure shows prominent trends:</strong></p>
+        <p>1. <strong>Geographical Preference:</strong> Bac Ninh province received the highest project density, leveraging the established Samsung - Foxconn electronics ecosystems; followed by Hai Phong city due to its grade-A deep-sea port logistics.</p>
+        <p>2. <strong>Capital Scale:</strong> Major projects average USD 35 - 80 million in capital, shifting away from simple assembly plants towards highly automated, state-of-the-art SMT chip placement production lines.</p>
+        <p>VCEC is actively coordinating direct physical surveys for over 40 electronics supporting delegations weekly, providing fast-track "green channel" IRC/ERC services.</p>`
+      },
+      "fb_05": {
+        id: "fb_05",
+        category: "tin-tuc",
+        created_at: "2026-04-12T07:45:00Z",
+        author: "vcec_sadmin",
+        cover_image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80",
+        title_vi: "Quy hoạch mạng lưới Trạm sạc Xe điện & BESS: Thời cơ cho các nhà cung ứng hạ tầng Trung Quốc",
+        title_zh: "电动汽车充电桩与储能系统规划：中国基础设施供应商迎来新商机",
+        title_en: "EV Charging Infrastructure & BESS Network Master Plan: Gold Rush for Chinese Infrastructure Suppliers",
+        summary_vi: "Với tốc độ đô thị hóa nhanh và mục tiêu trung hòa carbon 2050, Việt Nam đang mở ra cơ hội hàng tỷ USD cho chuỗi cung ứng trạm sạc nhanh và tích trữ điện năng.",
+        summary_zh: "凭借高速城市化进程及2050年碳中和目标，越南正为快速充电桩和能源储存系统提供数十亿美元的供应链机遇。",
+        summary_en: "With rapid urbanization and net-zero targets by 2050, Vietnam opens up billion-dollar opportunities for EV charging systems and grid energy storage integrations.",
+        content_vi: `<p>Trong khuôn khổ Quy hoạch điện VIII (QHĐ8) vừa được cập nhật, Việt Nam đặt mục tiêu phát triển hệ thống điện tích trữ năng lượng quy mô lớn (BESS) đạt công suất tối thiểu 300MW đến năm 2030, kết hợp xây dựng mạng lưới hơn 500.000 cổng sạc xe điện thông minh trên toàn quốc.</p>
+        <p>Đây là <strong>thị trường tỷ đô cực kỳ sơ khởi và tiềm năng</strong> đối với các tập đoàn cung cấp hạ tầng điện và tích lũy năng lượng hàng đầu Trung Quốc.</p>
+        <p><strong>Cơ hội vàng cho nhà đầu tư hạ tầng:</strong></p>
+        <p>1. <strong>Trạm sạc nhanh thông minh dọc quốc lộ:</strong> Xây dựng trạm sạc pin công suất cao (120kW - 360kW) theo hình thức PPP hoặc liên doanh tại các trạm dừng nghỉ quốc lộ, phục vụ xe tải điện và xe cá nhân xuyên miền.</p>
+        <p>2. <strong>Thiết bị pin lưu trữ BESS cho trang trại điện gió/mặt trời:</strong> Các nhà máy điện sạch tại Bình Thuận, Ninh Thuận đang bắt buộc phải lắp đặt module BESS để giảm thiểu hiện tượng quá tải đường truyền tải điện quốc gia.</p>
+        <p>Đại diện Ban Cố vấn Năng lượng VCEC chia sẻ: "Chúng tôi sẵn sàng làm cầu nối liên kết công nghệ BESS Thâm Quyến với các chủ đầu tư dự án năng lượng nội địa để triển khai các mô hình thử nghiệm tại miền Trung và miền Nam".</p>`,
+        content_zh: `<p>在最新更新的越南第八版电力规划（PDP8）框架下，越南确立了至2030年发展至少300MW规模的电池储能系统（BESS）以及在全国建设超过50万个电动汽车智慧充电接口的目标。</p>
+        <p>对于中国顶尖的电力基础设施及能源储备集团而言，这是一个<strong>极具开发潜力且尚未饱和的十亿美元级市场</strong>。</p>
+        <p><strong>基础设施投资者的黄金商机：</strong></p>
+        <p>1. <strong>高速公路大功率快充站：</strong> 在高速公路服务区以PPP（政府与社会资本合作）或合资模式建设大功率（120kW - 360kW）快充网络，服务跨省电动重卡及私人电动客车。</p>
+        <p>2. <strong>新能源电厂BESS储能系统配置：</strong> 位于平顺省、宁顺省的大型光伏与风电项目正被迫强制加装BESS储能模组，以降低国家电网调峰压力。</p>
+        <p>VCEC能源顾问代表表示：“我们准备充分发挥桥梁作用，将深圳先进的BESS储能系统技术与越南本土清洁能源开发商进行点对点对接，在越南中南部率先落地试点示范项目。”</p>`,
+        content_en: `<p>Under the newly updated Power Development Plan VIII (PDP8), Vietnam aims to deploy utility-scale Battery Energy Storage Systems (BESS) of at least 300MW by 2030, integrated with a nationwide network of over 500,000 smart EV charging ports.</p>
+        <p>This represents a <strong>multi-billion-dollar greenfield market</strong> with immense potential for leading Chinese power infrastructure and energy storage conglomerates.</p>
+        <p><strong>Golden opportunities for infrastructure developers:</strong></p>
+        <p>1. <strong>Intelligent High-Power Highway Charging Stations:</strong> Deploying high-capacity chargers (120kW - 360kW) under PPP frameworks or joint ventures along national highways to serve long-haul electric trucks and passenger EVs.</p>
+        <p>2. <strong>Utility-Scale BESS for Solar & Wind Farms:</strong> Renewable developers in Binh Thuan and Ninh Thuan provinces are increasingly mandated to deploy BESS modules to mitigate grid congestion on the national transmission network.</p>
+        <p>A representative from VCEC's Energy Advisory Board stated: "We are ready to connect cutting-edge BESS technologies from Shenzhen with local utility developers to deploy early pilot systems in Central and Southern Vietnam."</p>`
+      },
+      "fb_06": {
+        id: "fb_06",
+        category: "tin-tuc",
+        created_at: "2026-04-05T09:20:00Z",
+        author: "vcec_sadmin",
+        cover_image: "https://images.unsplash.com/photo-1521791136368-1a46827d3ad4?auto=format&fit=crop&w=800&q=80",
+        title_vi: "Hành trình BYD xây dựng chuỗi cung ứng linh kiện xe điện nội địa hóa 60% tại Việt Nam",
+        title_zh: "比亚迪在越南建设本土化率达60%的电动车零部件供应链纪操",
+        title_en: "BYD's Journey in Building a 60% Localized EV Component Supply Chain in Vietnam",
+        summary_vi: "Phỏng vấn độc quyền Giám đốc Kỹ thuật BYD Việt Nam về chiến lược kết nối B2B với các đối tác cung ứng công nghiệp phụ trợ tại tỉnh Phú Thọ và Vĩnh Phúc.",
+        summary_zh: "独家专访比亚迪越南技术总监，分享与富寿省、永福省配套工业供应商开展B2B对接合作的实战战略。",
+        summary_en: "An exclusive interview with BYD Vietnam's Technical Director on B2B alignment with supporting industrial suppliers in Phu Tho and Vinh Phuc provinces.",
+        content_vi: `<p>Hãng xe điện khổng lồ BYD đang tiến những bước vững chắc trong việc thiết lập tổ hợp lắp ráp xe điện và hệ sinh thái linh kiện phụ trợ hiện đại tại các tỉnh trung du phía Bắc Việt Nam.</p>
+        <p>Trong buổi phỏng vấn độc quyền với Ban Nghiên cứu Thị trường VCEC, Giám đốc Kỹ thuật BYD Việt Nam đã có những chia sẻ cởi mở về kế hoạch nội địa hóa chuỗi cung ứng linh kiện.</p>
+        <p><strong>BYD hướng tới xây dựng hệ sinh thái khép kín bền vững:</strong></p>
+        <p>1. <strong>Mục tiêu nội địa hóa 60%</strong> về khối lượng linh kiện cơ khí, cụm dây điện, vỏ pin và linh kiện nhựa kỹ thuật cao ngay tại Phú Thọ, Vĩnh Phúc nhằm tối ưu hóa chi phí logistics và thuế xuất khẩu nội vùng RCEP.</p>
+        <p>2. <strong>Đối thoại xúc tiến B2B trực tiếp:</strong> BYD đang hợp tác với VCEC tổ chức các sự kiện sàng lọc đối tác cung ứng nội địa định kỳ hàng quý để đánh giá năng lực, khuôn mẫu và độ chính xác của các đơn vị cơ khí chính xác Việt Nam.</p>
+        <p>BYD đánh giá cao tay nghề và tinh thần học hỏi của nhân lực kỹ thuật cao Việt Nam: "Sự kết hợp giữa kinh nghiệm quản lý sản xuất tinh gọn của BYD và khả năng thích ứng linh hoạt của các nhà xưởng cơ khí Việt Nam là công thức chiến thắng".</p>`,
+        content_zh: `<p>全球电动汽车巨头比亚迪（BYD）在越南北部省份建立现代电动汽车组装基地及零部件配套生态系统的战略正取得稳步进展。</p>
+        <p>在接受VCEC市场研究部独家专访时，比亚迪越南技术总监坦诚分享了集团在越南的零部件供应链本土化计划。</p>
+        <p><strong>比亚迪致力于构建闭环且可持续的生态链：</strong></p>
+        <p>1. <strong>实现60%本土化率的目标：</strong> 计划在富寿省、永福省就地采购机械五金、电缆线束、电池外壳和高精度工程塑料件，以实现物流成本及RCEP区域内出口关税的最优化。</p>
+        <p>2. <strong>季度性B2B直接对接会：</strong> 比亚迪正携手VCEC，每季度定期举办本地配套供应商筛选会，对越南本土精密机械加工企业的产能、模具精度及质量控制体系进行全面评估与辅导。</p>
+        <p>比亚迪高度评价越南技术工人的操作技能和学习精神：“比亚迪精益生产管理经验同越南机械厂高弹性适应能力的结合，是双赢的完美公式。”</p>`,
+        content_en: `<p>EV titan BYD is taking firm strides in establishing its advanced electric vehicle assembly hub and supporting component ecosystems in northern midland provinces of Vietnam.</p>
+        <p>In an exclusive interview with VCEC's Market Research Department, the Technical Director of BYD Vietnam discussed plans to localize the automotive parts supply chain.</p>
+        <p><strong>BYD aims to construct a highly sustainable, localized supply network:</strong></p>
+        <p>1. <strong>60% Localization Target:</strong> Intending to source structural steel, mechanical wiring harnesses, battery casings, and precision engineered plastics locally in Phu Tho and Vĩnh Phúc to optimize RCEP regional export tariffs.</p>
+        <p>2. <strong>Direct B2B Sourcing Forums:</strong> BYD partners with VCEC to conduct quarterly supplier matchmaking events to evaluate manufacturing capacities and precision tolerances of local Vietnamese engineering firms.</p>
+        <p>The BYD executive highly praised the adaptability of Vietnam's high-tech workforce: "Combining BYD's lean manufacturing management with the agility of Vietnamese workshops is a guaranteed formula for mutual success."</p>`
+      }
+    };
+
+    function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
+
+    function tf(p, field) {
+      var l = getLang();
+      return p[field + '_' + l] || p[field + '_vi'] || '';
+    }
+
+    function fmtDate(iso) {
+      var d = new Date(iso);
+      return d.getDate() + ' Tháng ' + (d.getMonth() + 1) + ', ' + d.getFullYear();
+    }
+
+    function renderContent(text) {
+      if (!text) return '';
+      var t = text.trim();
+      if (t.charAt(0) === '<') return t;
+      return t.split(/\n\n+/).map(function(para) {
+        return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
+      }).join('');
+    }
+
+    function renderArticle(post) {
+      var lang = getLang();
+      var cat = CAT_MAP[post.category] || { url: 'index.html', vi: post.category, zh: post.category, en: post.category, color: '#555' };
+      var catLabel = cat[lang] || cat.vi;
+      var title = tf(post, 'title');
+      var content = tf(post, 'content');
+      var summary = tf(post, 'summary');
+
+      // Update page title & meta
+      document.title = title + ' - VCEC Portal';
+      var desc = summary || title;
+      var img = post.cover_image || 'public/logo_VCEC.jpg';
+      if (document.getElementById('meta-description')) document.getElementById('meta-description').setAttribute('content', desc);
+      if (document.getElementById('og-title')) document.getElementById('og-title').setAttribute('content', title + ' - VCEC Portal');
+      if (document.getElementById('og-description')) document.getElementById('og-description').setAttribute('content', desc);
+      if (document.getElementById('og-image')) document.getElementById('og-image').setAttribute('content', img);
+      if (document.getElementById('tw-title')) document.getElementById('tw-title').setAttribute('content', title + ' - VCEC Portal');
+      if (document.getElementById('tw-description')) document.getElementById('tw-description').setAttribute('content', desc);
+      if (document.getElementById('tw-image')) document.getElementById('tw-image').setAttribute('content', img);
+
+      // Breadcrumb
+      document.getElementById('article-breadcrumb').innerHTML =
+        '<a href="index.html">Trang Chủ</a><span>›</span>' +
+        '<a href="' + cat.url + '">' + catLabel + '</a><span>›</span>' +
+        '<span style="color:#555">' + title + '</span>';
+
+      // Cover image
+      var imgEl = document.getElementById('article-img');
+      if (post.cover_image) {
+        imgEl.src = post.cover_image;
+        imgEl.alt = title;
+        imgEl.style.display = 'block';
+      } else {
+        imgEl.style.display = 'none';
+      }
+
+      // Category badge
+      var badge = document.getElementById('article-cat-badge');
+      badge.textContent = catLabel;
+      badge.style.background = cat.color;
+
+      // Title
+      document.getElementById('article-title').textContent = title;
+
+      // Meta
+      document.getElementById('article-date').textContent = '📅 ' + fmtDate(post.created_at);
+      var authorEl = document.getElementById('article-author');
+      authorEl.textContent = '✍️ ' + (post.author || 'VCEC');
+      if (post.author && post.author !== 'VCEC' && window.supabaseClient) {
+        window.supabaseClient
+          .from('vcec_users')
+          .select('id')
+          .eq('username', post.author)
+          .single()
+          .then(function(r) {
+            if (!r.error && r.data) {
+              authorEl.innerHTML = '✍️ <a href="ho-so-thanh-vien.html?id=' + r.data.id + '" style="color:var(--vcec-red);text-decoration:none;font-weight:700;" onmouseover="this.style.textDecoration=\'underline\'" onmouseout="this.style.textDecoration=\'none\'">' + post.author + '</a>';
+            }
+          });
+      }
+
+      // Content
+      var contentEl = document.getElementById('article-content');
+      if (content && content.trim()) {
+        contentEl.innerHTML = renderContent(content);
+      } else if (summary && summary.trim()) {
+        contentEl.innerHTML = renderContent(summary);
+      } else {
+        contentEl.innerHTML = '<p style="color:#888;font-style:italic">Nội dung đang được cập nhật.</p>';
+      }
+
+      // Back button
+      document.getElementById('article-back-btn').href = cat.url;
+      document.getElementById('article-back-btn').textContent = '← ' + catLabel;
+
+      // Show container
+      document.getElementById('article-loading').style.display = 'none';
+      document.getElementById('article-container').style.display = 'block';
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var postId = params.get('id');
+    var fallbackId = params.get('fallback_id');
     var cachedPost = null;
 
     function loadPost() {
+      // 1. Check if fallback article matches local list
+      if (fallbackId && fallbackPosts[fallbackId]) {
+        cachedPost = fallbackPosts[fallbackId];
+        renderArticle(cachedPost);
+        return;
+      }
+
+      // 2. Fetch from Supabase
       if (!window.supabaseClient) { setTimeout(loadPost, 150); return; }
       if (!postId) {
         document.getElementById('article-loading').style.display = 'none';

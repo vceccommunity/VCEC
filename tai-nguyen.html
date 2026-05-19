@@ -7,34 +7,513 @@
   <title>Tài Nguyên & Kiến Thức Xúc Tiến Đầu Tư - VCEC Portal</title>
   <meta name="description" content="Thư viện cẩm nang đầu tư FDI, văn bản pháp luật đầu tư Việt Nam biên dịch song ngữ Việt Trung và hướng dẫn quy chuẩn kỹ thuật cho doanh nghiệp nước ngoài.">
   <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* PAGE-SPECIFIC CUSTOM PREMIUM STYLES */
+    
+    /* Sub-hero section matching premium VCEC brand */
+    .sub-hero {
+      background: linear-gradient(135deg, rgba(168, 27, 52, 0.95) 0%, rgba(9, 13, 26, 0.98) 100%),
+                  url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 60px 0;
+      text-align: center;
+      color: #FFFFFF;
+      border-bottom: 3px solid var(--vcec-gold);
+    }
+    
+    .sub-hero h1 {
+      font-family: var(--vcec-font-heritage);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    
+    /* 8.2 Resource groups card layout */
+    .resource-groups-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 30px;
+    }
+    
+    @media (max-width: 992px) {
+      .resource-groups-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .resource-groups-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .resource-group-card {
+      background: #FFFFFF;
+      border: 2px solid var(--vcec-border);
+      border-left: 6px solid var(--vcec-red);
+      border-radius: var(--vcec-border-radius);
+      padding: 30px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--vcec-transition);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .resource-group-card::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      border: 1px dashed rgba(168, 27, 52, 0.05);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    .resource-group-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--vcec-gold);
+      border-left-color: var(--vcec-gold);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+    
+    .resource-group-icon-box {
+      width: 50px;
+      height: 50px;
+      background: rgba(175, 136, 58, 0.08);
+      border: 1px solid rgba(175, 136, 58, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--vcec-gold);
+      font-size: 1.6rem;
+      transition: var(--vcec-transition);
+    }
+    
+    .resource-group-card:hover .resource-group-icon-box {
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      border-color: var(--vcec-red);
+      transform: scale(1.05) rotate(5deg);
+    }
+    
+    .resource-group-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      font-family: var(--vcec-font-title);
+    }
+    
+    .resource-group-desc {
+      font-size: 0.94rem;
+      color: var(--vcec-text-main);
+      line-height: 1.6;
+      flex-grow: 1;
+      text-align: justify;
+    }
+    
+    .resource-group-btn {
+      width: 100%;
+      height: 42px;
+      background: transparent;
+      color: var(--vcec-red);
+      border: 2px solid var(--vcec-red);
+      border-radius: var(--vcec-border-radius-sm);
+      font-family: var(--vcec-font-title);
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--vcec-transition);
+    }
+    
+    .resource-group-btn:hover {
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      box-shadow: 0 6px 15px rgba(168, 27, 52, 0.15);
+    }
+    
+    /* 8.3 FAQ Section Styling */
+    .faq-wrapper {
+      max-width: 900px;
+      margin: 40px auto 0 auto;
+    }
+    
+    /* FAQ Bilingual Navigation Tabs */
+    .faq-tabs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+    }
+    
+    .faq-tab-btn {
+      background: #FFFFFF;
+      border: 2px solid var(--vcec-border);
+      color: var(--vcec-text-main);
+      font-family: var(--vcec-font-title);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--vcec-transition);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .faq-tab-btn:hover {
+      color: var(--vcec-red);
+      background: rgba(168, 27, 52, 0.03);
+    }
+    
+    .faq-tab-btn.active {
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      border-color: var(--vcec-gold);
+      box-shadow: 0 4px 12px rgba(168, 27, 52, 0.2);
+    }
+    
+    /* FAQ Accordion Lists */
+    .faq-accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .faq-item {
+      background: #FFFFFF;
+      border: 1.5px solid var(--vcec-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--vcec-transition);
+    }
+    
+    .faq-item:hover {
+      border-color: var(--vcec-gold);
+      box-shadow: 0 8px 20px rgba(168, 27, 52, 0.05);
+    }
+    
+    .faq-question-btn {
+      width: 100%;
+      padding: 22px 24px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--vcec-font-title);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--vcec-text-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      transition: var(--vcec-transition);
+    }
+    
+    .faq-question-btn:hover {
+      color: var(--vcec-red);
+    }
+    
+    .faq-toggle-icon {
+      font-size: 1.25rem;
+      color: var(--vcec-gold);
+      font-weight: 700;
+      transition: transform 0.4s ease;
+      flex-shrink: 0;
+    }
+    
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(45deg);
+      color: var(--vcec-red);
+    }
+    
+    .faq-answer-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(168, 27, 52, 0.015);
+      border-top: 1px solid transparent;
+    }
+    
+    .faq-item.active .faq-answer-panel {
+      border-top-color: rgba(168, 27, 52, 0.08);
+    }
+    
+    .faq-answer-content {
+      padding: 22px 24px;
+      font-size: 0.95rem;
+      color: var(--vcec-text-main);
+      line-height: 1.7;
+      text-align: justify;
+    }
+    
+    /* Lead Magnet Capturer Modal */
+    .lead-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(9, 13, 26, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .lead-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .lead-modal {
+      background: #FFFFFF;
+      border: 3px solid var(--vcec-red);
+      border-radius: var(--vcec-border-radius);
+      box-shadow: 0 30px 70px rgba(168, 27, 52, 0.25);
+      width: 90%;
+      max-width: 520px;
+      padding: 40px;
+      position: relative;
+      transform: scale(0.9) translateY(30px);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      background-image: radial-gradient(at 0% 0%, rgba(175, 136, 58, 0.04) 0px, transparent 50%);
+    }
+    
+    .lead-modal-overlay.active .lead-modal {
+      transform: scale(1) translateY(0);
+    }
+    
+    .lead-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--vcec-red);
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: var(--vcec-transition);
+    }
+    
+    .lead-close-btn:hover {
+      transform: rotate(90deg) scale(1.1);
+      color: var(--vcec-gold);
+    }
+    
+    .lead-header h3 {
+      font-family: var(--vcec-font-heritage);
+      font-size: 1.6rem;
+      color: var(--vcec-red);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .lead-header p {
+      font-size: 0.88rem;
+      color: var(--vcec-text-light);
+      margin-bottom: 24px;
+    }
+    
+    .lead-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    
+    .lead-form-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--vcec-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .lead-input {
+      width: 100%;
+      height: 46px;
+      padding: 0 16px;
+      border: 2px solid var(--vcec-red);
+      border-radius: var(--vcec-border-radius-sm);
+      font-family: var(--vcec-font-title);
+      font-weight: 500;
+      background-color: #FFFFFF;
+      color: var(--vcec-text-main);
+      transition: var(--vcec-transition);
+    }
+    
+    .lead-input:focus {
+      border-color: var(--vcec-gold);
+      box-shadow: 0 0 12px rgba(175, 136, 58, 0.15);
+    }
+    
+    .lead-submit-btn {
+      width: 100%;
+      height: 48px;
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      border: none;
+      font-family: var(--vcec-font-title);
+      font-weight: 800;
+      font-size: 0.92rem;
+      border-radius: var(--vcec-border-radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(168, 27, 52, 0.2);
+      transition: var(--vcec-transition);
+      margin-top: 10px;
+    }
+    
+    .lead-submit-btn:hover {
+      background: var(--vcec-red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(168, 27, 52, 0.3);
+    }
+    
+    /* Premium file list success mock box */
+    .success-files-box {
+      margin-top: 20px;
+      background: rgba(26, 107, 60, 0.03);
+      border: 2px dashed #1A6B3C;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+    
+    .mock-file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1px solid rgba(26, 107, 60, 0.2);
+      border-radius: 6px;
+      padding: 10px 14px;
+      transition: var(--vcec-transition);
+    }
+    
+    .mock-file-item:hover {
+      border-color: #1A6B3C;
+      transform: translateX(4px);
+    }
+    
+    .mock-file-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .mock-file-icon {
+      font-size: 1.4rem;
+      color: var(--vcec-red);
+    }
+    
+    .mock-file-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+    }
+    
+    .mock-file-size {
+      font-size: 0.75rem;
+      color: var(--vcec-text-light);
+    }
+    
+    .mock-file-dl-btn {
+      color: #1A6B3C;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .mock-file-dl-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
   <!-- Shared Global Header -->
-  <header id="global-header"></header>
+  <header id="global-header" class="header"></header>
 
   <!-- Main Content with Dong Son drum watermark background -->
   <main class="bg-vietnam-motif">
     <div class="section-content">
       
-      <!-- Sub-page Title Block -->
+      <!-- Sub-page Hero Block -->
       <section class="sub-hero">
         <div class="container">
-          <h1 data-i18n="nav-resources">Tài Nguyên & Kiến Thức</h1>
-          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">ĐẦU TƯ SONG PHƯƠNG</p>
+          <h1 id="page-title">Tài Nguyên & Kiến Thức</h1>
+          <p id="page-subtitle" style="color: var(--vcec-gold); font-size: 1.15rem; font-weight: 600; letter-spacing: 1px; max-width: 600px; margin: 10px auto 0;">XÚC TIẾN ĐẦU TƯ SONG PHƯƠNG</p>
         </div>
       </section>
 
-      <!-- Resource Download Library -->
+      <!-- 8.1 & 8.2 RESOURCE GROUPS GRID SECTION -->
       <section class="section">
-        <div class="container" style="max-width: 900px;">
+        <div class="container">
           <div class="section-title">
-            <h2>Thư Viện Pháp Lý & Sổ Tay Đầu Tư</h2>
-            <p>Tải xuống tài liệu hướng dẫn đầu tư song ngữ chính thống được biên soạn bởi Ban Pháp chế VCEC</p>
+            <h2 id="groups-title">Thư Viện Tài Nguyên Số VCEC</h2>
+            <p id="groups-desc">Tài sản chuyên môn dài hạn cung cấp cẩm nang FDI, báo cáo ngành và văn bản pháp lý chính thống. Hãy đăng ký để tải tài liệu miễn phí.</p>
           </div>
 
-          <div id="resources-list" class="resource-list">
-            <p style="color:#9CA3AF;text-align:center;padding:40px 0;">⏳ Đang tải tài nguyên...</p>
+          <!-- 6 groups matching Page 8 requirements -->
+          <div class="resource-groups-grid" id="groups-container">
+            <!-- Will be populated dynamically via JavaScript in 3 languages -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 8.3 FAQ ACCORDION SECTION -->
+      <section class="section section-grey">
+        <div class="container">
+          <div class="section-title">
+            <h2 id="faq-title">Hỏi & Đáp Xúc Tiến Đầu Tư (FAQ)</h2>
+            <p id="faq-desc">Khu vực giải đáp nhanh giúp giảm tải cho ban tư vấn VCEC, hỗ trợ tra cứu pháp lý - thuế - thị thực song phương.</p>
+          </div>
+
+          <!-- Accordion FAQ Wrapper -->
+          <div class="faq-wrapper">
+            <!-- Dynamic 4 Tabs matching FAQ Groups -->
+            <div class="faq-tabs" id="faq-tabs-container">
+              <!-- Will be injected via JS -->
+            </div>
+
+            <!-- FAQ Panel List -->
+            <div class="faq-accordion-list" id="faq-accordion-container">
+              <!-- Dynamic FAQs populated here -->
+            </div>
           </div>
         </div>
       </section>
@@ -42,57 +521,834 @@
     </div>
   </main>
 
+  <!-- Lead Magnet Capturer Modal -->
+  <div class="lead-modal-overlay" id="lead-modal-overlay">
+    <div class="lead-modal" id="lead-modal-box">
+      <button class="lead-close-btn" onclick="closeLeadModal()">×</button>
+      
+      <!-- Normal Form state -->
+      <div id="lead-form-state">
+        <div class="lead-header">
+          <h3 id="lead-modal-title">Tải Tài Liệu</h3>
+          <p id="lead-modal-desc">Vui lòng cung cấp email và số điện thoại công tác để hệ thống gửi liên kết tải tài liệu chính thức.</p>
+        </div>
+        <form id="lead-magnet-form" onsubmit="submitLeadMagnet(event)">
+          <!-- Hidden group value -->
+          <input type="hidden" id="lead-group-key">
+
+          <!-- Selected target resource displaying to user -->
+          <div class="lead-form-group">
+            <label id="lbl-lead-target">Tài Nguyên Đã Chọn</label>
+            <input type="text" id="lead-target-display" class="lead-input" style="background:#f8fafc; font-weight:700; border-color:var(--vcec-gold);" readonly>
+          </div>
+
+          <!-- Representative name -->
+          <div class="lead-form-group">
+            <label id="lbl-lead-name">Họ và Tên Người Đại Diện</label>
+            <input type="text" id="lead-name" class="lead-input" required placeholder="Ví dụ: Nguyễn Văn A">
+          </div>
+
+          <!-- Corporate email -->
+          <div class="lead-form-group">
+            <label id="lbl-lead-email">Email Doanh Nghiệp</label>
+            <input type="email" id="lead-email" class="lead-input" required placeholder="Ví dụ: van.a@company.com">
+          </div>
+
+          <!-- Business phone / WeChat ID -->
+          <div class="lead-form-group">
+            <label id="lbl-lead-phone">Số Điện Thoại / WeChat ID</label>
+            <input type="text" id="lead-phone" class="lead-input" required placeholder="Ví dụ: +84 912 345 678">
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="lead-submit-btn" id="btn-submit-lead">
+            📥 Nhận Liên Kết Tải Tài Liệu
+          </button>
+        </form>
+      </div>
+
+      <!-- Success Download Mock state -->
+      <div id="lead-success-state" style="display:none; text-align:center;">
+        <div style="width:60px; height:60px; border-radius:50%; background:rgba(26,107,60,0.1); color:#1A6B3C; font-size:1.8rem; display:inline-flex; align-items:center; justify-content:center; margin-bottom:18px;">✓</div>
+        <h3 id="dl-suc-title" style="font-family:var(--vcec-font-heritage); color:#1A6B3C; font-size:1.6rem; margin-bottom:8px;">XÁC MINH THÀNH CÔNG</h3>
+        <p id="dl-suc-desc" style="color:var(--vcec-text-main); font-size:0.95rem; line-height:1.6; margin-bottom:20px;">Thông tin của bạn đã được phê duyệt. Vui lòng bấm trực tiếp vào tệp dưới đây để tải xuống tài liệu bản gốc VCEC.</p>
+        
+        <!-- Premium simulated files block -->
+        <div class="success-files-box" id="success-files-container">
+          <!-- Populated dynamically via JS based on selected group -->
+        </div>
+
+        <button class="lead-submit-btn" style="margin-top:24px; background:var(--vcec-gold);" onclick="closeLeadModal()" id="btn-dl-close">Hoàn Tất</button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Shared Global Footer -->
   <footer id="global-footer"></footer>
 
   <script src="app.js"></script>
   <script>
     (function() {
+      // 1. Language helpers
       function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
-      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
-      function fmtDate(iso) {
-        var d = new Date(iso);
-        return d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+      
+      // Page specific translatable elements dictionary
+      const taiNguyenTranslations = {
+        vi: {
+          "page-title": "Tài Nguyên & Kiến Thức",
+          "page-subtitle": "XÚC TIẾN ĐẦU TƯ SONG PHƯƠNG",
+          "groups-title": "Thư Viện Tài Nguyên Số VCEC",
+          "groups-desc": "Tài sản chuyên môn dài hạn cung cấp cẩm nang FDI, báo cáo ngành và văn bản pháp lý chính thống. Hãy đăng ký để tải tài liệu miễn phí.",
+          "faq-title": "Hỏi & Đáp Xúc Tiến Đầu Tư (FAQ)",
+          "faq-desc": "Khu vực giải đáp nhanh giúp giảm tải cho ban tư vấn VCEC, hỗ trợ tra cứu pháp lý - thuế - thị thực song phương.",
+          
+          "btn-download": "Nhận Tài Liệu 📥",
+          "btn-request": "Yêu Cầu Video / Podcast 📥",
+          
+          // Form & Modal
+          "modal-title": "Tải Tài Liệu",
+          "modal-desc": "Vui lòng cung cấp email và số điện thoại công tác để hệ thống gửi liên kết tải tài liệu chính thức.",
+          "lbl-target": "Tài Nguyên Đã Chọn",
+          "lbl-name": "Họ và Tên Người Đại Diện",
+          "lbl-email": "Email Doanh Nghiệp",
+          "lbl-phone": "Số Điện Thoại / WeChat ID",
+          "btn-submit": "📥 Nhận Liên Kết Tải Tài Liệu",
+          
+          // Success Mock File Download
+          "dl-title": "XÁC MINH THÀNH CÔNG",
+          "dl-desc": "Thông tin của bạn đã được phê duyệt. Vui lòng bấm trực tiếp vào tệp dưới đây để tải xuống tài liệu bản gốc VCEC.",
+          "btn-close": "Hoàn Tất",
+          "dl-link": "Tải xuống tệp",
+          
+          // FAQ categories
+          "faq-cat-vcec": "🏢 Về VCEC & Dịch Vụ",
+          "faq-cat-fdi": "🇨🇳 Đầu Tư Trung Quốc Vào VN",
+          "faq-cat-export": "🇻🇳 Xuất Khẩu Sang T.Quốc",
+          "faq-cat-law": "⚖️ Pháp Lý - Thuế - Thị Thực"
+        },
+        zh: {
+          "page-title": "资源中心与知识库",
+          "page-subtitle": "越中双边投资促进",
+          "groups-title": "VCEC 数字化资源共享库",
+          "groups-desc": "VCEC 核心专业资产，提供权威 of FDI指南、行业分析及双边法律文件。请登记以免费下载各类文档。",
+          "faq-title": "双边投资常见问题解答 (FAQ)",
+          "faq-desc": "FAQ版块可有效减少人工咨询工作量，助力企业自助查询越中双边法律、税务及签证等核心政策。",
+          
+          "btn-download": "免费获取文档 📥",
+          "btn-request": "获取视频/播客资源 📥",
+          
+          // Form & Modal
+          "modal-title": "获取专业资源",
+          "modal-desc": "请提供您的电子邮箱及工作电话，系统将自动向您发送正式文档下载链接。",
+          "lbl-target": "已选资源类别",
+          "lbl-name": "代表人姓名",
+          "lbl-email": "企业电子邮箱",
+          "lbl-phone": "联系电话 / 微信账号",
+          "btn-submit": "📥 提交获取文档链接",
+          
+          // Success Mock File Download
+          "dl-title": "企业资质验证通过",
+          "dl-desc": "您的信息已成功登记。请直接点击下方文件框下载 VCEC 官方原版参考材料。",
+          "btn-close": "完成",
+          "dl-link": "下载文件",
+          
+          // FAQ categories
+          "faq-cat-vcec": "🏢 关于VCEC与支持服务",
+          "faq-cat-fdi": "🇨🇳 中国在越开展FDI投资",
+          "faq-cat-export": "🇻🇳 越南商品正贸出口中国",
+          "faq-cat-law": "⚖️ 双边法律·税务·签证"
+        },
+        en: {
+          "page-title": "Resources & Knowledge Base",
+          "page-subtitle": "BILATERAL INVESTMENT PROMOTION",
+          "groups-title": "VCEC Digital Library",
+          "groups-desc": "A long-term expertise asset containing FDI handbooks, industry reports, and formal legal texts. Register to download documents.",
+          "faq-title": "Investment FAQ Directory",
+          "faq-desc": "This directory automates general inquiries, streamlining workflow for the consulting board while boosting SEO on law, tax, and visa.",
+          
+          "btn-download": "Download Document 📥",
+          "btn-request": "Request Video / Podcast 📥",
+          
+          // Form & Modal
+          "modal-title": "Request Document",
+          "modal-desc": "Please provide your corporate email and contact number to receive the formal download links.",
+          "lbl-target": "Selected Asset",
+          "lbl-name": "Representative Full Name",
+          "lbl-email": "Corporate Email Address",
+          "lbl-phone": "Phone / WeChat ID",
+          "btn-submit": "📥 Request Download Links",
+          
+          // Success Mock File Download
+          "dl-title": "VERIFICATION SUCCESSFUL",
+          "dl-desc": "Your request is approved. Please click directly on the files below to download original VCEC documents.",
+          "btn-close": "Done",
+          "dl-link": "Download File",
+          
+          // FAQ categories
+          "faq-cat-vcec": "🏢 About VCEC & Services",
+          "faq-cat-fdi": "🇨🇳 China FDI into Vietnam",
+          "faq-cat-export": "🇻🇳 Vietnam Exports to China",
+          "faq-cat-law": "⚖️ Law, Taxes & Visas"
+        }
+      };
+
+      // Apply translations dynamically
+      function applyPageTranslations() {
+        const lang = getLang();
+        const t = taiNguyenTranslations[lang] || taiNguyenTranslations.vi;
+        
+        document.getElementById('page-title').innerText = t["page-title"];
+        document.getElementById('page-subtitle').innerText = t["page-subtitle"];
+        document.getElementById('groups-title').innerText = t["groups-title"];
+        document.getElementById('groups-desc').innerText = t["groups-desc"];
+        document.getElementById('faq-title').innerText = t["faq-title"];
+        document.getElementById('faq-desc').innerText = t["faq-desc"];
+        
+        // Modal translatable text elements
+        document.getElementById('lead-modal-title').innerText = t["modal-title"];
+        document.getElementById('lead-modal-desc').innerText = t["modal-desc"];
+        document.getElementById('lbl-lead-target').innerText = t["lbl-target"];
+        document.getElementById('lbl-lead-name').innerText = t["lbl-name"];
+        document.getElementById('lbl-lead-email').innerText = t["lbl-email"];
+        document.getElementById('lbl-lead-phone').innerText = t["lbl-phone"];
+        document.getElementById('btn-submit-lead').innerHTML = t["btn-submit"];
+        
+        // Success Mock Download Box Texts
+        document.getElementById('dl-suc-title').innerText = t["dl-title"];
+        document.getElementById('dl-suc-desc').innerText = t["dl-desc"];
+        document.getElementById('btn-dl-close').innerText = t["btn-close"];
+        
+        renderResourceGroups();
+        renderFAQTabs();
+        renderFAQAccordion();
       }
 
-      var cachedData = null;
-
-      function renderResources(data) {
-        var list = document.getElementById('resources-list');
-        if (!list) return;
-        if (!data || data.length === 0) {
-          list.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:40px 0;">Chưa có tài nguyên nào.</p>';
-          return;
+      // 2. 8.2 RESOURCE GROUPS DATASETS (6 categories matching requirements)
+      const resourceGroups = [
+        {
+          key: "market-report",
+          icon: "📊",
+          title: {
+            vi: "Báo cáo thị trường",
+            zh: "行业与市场报告",
+            en: "Market & Sector Reports"
+          },
+          desc: {
+            vi: "Báo cáo chuyên sâu ngành Việt – Trung theo quý/năm: chuỗi cung ứng logistics, xe điện (EV), năng lượng xanh (BESS), nông sản xuất khẩu và xu hướng du lịch.",
+            zh: "中越双边季度与年度深度行业研究：跨境智慧物流链、电动汽车（EV）、电池储能系统（BESS）、高科技农产品及跨境旅游趋势分析。",
+            en: "Deep-dive Vietnam - China quarterly/annual sector reports: supply chain logistics, EVs, grid BESS, technology agriculture, and international tourism trends."
+          },
+          mockFiles: [
+            { name: "VCEC_Logistics_Market_Report_2026.pdf", size: "4.8 MB" },
+            { name: "Vietnam_EV_BESS_SupplyChain_Prospect.pdf", size: "3.5 MB" }
+          ]
+        },
+        {
+          key: "invest-handbook",
+          icon: "📚",
+          title: {
+            vi: "Cẩm nang đầu tư",
+            zh: "双边投资实务指引",
+            en: "Investment Handbooks"
+          },
+          desc: {
+            vi: "Cẩm nang cặn kẽ về FDI vào Việt Nam dành cho doanh nghiệp Trung Quốc; và cẩm nang hướng dẫn xuất khẩu chính ngạch sang Trung Quốc dành cho doanh nghiệp Việt.",
+            zh: "为中国企业量身打造的越南外商直接投资（FDI）实务指南；以及面向越南企业的中国正贸出口准入与分销渠道操作手册。",
+            en: "Step-by-step guides on FDI setups in Vietnam for Chinese investors, and official trade channel guidelines into China for Vietnamese exporters."
+          },
+          mockFiles: [
+            { name: "Handbook_FDI_Vietnam_Bilingual_VCEC.pdf", size: "5.2 MB" },
+            { name: "Exporting_To_China_Official_Guide.pdf", size: "2.9 MB" }
+          ]
+        },
+        {
+          key: "legal-doc",
+          icon: "⚖️",
+          title: {
+            vi: "Văn bản pháp lý",
+            zh: "核心法律政策汇编",
+            en: "Legal & Regulatory Documents"
+          },
+          desc: {
+            vi: "Hệ thống tổng hợp các bộ Luật, Nghị định, Thông tư của chính phủ, cùng các Hiệp định kinh tế liên quan chặt chẽ đến thương mại và đầu tư Việt - Trung.",
+            zh: "系统汇编越南政府颁布的最新投资法、企业所得税法、海关法以及与中越双边经贸往来密切相关的各条约与自贸区协定（RCEP、ACFTA）。",
+            en: "A compiled directory of essential Laws, Decrees, Circulars, and international trade treaties directly governing Vietnam - China commerce."
+          },
+          mockFiles: [
+            { name: "CIT_Preferential_HighTech_Decree_2026.pdf", size: "1.7 MB" },
+            { name: "ACFTA_Product_Specific_OriginRules.pdf", size: "2.4 MB" }
+          ]
+        },
+        {
+          key: "video-library",
+          icon: "🎥",
+          title: {
+            vi: "Thư viện video",
+            zh: "视频与多媒体会议室",
+            en: "Video & Media Library"
+          },
+          desc: {
+            vi: "Nơi lưu trữ các video phỏng vấn độc quyền với chuyên gia kinh tế đầu ngành, ghi hình các hội nghị xúc tiến lớn và phóng sự giới thiệu doanh nghiệp đối tác.",
+            zh: "收录VCEC独家专家访谈、高规格闭门招商引资峰会全程录音录像、以及中越核心骨干企业和地标工业园区官方多媒体宣介片。",
+            en: "Exclusive economic expert interviews, high-profile investment webinars, and comprehensive partner enterprise media showcases."
+          },
+          isVideo: true,
+          mockFiles: [
+            { name: "Shenzhen_Trade_Summit_Keynote_VCEC.mp4", size: "28 MB" },
+            { name: "FDI_Land_Lease_LegalExpert_Interview.mp4", size: "14 MB" }
+          ]
+        },
+        {
+          key: "infographic",
+          icon: "📊",
+          title: {
+            vi: "Infographic",
+            zh: "数据可视化信息图",
+            en: "Infographics"
+          },
+          desc: {
+            vi: "Các biểu đồ trực quan, sinh động dễ chia sẻ trên mạng xã hội về số liệu kim ngạch XNK, top sản phẩm chủ lực và xếp hạng tỉnh thành thu hút FDI.",
+            zh: "提供极具传播力、设计精美的数据可视化图表：包括双边贸易流量额度、进出口核心产品明细以及越南最热门的外资（FDI）流入省市分布图。",
+            en: "Highly shareable data visualizations showing import-export statistics, key commodities, and regional rankings of Vietnam FDI hotspots."
+          },
+          mockFiles: [
+            { name: "Infographic_VN-CN_TradeVolume_2026.jpg", size: "1.2 MB" },
+            { name: "Infographic_Top10_Vietnam_FDI_Provinces.jpg", size: "1.5 MB" }
+          ]
+        },
+        {
+          key: "podcast-webinar",
+          icon: "🎙️",
+          title: {
+            vi: "Podcast / Webinar",
+            zh: "音频播客与线上讲堂",
+            en: "Podcast & Webinars"
+          },
+          desc: {
+            vi: "Chương trình chuyên đề phát sóng hàng tháng \"Cầu nối Việt – Trung\" với các cuộc đối thoại chuyên sâu cùng doanh nhân tiêu biểu và các nhà ngoại giao.",
+            zh: "月度特色“越中桥梁”音频播客，点对点专访中越知名跨国企业家、行业领头人以及两国政策起草和经贸促进外交人员。",
+            en: "A monthly featured program 'Vietnam - China Bridge' hosting high-level talks with prominent business leaders and trade diplomats."
+          },
+          isVideo: true,
+          mockFiles: [
+            { name: "Podcast_Ep01_B2B_Matching_Secrets.mp3", size: "18 MB" },
+            { name: "Webinar_Customs_Rule248_Compliance.mp3", size: "22 MB" }
+          ]
         }
-        list.innerHTML = data.map(function(p) {
-          return '<div class="resource-item">' +
-            '<div class="resource-icon-box">' +
-              '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>' +
-            '</div>' +
-            '<div class="resource-info">' +
-              '<a href="bai-viet-chi-tiet.html?id=' + p.id + '"><h3 class="resource-title">' + tf(p,'title') + '</h3></a>' +
-              '<p class="resource-meta">' + tf(p,'summary') + ' • Cập nhật: ' + fmtDate(p.created_at) + '</p>' +
-            '</div>' +
-            '<div class="resource-actions" style="display:flex; gap:10px;">' +
-              '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="btn-outline-sm" data-i18n="view-detail">Xem chi tiết</a>' +
-              '<a href="lien-he.html" class="btn btn-primary" style="padding:10px 20px; font-size:0.85rem;" data-i18n="request-doc">Yêu cầu tài liệu</a>' +
-            '</div>' +
-          '</div>';
+      ];
+
+      // Render Resource Groups Cards
+      function renderResourceGroups() {
+        const container = document.getElementById('groups-container');
+        if (!container) return;
+        const lang = getLang();
+        const t = taiNguyenTranslations[lang] || taiNguyenTranslations.vi;
+        
+        container.innerHTML = resourceGroups.map(grp => {
+          const title = grp.title[lang] || grp.title.vi;
+          const desc = grp.desc[lang] || grp.desc.vi;
+          const btnLabel = grp.isVideo ? t["btn-request"] : t["btn-download"];
+          
+          return `
+            <div class="resource-group-card">
+              <div class="resource-group-icon-box">${grp.icon}</div>
+              <h3 class="resource-group-title">${title}</h3>
+              <p class="resource-group-desc">${desc}</p>
+              <button class="resource-group-btn" onclick="openLeadModal('${grp.key}')">
+                ${btnLabel}
+              </button>
+            </div>
+          `;
         }).join('');
       }
 
-      function loadResources() {
-        if (!window.supabaseClient) { setTimeout(loadResources, 150); return; }
-        window.supabaseClient
-          .from('vcec_posts')
-          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,created_at')
-          .eq('category','tai-nguyen').eq('status','published')
-          .order('created_at', { ascending: false })
-          .then(function(res) { cachedData = res.data; renderResources(res.error ? null : res.data); });
+      // 3. 8.3 FAQ ACCORDION DATASET (20 QAs divided into 4 groups)
+      const faqCategories = [
+        { key: "vcec-services", i18n: "faq-cat-vcec" },
+        { key: "fdi-vietnam", i18n: "faq-cat-fdi" },
+        { key: "export-china", i18n: "faq-cat-export" },
+        { key: "law-tax-visa", i18n: "faq-cat-law" }
+      ];
+
+      let activeFAQCategory = "vcec-services";
+
+      const faqItems = [
+        // GROUP 1: Về VCEC và dịch vụ (5 FAQs)
+        {
+          category: "vcec-services",
+          question: {
+            vi: "VCEC là tổ chức gì và vai trò chính ngoài thực tế ra sao?",
+            zh: "VCEC 是什么组织，其实际核心职能是什么？",
+            en: "What is VCEC and what is its primary practical role?"
+          },
+          answer: {
+            vi: "VCEC (Trung tâm Hợp tác và Giao lưu Kinh tế Việt - Trung) là cơ quan hỗ trợ xúc tiến thương mại và đầu tư chính thống. Chúng tôi đóng vai trò là cầu nối toàn diện giúp doanh nghiệp Trung Quốc đầu tư thuận lợi vào Việt Nam và đồng hành cùng doanh nghiệp Việt Nam thâm nhập, phân phối chính ngạch vào thị trường Trung Quốc đại lục thông qua hệ thống dịch vụ pháp lý, thuế, và kết nối B2B khép kín.",
+            zh: "VCEC（越中经济交流与合作中心）是正式的贸易与投资促进支持机构。我们的定位是全方位桥梁：一方面协助中国企业合规高效地在越南开展实业投资（FDI），另一方面协助越南本土企业将核心产品通过正规渠道安全地出口并分销至中国大陆市场，提供法务、税务及B2B对接等一站式闭环支持。",
+            en: "VCEC (Vietnam - China Economic Exchange and Cooperation Center) is a formal trade and investment promotion agency. We serve as a comprehensive bridge: assisting Chinese enterprises in investing smoothly in Vietnam (FDI) and supporting Vietnamese businesses in officially exporting and distributing products to China via our corporate legal, tax, and B2B matching systems."
+          }
+        },
+        {
+          category: "vcec-services",
+          question: {
+            vi: "Quy trình sàng lọc và kết nối B2B cho hai doanh nghiệp diễn ra thế nào?",
+            zh: "VCEC 如何开展双边企业的评估筛选与 B2B 精准对接？",
+            en: "How does VCEC filter and coordinate B2B matching for two businesses?"
+          },
+          answer: {
+            vi: "Quy trình kết nối B2B được chuẩn hóa qua 4 bước nghiêm ngặt: (1) Ban xúc tiến VCEC tiếp nhận nhu cầu chi tiết của hội viên; (2) Thực hiện sàng lọc, thẩm định năng lực pháp lý và uy tín thương mại của các đối tác tiềm năng từ hệ thống dữ liệu doanh nghiệp; (3) Sắp xếp lịch họp trực tuyến (Zoom/Tencent Meeting) hoặc trực tiếp tại trụ sở VCEC; (4) Theo sát và hỗ trợ dịch thuật chuyên sâu trong suốt quá trình đàm phán ký kết biên bản ghi nhớ (MoU) hoặc hợp đồng chính thức.",
+            zh: "B2B精准对接服务标准化为4个步骤：(1) VCEC投资促进委员会深入收集并分析会员企业的具体需求；(2) 依托海量企业数据库，对潜在候选伙伴进行严格的资质审核、法务合规及商业信誉调查；(3) 安排线上智慧会议（腾讯会议/Zoom）或在VCEC两国办事处进行面对面商业洽谈；(4) 委派行业级口译专家全程跟进，直至双方顺利签署谅解备忘录（MoU）或正式合同。",
+            en: "Our B2B matching service is standardized into 4 rigorous stages: (1) VCEC board analyzes the member's specific business requirements; (2) We evaluate, verify, and filter potential partners' legal status and credit from our secure enterprise database; (3) We schedule secure online conferences (Tencent Meeting/Zoom) or direct face-to-face sessions at VCEC offices; (4) We deploy industry-specialized interpreters to follow up until MoUs or contracts are signed."
+          }
+        },
+        {
+          category: "vcec-services",
+          question: {
+            vi: "VCEC có hỗ trợ đưa đoàn doanh nghiệp khảo sát thực địa khu công nghiệp hay không?",
+            zh: "VCEC 是否提供带团实地考察工业园区及厂房的服务？",
+            en: "Does VCEC support organizing delegations to survey industrial parks?"
+          },
+          answer: {
+            vi: "Có. Đây là một trong 6 dịch vụ trọn gói thế mạnh của VCEC. Chúng tôi thường xuyên tổ chức các đoàn công tác khảo sát thực địa KCN cho các tập đoàn bán dẫn, linh kiện xe điện (EV) và năng lượng sạch. VCEC phụ trách toàn bộ khâu hậu cần: phương tiện đưa đón, phiên dịch viên công nghiệp, sắp xếp lịch làm việc trực tiếp với Ban Quản lý KCN và Chính quyền địa phương để đàm phán ưu đãi thuế đất.",
+            zh: "是的。这是VCEC六大核心一站式服务中的王牌板块。我们定期为半导体、电动汽车（EV）零部件及清洁能源领域的中国企业和协会组建专项实地考察团。VCEC全权负责后勤保障：包括专车接送、工业级随行翻译、协调省政府招商官员 and 园区开发商高层进行面对面闭门会议，争取最优惠的租地条款和政策税收支持。",
+            en: "Yes. This is one of VCEC's premier one-stop services. We regularly organize tailored site-survey delegations for semiconductor, EV components, and green energy conglomerates. VCEC manages all logistics: executive shuttle transport, industrial-focused translators, and arranging direct negotiations with provincial government officials and IP developers to secure maximum land incentives."
+          }
+        },
+        {
+          category: "vcec-services",
+          question: {
+            vi: "Lầm thế nào để doanh nghiệp đăng ký làm thành viên chính thức của VCEC?",
+            zh: "企业如何申请加入 VCEC 并获得官方会员认证？",
+            en: "How can an enterprise register as an official VCEC member?"
+          },
+          answer: {
+            vi: "Doanh nghiệp có thể nộp hồ sơ đăng ký gia nhập trực tuyến thông qua trang 'Thành Viên' trên hệ thống. Sau khi ban biên tập tiếp nhận hồ sơ pháp nhân và đối chiếu thực tế hoạt động, Hội đồng Điều hành VCEC sẽ xem xét phê duyệt trong vòng 3 ngày làm việc để cấp Giấy chứng nhận hội viên chính thức cùng Mã định danh B2B toàn cầu.",
+            zh: "企业可通过本网站“会员中心”在线提交入会申请书并上传营业执照等法人文件。在收到申请后，VCEC理事会秘书处将在3个工作日内对企业的商业真实性进行核实，审核通过后发放官方会员证书和全球B2B互联互通唯一识别码。",
+            en: "Enterprises apply online via the 'Members' page on our portal, uploading valid business registrations. Upon receipt, the VCEC executive board reviews the commercial status within 3 working days, granting official membership certificates and unique global B2B directory IDs upon approval."
+          }
+        },
+        {
+          category: "vcec-services",
+          question: {
+            vi: "Các ấn phẩm tài nguyên, cẩm nang của VCEC có mất phí tải về hay không?",
+            zh: "下载 VCEC 发布的专业行业报告和投资指南是否收费？",
+            en: "Are VCEC resource publications and handbooks free to download?"
+          },
+          answer: {
+            vi: "Tất cả các ấn phẩm, cẩm nang đầu tư FDI và báo cáo thị trường chuyên sâu do VCEC biên soạn đều được cung cấp MIỄN PHÍ cho các doanh nghiệp và đối tác liên kết. Tuy nhiên, theo quy chuẩn quản lý tài nguyên của VCEC, người dùng cần thực hiện xác minh danh tính ngắn bằng cách điền Họ tên, Tên doanh nghiệp, Email công tác và Số điện thoại/WeChat ID để hệ thống cấp mã liên kết tải xuống tự động.",
+            zh: "所有由VCEC专业研究团队编撰的投资实务指南、税法解析及双边市场研究报告对所有企业和合作伙伴都是完全免费开放的。但是，为了保障数据安全及后续投资咨询的精准服务，系统要求在下载前进行简易的企业身份验证（需填写代表人姓名、企业全称、工作邮箱及联系电话/微信号），验证通过后系统将自动生成高速下载链接。",
+            en: "All investment handbooks, tax directories, and in-depth sector studies published by VCEC are 100% FREE. However, under our digital asset guidelines, users must complete a quick corporate verification by submitting their Name, Corporate Name, Work Email, and Phone/WeChat ID to unlock direct high-speed download links."
+          }
+        },
+
+        // GROUP 2: Đầu tư Trung Quốc vào Việt Nam (5 FAQs)
+        {
+          category: "fdi-vietnam",
+          question: {
+            vi: "Hồ sơ pháp lý cốt lõi để doanh nghiệp Trung Quốc thành lập nhà máy FDI gồm những gì?",
+            zh: "中国企业在越南投资建厂、设立外资（FDI）公司需要哪些核心法律文件？",
+            en: "What are the core legal documents required for a Chinese firm to set up an FDI factory?"
+          },
+          answer: {
+            vi: "Quy trình bao gồm 2 bước pháp lý nền tảng: (1) Xin cấp Giấy chứng nhận đăng ký đầu tư (IRC) cho dự án tại Sở Kế hoạch & Đầu tư tỉnh; (2) Xin cấp Giấy chứng nhận đăng ký doanh nghiệp (ERC) để thành lập pháp nhân mới. Hồ sơ cần chuẩn bị bao gồm quyết định đầu tư của công ty mẹ, báo cáo kiểm toán tài chính 2 năm gần nhất, hợp đồng nguyên tắc thuê đất/nhà xưởng trong KCN và giấy tờ tùy thân hợp pháp hóa lãnh sự của người đại diện pháp luật.",
+            zh: "设立外资企业核心需要获取两个基本许可证：(1) 向省计划投资厅申请项目《投资登记证》（IRC）；(2) 申请设立新法人的《企业登记证》（ERC）。企业需提前准备母公司营业执照及章程（需公证及领事认证）、母公司近两年审计财务报告、在工业区租赁土地或厂房的意向协议（MOU）、以及法定代表人的护照复印件等。",
+            en: "The setup involves two fundamental licensing milestones: (1) Securing an Investment Registration Certificate (IRC) for the project from the provincial Department of Planning and Investment (DPI); (2) Securing an Enterprise Registration Certificate (ERC) to establish the corporate entity. Required documents include mother-company audited financials, legalized passport copies of representatives, and industrial land sublease agreements."
+          }
+        },
+        {
+          category: "fdi-vietnam",
+          question: {
+            vi: "Thời gian xử lý cấp phép đầu tư IRC và ERC tại Việt Nam thực tế là bao lâu?",
+            zh: "在越南实际办理 IRC 和 ERC 许可证通常需要多长时间？",
+            en: "How long does it realistically take to process IRC and ERC licenses in Vietnam?"
+          },
+          answer: {
+            vi: "Theo quy định của pháp luật Việt Nam, thời gian thẩm định cấp IRC là 15 ngày làm việc và cấp ERC là 3 ngày làm việc kể từ khi nhận đủ hồ sơ hợp lệ. Tuy nhiên, trên thực tế, thời gian tổng thể có thể dao động từ 30 đến 45 ngày do phụ thuộc vào khâu chuẩn bị tài liệu, giải trình giải pháp công nghệ, đánh giá tác động môi trường (DTM) và thẩm duyệt phòng cháy chữa cháy (PCCC) cho nhà xưởng.",
+            zh: "根据越南法律规定，自收到合格文件之日起，IRC的法定审批时间为15个工作日，ERC为3个工作日。但在实际操作中，整体流程通常需要30至45天。时间宽窄主要取决于母公司公证文件的准备速度、项目工艺技术的环保说明与评估（DTM审核）、以及厂房消防设计（PCCC）的安全审批等配套流程。",
+            en: "Under Vietnam law, the statutory processing time is 15 working days for IRC and 3 working days for ERC upon receiving valid dossiers. In real scenarios, the timeline spans 30 to 45 days, heavily dependent on mother-company document legalization, Environmental Impact Assessments (EIA/DTM), and Factory Fire Safety (PCCC) approvals."
+          }
+        },
+        {
+          category: "fdi-vietnam",
+          question: {
+            vi: "Chính phủ Việt Nam có những ưu đãi thuế quan gì đặc biệt cho các dự án xanh, dự án BESS?",
+            zh: "越南政府对绿色能源项目、电池储能系统（BESS）项目有哪些具体的税收优惠政策？",
+            en: "What specific tax incentives does Vietnam offer for green energy and BESS projects?"
+          },
+          answer: {
+            vi: "Các dự án thuộc lĩnh vực bảo vệ môi trường, năng lượng sạch và tích trữ năng lượng (BESS) được hưởng ưu đãi thuế TNDN đặc biệt kịch trần: Thuế suất ưu đãi 10% trong vòng 15 năm đầu (so với mức thuế suất tiêu chuẩn là 20%), miễn hoàn toàn thuế TNDN trong 4 năm đầu và giảm 50% số thuế phải nộp trong 9 năm tiếp theo kể từ khi có thu nhập chịu thuế, kết hợp miễn thuế nhập khẩu cho máy móc tạo tài sản cố định.",
+            zh: "对环境保护、清洁能源以及高能效电池储能系统（BESS）等领域的项目，越南政府给予最顶格的企业所得税（CIT）特殊优惠：前15年享受10%的优惠税率（标准税率为20%）；自产生应税利润之年起，实施“前4年免税，随后的9年减税50%”（俗称四免九减半）；此外，进口用于构成固定资产的高科技机械设备免征进口关税。",
+            en: "Green sectors, renewable grids, and Battery Energy Storage Systems (BESS) enjoy maximum tax incentives: a 10% preferential CIT rate for the first 15 years (vs. the standard 20%), a full tax holiday for the first 4 years, a 50% reduction for the subsequent 9 years, and 100% import duty exemptions on high-tech machinery."
+          }
+        },
+        {
+          category: "fdi-vietnam",
+          question: {
+            vi: "Tại sao các tỉnh Bắc Ninh, Hải Phòng là điểm đến lý tưởng nhất cho chuỗi cung ứng điện tử?",
+            zh: "为什么北宁省和海防市是中国智能硬件及电子供应链企业的首选投资地？",
+            en: "Why are Bac Ninh and Hai Phong the prime destinations for electronics supply chains?"
+          },
+          answer: {
+            vi: "Miền Bắc Việt Nam (đặc biệt là Bắc Ninh, Hải Phòng, Hải Dương) sở hữu ba lợi thế vượt trội: (1) Vị trí địa lý kết nối đường bộ cực kỳ gần với thủ phủ điện tử Quảng Đông - Thâm Quyến của Trung Quốc; (2) Sự hiện diện của các siêu tập đoàn lớn như Samsung, Foxconn, Pegatron tạo thành hệ sinh thái công nghiệp phụ trợ điện tử hoàn chỉnh; (3) Hệ thống hạ tầng cao tốc liên tỉnh đồng bộ và cảng biển nước sâu Lạch Huyện (Hải Phòng) giúp xuất nhập khẩu linh kiện tối ưu chi phí.",
+            zh: "越南北部（尤其是北宁省、海防市、海阳省）拥有三大无可比拟的区位优势：(1) 地理位置靠近中国，跨境陆运物流能迅速对接深圳、东莞等电子制造基地；(2) 拥有三星、富士康、和硕等全球巨型组装大厂，形成了高度集中的配套电子供应链生态；(3) 拥有极其完善的高速公路网以及海防深水港（Lach Huyen），货物可快速发往全球。",
+            en: "Northern Vietnam (notably Bac Ninh and Hai Phong) presents three major advantages: (1) Proximity to China's electronic hubs (Shenzhen/Guangdong) via overland high-speed trucking; (2) The presence of assembly giants like Samsung, Foxconn, and Pegatron, offering an established electronic parts ecosystem; (3) Top-tier interprovincial highways and direct deep-sea port terminals at Lach Huyen."
+          }
+        },
+        {
+          category: "fdi-vietnam",
+          question: {
+            vi: "Tỷ lệ xuất xứ khu vực (RVC) bao nhiêu để xe điện lắp ráp tại Việt Nam xuất khẩu thuế 0% sang ASEAN?",
+            zh: "越南组装制造的电动车出口到东盟其他国家，需要达到多少原产地比例（RVC）才能享受免税？",
+            en: "What Regional Value Content (RVC) is needed for Vietnam-assembled EVs to export tariff-free to ASEAN?"
+          },
+          answer: {
+            vi: "Để được hưởng mức thuế suất nhập khẩu ưu đãi đặc biệt 0% khi xuất khẩu xe điện từ Việt Nam sang các nước khu vực Đông Nam Á khác theo Hiệp định thương mại hàng hóa ASEAN (ATIGA), sản phẩm xe điện lắp ráp bắt buộc phải đạt Tỷ lệ hàm lượng giá trị khu vực (RVC) tối thiểu là 40% và được cấp Giấy chứng nhận xuất xứ Form D hợp lệ.",
+            zh: "根据东盟货物贸易协定（ATIGA协定），越南组装生产的电动汽车向东盟其他成员国（如印尼、泰国、菲律宾等）出口并申请0%关税优惠时，该产品必须达到至少40%的区域价值成分比例（Regional Value Content, RVC），且必须成功申请并出具官方原产地证书（Form D）。",
+            en: "To secure a 0% special preferential import tariff when exporting EVs assembled in Vietnam to other Southeast Asian nations under the ASEAN Trade in Goods Agreement (ATIGA), the EV must achieve a minimum Regional Value Content (RVC) of 40% and secure an official Certificate of Origin (Form D)."
+          }
+        },
+
+        // GROUP 3: Xuất khẩu Việt Nam sang Trung Quốc (5 FAQs)
+        {
+          category: "export-china",
+          question: {
+            vi: "Những sản phẩm nông sản nào của Việt Nam hiện đã được phép xuất khẩu chính ngạch sang Trung Quốc?",
+            zh: "目前越南有哪些水果和农产品已获得中国官方批准，可以进行“正贸”出口？",
+            en: "Which Vietnamese agricultural products are officially approved for export to China?"
+          },
+          answer: {
+            vi: "Đến nay, hai nước đã ký kết các Nghị định thư cho phép xuất khẩu chính ngạch nhiều loại nông sản thế mạnh của Việt Nam sang Trung Quốc như: Sầu riêng (tươi và đông lạnh), thanh long, dừa tươi, mít, chuối, xoài, tổ yến, dưa hấu, chôm chôm, vải, nhãn và thạch đen. Các sản phẩm này phải đáp ứng đầy đủ tiêu chuẩn vệ sinh dịch tễ và mã số vùng trồng kiểm soát bởi GACC.",
+            zh: "截至目前，越中两国已正式签署议定书，允许越南多种优势农产品以“正规贸易”渠道出口至中国，包括：新鲜和冷冻榴莲、鲜椰子、火龙果、波罗蜜、香蕉、芒果、燕窝、西瓜、红毛丹、荔枝、龙眼和黑凉粉等。所有出口产品必须具备经中国海关总署（GACC）审核备案的种植基地代码及包装厂代码。",
+            en: "Currently, both nations have signed protocols approving official trade export channels for premium Vietnamese agricultural items including: durian (fresh & frozen), fresh coconuts, dragon fruit, jackfruit, bananas, mangoes, bird's nests, watermelons, rambutan, lychee, longan, and grass jelly. All items must secure GACC-registered codes."
+          }
+        },
+        {
+          category: "export-china",
+          question: {
+            vi: "Quy định Lệnh 248 và Lệnh 249 của Hải quan Trung Quốc (GACC) ảnh hưởng thế nào đến doanh nghiệp?",
+            zh: "中国海关总署（GACC）的第 248 号和 249 号令对越南食品出口企业有什么要求？",
+            en: "How do GACC Decrees 248 and 249 affect Vietnamese food exporters?"
+          },
+          answer: {
+            vi: "Lệnh 248 và 249 quy định về việc đăng ký bắt buộc đối với tất cả doanh nghiệp nước ngoài sản xuất thực phẩm xuất khẩu vào Trung Quốc. Doanh nghiệp Việt Nam thuộc 18 nhóm mặt hàng rủi ro cao (như thủy sản, thịt, sữa, yến sào) phải được Bộ NN&PTNT Việt Nam thẩm định và đề xuất lên GACC để cấp mã số xuất khẩu; các mặt hàng ngoài danh mục này có thể tự nộp hồ sơ trực tuyến trực tiếp qua cổng thông tin của GACC.",
+            zh: "中国海关总署第248号和249号令要求所有向中国境内出口食品的境外生产企业必须进行强制性注册。对于属于18类高风险品类（如水产品、肉类、乳制品、燕窝等）的越南企业，必须先通过越南农业与农村发展部审核推荐，再由中国海关总署（GACC）颁发准入代码；18类以外的产品，企业可直接在GACC系统在线申请注册。",
+            en: "Decrees 248 and 249 mandate compulsory registration for all overseas food manufacturers exporting to China. Vietnamese firms under the 18 high-risk categories (e.g. seafood, meat, dairy, bird's nests) must be inspected by Vietnam's MARD and recommended to the GACC; other categories can apply directly online."
+          }
+        },
+        {
+          category: "export-china",
+          question: {
+            vi: "Làm thế nào để xin cấp Chứng nhận xuất xứ (C/O) Form E để hàng hóa hưởng thuế 0% vào Trung Quốc?",
+            zh: "如何申请 C/O Form E 原产地证书，使越南货物出口到中国能享受免关税待遇？",
+            en: "How do we apply for a C/O Form E to secure 0% tariff treatment entering China?"
+          },
+          answer: {
+            vi: "Để hưởng thuế ưu đãi ACFTA, doanh nghiệp cần chuẩn bị bộ chứng từ xuất khẩu gồm tờ khai hải quan, hóa đơn thương mại, vận đơn đường biển và bảng kê tiêu chí xuất xứ hàng hóa. Toàn bộ hồ sơ được nộp trực tuyến qua hệ sinh thái quản lý chứng nhận xuất xứ Vecos (Bộ Công Thương Việt Nam). Sau khi được duyệt trực tuyến, doanh nghiệp sẽ nhận bản gốc C/O Form E bằng giấy hoặc Form E điện tử liên thông hải quan.",
+            zh: "为了享受中国-东盟自贸协定（ACFTA）下的零关税政策，企业需准备全套出口资料：包括海关报关单、商业发票、海运提单以及详细的产品原产地判定核算表。所有资料需通过越南工贸部（MoIT）的Vecos原产地电子系统在线申报。审批通过后，企业将获得官方纸质或电子版原产地证书（C/O Form E）用于中国入境清关。",
+            en: "To secure ACFTA preferential tariffs, companies must compile export dossiers including customs declarations, commercial invoices, bills of lading, and origin criteria calculations. Dossiers are submitted online via the Ministry of Industry and Trade's Vecos system. Upon approval, an official C/O Form E is issued."
+          }
+        },
+        {
+          category: "export-china",
+          question: {
+            vi: "VCEC có mạng lưới kiểm nghiệm chất lượng và hỗ trợ thông quan tại các cửa khẩu hay không?",
+            zh: "VCEC 是否提供口岸报关、检验检疫及绿色清关的协调服务？",
+            en: "Does VCEC provide quality quarantine and customs clearance support at border gates?"
+          },
+          answer: {
+            vi: "Có. VCEC đã thiết lập liên kết đối tác chiến lược chặt chẽ với các trung tâm kiểm nghiệm kiểm dịch thực vật tại cảng Hải Phòng, cảng Cát Lái và các cửa khẩu biên giới phía Bắc (Hữu Nghị, Tân Thanh). Chúng tôi hỗ trợ kiểm tra nhanh chỉ tiêu vi sinh, tồn dư thuốc BVTV đạt chuẩn Hải quan Trung Quốc, giúp giảm thiểu tối đa tỷ lệ hàng bị quay đầu tại biên giới.",
+            zh: "是的。VCEC已与海防港、胡志明市吉莱港以及中越北部陆路口岸（友谊口岸、新青口岸）的检验检疫及报关机构建立深度战略协作。我们能协助企业在装运前或口岸环节进行快速预检（检测农残、重金属等是否符合中国准入指标），确保货物顺畅通关，将跨境查验退回的风险降到最低。",
+            en: "Yes. VCEC has forged strategic ties with primary phytosanitary laboratories and customs brokers in Hai Phong Port, Cat Lai Port, and northern border gates (Huu Nghi, Tan Thanh). We assist in pre-testing agricultural chemical residues, satisfying GACC compliance, minimizing border return risks."
+          }
+        },
+        {
+          category: "export-china",
+          question: {
+            vi: "Chi phí vận chuyển đường bộ qua biên giới và đường biển đường dài chênh lệch thế nào?",
+            zh: "越南输华货物，陆路口岸跨境运输与海运集装箱运输的成本和时效有什么差别？",
+            en: "What is the difference in cost and transit time between border land transport and ocean shipping to China?"
+          },
+          answer: {
+            vi: "Vận chuyển đường bộ (container lạnh qua Lạng Sơn/Móng Cái) mất từ 2-3 ngày, cực kỳ thích hợp cho trái cây tươi sống nhưng chi phí cao và dễ rủi ro ùn tắc tại biên giới mùa cao điểm. Vận chuyển đường biển từ Hải Phòng/TP.HCM sang các cảng Quảng Châu, Thâm Quyến, Thượng Hải rẻ hơn 50-60% nhưng thời gian di chuyển lâu hơn (5-7 ngày), phù hợp hàng khô, linh kiện chế biến sẵn.",
+            zh: "陆路跨境运输（经谅山/芒街冷藏货柜）时效较快（2-3天），最适合保鲜要求高的新鲜水果，但在旺季时口岸容易发生积压且运费相对较高。海运运输（海防/胡志明港至深圳、广州、上海等港口）物流成本可降低50-60%，但耗时较长（5-7天），适合干货、深加工食品以及电子元器件等非易腐商品。",
+            en: "Land transport (refrigerated containers via Lang Son/Mong Cai) takes 2-3 days, highly suitable for fresh perishables but prone to border congestion risks and higher costs. Ocean freight (from Hai Phong/HCMC to Guangzhou/Shenzhen/Shanghai) is 50-60% cheaper but takes longer (5-7 days), ideal for dry bulk or processed parts."
+          }
+        },
+
+        // GROUP 4: Pháp lý – thuế – thị thực (5 FAQs)
+        {
+          category: "law-tax-visa",
+          question: {
+            vi: "Quy trình xin visa thương vụ DN1/DN2 để doanh nhân Trung Quốc nhập cảnh khảo sát?",
+            zh: "中国企业家到越南开展投资考察，应该如何办理 DN1/DN2 商业签证？",
+            en: "How do Chinese businessmen apply for a DN1/DN2 business visa to survey investment opportunities?"
+          },
+          answer: {
+            vi: "Doanh nhân Trung Quốc cần xin thư bảo lãnh nhập cảnh từ Cục Quản lý xuất nhập cảnh Việt Nam thông qua một pháp nhân bảo lãnh hợp pháp tại Việt Nam (như VCEC). Sau khi được phê duyệt, Cục xuất nhập cảnh sẽ cấp Công văn nhập cảnh (Approval Letter). Doanh nhân cầm công văn này dán tem visa DN1 hoặc DN2 tại Đại sứ quán Việt Nam ở Bắc Kinh/Quảng Châu/Thượng Hải hoặc nhận visa tại cửa khẩu sân bay quốc tế Việt Nam.",
+            zh: "中国商旅人员需通过越南当地合法的担保法人机构（如VCEC）向越南公安部出入境管理局申请入境保函。获批后，出入境管理局将发放官方《入境公文》（Approval Letter）。企业家可凭此公文复印件前往越南驻华使领馆（北京、广州、上海、南宁、昆明）办理贴签，或者在越南国际机场口岸（河内、胡志明、岘港）办理落地商业签证（DN1/DN2）。",
+            en: "Chinese business personnel require an entry sponsorship letter from the Vietnam Immigration Department, sponsored by a registered Vietnam legal entity (such as VCEC). Upon approval, an official Entry Approval Letter is issued. Expatriates bring this letter to secure a DN1/DN2 visa at Vietnam Consulates in China or obtain it on arrival at international airports."
+          }
+        },
+        {
+          category: "law-tax-visa",
+          question: {
+            vi: "Nhà đầu tư Trung Quốc chuyển tiền đầu tư và lợi nhuận hợp pháp về nước thế nào?",
+            zh: "外商在越南取得的合法利润及投资本金，如何合规汇出至境外？",
+            en: "How do Chinese investors transfer investment funds and repatriate legal profits back home?"
+          },
+          answer: {
+            vi: "Để chuyển tiền hợp pháp, nhà đầu tư phải mở Tài khoản vốn đầu tư trực tiếp (DICA) bằng ngoại tệ hoặc VND tại một ngân hàng được phép ở Việt Nam. Mọi giao dịch chuyển vốn vào và chuyển lợi nhuận, vốn đầu tư ra nước ngoài bắt buộc phải thực hiện thông qua tài khoản DICA này. Đồng thời, doanh nghiệp phải hoàn thành đầy đủ nghĩa vụ báo cáo tài chính kiểm toán và nộp đủ các loại thuế TNDN, thuế chuyển lợi nhuận ra nước ngoài (0%) theo quy định.",
+            zh: "合规转账的核心是必须在越南商业银行开设一个《直接投资资金账户》（DICA）。所有的资本金汇入、以及后期的股息利润汇出、清算后资本金返回境外，都必须通过该DICA账户进行划转。此外，在汇出利润前，企业必须向主管税务局提交利润汇出申报，并提供经独立审计的年度财务报告，证明已履行完所有的企业所得税（CIT）及其他法定义务。",
+            en: "To repatriate funds legally, investors must open a Direct Investment Capital Account (DICA) in foreign currency or VND at an authorized bank in Vietnam. All capital inflows and outbound transfers of profits or capital returns must be routed through this DICA. In addition, the firm must compile audited financials and settle all tax duties."
+          }
+        },
+        {
+          category: "law-tax-visa",
+          question: {
+            vi: "Doanh nghiệp FDI có được phép mua đất đai trực tiếp tại Việt Nam hay không?",
+            zh: "外资企业（FDI公司）是否可以在越南直接购买土地产权？",
+            en: "Are FDI companies permitted to purchase land directly in Vietnam?"
+          },
+          answer: {
+            vi: "Theo Luật Đất đai Việt Nam, doanh nghiệp FDI KHÔNG được sở hữu đất đai trực tiếp (không được cấp sổ đỏ sở hữu đất vĩnh viễn như cá nhân trong nước). Thay vào đó, doanh nghiệp FDI được Nhà nước cho thuê đất có thu tiền hàng năm hoặc thu tiền một lần, giao đất thực hiện dự án có thời hạn tối đa 50 năm (một số dự án đặc biệt tối đa 70 năm), hoặc thuê lại đất đã có hạ tầng trong các Khu công nghiệp đã được cấp phép.",
+            zh: "根据越南《土地法》规定，外资企业（FDI企业）在越南不能直接购买并永久拥有土地产权（即不能像越南本地公民一样获得永久土地使用权证/红书）。外资企业只能通过以下合规渠道获取土地使用权，最长期限为50年（特殊项目最长可达70年）：(1) 国家直接有偿出租土地；(2) 获得一次性或按年缴纳租金的土地使用权；(3) 向已获授权的工业区基础设施开发商转租已建好配套的工业用地。",
+            en: "Under the Land Law of Vietnam, FDI enterprises CANNOT own land directly (they are not eligible for permanent land ownership red books). Instead, FDI firms lease land directly from the State with annual or one-off rental payments, with a maximum lease term of 50 years (up to 70 years for special projects), or sublease serviced plots inside licensed Industrial Parks."
+          }
+        },
+        {
+          category: "law-tax-visa",
+          question: {
+            vi: "Quy định về việc xin cấp Giấy phép lao động (Work Permit) cho chuyên gia kỹ thuật Trung Quốc?",
+            zh: "为中国籍技术专家办理越南《劳动许可证》（Work Permit）需要哪些文件和步骤？",
+            en: "What are the regulations and documents needed to secure a Work Permit for Chinese technical experts?"
+          },
+          answer: {
+            vi: "Để chuyên gia làm việc hợp pháp trên 3 tháng, doanh nghiệp phải xin cấp Giấy phép lao động (Work Permit). Hồ sơ yêu cầu bao gồm: (1) Văn bản phê duyệt nhu cầu sử dụng lao động nước ngoài của UBND cấp tỉnh; (2) Lý lịch tư pháp nước ngoài hoặc Việt Nam hợp lệ; (3) Bằng đại học hoặc Chứng nhận kinh nghiệm chuyên gia/kỹ thuật viên trên 3 năm (phải được hợp pháp hóa lãnh sự); (4) Giấy khám sức khỏe đạt tiêu chuẩn.",
+            zh: "对于在越工作超过3个月的外籍员工，企业必须为其办理《劳动许可证》（Work Permit）。核心步骤与材料包括：(1) 事前向省人民委员会提交使用外籍劳工的需求申请并获得批文；(2) 提交无犯罪记录证明（原籍国开具或在越南办理司法履历）；(3) 提交符合岗位的大学本科学历证书或3年以上海外工作经验证明（必须经中国外交部及越南驻华使领馆领事认证）；(4) 越南省级医院出具的健康体检合格证。",
+            en: "To work legally for over 3 months, an expat must secure a Work Permit. Requirements include: (1) An official approval letter for hiring foreign workers from the provincial People's Committee; (2) Valid criminal record checks; (3) A bachelor's degree or 3-year expert work experience certificates (both must be consular-legalized); (4) A certified medical health check."
+          }
+        },
+        {
+          category: "law-tax-visa",
+          question: {
+            vi: "Lợi ích của Hiệp định RCEP và ACFTA đối với thuế suất linh kiện nhập khẩu?",
+            zh: "中越两国共同加入的 RCEP 和 ACFTA 协定对进口零配件关税有什么实质红利？",
+            en: "What are the practical tariff benefits of RCEP and ACFTA on imported component customs?"
+          },
+          answer: {
+            vi: "Cả Việt Nam và Trung Quốc đều là thành viên của RCEP và ACFTA. Nhờ các hiệp định này, hơn 90% các dòng thuế nhập khẩu linh kiện điện tử, phụ tùng cơ khí phụ trợ, máy móc tự động hóa từ Trung Quốc vào Việt Nam đã được cắt giảm về mức 0% hoặc lộ trình giảm sâu dưới 5% nếu doanh nghiệp cung cấp được chứng nhận xuất xứ Form E (ACFTA) hoặc Form RCEP hợp lệ.",
+            zh: "越中两国同为《区域全面经济伙伴关系协定》（RCEP）及《中国—东盟自贸协定》（ACFTA）的缔约国。得益于这些多边自贸机制，从中国进口到越南的90%以上的电子元器件、五金零配件、精密模具及自动化生产设备关税已直接降为0%，或者正按照协议税率逐步削减至5%以下。前提是企业在清关时必须提交合规的原产地证书（ACFTA适用Form E，RCEP适用Form RCEP）。",
+            en: "Both Vietnam and China are core members of RCEP and ACFTA. Under these frameworks, over 90% of import tariff lines governing electronic components, mechanical tooling parts, and automated machinery imported from China to Vietnam are reduced directly to 0%, or phased down below 5%, provided importers submit valid Form E or Form RCEP certificates."
+          }
+        }
+      ];
+
+      // Render FAQ Tabs Bar
+      function renderFAQTabs() {
+        const container = document.getElementById('faq-tabs-container');
+        if (!container) return;
+        const lang = getLang();
+        const t = taiNguyenTranslations[lang] || taiNguyenTranslations.vi;
+        
+        container.innerHTML = faqCategories.map(cat => {
+          const isActive = cat.key === activeFAQCategory ? 'active' : '';
+          const label = t[cat.i18n] || cat.key;
+          return `
+            <button class="faq-tab-btn ${isActive}" onclick="selectFAQCategory('${cat.key}')">
+              ${label}
+            </button>
+          `;
+        }).join('');
       }
 
-      loadResources();
-      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderResources(cachedData); });
+      window.selectFAQCategory = function(catKey) {
+        activeFAQCategory = catKey;
+        renderFAQTabs();
+        renderFAQAccordion();
+      };
+
+      // Render FAQ Accordion Panels
+      function renderFAQAccordion() {
+        const container = document.getElementById('faq-accordion-container');
+        if (!container) return;
+        
+        const lang = getLang();
+        const filteredFAQs = faqItems.filter(item => item.category === activeFAQCategory);
+        
+        container.innerHTML = filteredFAQs.map((item, idx) => {
+          const qText = item.question[lang] || item.question.vi;
+          const aText = item.answer[lang] || item.answer.vi;
+          
+          return `
+            <div class="faq-item" id="faq-item-${idx}">
+              <button class="faq-question-btn" onclick="toggleFAQItem(${idx})">
+                <span>${idx + 1}. ${qText}</span>
+                <span class="faq-toggle-icon">+</span>
+              </button>
+              <div class="faq-answer-panel" id="faq-panel-${idx}">
+                <div class="faq-answer-content">
+                  ${aText}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      window.toggleFAQItem = function(idx) {
+        const targetItem = document.getElementById(`faq-item-${idx}`);
+        const targetPanel = document.getElementById(`faq-panel-${idx}`);
+        if (!targetItem || !targetPanel) return;
+        
+        const isActive = targetItem.classList.contains('active');
+        
+        // Collapse all other active items
+        const allItems = document.querySelectorAll('.faq-item');
+        allItems.forEach(item => {
+          item.classList.remove('active');
+          const panel = item.querySelector('.faq-answer-panel');
+          if (panel) panel.style.maxHeight = null;
+        });
+        
+        if (!isActive) {
+          targetItem.classList.add('active');
+          // Smoothly animate height expansion using scrollHeight
+          targetPanel.style.maxHeight = targetPanel.scrollHeight + "px";
+        } else {
+          targetItem.classList.remove('active');
+          targetPanel.style.maxHeight = null;
+        }
+      };
+
+      // 4. LEAD MAGNET CONTROLLERS
+      window.openLeadModal = function(groupKey) {
+        const overlay = document.getElementById('lead-modal-overlay');
+        const display = document.getElementById('lead-target-display');
+        const hiddenKey = document.getElementById('lead-group-key');
+        const formState = document.getElementById('lead-form-state');
+        const successState = document.getElementById('lead-success-state');
+        
+        if (!overlay || !display || !hiddenKey || !formState || !successState) return;
+        
+        const lang = getLang();
+        const selectedGroup = resourceGroups.find(g => g.key === groupKey);
+        if (!selectedGroup) return;
+        
+        const title = selectedGroup.title[lang] || selectedGroup.title.vi;
+        
+        // Reset states
+        formState.style.display = "block";
+        successState.style.display = "none";
+        
+        display.value = title;
+        hiddenKey.value = groupKey;
+        
+        overlay.classList.add('active');
+      };
+
+      window.closeLeadModal = function() {
+        const overlay = document.getElementById('lead-modal-overlay');
+        if (overlay) overlay.classList.remove('active');
+      };
+
+      document.getElementById('lead-modal-overlay').addEventListener('click', function(e) {
+        if (e.target === this) closeLeadModal();
+      });
+
+      // Submit lead magnet to Supabase vcec_leads table
+      window.submitLeadMagnet = function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('btn-submit-lead');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = "⏳ Verification / Loading...";
+        }
+        
+        const groupKey = document.getElementById('lead-group-key').value;
+        const targetGroup = resourceGroups.find(g => g.key === groupKey);
+        const groupName = targetGroup ? targetGroup.title.vi : "Tài liệu VCEC";
+        
+        const repName = document.getElementById('lead-name').value.trim();
+        const repEmail = document.getElementById('lead-email').value.trim();
+        const repPhone = document.getElementById('lead-phone').value.trim();
+        
+        const leadPayload = {
+          company_name: `[EMAIL: ${repEmail}]`,
+          contact_name: repName,
+          wechat_id: repPhone,
+          project_id: "LEAD_MAG_" + groupKey.toUpperCase(),
+          project_name: `[TÀI NGUYÊN] Yêu cầu ${groupName} (SĐT/WeChat: ${repPhone})`
+        };
+
+        const onSubmissionSuccess = () => {
+          // Hide form, show download files success block
+          document.getElementById('lead-form-state').style.display = "none";
+          document.getElementById('lead-success-state').style.display = "block";
+          
+          // Populate files
+          const filesContainer = document.getElementById('success-files-container');
+          const lang = getLang();
+          const t = taiNguyenTranslations[lang] || taiNguyenTranslations.vi;
+          
+          if (filesContainer && targetGroup) {
+            filesContainer.innerHTML = targetGroup.mockFiles.map(file => {
+              return `
+                <div class="mock-file-item">
+                  <div class="mock-file-info">
+                    <span class="mock-file-icon">📄</span>
+                    <div>
+                      <div class="mock-file-name">${file.name}</div>
+                      <div class="mock-file-size">${file.size}</div>
+                    </div>
+                  </div>
+                  <a href="#" class="mock-file-dl-btn" onclick="alert('Bắt đầu tải xuống / File download initiated: ${file.name}'); return false;">
+                    📥 ${t["dl-link"]}
+                  </a>
+                </div>
+              `;
+            }).join('');
+          }
+          
+          document.getElementById('lead-magnet-form').reset();
+        };
+
+        if (window.supabaseClient) {
+          window.supabaseClient
+            .from('vcec_leads')
+            .insert([leadPayload])
+            .then(res => {
+              if (res.error) throw res.error;
+              onSubmissionSuccess();
+            })
+            .catch(err => {
+              console.error(err);
+              alert("Lỗi mạng / Network error: " + err.message);
+            })
+            .finally(() => {
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = taiNguyenTranslations[getLang()]["btn-submit"];
+              }
+            });
+        } else {
+          // Off-grid local testing support
+          onSubmissionSuccess();
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = taiNguyenTranslations[getLang()]["btn-submit"];
+          }
+        }
+      };
+
+      // 5. INITIALIZATION
+      applyPageTranslations();
+      
+      // Global header listener for language changes
+      window.addEventListener('vcec-lang-change', function() {
+        applyPageTranslations();
+      });
+      
     })();
   </script>
 </body>

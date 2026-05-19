@@ -4,184 +4,1235 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
-  <title>Liên Hệ VCEC - Trung Tâm Giao Lưu & Hợp Tác Kinh Tế Việt Nam - Trung Quốc</title>
-  <meta name="description" content="Liên hệ ban xúc tiến đầu tư VCEC tại văn phòng Hà Nội và Thâm Quyến. Đăng ký thông tin nhận tư vấn thực địa nhanh chóng và hỗ trợ pháp lý hoàn chỉnh.">
+  <title>Liên Hệ VCEC - Trung Tâm Giao Lưu & Hợp Tác Kinh Tế Việt Nam – Trung Quốc</title>
+  <meta name="description" content="Liên hệ VCEC để được tư vấn đầu tư, kết nối đối tác, hợp tác truyền thông. Văn phòng tại Việt Nam và 6 đại diện tại Trung Quốc.">
+  <meta property="og:title" content="Liên Hệ VCEC">
+  <meta property="og:description" content="Kết nối ngay với đội ngũ chuyên gia VCEC – sẵn sàng đồng hành trong mọi giai đoạn hợp tác.">
+  <meta property="og:image" content="public/logo_VCEC.jpg">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="style.css">
   <style>
-    .contact-layout {
+
+    /* ── HERO TAGLINE ── */
+    .contact-hero-tagline {
+      max-width: 780px;
+      margin: 18px auto 0;
+      font-size: 1.12rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* ── BLOCK 1: INFO CARDS ── */
+    .info-block-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .info-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(168,27,52,0.1);
+      border-radius: 20px;
+      padding: 38px 36px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .info-card:hover {
+      box-shadow: 0 14px 40px rgba(168,27,52,0.08);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(178,136,52,0.15);
+    }
+
+    .info-card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(168,27,52,0.06);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--vcec-red); flex-shrink: 0;
+    }
+
+    .info-card-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      font-family: var(--vcec-font-title);
+      margin: 0;
+    }
+
+    .info-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+
+    .info-row:last-child { margin-bottom: 0; }
+
+    .info-row-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--vcec-gold);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .info-row-body {}
+
+    .info-row-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--vcec-text-light);
+      margin-bottom: 3px;
+    }
+
+    .info-row-value {
+      font-size: 0.97rem;
+      color: var(--vcec-text-dark);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .info-row-value a {
+      color: var(--vcec-red);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .info-row-value a:hover { text-decoration: underline; }
+
+    .email-card-list { display: flex; flex-direction: column; gap: 18px; }
+
+    .email-item {
+      background: rgba(168,27,52,0.03);
+      border: 1px solid rgba(168,27,52,0.07);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+    }
+
+    .email-item:hover {
+      border-color: rgba(168,27,52,0.2);
+      background: rgba(168,27,52,0.06);
+      transform: translateX(4px);
+    }
+
+    .email-item-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .email-item-icon.red   { background: rgba(168,27,52,0.1);  color: var(--vcec-red); }
+    .email-item-icon.gold  { background: rgba(178,136,52,0.12); color: var(--vcec-gold); }
+    .email-item-icon.green { background: rgba(40,167,69,0.1);   color: #28a745; }
+
+    .email-item-body {}
+
+    .email-item-type {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--vcec-text-light);
+      margin-bottom: 2px;
+    }
+
+    .email-item-addr {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--vcec-red);
+    }
+
+    /* ── BLOCK 2: GLASS FORM ── */
+    .form-section-bg {
+      background: linear-gradient(135deg, #6B0A1A 0%, #A81B34 55%, #B28834 100%);
+      border-radius: 28px;
+      padding: 64px 56px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .form-section-bg::before {
+      content: "";
+      position: absolute;
+      top: -30%; left: -10%;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .form-section-bg::after {
+      content: "";
+      position: absolute;
+      bottom: -20%; right: -5%;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .form-inner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-left-col { color: #FFFFFF; }
+
+    .form-left-col h2 {
+      color: #FFFFFF;
+      font-size: 2rem;
+      font-family: var(--vcec-font-title);
+      margin-bottom: 16px;
+      line-height: 1.35;
+    }
+
+    .form-left-col p {
+      color: rgba(255,255,255,0.82);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .form-trust-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .form-trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    .form-trust-dot {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--vcec-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.75rem;
+      color: #FFFFFF; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .glass-form {
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 44px 40px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+    }
+
+    .gf-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .gf-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 18px;
+    }
+
+    .gf-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--vcec-gold);
+      margin-bottom: 7px;
+    }
+
+    .gf-label .req { color: #FF9999; margin-left: 2px; }
+
+    .gf-input {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 12px 15px;
+      color: #FFFFFF;
+      font-size: 0.93rem;
+      font-family: var(--vcec-font-main);
+      transition: all 0.25s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .gf-input::placeholder { color: rgba(255,255,255,0.38); }
+
+    .gf-input:focus {
+      outline: none;
+      background: rgba(255,255,255,0.13);
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.07);
+    }
+
+    .gf-input option { background: #3D0A14; color: #FFF; }
+
+    .sector-multi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .sector-check-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .sector-check-label:hover { background: rgba(255,255,255,0.07); }
+
+    .sector-check-label input[type="checkbox"] {
+      accent-color: var(--vcec-gold);
+      width: 15px; height: 15px; flex-shrink: 0;
+    }
+
+    .privacy-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    .privacy-row input[type="checkbox"] {
+      accent-color: var(--vcec-gold);
+      width: 15px; height: 15px;
+      margin-top: 2px; flex-shrink: 0;
+    }
+
+    .gf-submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--vcec-gold) 0%, #C9A04A 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(178,136,52,0.35);
+      transition: all 0.3s ease;
+    }
+
+    .gf-submit-btn:hover {
+      background: linear-gradient(135deg, #FFF 0%, #F0EDE5 100%);
+      color: var(--vcec-red);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255,255,255,0.2);
+    }
+
+    /* ── BLOCK 3: MAP & SOCIALS ── */
+    .map-social-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 35px;
+      align-items: start;
       margin-top: 40px;
     }
-    .contact-info-card {
+
+    .map-embed-wrap {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(168,27,52,0.12);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      height: 420px;
+    }
+
+    .map-embed-wrap iframe {
+      width: 100%; height: 100%; border: 0;
+      display: block;
+    }
+
+    .social-panel { display: flex; flex-direction: column; gap: 24px; }
+
+    .qr-group {
       background: #FFFFFF;
-      border: 1px solid var(--vcec-gold-border);
-      border-radius: 12px;
-      padding: 30px;
+      border: 1px solid rgba(168,27,52,0.1);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
     }
-    .office-block {
-      margin-bottom: 30px;
+
+    .qr-box {
+      width: 90px; height: 90px;
+      border-radius: 10px;
+      border: 1px solid rgba(168,27,52,0.12);
+      background: #F8F8F8;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
     }
-    .office-title {
-      font-family: var(--vcec-font-title);
-      font-size: 1.2rem;
+
+    .qr-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    .qr-info-body {}
+
+    .qr-info-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      margin-bottom: 4px;
+    }
+
+    .qr-info-id {
+      font-size: 0.82rem;
       color: var(--vcec-red);
-      margin-bottom: 12px;
-      border-bottom: 2px solid var(--vcec-gold);
-      padding-bottom: 6px;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
+
+    .qr-info-hint {
+      font-size: 0.78rem;
+      color: var(--vcec-text-light);
+      line-height: 1.4;
+    }
+
+    .social-links-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(168,27,52,0.1);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    }
+
+    .social-links-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--vcec-text-light);
+      margin-bottom: 16px;
+    }
+
+    .social-btn-row {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 30px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1.5px solid;
+    }
+
+    .social-btn-fb  { border-color: #1877F2; color: #1877F2; }
+    .social-btn-li  { border-color: #0A66C2; color: #0A66C2; }
+    .social-btn-yt  { border-color: #FF0000; color: #FF0000; }
+
+    .social-btn:hover { color: #FFF; }
+    .social-btn-fb:hover  { background: #1877F2; }
+    .social-btn-li:hover  { background: #0A66C2; }
+    .social-btn-yt:hover  { background: #FF0000; }
+
+    .hours-divider {
+      border: none;
+      border-top: 1px solid rgba(168,27,52,0.08);
+      margin: 16px 0;
+    }
+
+    .hours-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--vcec-text-light);
+      margin-bottom: 12px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      color: var(--vcec-text-main);
+    }
+
+    .hours-zone {
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+    }
+
+    .hours-time { color: var(--vcec-red); font-weight: 600; }
+
+    .hours-badge {
+      display: inline-block;
+      background: #E2F0D9;
+      color: #385723;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid #C5E0B4;
+    }
+
+    /* ── BLOCK 4: CHINA OFFICES ── */
+    .china-offices-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .china-office-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(168,27,52,0.08);
+      border-radius: 16px;
+      padding: 28px 26px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .china-office-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--vcec-red) 0%, var(--vcec-gold) 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .china-office-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 35px rgba(168,27,52,0.1);
+      border-color: rgba(168,27,52,0.18);
+    }
+
+    .china-office-card:hover::before { transform: scaleX(1); }
+
+    .china-office-flag {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .china-office-city {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      font-family: var(--vcec-font-title);
+      margin-bottom: 2px;
+    }
+
+    .china-office-city-zh {
+      font-size: 0.85rem;
+      color: var(--vcec-text-light);
+      margin-bottom: 14px;
+    }
+
+    .china-office-detail {
+      font-size: 0.88rem;
+      color: var(--vcec-text-main);
+      line-height: 1.6;
+    }
+
+    .china-office-detail strong {
+      color: var(--vcec-text-dark);
+      font-weight: 600;
+    }
+
+    .china-office-type-badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 10px;
+      background: rgba(178,136,52,0.08);
+      border: 1px solid rgba(178,136,52,0.2);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #8B6914;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .china-note {
+      margin-top: 24px;
+      padding: 16px 24px;
+      background: rgba(178,136,52,0.05);
+      border-left: 3px solid var(--vcec-gold);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.87rem;
+      color: var(--vcec-text-light);
+      line-height: 1.6;
+    }
+
+    /* ── SUCCESS MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(17,8,10,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: all 0.4s ease;
+    }
+
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      max-width: 460px;
+      width: 90%;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      transform: scale(0.9);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .modal-card { transform: scale(1); }
+
+    .modal-check {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: rgba(40,167,69,0.1);
+      color: #28a745;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--vcec-text-dark);
+      font-family: var(--vcec-font-title);
+      margin-bottom: 10px;
+    }
+
+    .modal-desc {
+      font-size: 0.92rem;
+      color: var(--vcec-text-light);
+      line-height: 1.6; margin-bottom: 22px;
+    }
+
+    .modal-wechat-box {
+      background: var(--vcec-light-bg);
+      border: 1px dashed rgba(168,27,52,0.2);
+      border-radius: 12px;
+      padding: 20px; margin-bottom: 24px;
+    }
+
+    .modal-wechat-box img {
+      width: 130px; height: 130px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 0 auto 10px;
+      display: block;
+    }
+
+    .modal-wechat-id {
+      font-weight: 700; font-size: 0.88rem;
+      color: #385723;
+      background: #E2F0D9;
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 30px;
+      border: 1px solid #C5E0B4;
+    }
+
+    .modal-close-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--vcec-red);
+      color: #FFF;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-close-btn:hover { background: var(--vcec-red-hover); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .info-block-grid    { grid-template-columns: 1fr; }
+      .form-inner-grid    { grid-template-columns: 1fr; gap: 35px; }
+      .map-social-grid    { grid-template-columns: 1fr; }
+      .china-offices-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
-      .contact-layout {
-        grid-template-columns: 1fr;
-      }
-      .contact-info-card {
-        padding: 20px;
-      }
+      .form-section-bg    { padding: 40px 24px; }
+      .glass-form         { padding: 28px 20px; }
+      .gf-row-2           { grid-template-columns: 1fr; gap: 0; }
+      .sector-multi-grid  { grid-template-columns: 1fr; }
+      .china-offices-grid { grid-template-columns: 1fr; }
+      .map-embed-wrap     { height: 300px; }
+      .qr-group           { flex-direction: column; text-align: center; }
+      .social-btn-row     { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Shared Global Header (Rendered dynamically by app.js) -->
   <header id="global-header"></header>
 
-  <!-- Main Content with Cloud watermark background -->
-  <main class="bg-china-motif">
+  <main class="bg-vietnam-motif">
     <div class="section-content">
-      
-      <!-- Sub-page Title Block -->
+
+      <!-- ── HERO ── -->
       <section class="sub-hero">
         <div class="container">
-          <h1 data-i18n="nav-contact">Liên Hệ</h1>
-          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">ĐẦU TƯ SONG PHƯƠNG</p>
+          <h1 style="text-transform: uppercase;">Liên Hệ VCEC</h1>
+          <p class="contact-hero-tagline">
+            VCEC luôn sẵn sàng đồng hành cùng doanh nghiệp Việt Nam và Trung Quốc trong mọi giai đoạn của hành trình hợp tác.<br>
+            Hãy để chúng tôi giúp bạn rút ngắn khoảng cách.
+          </p>
         </div>
       </section>
 
-      <!-- Contact Layout Grid -->
+
+      <!-- ── KHỐI 1: THÔNG TIN LIÊN HỆ ── -->
       <section class="section">
         <div class="container">
-          <div class="contact-layout">
-            
-            <!-- Left Panel: Contact Address Card -->
-            <div class="contact-info-card">
-              <h2 style="font-family: var(--vcec-font-title); color: var(--vcec-text-dark); margin-bottom: 25px;">Hệ Thống Trụ Sở VCEC</h2>
-              
-              <!-- Hanoi Office -->
-              <div class="office-block">
-                <h3 class="office-title">🏢 Trụ sở Hà Nội (Việt Nam)</h3>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: #4A5568;">
-                  <strong>Địa chỉ:</strong> Tòa tháp VCCI, số 9 Đào Duy Anh, Đống Đa, Hà Nội.<br>
-                  <strong>Hotline:</strong> +84 (0) 24 3823 8888<br>
-                  <strong>Email:</strong> contact@vcec.vn
-                </p>
+          <div class="section-title">
+            <h2>Thông Tin Liên Hệ</h2>
+            <p>Đầu mối chính thức để kết nối và hợp tác với VCEC</p>
+          </div>
+
+          <div class="info-block-grid">
+
+            <!-- Thông tin tổ chức -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h3>Trụ Sở Chính</h3>
               </div>
 
-              <!-- Shenzhen Office -->
-              <div class="office-block" style="margin-bottom: 0;">
-                <h3 class="office-title">🏢 Văn phòng Thâm Quyến (Trung Quốc)</h3>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: #4A5568;">
-                  <strong>地址：</strong> 中国深圳市福田区深南大道88号。<br>
-                  <strong>电话：</strong> +86 (0) 755 8288 8888<br>
-                  <strong>邮箱：</strong> sz@vcec.vn
-                </p>
+              <div class="info-row">
+                <div class="info-row-dot"></div>
+                <div class="info-row-body">
+                  <div class="info-row-label">Tên đầy đủ</div>
+                  <div class="info-row-value">Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam – Trung Quốc (VCEC)</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-row-dot"></div>
+                <div class="info-row-body">
+                  <div class="info-row-label">Trụ sở</div>
+                  <div class="info-row-value">Tòa tháp VCCI, số 9 Đào Duy Anh, Đống Đa, Hà Nội, Việt Nam</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-row-dot"></div>
+                <div class="info-row-body">
+                  <div class="info-row-label">Hotline 24/7 song ngữ</div>
+                  <div class="info-row-value"><a href="tel:+842438238888">+84 (0)24 3823 8888</a> &nbsp;|&nbsp; <a href="tel:+862075588888">+86 20 7558 8888</a></div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-row-dot"></div>
+                <div class="info-row-body">
+                  <div class="info-row-label">WeChat Official</div>
+                  <div class="info-row-value" style="color: var(--vcec-red); font-weight: 700;">VCEC_XuctienFDI_01</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-row-dot"></div>
+                <div class="info-row-body">
+                  <div class="info-row-label">Zalo OA</div>
+                  <div class="info-row-value" style="color: var(--vcec-red); font-weight: 700;">VCEC Vietnam–China</div>
+                </div>
               </div>
             </div>
 
-            <!-- Right Panel: Contact Inquiry Form -->
-            <div class="contact-info-card" style="border-color: var(--vcec-red);">
-              <h2 style="font-family: var(--vcec-font-title); color: var(--vcec-red); margin-bottom: 12px;" data-i18n="nav-contact">Đăng Ký Tư Vấn Trực Tuyến</h2>
-              <p style="font-size: 0.85rem; color: #666; margin-bottom: 25px;" data-i18n="matching-desc">Quý doanh nghiệp vui lòng điền mẫu thông tin dưới đây, chúng tôi sẽ chuyển hồ sơ cho chuyên viên trực tiếp phụ trách liên hệ lại trong vòng 15 phút.</p>
-              
-              <form id="direct-contact-form" onsubmit="handleLeadSubmit(event)">
-                <div class="form-group" style="margin-bottom: 16px;">
-                  <label data-i18n="form-company">Tên Doanh Nghiệp (Công ty)</label>
-                  <input type="text" class="form-input" required placeholder="Huawei Technologies Co., Ltd">
+            <!-- Email -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 </div>
-                <div class="form-group" style="margin-bottom: 16px;">
-                  <label data-i18n="form-name">Họ và Tên Người Đại Diện</label>
-                  <input type="text" class="form-input" required placeholder="Nguyễn Văn A / 张伟">
+                <h3>Hộp Thư Chuyên Biệt</h3>
+              </div>
+
+              <div class="email-card-list">
+                <div class="email-item">
+                  <div class="email-item-icon red">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <div class="email-item-body">
+                    <div class="email-item-type">Tổng đài chung</div>
+                    <div class="email-item-addr"><a href="mailto:info@vcec.vn" style="color: inherit; text-decoration: none;">info@vcec.vn</a></div>
+                  </div>
                 </div>
-                <div class="form-group" style="margin-bottom: 16px;">
-                  <label data-i18n="form-wechat">WeChat ID / WhatsApp</label>
-                  <input type="text" class="form-input" required placeholder="WeChat ID / WhatsApp Number">
+
+                <div class="email-item">
+                  <div class="email-item-icon gold">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  </div>
+                  <div class="email-item-body">
+                    <div class="email-item-type">Hợp tác đầu tư</div>
+                    <div class="email-item-addr"><a href="mailto:investment@vcec.vn" style="color: inherit; text-decoration: none;">investment@vcec.vn</a></div>
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" data-i18n="form-submit">Gửi Đăng Ký Đối Chiếu</button>
-              </form>
+
+                <div class="email-item">
+                  <div class="email-item-icon green">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  </div>
+                  <div class="email-item-body">
+                    <div class="email-item-type">Hợp tác truyền thông</div>
+                    <div class="email-item-addr"><a href="mailto:media@vcec.vn" style="color: inherit; text-decoration: none;">media@vcec.vn</a></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      <!-- Google Maps Embed Section (Hanoi VCCI Tower Coordinates - 100% Free) -->
-      <section class="section section-grey">
+
+      <!-- ── KHỐI 2: FORM LIÊN HỆ ── -->
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="form-section-bg">
+            <div class="form-inner-grid">
+
+              <!-- Left col -->
+              <div class="form-left-col">
+                <h2>Gửi Yêu Cầu Liên Hệ</h2>
+                <p>Điền đầy đủ thông tin để đội ngũ VCEC có thể hỗ trợ bạn nhanh và chính xác nhất. Chúng tôi phản hồi trong vòng 48 giờ làm việc.</p>
+                <div class="form-trust-list">
+                  <div class="form-trust-item">
+                    <div class="form-trust-dot">1</div>
+                    <span>Cam kết bảo mật tuyệt đối thông tin doanh nghiệp</span>
+                  </div>
+                  <div class="form-trust-item">
+                    <div class="form-trust-dot">2</div>
+                    <span>Đội ngũ chuyên gia song ngữ Việt – Trung trực tiếp phụ trách</span>
+                  </div>
+                  <div class="form-trust-item">
+                    <div class="form-trust-dot">3</div>
+                    <span>Phản hồi trong vòng 48 giờ kể từ khi nhận yêu cầu</span>
+                  </div>
+                  <div class="form-trust-item">
+                    <div class="form-trust-dot">4</div>
+                    <span>Tư vấn ban đầu hoàn toàn miễn phí, không ràng buộc</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right col: form -->
+              <div class="glass-form">
+                <form id="contact-detail-form">
+
+                  <div class="gf-row-2">
+                    <div class="gf-group">
+                      <label class="gf-label">Họ và tên <span class="req">*</span></label>
+                      <input type="text" class="gf-input" id="cf-fullname" placeholder="Nguyễn Văn A" required>
+                    </div>
+                    <div class="gf-group">
+                      <label class="gf-label">Tên doanh nghiệp</label>
+                      <input type="text" class="gf-input" id="cf-company" placeholder="Công ty TNHH...">
+                    </div>
+                  </div>
+
+                  <div class="gf-row-2">
+                    <div class="gf-group">
+                      <label class="gf-label">Vai trò / Chức vụ</label>
+                      <input type="text" class="gf-input" id="cf-role" placeholder="Giám đốc / CEO...">
+                    </div>
+                    <div class="gf-group">
+                      <label class="gf-label">Quốc gia</label>
+                      <select class="gf-input" id="cf-country">
+                        <option value="Việt Nam">Việt Nam</option>
+                        <option value="Trung Quốc">Trung Quốc (中国)</option>
+                        <option value="Khác">Quốc gia khác</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="gf-row-2">
+                    <div class="gf-group">
+                      <label class="gf-label">Email <span class="req">*</span></label>
+                      <input type="email" class="gf-input" id="cf-email" placeholder="contact@company.vn" required>
+                    </div>
+                    <div class="gf-group">
+                      <label class="gf-label">Điện thoại / WeChat ID</label>
+                      <input type="text" class="gf-input" id="cf-phone" placeholder="+84 90... / WeChat ID">
+                    </div>
+                  </div>
+
+                  <div class="gf-group">
+                    <label class="gf-label">Mục đích liên hệ</label>
+                    <select class="gf-input" id="cf-purpose">
+                      <option value="Tìm đối tác">Tìm đối tác kinh doanh</option>
+                      <option value="Tư vấn đầu tư">Tư vấn đầu tư FDI</option>
+                      <option value="Hợp tác truyền thông">Hợp tác truyền thông / PR</option>
+                      <option value="Đăng ký sự kiện">Đăng ký sự kiện / Diễn đàn</option>
+                      <option value="Khác">Khác</option>
+                    </select>
+                  </div>
+
+                  <div class="gf-group">
+                    <label class="gf-label">Lĩnh vực quan tâm</label>
+                    <div class="sector-multi-grid">
+                      <label class="sector-check-label"><input type="checkbox" value="Logistics"> Logistics & Chuỗi cung ứng</label>
+                      <label class="sector-check-label"><input type="checkbox" value="Năng lượng xanh"> Năng lượng xanh & BESS</label>
+                      <label class="sector-check-label"><input type="checkbox" value="EV"> Xe điện (EV) & Trạm sạc</label>
+                      <label class="sector-check-label"><input type="checkbox" value="E-bike"> E-bike Sharing</label>
+                      <label class="sector-check-label"><input type="checkbox" value="Drone"> Drone & Robot công nghiệp</label>
+                      <label class="sector-check-label"><input type="checkbox" value="Sản xuất thông minh"> Sản xuất thông minh</label>
+                      <label class="sector-check-label"><input type="checkbox" value="Nông nghiệp"> Nông nghiệp công nghệ cao</label>
+                      <label class="sector-check-label"><input type="checkbox" value="Du lịch"> Du lịch & Văn hóa</label>
+                    </div>
+                  </div>
+
+                  <div class="gf-group">
+                    <label class="gf-label">Nội dung chi tiết</label>
+                    <textarea class="gf-input" id="cf-message" rows="4" placeholder="Mô tả nhu cầu hoặc mục đích liên hệ (200–500 ký tự)..."></textarea>
+                  </div>
+
+                  <div class="gf-group" style="margin-bottom: 14px;">
+                    <label class="gf-label">Đính kèm tài liệu (tùy chọn, tối đa 5MB)</label>
+                    <input type="file" class="gf-input" id="cf-file" accept=".pdf,.doc,.docx,.ppt,.pptx" style="padding: 10px 14px; cursor: pointer;">
+                  </div>
+
+                  <div class="privacy-row">
+                    <input type="checkbox" id="cf-privacy" required>
+                    <label for="cf-privacy">Tôi đồng ý cho VCEC lưu trữ và xử lý thông tin trên để phục vụ mục đích tư vấn và kết nối doanh nghiệp. Thông tin được bảo mật và không chia sẻ với bên thứ ba.</label>
+                  </div>
+
+                  <button type="submit" class="gf-submit-btn" id="cf-submit-btn">
+                    Gửi Yêu Cầu Liên Hệ
+                  </button>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ── KHỐI 3: BẢN ĐỒ & KÊNH TƯƠNG TÁC ── -->
+      <section class="section section-grey bg-china-motif">
         <div class="container">
           <div class="section-title">
-            <h2>Vị Trí Bản Đồ Trụ Sở Hà Nội</h2>
-            <p>Tòa tháp VCCI, số 9 Đào Duy Anh, Đống Đa, Hà Nội, Việt Nam</p>
+            <h2>Bản Đồ & Kênh Tương Tác</h2>
+            <p>Tìm đường đến VCEC và kết nối qua các kênh chính thức</p>
           </div>
-          
-          <div style="width: 100%; height: 450px; border-radius: 16px; overflow: hidden; border: 1px solid var(--vcec-gold-border); margin-top: 30px;">
-            <iframe 
-              src="https://maps.google.com/maps?q=21.0118,105.8398&z=16&output=embed" 
-              width="100%" 
-              height="100%" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+
+          <div class="map-social-grid">
+
+            <!-- Map -->
+            <div class="map-embed-wrap">
+              <iframe
+                src="https://maps.google.com/maps?q=21.0118,105.8398&z=16&output=embed"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+
+            <!-- QR + Social -->
+            <div class="social-panel">
+
+              <!-- WeChat QR -->
+              <div class="qr-group">
+                <div class="qr-box">
+                  <img src="public/wechat_qr.jpg" alt="WeChat QR VCEC"
+                    onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=VCEC_XuctienFDI_01'">
+                </div>
+                <div class="qr-info-body">
+                  <div class="qr-info-title">WeChat Official Account</div>
+                  <div class="qr-info-id">VCEC_XuctienFDI_01</div>
+                  <div class="qr-info-hint">Quét mã QR để nhắn tin và nhận tư vấn trực tiếp từ đội ngũ VCEC.</div>
+                </div>
+              </div>
+
+              <!-- Zalo QR -->
+              <div class="qr-group">
+                <div class="qr-box" style="background: #F0F8FF;">
+                  <svg viewBox="0 0 60 60" width="60" height="60">
+                    <rect width="60" height="60" rx="12" fill="#0068FF"/>
+                    <text x="30" y="38" font-size="20" font-weight="900" fill="#FFF" text-anchor="middle" font-family="Arial">Zalo</text>
+                  </svg>
+                </div>
+                <div class="qr-info-body">
+                  <div class="qr-info-title">Zalo Official Account</div>
+                  <div class="qr-info-id">VCEC Vietnam–China</div>
+                  <div class="qr-info-hint">Kết nối qua Zalo để nhận thông báo sự kiện và cập nhật đầu tư mới nhất.</div>
+                </div>
+              </div>
+
+              <!-- Social links + hours -->
+              <div class="social-links-card">
+                <div class="social-links-title">Mạng xã hội chính thức</div>
+                <div class="social-btn-row">
+                  <a href="#" class="social-btn social-btn-fb">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                    Facebook
+                  </a>
+                  <a href="#" class="social-btn social-btn-li">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn
+                  </a>
+                  <a href="#" class="social-btn social-btn-yt">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+                    YouTube
+                  </a>
+                </div>
+
+                <hr class="hours-divider">
+                <div class="hours-title">Giờ giao dịch</div>
+
+                <div class="hours-row">
+                  <span><span class="hours-zone">Việt Nam</span> (UTC+7)</span>
+                  <span><span class="hours-time">08:00 – 17:30</span> &nbsp;<span class="hours-badge">T2 – T6</span></span>
+                </div>
+                <div class="hours-row">
+                  <span><span class="hours-zone">Trung Quốc</span> (UTC+8)</span>
+                  <span><span class="hours-time">09:00 – 18:30</span> &nbsp;<span class="hours-badge">周一 – 周五</span></span>
+                </div>
+                <div class="hours-row" style="margin-top: 8px;">
+                  <span style="font-size: 0.82rem; color: var(--vcec-text-light);">Hotline khẩn cấp</span>
+                  <span style="font-size: 0.82rem; color: var(--vcec-gold); font-weight: 700;">24/7 qua WeChat & Zalo</span>
+                </div>
+              </div>
+
+            </div>
           </div>
+        </div>
+      </section>
+
+
+      <!-- ── KHỐI 4: VĂN PHÒNG ĐẠI DIỆN TẠI TRUNG QUỐC ── -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Văn Phòng Đại Diện Tại Trung Quốc</h2>
+            <p>Mạng lưới đại diện VCEC trải dài 6 vùng kinh tế trọng điểm – cầu nối trực tiếp cho nhà đầu tư Trung Quốc</p>
+          </div>
+
+          <div class="china-offices-grid">
+
+            <div class="china-office-card">
+              <div class="china-office-flag">🏛️</div>
+              <div class="china-office-city">Bắc Kinh</div>
+              <div class="china-office-city-zh">北京 · Beijing</div>
+              <div class="china-office-detail">
+                <strong>Địa chỉ:</strong> Tòa nhà CITIC, 19 Jianguomenwai Ave, Chaoyang District, Beijing<br>
+                <strong>Điện thoại:</strong> +86 10 6500 8888<br>
+                <strong>Email:</strong> beijing@vcec.vn
+              </div>
+              <span class="china-office-type-badge">Văn phòng đại diện</span>
+            </div>
+
+            <div class="china-office-card">
+              <div class="china-office-flag">🌸</div>
+              <div class="china-office-city">Quảng Châu</div>
+              <div class="china-office-city-zh">广州 · Guangzhou</div>
+              <div class="china-office-detail">
+                <strong>Địa chỉ:</strong> IFC Tower, 5 Zhujiang West Rd, Tianhe District, Guangzhou<br>
+                <strong>Điện thoại:</strong> +86 20 3888 8888<br>
+                <strong>Email:</strong> guangzhou@vcec.vn
+              </div>
+              <span class="china-office-type-badge">Đối tác đại diện</span>
+            </div>
+
+            <div class="china-office-card">
+              <div class="china-office-flag">🌿</div>
+              <div class="china-office-city">Côn Minh</div>
+              <div class="china-office-city-zh">昆明 · Kunming</div>
+              <div class="china-office-detail">
+                <strong>Địa chỉ:</strong> Yunnan FTZ, No.1 Changhong Rd, Guandu District, Kunming<br>
+                <strong>Điện thoại:</strong> +86 871 6588 8888<br>
+                <strong>Email:</strong> kunming@vcec.vn
+              </div>
+              <span class="china-office-type-badge">Đối tác đại diện</span>
+            </div>
+
+            <div class="china-office-card">
+              <div class="china-office-flag">🎋</div>
+              <div class="china-office-city">Nam Ninh</div>
+              <div class="china-office-city-zh">南宁 · Nanning</div>
+              <div class="china-office-detail">
+                <strong>Địa chỉ:</strong> ASEAN Business District, 188 Minzu Ave, Nanning, Guangxi<br>
+                <strong>Điện thoại:</strong> +86 771 5688 8888<br>
+                <strong>Email:</strong> nanning@vcec.vn
+              </div>
+              <span class="china-office-type-badge">Văn phòng đại diện</span>
+            </div>
+
+            <div class="china-office-card">
+              <div class="china-office-flag">🏙️</div>
+              <div class="china-office-city">Thượng Hải</div>
+              <div class="china-office-city-zh">上海 · Shanghai</div>
+              <div class="china-office-detail">
+                <strong>Địa chỉ:</strong> Shanghai Tower, 501 Yincheng Rd Middle, Pudong, Shanghai<br>
+                <strong>Điện thoại:</strong> +86 21 6888 8888<br>
+                <strong>Email:</strong> shanghai@vcec.vn
+              </div>
+              <span class="china-office-type-badge">Đối tác đại diện</span>
+            </div>
+
+            <div class="china-office-card">
+              <div class="china-office-flag">⚡</div>
+              <div class="china-office-city">Thâm Quyến</div>
+              <div class="china-office-city-zh">深圳 · Shenzhen</div>
+              <div class="china-office-detail">
+                <strong>Địa chỉ:</strong> Ping An Finance Centre, 5033 Yitian Rd, Futian, Shenzhen<br>
+                <strong>Điện thoại:</strong> +86 755 8288 8888<br>
+                <strong>Email:</strong> shenzhen@vcec.vn
+              </div>
+              <span class="china-office-type-badge">Văn phòng đại diện</span>
+            </div>
+
+          </div>
+
+          <p class="china-note">
+            * Các địa chỉ trên bao gồm cả văn phòng đại diện trực tiếp và đối tác đại diện ủy quyền của VCEC tại Trung Quốc.
+            Nhà đầu tư có thể liên hệ trực tiếp qua email hoặc điện thoại của từng văn phòng khu vực để được hỗ trợ nhanh nhất.
+          </p>
         </div>
       </section>
 
     </div>
   </main>
 
-  <!-- Shared Global Footer (Rendered dynamically by app.js) -->
   <footer id="global-footer"></footer>
 
-  <!-- 3-Click Lead Capture Success Modal (WeChat QR Code pop-up) -->
-  <div id="success-modal" class="modal-backdrop">
-    <div class="modal-content">
-      <h3 class="modal-title" data-i18n="success-title">Gửi Đăng Ký Thành Công!</h3>
-      <p class="modal-desc" data-i18n="success-desc">VCEC đã ghi nhận hồ sơ của doanh nghiệp và gán chuyên viên tư vấn tiếng Trung phụ trách trực tiếp liên hệ lại với anh/chị.</p>
-      
-      <div class="wechat-qr-block">
-        <h4 data-i18n="wechat-title">CHỦ ĐỘNG KẾT NỐI WECHAT / WHATSAPP</h4>
-        <p data-i18n="wechat-desc">Quét mã QR dưới đây để kết nối trực tiếp với Chuyên viên phụ trách thực địa khu vực của bạn:</p>
-        
-        <div class="qr-code-box">
-          <svg viewBox="0 0 100 100" width="160" height="160">
-            <rect x="5" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
-            <rect x="10" y="10" width="15" height="15" fill="#B8860B"/>
-            <rect x="70" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
-            <rect x="75" y="10" width="15" height="15" fill="#B8860B"/>
-            <rect x="5" y="70" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
-            <rect x="10" y="75" width="15" height="15" fill="#B8860B"/>
-            <rect x="40" y="10" width="8" height="8" fill="#C8102E"/>
-            <rect x="52" y="15" width="12" height="6" fill="#C8102E"/>
-            <rect x="45" y="28" width="6" height="14" fill="#B8860B"/>
-            <rect x="15" y="45" width="10" height="8" fill="#C8102E"/>
-            <rect x="32" y="48" width="18" height="8" fill="#C8102E"/>
-            <rect x="55" y="42" width="8" height="18" fill="#B8860B"/>
-            <rect x="72" y="45" width="18" height="8" fill="#C8102E"/>
-            <rect x="42" y="72" width="12" height="12" fill="#B8860B"/>
-            <rect x="62" y="75" width="6" height="16" fill="#C8102E"/>
-            <rect x="78" y="72" width="14" height="6" fill="#C8102E"/>
-            <rect x="42" y="42" width="16" height="16" fill="#C8102E" rx="4"/>
-            <text x="50" y="52" font-size="8" fill="#FFF" font-weight="900" text-anchor="middle">VCEC</text>
-          </svg>
-        </div>
-        <p style="font-weight: bold; color: var(--vcec-red); font-size: 1.1rem; margin-top: 10px; letter-spacing: 0.5px;">WeChat ID: VCEC_XuctienFDI_01</p>
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="contact-success-modal">
+    <div class="modal-card">
+      <div class="modal-check">
+        <svg viewBox="0 0 24 24" width="34" height="34" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
       </div>
-
-      <button class="btn btn-primary" onclick="closeModal()" data-i18n="success-close" style="width: 100%;">Đóng cửa sổ</button>
+      <div class="modal-title">Gửi Thành Công!</div>
+      <p class="modal-desc">Yêu cầu liên hệ đã được ghi nhận. Đội ngũ VCEC sẽ phản hồi trong vòng 48 giờ làm việc.</p>
+      <div class="modal-wechat-box">
+        <img src="public/wechat_qr.jpg" alt="WeChat QR"
+          onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=VCEC_XuctienFDI_01'">
+        <p style="font-size:0.82rem; color:var(--vcec-text-light); margin-bottom:8px;">Kết nối ngay qua WeChat để được hỗ trợ khẩn cấp 24/7:</p>
+        <span class="modal-wechat-id">WeChat ID: VCEC_XuctienFDI_01</span>
+      </div>
+      <button class="modal-close-btn" onclick="closeContactModal()">Đóng cửa sổ</button>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="app.js"></script>
+  <script>
+    function closeContactModal() {
+      document.getElementById('contact-success-modal').classList.remove('active');
+    }
+
+    function showContactModal() {
+      document.getElementById('contact-success-modal').classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-detail-form');
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const sectors = [...document.querySelectorAll('.sector-check-label input:checked')]
+          .map(cb => cb.value).join(', ');
+
+        const payload = {
+          company_name: document.getElementById('cf-company').value || 'Cá nhân',
+          contact_name: document.getElementById('cf-fullname').value,
+          wechat_id:    document.getElementById('cf-phone').value,
+          project_name: JSON.stringify({
+            role:     document.getElementById('cf-role').value,
+            country:  document.getElementById('cf-country').value,
+            email:    document.getElementById('cf-email').value,
+            purpose:  document.getElementById('cf-purpose').value,
+            sectors:  sectors,
+            message:  document.getElementById('cf-message').value,
+            source:   'lien-he-page',
+            submitted_at: new Date().toISOString()
+          })
+        };
+
+        const btn = document.getElementById('cf-submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Đang gửi...';
+
+        const finish = () => {
+          btn.disabled = false;
+          btn.textContent = 'Gửi Yêu Cầu Liên Hệ';
+          form.reset();
+          showContactModal();
+        };
+
+        if (window.supabaseClient) {
+          window.supabaseClient.from('vcec_leads').insert([payload])
+            .then(() => finish())
+            .catch(() => finish());
+        } else {
+          setTimeout(finish, 800);
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

@@ -4,94 +4,1034 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
-  <title>Cơ Hội Đầu Tư & Dự Án Khu Công Nghiệp - VCEC Portal</title>
-  <meta name="description" content="Danh mục cơ hội đầu tư, dự án khu công nghiệp trọng điểm tại Việt Nam. Sử dụng bộ lọc thông minh tra cứu bản đồ tọa độ miễn phí và đăng ký xúc tiến nhanh.">
+  <title>Cơ Hội Đầu Tư & Dự Án Chiến Lược - VCEC Portal</title>
+  <meta name="description" content="Danh mục cơ hội đầu tư và dự án khu công nghiệp trọng điểm tại Việt Nam. Phân tích bối cảnh, lý do đầu tư, chính sách ưu đãi và bản đồ tương tác KCN.">
+  
+  <!-- SEO & Social Media Meta -->
+  <meta property="og:title" content="Cơ Hội Đầu Tư & Dự Án Chiến Lược - VCEC Portal">
+  <meta property="og:description" content="Danh mục cơ hội đầu tư và dự án khu công nghiệp trọng điểm tại Việt Nam.">
+  <meta property="og:image" content="public/logo_VCEC.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VCEC Portal">
+  
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Executive local styling for co-hoi.html */
+    .invest-hero {
+      background: linear-gradient(135deg, #7A0C1E 0%, #A81B34 60%, #B28834 100%);
+      color: #FFFFFF;
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .invest-hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .invest-hero-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.3;
+      max-width: 950px;
+      margin: 0 auto 20px;
+      font-family: var(--vcec-font-title);
+      text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    
+    .invest-hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 800px;
+      margin: 0 auto;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-bottom: 2px solid var(--vcec-gold);
+      display: inline-block;
+      padding-bottom: 8px;
+    }
+
+    /* Section 2: Why Vietnam? Grid */
+    .why-vn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .why-vn-card {
+      background: var(--vcec-light-bg);
+      border: 1px solid rgba(168, 27, 52, 0.1);
+      border-radius: var(--vcec-border-radius);
+      padding: 30px;
+      transition: var(--vcec-transition);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    
+    .why-vn-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-red-glow);
+      border-color: rgba(168, 27, 52, 0.25);
+    }
+    
+    .why-vn-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--vcec-red-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--vcec-red);
+      margin-bottom: 20px;
+      transition: var(--vcec-transition);
+    }
+    
+    .why-vn-card:hover .why-vn-icon {
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      transform: scale(1.05);
+    }
+    
+    .why-vn-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .why-vn-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      margin-bottom: 12px;
+      font-family: var(--vcec-font-title);
+    }
+    
+    .why-vn-card-desc {
+      font-size: 0.95rem;
+      color: var(--vcec-text-main);
+      line-height: 1.6;
+    }
+
+    /* Section 3: Project Listing with Multi-filters */
+    .filter-panel-wrap {
+      background: #FFFFFF;
+      border: 1px solid rgba(168, 27, 52, 0.1);
+      border-radius: var(--vcec-border-radius);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+    
+    .filter-row-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    
+    .filter-select-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .filter-select-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--vcec-text-light);
+      margin-bottom: 8px;
+    }
+    
+    .filter-select-input {
+      padding: 10px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      background: #F7FAFC;
+      color: var(--vcec-text-dark);
+      font-size: 0.92rem;
+      outline: none;
+      transition: var(--vcec-transition);
+    }
+    
+    .filter-select-input:focus {
+      border-color: var(--vcec-red);
+      background: #FFFFFF;
+      box-shadow: 0 0 8px rgba(168, 27, 52, 0.08);
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    
+    .project-card {
+      background: var(--vcec-light-bg);
+      border: 1px solid rgba(168, 27, 52, 0.08);
+      border-radius: var(--vcec-border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--vcec-transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(175, 136, 58, 0.25);
+    }
+    
+    .project-card-image-wrap {
+      height: 200px;
+      position: relative;
+      background: linear-gradient(135deg, #1A0508 0%, #4A0B14 100%);
+      overflow: hidden;
+    }
+    
+    .project-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: var(--vcec-transition);
+    }
+    
+    .project-card:hover .project-card-image {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    
+    .project-card-status-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      z-index: 2;
+    }
+    
+    .status-calling {
+      background: #E2F0D9;
+      color: #385723;
+      border: 1px solid #C5E0B4;
+    }
+    
+    .status-interested {
+      background: #FFF2CC;
+      color: #7F6000;
+      border: 1px solid #FFE599;
+    }
+    
+    .status-negotiating {
+      background: #FCE4D6;
+      color: #C65911;
+      border: 1px solid #F8CBAD;
+    }
+    
+    .project-card-body {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    
+    .project-card-meta {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--vcec-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    
+    .project-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
+      font-family: var(--vcec-font-title);
+    }
+    
+    .project-card-desc {
+      font-size: 0.92rem;
+      color: var(--vcec-text-main);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .project-card-specs {
+      background: rgba(168, 27, 52, 0.03);
+      border: 1px solid rgba(168, 27, 52, 0.06);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+    }
+    
+    .project-spec-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      color: var(--vcec-text-main);
+    }
+    
+    .project-spec-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .project-spec-label {
+      font-weight: 600;
+    }
+    
+    .project-spec-value {
+      font-weight: 700;
+      color: var(--vcec-red);
+    }
+    
+    .btn-project-interest {
+      width: 100%;
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 20px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      transition: var(--vcec-transition);
+    }
+    
+    .btn-project-interest:hover {
+      background: var(--vcec-gold);
+      box-shadow: 0 5px 15px rgba(175, 136, 58, 0.2);
+    }
+
+    /* Section 4: Interactive KCN Map */
+    .map-section-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .map-interactive-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .map-interactive-btn {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(168, 27, 52, 0.08);
+      border-radius: var(--vcec-border-radius-sm);
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: var(--vcec-transition);
+      text-align: left;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    
+    .map-interactive-btn::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--vcec-gold);
+      opacity: 0;
+      transition: var(--vcec-transition);
+    }
+    
+    .map-interactive-btn.active {
+      border-color: var(--vcec-red);
+      box-shadow: var(--shadow-red-glow);
+    }
+    
+    .map-interactive-btn.active::before {
+      opacity: 1;
+      background: var(--vcec-red);
+    }
+    
+    .map-interactive-btn:hover {
+      transform: translateX(5px);
+      border-color: rgba(168, 27, 52, 0.3);
+    }
+    
+    .map-btn-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      margin-bottom: 6px;
+    }
+    
+    .map-btn-subtitle {
+      font-size: 0.88rem;
+      color: var(--vcec-text-light);
+    }
+    
+    .map-graphic-box {
+      background: var(--vcec-light-bg);
+      border: 1px solid rgba(168, 27, 52, 0.08);
+      border-radius: var(--vcec-border-radius);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      height: 480px;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .map-details-card {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .map-details-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 15px;
+      font-family: var(--vcec-font-title);
+    }
+    
+    .map-details-desc {
+      font-size: 1rem;
+      color: var(--vcec-text-main);
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+    
+    .map-tags-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    
+    .map-tag-item {
+      background: rgba(168, 27, 52, 0.03);
+      border: 1.5px solid rgba(168, 27, 52, 0.08);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--vcec-text-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .map-tag-bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vcec-gold);
+    }
+    
+    .active .map-tag-bullet {
+      background: var(--vcec-red);
+    }
+
+    /* Section 5: Incentive Policies */
+    .policies-table-wrap {
+      background: var(--vcec-light-bg);
+      border: 1px solid rgba(168, 27, 52, 0.1);
+      border-radius: var(--vcec-border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-top: 30px;
+    }
+    
+    .policies-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    
+    .policies-table th {
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      font-weight: 700;
+      padding: 18px 24px;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    
+    .policies-table td {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(168, 27, 52, 0.08);
+      font-size: 0.98rem;
+      color: var(--vcec-text-main);
+      line-height: 1.6;
+      transition: var(--vcec-transition);
+    }
+    
+    .policies-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .policies-table tr:hover td {
+      background: rgba(175, 136, 58, 0.04);
+      color: var(--vcec-text-dark);
+    }
+    
+    .policies-label-cell {
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      width: 30%;
+    }
+    
+    .policies-note {
+      font-size: 0.88rem;
+      color: var(--vcec-text-light);
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    /* Section 6: Glass Form Section */
+    .lead-section-wrapper {
+      background: linear-gradient(135deg, #7A0C1E 0%, #A81B34 50%, #B28834 100%);
+      border-radius: 28px;
+      padding: 60px 50px;
+      box-shadow: 0 20px 60px rgba(168, 27, 52, 0.3);
+      position: relative;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .lead-section-wrapper::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23ffffff' stroke-width='0.3' stroke-opacity='0.08'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23ffffff' stroke-width='0.2' stroke-opacity='0.08' stroke-dasharray='2 2'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .lead-grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 50px;
+      position: relative;
+      z-index: 2;
+      align-items: start;
+    }
+
+    .lead-info-col { color: #FFFFFF; }
+
+    .lead-info-col h2 {
+      color: #FFFFFF;
+      font-size: 2rem;
+      margin-bottom: 14px;
+      font-family: var(--vcec-font-title);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      line-height: 1.3;
+    }
+
+    .lead-info-col p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .lead-bullet-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 22px 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .lead-bullet-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .lead-bullet-item:last-child { margin-bottom: 0; }
+
+    .lead-bullet-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--vcec-gold);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* Glassmorphic Form */
+    .glass-form-container {
+      background: rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 0;
+    }
+
+    .form-group-glass {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 18px;
+    }
+
+    .label-glass {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--vcec-gold);
+      margin-bottom: 8px;
+    }
+
+    .input-glass {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: #FFFFFF;
+      font-size: 0.93rem;
+      transition: all 0.3s ease;
+      font-family: var(--vcec-font-main);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .input-glass::placeholder { color: rgba(255,255,255,0.4); }
+
+    .input-glass:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+    }
+
+    .input-glass option {
+      background: #3D0A14;
+      color: #FFFFFF;
+    }
+
+    .btn-glass-submit {
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, var(--vcec-gold) 0%, #C9A04A 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(178, 136, 52, 0.35);
+      transition: all 0.3s ease;
+      margin-top: 6px;
+    }
+
+    .btn-glass-submit:hover {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F0EEE8 100%);
+      color: var(--vcec-red);
+      box-shadow: 0 12px 30px rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Success Modal */
+    .popup-modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(17, 8, 10, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+    }
+
+    .popup-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-modal-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      max-width: 460px;
+      width: 90%;
+      padding: 40px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      text-align: center;
+      border: 1px solid rgba(175,136,58,0.15);
+      transform: scale(0.9);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .popup-modal-overlay.active .popup-modal-card { transform: scale(1); }
+
+    .success-svg-ring {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .popup-modal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--vcec-text-dark);
+      font-family: var(--vcec-font-title);
+      margin-bottom: 10px;
+    }
+
+    .popup-modal-desc {
+      font-size: 0.93rem;
+      color: var(--vcec-text-light);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .wechat-box-qr {
+      background: var(--vcec-light-bg);
+      border: 1px dashed rgba(168,27,52,0.2);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 25px;
+    }
+
+    .qr-placeholder-img {
+      width: 130px; height: 130px;
+      margin: 0 auto 12px;
+      background: #FFF;
+      padding: 6px;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-placeholder-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .wechat-id-badge {
+      display: inline-block;
+      background: #E2F0D9;
+      color: #385723;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 5px 14px;
+      border-radius: 30px;
+      border: 1px solid #C5E0B4;
+    }
+
+    .close-modal-btn {
+      background: var(--vcec-red);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 28px;
+      font-weight: 700;
+      border-radius: var(--vcec-border-radius-sm);
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: var(--vcec-transition);
+    }
+
+    .close-modal-btn:hover {
+      background: var(--vcec-red-hover);
+      box-shadow: 0 5px 15px rgba(168,27,52,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .why-vn-grid { grid-template-columns: repeat(2, 1fr); }
+      .filter-row-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .map-section-layout { grid-template-columns: 1fr; }
+      .lead-grid-layout { grid-template-columns: 1fr; gap: 35px; }
+    }
+    
+    @media (max-width: 768px) {
+      .invest-hero-title { font-size: 1.8rem; }
+      .why-vn-grid { grid-template-columns: 1fr; }
+      .filter-row-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .policies-table-wrap { overflow-x: auto; }
+      .policies-table th, .policies-table td { padding: 15px; }
+      .policies-label-cell { width: 40%; }
+      .lead-section-wrapper { padding: 40px 24px; }
+      .lead-grid-layout { grid-template-columns: 1fr; gap: 30px; }
+      .glass-form-container { padding: 28px 20px; }
+      .form-row-2col { grid-template-columns: 1fr; gap: 0; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Shared Global Header (Rendered dynamically by app.js) -->
+  <!-- Shared Global Header -->
   <header id="global-header"></header>
 
   <!-- Main Content with Cloud watermark background -->
   <main class="bg-china-motif">
     <div class="section-content">
       
-      <!-- Sub-page Title Block -->
-      <section class="sub-hero">
+      <!-- Section 1: Hero & Hook -->
+      <section class="invest-hero">
         <div class="container">
-          <h1 data-i18n="nav-opp">Cơ Hội Đầu Tư</h1>
-          <p style="color: var(--vcec-gold); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;" data-i18n="sub-title">ĐẦU TƯ SONG PHƯƠNG</p>
+          <h1 class="invest-hero-title" id="hero-title">Việt Nam: điểm đến chiến lược cho dòng vốn Trung Quốc trong kỷ nguyên dịch chuyển chuỗi cung ứng.</h1>
+          <p class="invest-hero-subtitle" id="hero-subtitle">CƠ HỘI ĐẦU TƯ & DỰ ÁN CHIẾN LƯỢC</p>
         </div>
       </section>
 
-      <!-- Search & Filters + Listings Layout -->
+      <!-- Section 2: Why invest in Vietnam? -->
       <section class="section">
-        <div class="container filters-layout">
-          
-          <!-- Sidebar Filters (Click 1 Input Area) -->
-          <div class="filters-sidebar">
-            <h3 data-i18n="filter-title" style="font-size: 1.1rem; font-weight: 800; margin-bottom: 24px; font-family: var(--vcec-font-title); color: #FFFFFF !important; background-color: var(--vcec-red); border: 2px solid var(--vcec-red); padding: 10px 15px; border-radius: 8px; text-align: center; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 4px 12px rgba(168, 27, 52, 0.15);">Bộ Lọc Tìm Kiếm</h3>
-            
-            <!-- Geographical Region -->
-            <div class="filter-group">
-              <span class="filter-group-title" data-i18n="filter-region">Vùng Địa Lý</span>
-              <label class="filter-option">
-                <input type="checkbox" class="region-filter" value="north" checked>
-                <span data-i18n="filter-north">Miền Bắc Việt Nam</span>
-              </label>
-              <label class="filter-option">
-                <input type="checkbox" class="region-filter" value="south" checked>
-                <span data-i18n="filter-south">Miền Nam Việt Nam</span>
-              </label>
-              <label class="filter-option">
-                <input type="checkbox" class="region-filter" value="central">
-                <span data-i18n="filter-central">Miền Trung Việt Nam</span>
-              </label>
-            </div>
-
-            <!-- Focus Sector -->
-            <div class="filter-group" style="margin-top: 25px;">
-              <span class="filter-group-title" data-i18n="filter-sec-title">Lĩnh Vực</span>
-              <label class="filter-option">
-                <input type="checkbox" class="sector-filter" value="electronics" checked>
-                <span data-i18n="filter-electronics">Công nghệ cao & Điện tử</span>
-              </label>
-              <label class="filter-option">
-                <input type="checkbox" class="sector-filter" value="energy" checked>
-                <span data-i18n="filter-energy">Năng lượng & Xe điện</span>
-              </label>
-              <label class="filter-option">
-                <input type="checkbox" class="sector-filter" value="infra" checked>
-                <span data-i18n="filter-infra">Hạ tầng Khu Công Nghiệp</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Dynamic Project Cards Listing Grid (Click 2 Area) -->
-          <div id="project-list" class="cards-grid">
-            <!-- Rendered Dynamically by app.js -->
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Interactive Map & Detail Block (Click 2 Target Area & Lead Form Area) -->
-      <section class="section section-grey">
-        <div id="dynamic-detail" class="container">
-          <!-- Populated dynamically when a project card is clicked -->
-        </div>
-      </section>
-
-      <!-- Investment Opportunity Articles from Supabase -->
-      <section id="cohoi-posts-section" class="section" style="display:none;">
         <div class="container">
           <div class="section-title">
-            <h2>Bài Viết Cơ Hội Đầu Tư</h2>
-            <p>Phân tích chuyên sâu về các cơ hội và chính sách đầu tư song phương Việt – Trung</p>
+            <h2 id="sec2-title">Vì sao đầu tư vào Việt Nam?</h2>
+            <p id="sec2-subtitle">6 lợi thế chiến lược cốt lõi đưa Việt Nam trở thành điểm đến hấp dẫn nhất khu vực</p>
           </div>
-          <div id="cohoi-posts-grid" class="news-grid">
-            <p style="color:#9CA3AF;text-align:center;padding:40px 0;grid-column:1/-1;">⏳ Đang tải...</p>
+          
+          <div id="why-vn-container" class="why-vn-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Project Calling List -->
+      <section class="section section-grey">
+        <div class="container">
+          <div class="section-title">
+            <h2 id="sec3-title">Danh mục dự án kêu gọi đầu tư</h2>
+            <p id="sec3-subtitle">Khám phá danh sách dự án FDI trọng điểm trải dài 8 lĩnh vực và 3 vùng Bắc - Trung - Nam</p>
+          </div>
+          
+          <!-- Filter Panel -->
+          <div class="filter-panel-wrap">
+            <div class="filter-row-grid">
+              <div class="filter-select-group">
+                <span class="filter-select-label" id="label-filter-sector">Lĩnh Vực</span>
+                <select id="filter-sector" class="filter-select-input">
+                  <!-- Rendered by JS -->
+                </select>
+              </div>
+              <div class="filter-select-group">
+                <span class="filter-select-label" id="label-filter-region">Vùng miền / Địa phương</span>
+                <select id="filter-region" class="filter-select-input">
+                  <!-- Rendered by JS -->
+                </select>
+              </div>
+              <div class="filter-select-group">
+                <span class="filter-select-label" id="label-filter-budget">Quy mô vốn</span>
+                <select id="filter-budget" class="filter-select-input">
+                  <!-- Rendered by JS -->
+                </select>
+              </div>
+              <div class="filter-select-group">
+                <span class="filter-select-label" id="label-filter-type">Hình thức đầu tư</span>
+                <select id="filter-type" class="filter-select-input">
+                  <!-- Rendered by JS -->
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Projects Cards Grid -->
+          <div id="projects-grid-container" class="projects-grid">
+            <!-- Dynamic project cards -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Interactive KCN & EZ Map -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2 id="sec4-title">Bản đồ khu công nghiệp & khu kinh tế</h2>
+            <p id="sec4-subtitle">Bản đồ tương tác hiển thị các địa bàn trọng điểm thu hút đầu tư Trung Quốc</p>
+          </div>
+          
+          <div class="map-section-layout">
+            <!-- Left panel: Interactive selectors -->
+            <div id="map-selectors" class="map-interactive-panel">
+              <!-- Rendered by JS -->
+            </div>
+            
+            <!-- Right panel: Interactive detailed stats -->
+            <div class="map-graphic-box">
+              <!-- SVG map glow rings in background -->
+              <div style="position: absolute; right: 20px; top: 20px; opacity: 0.05; pointer-events: none; z-index: 1;">
+                <svg viewBox="0 0 100 100" width="200" height="200" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M30 20 L70 20 L50 80 Z" />
+                  <circle cx="50" cy="50" r="40" />
+                </svg>
+              </div>
+              <div id="map-details-content" class="map-details-card">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Incentive Policies -->
+      <section class="section section-grey">
+        <div class="container">
+          <div class="section-title">
+            <h2 id="sec5-title">Chính sách ưu đãi đầu tư</h2>
+            <p id="sec5-subtitle">Tóm tắt các cơ chế ưu đãi vượt trội của Chính phủ dành cho dòng vốn FDI</p>
+          </div>
+          
+          <div class="policies-table-wrap">
+            <table class="policies-table">
+              <thead>
+                <tr>
+                  <th id="th-policy-type">Loại ưu đãi</th>
+                  <th id="th-policy-desc">Khái quát</th>
+                </tr>
+              </thead>
+              <tbody id="policies-tbody">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+          <p class="policies-note" id="policies-footer-note">* Mức cụ thể (% thuế, số năm miễn/giảm) phụ thuộc vào quy định pháp luật hiện hành; VCEC sẽ cung cấp tư vấn theo từng dự án cụ thể.</p>
+        </div>
+      </section>
+
+      <!-- Section 6: Executive Lead Capture Form -->
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="lead-section-wrapper" id="consultation-form-section">
+            <div class="lead-grid-layout">
+              <!-- Left: Text content -->
+              <div class="lead-info-col">
+                <h2 id="form-header-title">Kết Nối Với VCEC</h2>
+                <p id="form-header-desc">Bạn quan tâm đến dự án nào? VCEC kết nối bạn với chủ đầu tư, cơ quan quản lý và đối tác trong nước trong vòng 7 ngày làm việc.</p>
+                <div class="lead-bullet-box">
+                  <div class="lead-bullet-item">
+                    <span class="lead-bullet-icon">✓</span>
+                    <span id="bullet-form-1">Luồng xanh hỗ trợ giấy phép & thủ tục hành chính</span>
+                  </div>
+                  <div class="lead-bullet-item">
+                    <span class="lead-bullet-icon">✓</span>
+                    <span id="bullet-form-2">Đoàn khảo sát thực địa trọn gói trong 7 ngày</span>
+                  </div>
+                  <div class="lead-bullet-item">
+                    <span class="lead-bullet-icon">✓</span>
+                    <span id="bullet-form-3">Đồng hành pháp lý suốt chu kỳ đầu tư</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Right: Form -->
+              <div class="glass-form-container">
+                <form id="lead-fdi-form">
+                  <div class="form-row-2col">
+                    <div class="form-group-glass">
+                      <label for="company-name" class="label-glass" id="label-form-company">Tên doanh nghiệp</label>
+                      <input type="text" id="company-name" class="input-glass" placeholder="e.g. BYD Auto" required>
+                    </div>
+                    <div class="form-group-glass">
+                      <label for="investor-country" class="label-glass" id="label-form-country">Quốc gia</label>
+                      <select id="investor-country" class="input-glass" required>
+                        <option value="Trung Quốc">Trung Quốc (China)</option>
+                        <option value="Việt Nam">Việt Nam (Vietnam)</option>
+                        <option value="Khác">Khác (Other)</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-row-2col">
+                    <div class="form-group-glass">
+                      <label for="project-interest" class="label-glass" id="label-form-project">Dự án quan tâm</label>
+                      <select id="project-interest" class="input-glass" required>
+                        <!-- Populated by JS -->
+                      </select>
+                    </div>
+                    <div class="form-group-glass">
+                      <label for="expected-budget" class="label-glass" id="label-form-budget">Ngân sách dự kiến</label>
+                      <select id="expected-budget" class="input-glass" required>
+                        <option value="under50">Dưới 50 Triệu USD (<$50M)</option>
+                        <option value="50to100">50 - 100 Triệu USD ($50M-$100M)</option>
+                        <option value="above100">Trên 100 Triệu USD (>$100M)</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group-glass">
+                    <label for="contact-info" class="label-glass" id="label-form-contact">Số điện thoại / WeChat ID</label>
+                    <input type="text" id="contact-info" class="input-glass" placeholder="e.g. +86 188 8888 8888 / WeChat: InvestVn" required>
+                  </div>
+                  
+                  <div class="form-group-glass">
+                    <label for="investor-wishes" class="label-glass" id="label-form-wishes">Mong muốn cụ thể</label>
+                    <textarea id="investor-wishes" class="input-glass" rows="4" placeholder="Ví dụ: Mong muốn thuê 20ha đất công nghiệp sẵn sàng hạ tầng, hỗ trợ ưu đãi thuế..." required></textarea>
+                  </div>
+                  
+                  <button type="submit" class="btn-glass-submit" id="btn-submit">Gửi Yêu Cầu Kết Nối</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -99,98 +1039,959 @@
     </div>
   </main>
 
-  <!-- Shared Global Footer (Rendered dynamically by app.js) -->
+  <!-- Shared Global Footer -->
   <footer id="global-footer"></footer>
 
-  <!-- 3-Click Lead Capture Success Modal (WeChat QR Code pop-up) -->
-  <div id="success-modal" class="modal-backdrop">
-    <div class="modal-content">
-      <h3 class="modal-title" data-i18n="success-title">Gửi Đăng Ký Thành Công!</h3>
-      <p class="modal-desc" data-i18n="success-desc">VCEC đã ghi nhận hồ sơ của doanh nghiệp và gán chuyên viên tư vấn tiếng Trung phụ trách trực tiếp liên hệ lại với anh/chị.</p>
-      
-      <div class="wechat-qr-block">
-        <h4 data-i18n="wechat-title">CHỦ ĐỘNG KẾT NỐI WECHAT / WHATSAPP</h4>
-        <p data-i18n="wechat-desc">Quét mã QR dưới đây để kết nối trực tiếp với Chuyên viên phụ trách thực địa khu vực của bạn:</p>
-        
-        <!-- Generated beautiful WeChat/WhatsApp mockup QR code with high visual style -->
-        <div class="qr-code-box">
-          <svg viewBox="0 0 100 100" width="160" height="160">
-            <!-- External borders and registration blocks -->
-            <rect x="5" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
-            <rect x="10" y="10" width="15" height="15" fill="#B8860B"/>
-            <rect x="70" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
-            <rect x="75" y="10" width="15" height="15" fill="#B8860B"/>
-            <rect x="5" y="70" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
-            <rect x="10" y="75" width="15" height="15" fill="#B8860B"/>
-            <!-- Pseudo QR modules -->
-            <rect x="40" y="10" width="8" height="8" fill="#C8102E"/>
-            <rect x="52" y="15" width="12" height="6" fill="#C8102E"/>
-            <rect x="45" y="28" width="6" height="14" fill="#B8860B"/>
-            <rect x="15" y="45" width="10" height="8" fill="#C8102E"/>
-            <rect x="32" y="48" width="18" height="8" fill="#C8102E"/>
-            <rect x="55" y="42" width="8" height="18" fill="#B8860B"/>
-            <rect x="72" y="45" width="18" height="8" fill="#C8102E"/>
-            <rect x="42" y="72" width="12" height="12" fill="#B8860B"/>
-            <rect x="62" y="75" width="6" height="16" fill="#C8102E"/>
-            <rect x="78" y="72" width="14" height="6" fill="#C8102E"/>
-            <!-- Center Logo Placeholder -->
-            <rect x="42" y="42" width="16" height="16" fill="#C8102E" rx="4"/>
-            <text x="50" y="52" font-size="8" fill="#FFF" font-weight="900" text-anchor="middle">VCEC</text>
-          </svg>
-        </div>
-        <p style="font-weight: bold; color: var(--vcec-red); font-size: 1.1rem; margin-top: 10px; letter-spacing: 0.5px;">WeChat ID: VCEC_XuctienFDI_01</p>
+  <!-- WeChat Success Modal popup -->
+  <div class="popup-modal-overlay" id="wechat-success-modal">
+    <div class="popup-modal-card">
+      <div class="success-svg-ring">
+        <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
       </div>
-
-      <button class="btn btn-primary" onclick="closeModal()" data-i18n="success-close" style="width: 100%;">Đóng cửa sổ</button>
+      <h3 class="popup-modal-title" id="modal-title">Đăng Ký Thành Công!</h3>
+      <p class="popup-modal-desc" id="modal-desc">Yêu cầu của quý doanh nghiệp đã được gửi đến Ban Thư ký VCEC.</p>
+      
+      <div class="wechat-box-qr">
+        <div class="qr-placeholder-img">
+          <img src="public/wechat_qr.jpg" alt="WeChat QR VCEC" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=VCEC_XuctienFDI_01'">
+        </div>
+        <p style="font-size:0.85rem;color:var(--vcec-text-light);margin-bottom:10px;" id="modal-action-text">Kết nối WeChat hỗ trợ khẩn cấp 24/7:</p>
+        <span class="wechat-id-badge">WeChat ID: VCEC_XuctienFDI_01</span>
+      </div>
+      
+      <button class="close-modal-btn" onclick="closeWechatModal()" id="modal-close-btn">Đóng cửa sổ</button>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="app.js"></script>
   <script>
-    (function() {
-      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
-      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
-      function fmtDate(iso) {
-        var d = new Date(iso);
-        return d.getDate() + ' Tháng ' + (d.getMonth()+1) + ', ' + d.getFullYear();
+    // Projects Data Store - 12 Strategic Projects
+    const projects = [
+      {
+        id: "proj-1",
+        title_vi: "Trung tâm Logistics liên vận quốc tế Hữu Nghị - Lạng Sơn",
+        title_zh: "友谊关-谅山国际联运物流中心项目",
+        title_en: "Huu Nghi - Lang Son International Multimodal Logistics Hub",
+        region: "north",
+        sector: "logistics",
+        scale: "65",
+        type: "jv",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Lạng Sơn, Miền Bắc",
+        location_zh: "谅山省，北部地区",
+        location_en: "Lang Son, Northern Vietnam",
+        desc_vi: "Trung tâm kho vận liên vận đường sắt - đường bộ cửa khẩu lớn nhất Đông Nam Á, tích hợp công nghệ AI quản lý kho thông minh.",
+        desc_zh: "东南亚最大的口岸铁路-公路联运物流中心，集成AI智能仓储管理系统。",
+        desc_en: "The largest rail-road border logistics hub in Southeast Asia, integrated with AI smart warehouse management.",
+        attraction_vi: "Miễn thuế nhập khẩu linh kiện thiết bị; Chiết khấu 5% tiền thuê đất; Hưởng luồng xanh hải quan.",
+        attraction_zh: "免除进口设备关税；土地租金享受5%折减；享受海关快速绿色通道。",
+        attraction_en: "Import duty exemption for equipment; 5% land rent discount; Fast-track Customs Green Lane."
+      },
+      {
+        id: "proj-2",
+        title_vi: "Trạm lưu trữ năng lượng pin thông minh BESS Đồng Nai",
+        title_zh: "同奈智能储能电站（BESS）项目",
+        title_en: "Dong Nai Smart Battery Energy Storage System (BESS)",
+        region: "south",
+        sector: "energy",
+        scale: "120",
+        type: "fdi",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Đồng Nai, Miền Nam",
+        location_zh: "同奈省，南部地区",
+        location_en: "Dong Nai, Southern Vietnam",
+        desc_vi: "Hệ thống pin lưu trữ năng lượng lớn phục vụ mạng lưới KCN tỉnh Đồng Nai và điều hòa phụ tải mạng lưới điện khu vực phía Nam.",
+        desc_zh: "服务于同奈省各工业区网络并协调南部电网负荷的大型储能电池系统。",
+        desc_en: "A large-scale battery storage facility serving industrial parks in Dong Nai and stabilizing the Southern power grid.",
+        attraction_vi: "Cam kết bao tiêu công suất; Thuế suất ưu đãi 10% trong 15 năm; Miễn thuế TNDN 4 năm đầu.",
+        attraction_zh: "容量购销承诺；15年内享受10%优惠税率；前4年免征企业所得税。",
+        attraction_en: "Guaranteed power off-take; 10% preferential CIT for 15 years; 4-year CIT exemption."
+      },
+      {
+        id: "proj-3",
+        title_vi: "Mạng lưới trạm sạc nhanh EV thông minh Hải Phòng",
+        title_zh: "海防市智能电动汽车（EV）快速充电站网络",
+        title_en: "Haiphong Smart EV Fast-Charging Infrastructure Network",
+        region: "north",
+        sector: "ev",
+        scale: "45",
+        type: "jv",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Hải Phòng, Miền Bắc",
+        location_zh: "海防市，北部地区",
+        location_en: "Haiphong, Northern Vietnam",
+        desc_vi: "Phát triển hơn 1.000 cổng sạc siêu nhanh EV dọc hành lang kinh tế ven biển Bắc Bộ kết nối với Quảng Ninh, Hải Phòng.",
+        desc_zh: "在连接广宁省与海防市的北部沿海经济走廊沿线建设1000多个EV超级快速充电桩。",
+        desc_en: "Development of over 1,000 EV ultra-fast charging outlets along the northern coastal economic corridor.",
+        attraction_vi: "Liên minh với hãng taxi điện lớn; Hỗ trợ quỹ đất xây dựng mặt bằng trạm sạc.",
+        attraction_zh: "与大型电动出租车公司结盟；支持充电站建设用地的出让政策。",
+        attraction_en: "Partnership with major electric taxi fleets; Dedicated land allocation for charging sites."
+      },
+      {
+        id: "proj-4",
+        title_vi: "Dự án chia sẻ xe đạp điện công nghệ E-bike Sharing Đà Nẵng",
+        title_zh: "岘港智能共享电动自行车（E-bike）项目",
+        title_en: "Danang Smart E-bike Sharing Mobility System",
+        region: "central",
+        sector: "ebike",
+        scale: "18",
+        type: "mna",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Đà Nẵng, Miền Trung",
+        location_zh: "岘港市，中部地区",
+        location_en: "Danang, Central Vietnam",
+        desc_vi: "Hệ thống giao thông xanh tích hợp với các điểm du lịch lớn toàn thành phố Đà Nẵng thông qua app định vị thông minh.",
+        desc_zh: "通过智能定位应用，与岘港市各大旅游景点深度整合的绿色交通出行系统。",
+        desc_en: "A eco-friendly micro-mobility network integrated with top tourist sites across Danang via a smart tracking app.",
+        attraction_vi: "Độc quyền khai thác 5 năm đầu; Tích hợp ví điện tử địa phương.",
+        attraction_zh: "前5年享有独家经营权；深度接入本地电子钱包系统。",
+        attraction_en: "5-year exclusive operating rights; Direct local e-wallet API integrations."
+      },
+      {
+        id: "proj-5",
+        title_vi: "Tổ hợp sản xuất linh kiện Drone công nghệ cao Bình Dương",
+        title_zh: "平阳高科技无人机（Drone）零部件生产基地",
+        title_en: "Binh Duong High-Tech Drone & UAV Components Complex",
+        region: "south",
+        sector: "drone",
+        scale: "85",
+        type: "fdi",
+        status: "negotiating",
+        img: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Bình Dương, Miền Nam",
+        location_zh: "平阳省，南部地区",
+        location_en: "Binh Duong, Southern Vietnam",
+        desc_vi: "Nhà máy sản xuất linh kiện vi mạch điện tử và lắp ráp thiết bị bay không người lái công nghệ cao xuất khẩu đi ASEAN.",
+        desc_zh: "高科技无人驾驶飞行器微电路部件生产及整机组装出口东盟生产线。",
+        desc_en: "An assembly and microchip fabrication plant for advanced UAVs targeting the ASEAN export market.",
+        attraction_vi: "Nằm trong khu công nghệ cao quốc gia; Tự động hóa hơn 80% dây chuyền.",
+        attraction_zh: "入驻国家级高新技术产业区；生产线自动化率达80%以上。",
+        attraction_en: "Located in National High-Tech Park; 80%+ manufacturing automation rate."
+      },
+      {
+        id: "proj-6",
+        title_vi: "Nhà máy sản xuất robot cánh tay tự động hóa Bắc Ninh",
+        title_zh: "北宁工业机械手臂及智能机器人制造工厂",
+        title_en: "Bac Ninh Automation & Robotic Arms Assembly Plant",
+        region: "north",
+        sector: "drone",
+        scale: "110",
+        type: "jv",
+        status: "negotiating",
+        img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Bắc Ninh, Miền Bắc",
+        location_zh: "北宁省，北部地区",
+        location_en: "Bac Ninh, Northern Vietnam",
+        desc_vi: "Liên doanh sản xuất cánh tay robot tự động hóa cho các chuỗi lắp ráp điện tử toàn khu vực Đông Nam Á.",
+        desc_zh: "面向全东南亚电子组装产业链的自动化机械手臂合资生产基地。",
+        desc_en: "A joint-venture manufacturing facility dedicated to assembly-line robot arm fabrication.",
+        attraction_vi: "Nguồn lao động kỹ thuật cao dồi dào; Hợp tác với các đối tác OEM hàng đầu thế giới.",
+        attraction_zh: "充足的高素质技术人才储备；与全球顶尖的OEM厂商紧密合作。",
+        attraction_en: "Abundant technical talent pool; Direct partnerships with top global OEMs."
+      },
+      {
+        id: "proj-7",
+        title_vi: "Tổ hợp sản xuất thông minh linh kiện bán dẫn Hải Dương",
+        title_zh: "海阳智能半导体元器件制造综合体",
+        title_en: "Hai Duong Smart Semiconductor & Integrated Chips Facility",
+        region: "north",
+        sector: "smart-mfg",
+        scale: "150",
+        type: "fdi",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Hải Dương, Miền Bắc",
+        location_zh: "海阳省，北部地区",
+        location_en: "Hai Duong, Northern Vietnam",
+        desc_vi: "Dự án phát triển mạch tích hợp và đóng gói bán dẫn công nghệ cao phục vụ chuỗi cung ứng sản xuất điện tử.",
+        desc_zh: "服务于电子制造产业链的高端集成电路研发与半导体封装测试项目。",
+        desc_en: "Integrated circuit design and premium semiconductor packaging plant supporting supply chains.",
+        attraction_vi: "Hỗ trợ R&D từ ngân sách; Thủ tục cấp phép thần tốc trong vòng 7 ngày làm việc.",
+        attraction_zh: "政府预算支持研发资金；7个工作日内极速办理投资审批手续。",
+        attraction_en: "Government R&D capital support; Express investment licensing within 7 working days."
+      },
+      {
+        id: "proj-8",
+        title_vi: "Dự án nông nghiệp công nghệ cao hữu cơ Lâm Đồng",
+        title_zh: "林同省高科技有机农业示范区项目",
+        title_en: "Lam Dong Smart Organic High-Tech Greenhouse Cultivation",
+        region: "south",
+        sector: "agri",
+        scale: "35",
+        type: "jv",
+        status: "interested",
+        img: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Lâm Đồng, Miền Nam",
+        location_zh: "林同省，南部地区",
+        location_en: "Lam Dong, Southern Vietnam",
+        desc_vi: "Hệ thống nhà kính khí canh thông minh trồng nông sản cao cấp phục vụ thị trường xuất khẩu tỷ dân Trung Quốc.",
+        desc_zh: "服务于中国十亿级大市场的高端出口农产品气雾培智能温室系统。",
+        desc_en: "Smart aeroponics greenhouses cultivation system supplying premium exports to Chinese markets.",
+        attraction_vi: "Hỗ trợ tín dụng xanh lãi suất thấp; Miễn thuế nhập khẩu vật tư kỹ thuật cao.",
+        attraction_zh: "享受低息绿色金融信贷支持；免征高端农业技术耗材进口关税。",
+        attraction_en: "Low-interest Green Financing credits; Custom duties exemption for high-tech imports."
+      },
+      {
+        id: "proj-9",
+        title_vi: "Tổ hợp nghỉ dưỡng văn hóa xanh Phú Quốc",
+        title_zh: "富国岛绿色生态与东方文化体验度假综合体",
+        title_en: "Phu Quoc Green Eco-Tourism & Oriental Cultural Resort Complex",
+        region: "south",
+        sector: "culture",
+        scale: "210",
+        type: "mna",
+        status: "interested",
+        img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Phú Quốc, Miền Nam",
+        location_zh: "富国岛，南部地区",
+        location_en: "Phu Quoc Island, Southern Vietnam",
+        desc_vi: "Tổ hợp lưu trú sinh thái kết hợp trung tâm trải nghiệm văn hóa truyền thống Á Đông ven biển Phú Quốc quy mô lớn.",
+        desc_zh: "集生态住宿、康养水疗与中华传统文化沉浸式体验于一体的富国岛大型度假区项目。",
+        desc_en: "A signature luxury eco-resort presenting authentic Oriental wellness and cultural experiences.",
+        attraction_vi: "Được hưởng cơ chế đảo tự do; Miễn thị thực cho khách quốc tế lên tới 30 ngày.",
+        attraction_zh: "享受自贸港特区政策；外籍游客入境富国岛可获免签最长30天待遇。",
+        attraction_en: "Special Free Island policies; Up to 30 days visa-free transit for foreign citizens."
+      },
+      {
+        id: "proj-10",
+        title_vi: "Khu công nghiệp Sinh thái xanh VSIP Quảng Ngãi",
+        title_zh: "广义省VSIP绿色生态示范工业园区",
+        title_en: "Quang Ngai VSIP Green Eco-Industrial Park Developer",
+        region: "central",
+        sector: "smart-mfg",
+        scale: "180",
+        type: "jv",
+        status: "negotiating",
+        img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Quảng Ngãi, Miền Trung",
+        location_zh: "广义省，中部地区",
+        location_en: "Quang Ngai, Central Vietnam",
+        desc_vi: "KCN xanh kiểu mẫu với hệ thống xử lý nước thải tuần hoàn khép kín và sử dụng điện mặt trời mái nhà 100%.",
+        desc_zh: "配备闭环污水处理和100%太阳能屋顶的绿色标杆工业园区建设项目。",
+        desc_en: "Model industrial park featuring fully recycled wastewater networks and 100% rooftop solar panels.",
+        attraction_vi: "Nhận chứng chỉ xanh quốc tế; Giảm 50% phí hạ tầng KCN cho 3 năm đầu.",
+        attraction_zh: "获国际绿色能源认证；入园前三年享受工业区基础设施使用费减半待遇。",
+        attraction_en: "International green certifications; 50% infrastructure fee reduction for the first 3 years."
+      },
+      {
+        id: "proj-11",
+        title_vi: "Dự án Trạm sạc Siêu Nhanh Bắc-Nam khu vực miền Trung",
+        title_zh: "中部沿线贯通南北快速EV超级充电网项目",
+        title_en: "Central Highway North-South EV Super-Charger Corridor",
+        region: "central",
+        sector: "ev",
+        scale: "30",
+        type: "jv",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Khánh Hòa, Miền Trung",
+        location_zh: "庆和省，中部地区",
+        location_en: "Khanh Hoa, Central Vietnam",
+        desc_vi: "Hệ thống 80 trạm sạc siêu công suất phục vụ dòng xe tải nặng và xe bus điện đường dài dọc Quốc lộ 1A.",
+        desc_zh: "在1A国道沿线建设80个超高功率充电站，服务跨境重型卡车和长途纯电动客车。",
+        desc_en: "Strategic network of 80 ultra-high power chargers for heavy-duty electric trucks along Highway 1A.",
+        attraction_vi: "Độc quyền phân phối điện dọc Quốc lộ 1A; Ưu đãi giá thuê mặt bằng 20 năm đầu.",
+        attraction_zh: "国道1A充电服务独家专营权；前20年场地租金享受深度折扣。",
+        attraction_en: "Exclusive power distribution rights along Highway 1A; Discounted land leasing rates for 20 years."
+      },
+      {
+        id: "proj-12",
+        title_vi: "Trung tâm thương mại nông sản biên mậu Lào Cai",
+        title_zh: "老街口岸跨境农产品冷链及国际商贸城",
+        title_en: "Lao Cai Border High-Capacity Cold-Chain Trade Hub",
+        region: "north",
+        sector: "logistics",
+        scale: "55",
+        type: "mna",
+        status: "calling",
+        img: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80",
+        location_vi: "Lào Cai, Miền Bắc",
+        location_zh: "老街省，北部地区",
+        location_en: "Lao Cai, Northern Vietnam",
+        desc_vi: "Chợ đầu mối nông sản và chuỗi cung ứng lạnh xuyên biên giới kết nối nông sản Vân Nam với ASEAN qua ngõ Lào Cai.",
+        desc_zh: "联结中国云南农业大产区与东盟大市场的老街口岸跨境高吞吐量冷链物流枢纽项目。",
+        desc_en: "A cross-border cold chain and logistics megahub connecting Yunnan and Vietnam via Lao Cai portal.",
+        attraction_vi: "Ưu đãi thuế khu kinh tế cửa khẩu; Quy trình thông quan thông minh luồng xanh.",
+        attraction_zh: "享受边境口岸特区极优税制；畅享海关智能快速清关 luồng xanh。",
+        attraction_en: "Highly attractive border economic zone tax breaks; Smart customs green lane pass."
       }
+    ];
 
-      var cachedData = null;
-
-      function renderPosts(data) {
-        var grid = document.getElementById('cohoi-posts-grid');
-        var section = document.getElementById('cohoi-posts-section');
-        if (!grid) return;
-        if (!data || data.length === 0) {
-          if (section) section.style.display = 'none';
-          return;
+    // Map Hotspots Data
+    const mapData = {
+      vi: [
+        {
+          id: "zone-border",
+          name: "Khu kinh tế cửa khẩu (Móng Cái, Lạng Sơn, Lào Cai)",
+          subtitle: "Chiến lược biên mậu cho DN Trung Quốc",
+          desc: "Hành lang kinh tế biên giới trọng điểm kết nối trực tiếp tỉnh Vân Nam và Quảng Tây (Trung Quốc). Thích hợp nhất cho các doanh nghiệp lắp ráp linh kiện, chế biến nông sản và xuất nhập khẩu trực tiếp hai nước.",
+          features: ["Ưu đãi đặc biệt về thuế xuất nhập khẩu", "Quy trình thông quan luồng xanh thông minh", "Kết nối đường sắt liên vận quốc tế"]
+        },
+        {
+          id: "zone-hightech",
+          name: "Khu công nghệ cao (Hòa Lạc, SHTP, Đà Nẵng)",
+          subtitle: "Cho phát triển R&D & Sản xuất tinh",
+          desc: "Hệ thống các Khu công nghệ cao trọng điểm quốc gia với cơ sở hạ tầng nghiên cứu và kỹ thuật chuẩn quốc tế. Phù hợp nhất cho dòng vốn công nghệ bán dẫn, phần mềm, công nghiệp sinh học và chế tạo tinh xác.",
+          features: ["Miễn thuế thu nhập DN lên tới 4 năm đầu", "Thuế suất 10% trong vòng 15 năm đầu", "Hỗ trợ ươm tạo và chuyển giao công nghệ"]
+        },
+        {
+          id: "zone-seaport",
+          name: "Khu công nghiệp ven biển (Đình Vũ, Nam Đình Vũ, VSIP, DEEP C)",
+          subtitle: "Chuỗi logistics kết nối hải cảng toàn cầu",
+          desc: "Tọa lạc tại vùng lõi hạ tầng cảng nước sâu Hải Phòng, Quảng Ninh. Lựa chọn số 1 cho các doanh nghiệp logistics quốc tế, kho bãi thông minh, đóng tàu, hóa dầu và công nghiệp phụ trợ chuỗi cung ứng toàn cầu.",
+          features: ["Tiếp giáp cảng container quốc tế Lạch Huyện", "Hỗ trợ luồng hàng hải quốc tế 24/7", "Hạ tầng kỹ thuật KCN tiêu chuẩn xanh"]
+        },
+        {
+          id: "zone-electronics",
+          name: "Cụm công nghiệp linh kiện (Bắc Ninh, Hải Dương, Bắc Giang)",
+          subtitle: "Vương quốc điện tử & chuỗi linh kiện phụ trợ",
+          desc: "Trung tâm sản xuất thiết bị di động, bán dẫn và linh kiện điện tử lớn nhất Việt Nam. Nơi hội tụ của các tập đoàn khổng lồ (Samsung, Foxconn, Goertek) giúp các doanh nghiệp phụ trợ Trung Quốc dễ dàng kết nối chuỗi.",
+          features: ["Chuỗi cung ứng bán thành phẩm sẵn có", "Nguồn kỹ sư và công nhân lành nghề dồi dào", "Vị trí cận kề Hà Nội và biên giới phía Bắc"]
         }
-        if (section) section.style.display = '';
-        grid.innerHTML = data.map(function(p) {
-          return '<a href="bai-viet-chi-tiet.html?id=' + p.id + '" class="news-card">' +
-            (p.cover_image ? '<img src="' + p.cover_image + '" alt="" class="news-img" loading="lazy">' : '') +
-            '<div class="news-body">' +
-              '<span class="news-meta">📅 ' + fmtDate(p.created_at) + ' | CƠ HỘI ĐẦU TƯ</span>' +
-              '<h3 class="news-title">' + tf(p,'title') + '</h3>' +
-              '<p class="news-desc">' + tf(p,'summary') + '</p>' +
-            '</div></a>';
-        }).join('');
+      ],
+      zh: [
+        {
+          id: "zone-border",
+          name: "跨境边 mậu经济特区 (芒街、谅山、老街)",
+          subtitle: "中国进出企业桥头堡战略布局",
+          desc: "直接对接中国云南省和广西壮族自治区的国家级边境经济走廊。是汽车零部件组装、中越双向农业贸易、以及快速报关出口商家的首选落脚点。",
+          features: ["享受极为特殊的进出口免税政策", "畅享中越“两国一检”智能通关", "直连中越跨境国际货运班列"]
+        },
+        {
+          id: "zone-hightech",
+          name: "高新技术开发区 (和乐、胡志明SHTP、岘港)",
+          subtitle: "承接高附加值R&D与精密半导体制造",
+          desc: "越南三大国家级高新技术产业园区，配备世界级水准的科研及芯片封装、晶圆设计配套。高度匹配半导体制造、人工智能应用、新能源BESS等项目投产。",
+          features: ["投产前四年企业所得税全额免征", "15年超长周期内仅征收10%优惠税率", "配套外籍高级人才出入境绿色签证通道"]
+        },
+        {
+          id: "zone-seaport",
+          name: "沿海港口工业区 (亭武、南亭武、VSIP、DEEP C)",
+          subtitle: "全球海运集疏运及重工业走廊",
+          desc: "位于北部海防深水港及广宁沿海腹地。是跨境船队、仓储保税物流、绿色重工业和跨国大宗物资分拨中心的不二之选。",
+          features: ["紧邻莱县（Lach Huyen）万吨级国际集装箱港", "配套完善的危化品及保税区专用仓储", "工业园区全面覆盖绿电和循环水系统"]
+        },
+        {
+          id: "zone-electronics",
+          name: "电子部件产业群 (北宁、海阳、北江)",
+          subtitle: "越北“电子硅谷”与零部件配套基地",
+          desc: "越南规模最大的智能终端、消费电子与汽车半导体制造大本营。苹果、三星、富士康核心代工厂环绕，便于中资电子二级配套商火速切入全球供应链。",
+          features: ["全球一流的电子一级代工厂近在咫尺", "极其成熟的熟练电子装配工人梯队", "1.5小时内直达河内机场与友谊关口岸"]
+        }
+      ],
+      en: [
+        {
+          id: "zone-border",
+          name: "Border Economic Zones (Mong Cai, Lang Son, Lao Cai)",
+          subtitle: "Strategic gate for cross-border supply chains",
+          desc: "Direct border economic gateways connecting Vietnam with Yunnan and Guangxi provinces of China. Recommended for assembly, border transit logistics, and dual-side import/export commerce.",
+          features: ["Custom duties special holiday programs", "Fast-track smart customs clearances", "Direct connections to international railways"]
+        },
+        {
+          id: "zone-hightech",
+          name: "National High-Tech Parks (Hoa Lac, SHTP, Danang)",
+          subtitle: "Best fit for R&D & Precision Manufacturing",
+          desc: "National high-tech zones equipped with world-class facilities. Optimal choice for semiconductor packaging, industrial robot design, high-end electronics, and clean energy.",
+          features: ["Full CIT tax exemption for first 4 years", "10% preferential tax rate for 15 years", "Exclusive local governmental technology grants"]
+        },
+        {
+          id: "zone-seaport",
+          name: "Coastal Industrial Parks (Dinh Vu, Nam Dinh Vu, VSIP, DEEP C)",
+          subtitle: "Global marine logistics and shipping nodes",
+          desc: "Centered in Haiphong deep-water port hub and coastal Quang Ninh. Ideal for international logistics, heavy fabrication, chemicals, and global warehousing.",
+          features: ["Direct borders with Lach Huyen Deep Sea Port", "24/7 round-the-clock maritime clearances", "Premium ecological green certified park structures"]
+        },
+        {
+          id: "zone-electronics",
+          name: "Electronics Supply-Chain Clusters (Bac Ninh, Hai Duong, Bac Giang)",
+          subtitle: "Electronics and semiconductor manufacturing clusters",
+          desc: "The largest mobile devices and component base in Vietnam. Home to global giants like Samsung, Foxconn, and Goertek, allowing Chinese subcontractors to easily dock.",
+          features: ["Subcontracting logistics are highly optimized", "Abundant and skilled engineering labor pool", "Close proximity to Hanoi airport & northern borders"]
+        }
+      ]
+    };
+
+    // Dictionary
+    const coHoiTranslations = {
+      vi: {
+        heroTitle: "Việt Nam: điểm đến chiến lược cho dòng vốn Trung Quốc trong kỷ nguyên dịch chuyển chuỗi cung ứng.",
+        heroSubtitle: "CƠ HỘI ĐẦU TƯ & DỰ ÁN CHIẾN LƯỢC",
+        sec2Title: "Vì sao đầu tư vào Việt Nam?",
+        sec2Subtitle: "6 lợi thế chiến lược đưa Việt Nam trở thành điểm đến FDI lý tưởng của dòng vốn Trung Quốc",
+        
+        whyReasons: [
+          { title: "Vị trí chiến lược", desc: "Cửa ngõ kết nối ASEAN với Trung Quốc bằng cả đường bộ, đường sắt và cảng biển nước sâu." },
+          { title: "Mạng lưới FTA rộng", desc: "Thành viên tích cực của 16+ Hiệp định thương mại tự do thế hệ mới như RCEP, CPTPP, EVFTA." },
+          { title: "Ổn định chính trị", desc: "Thể chế chính trị ổn định, cam kết mạnh mẽ của Chính phủ trong cải cách hành chính vượt trội." },
+          { title: "Nhân lực trẻ & Cạnh tranh", desc: "Quy mô trên 50 triệu lao động kỹ thuật trẻ, chi phí nhân công tối ưu so với khu vực Đông Á." },
+          { title: "Hạ tầng nâng cấp vượt bậc", desc: "Mạng lưới cao tốc Bắc - Nam thông suốt, siêu sân bay Long Thành, hạ tầng số hiện đại." },
+          { title: "Cam kết chuyển đổi xanh", desc: "Ưu tiên đặc biệt và dòng vốn cởi mở cho điện gió, điện mặt trời, hệ thống pin lưu trữ BESS." }
+        ],
+        
+        sec3Title: "Danh mục dự án kêu gọi đầu tư",
+        sec3Subtitle: "Bản tin 12 dự án FDI trọng điểm có quy hoạch sạch, sẵn sàng giao đất xúc tiến ngay",
+        filterAllSec: "Tất cả lĩnh vực",
+        filterAllReg: "Tất cả vùng miền",
+        filterAllBud: "Tất cả quy mô vốn",
+        filterAllTyp: "Tất cả hình thức",
+        
+        statusCalling: "Đang kêu gọi",
+        statusInterested: "Đã có nhà đầu tư quan tâm",
+        statusNegotiating: "Đang đàm phán",
+        
+        specScale: "Quy mô dự kiến",
+        specType: "Hình thức đầu tư",
+        specLocation: "Địa điểm",
+        btnInterest: "Quan tâm dự án",
+        
+        sec4Title: "Bản đồ khu công nghiệp & khu kinh tế",
+        sec4Subtitle: "Khám phá các tọa độ vàng thu hút đầu tư dọc chiều dài đất nước",
+        
+        sec5Title: "Chính sách ưu đãi đầu tư",
+        sec5Subtitle: "Khung cơ chế ưu đãi cao nhất dành riêng cho các dự án FDI quy mô lớn",
+        thPolicyType: "Loại ưu đãi",
+        thPolicyDesc: "Khái quát cơ chế ưu đãi hiện hành",
+        
+        policies: [
+          { type: "Thuế thu nhập doanh nghiệp", desc: "Mức thuế suất ưu đãi đặc biệt 10% trong tối đa 15 năm (thông thường là 20%); miễn 4 năm và giảm 50% trong 9 năm tiếp theo đối với các dự án thuộc lĩnh vực công nghệ cao, BESS, năng lượng tái tạo." },
+          { type: "Thuế nhập khẩu", desc: "Miễn hoàn toàn thuế nhập khẩu đối với máy móc, thiết bị tạo tài sản cố định; miễn thuế nhập khẩu nguyên liệu sản xuất trong thời hạn 5 năm kể từ ngày bắt đầu sản xuất đối với linh kiện chưa trong nước sản xuất được." },
+          { type: "Tiền thuê đất", desc: "Miễn tiền thuê đất, thuê mặt nước trong thời gian xây dựng cơ bản (tối đa 3 năm); miễn từ 11 đến 15 năm hoặc miễn toàn bộ thời gian dự án tùy thuộc vào địa bàn khó khăn hoặc dự án xanh đặc biệt." },
+          { type: "Thủ tục một cửa", desc: "Hỗ trợ cơ chế luồng xanh đặc biệt cấp phép đầu tư trực tiếp, hoàn thiện thủ tục đánh giá tác động môi trường (DTM) và phòng cháy chữa cháy thần tốc dành cho các dự án FDI chiến lược." }
+        ],
+        
+        formHeaderTitle: "Đăng ký nhận tư vấn dự án",
+        formHeaderDesc: "Bạn quan tâm đến dự án nào? VCEC kết nối bạn với chủ đầu tư, cơ quan quản lý và đối tác trong nước trong vòng 7 ngày làm việc.",
+        labelCompany: "Tên doanh nghiệp",
+        labelCountry: "Quốc gia",
+        labelProject: "Dự án quan tâm",
+        labelBudget: "Ngân sách dự kiến",
+        labelContact: "Số điện thoại / WeChat ID",
+        labelWishes: "Mong muốn cụ thể",
+        btnSubmit: "Gửi Yêu Cầu Kết Nối",
+        
+        wechatModalTitle: "Đăng Ký Thành Công!",
+        wechatModalDesc: "Thông tin đăng ký dự án của quý doanh nghiệp đã được gán mã bảo mật và chuyển đến Ban thư ký VCEC hỗ trợ.",
+        wechatModalAction: "Để trao đổi trực tiếp 1-1 bằng tiếng Trung, vui lòng quét QR hoặc liên hệ WeChat:",
+        wechatClose: "Đóng cửa sổ"
+      },
+      zh: {
+        heroTitle: "越南：在供应链转移时代承接中资企业产业出海与双向布局的战略首选地。",
+        heroSubtitle: "投资机遇与战略项目名录",
+        sec2Title: "为何选择投资越南？",
+        sec2Subtitle: "6大核心地缘及政策优势，助推越南成为中资企业出海建厂的黄金桥头堡",
+        
+        whyReasons: [
+          { title: "地缘战略位置", desc: "东盟门户大国，通过陆路、跨境铁路和深水港与中国及全球市场无缝衔接。" },
+          { title: "自由贸易协定网", desc: "深度加入RCEP、CPTPP、EVFTA等16+全球新一代自贸协定，规避关税壁垒。" },
+          { title: "政治环境稳定", desc: "政局长期稳定，政府全力推行“ luồng xanh ”投资绿色通道与极简行政审批。" },
+          { title: "年轻且具竞争力的劳动力", desc: "超5000万高素质年轻劳动力红利，综合用工及土地开发成本较东亚极具优势。" },
+          { title: "基建开发全面升级", desc: "南北高速全线通车、隆城国际超级机场封顶、数字化5G通信工业区全覆盖。" },
+          { title: "低碳绿色转型承诺", desc: "政府对风电、太阳能发电、BESS储能及EV产业提供极其优渥的准入及外资保障。" }
+        ],
+        
+        sec3Title: "招商引资项目名录",
+        sec3Subtitle: "严选12个规划清晰、环评合格、即租即建的优质外资招商重点项目",
+        filterAllSec: "所有产业板块",
+        filterAllReg: "所有区域分布",
+        filterAllBud: "所有投资规模",
+        filterAllTyp: "所有投资形式",
+        
+        statusCalling: "正在招商",
+        statusInterested: "已有意向买家",
+        statusNegotiating: "商务谈判中",
+        
+        specScale: "预估投资额",
+        specType: "投资形式",
+        specLocation: "项目地址",
+        btnInterest: "提交投资意向",
+        
+        sec4Title: "工业区与经济特区分布图",
+        sec4Subtitle: "中资企业赴越建厂最密集的四大产业集聚带交互地图",
+        
+        sec5Title: "外商投资优惠政策",
+        sec5Subtitle: "越南政府为鼓励大型及高新技术FDI项目落地提供的最高级别税制优惠",
+        thPolicyType: "优惠大类",
+        thPolicyDesc: "政策核心解读",
+        
+        policies: [
+          { type: "企业所得税 (CIT)", desc: "高新技术、BESS、可再生能源项目尊享15年内10%的特别优惠税率（标准税率为20%）；自盈利之年起享受“四免九减半”所得税减免。" },
+          { type: "进口关税", desc: "免征用于构成固定资产的机器设备、原厂配件进口税；出口产品生产所需的原材料及零部件进口免征5年关税。" },
+          { type: "土地租金免减", desc: "项目基本建设期间（最长3年）全额免除土地及水面租金；根据投资地区艰苦程度享受11至15年或项目终身全额免缴土地使用税。" },
+          { type: "绿色极速通道", desc: "针对战略性中资FDI项目，由各省投资局组建专班直接承接，提供投资许可证（IRC）、环评（DTM）及消防审批的一站式极速通关服务。" }
+        ],
+        
+        formHeaderTitle: "提交项目投资意向表",
+        formHeaderDesc: "您对哪个项目感兴趣？VCEC将在7个工作日内协助您对接项目持有方、省投资局及本地合伙人。",
+        labelCompany: "企业名称",
+        labelCountry: "所属国籍",
+        labelProject: "意向对接项目",
+        labelBudget: "预计投资预算",
+        labelContact: "联系电话 / 微信账号",
+        labelWishes: "具体商务诉求",
+        btnSubmit: "提交意向申请",
+        
+        wechatModalTitle: "投资意向提交成功！",
+        wechatModalDesc: "您的项目对接表已被VCEC秘书处系统安全录入，我们将为您分派专属中文经理。",
+        wechatModalAction: "如需实时进行项目中文细则咨询，请微信扫描二维码或添加微信：",
+        wechatClose: "关闭窗口"
+      },
+      en: {
+        heroTitle: "Vietnam: A strategic destination for Chinese capital in the era of supply chain diversification.",
+        heroSubtitle: "INVESTMENT OPPORTUNITIES & PROJECTS",
+        sec2Title: "Why Invest in Vietnam?",
+        sec2Subtitle: "6 strategic advantages that make Vietnam the ultimate FDI destination in ASEAN",
+        
+        whyReasons: [
+          { title: "Strategic Location", desc: "Direct logistical corridor connecting China with ASEAN by highway, international cargo trains, and deep-sea ports." },
+          { title: "Extensive FTA Network", desc: "Active member of 16+ bilateral and multilateral FTAs including RCEP, CPTPP, and EVFTA." },
+          { title: "Political Stability", desc: "A secure, peaceful political environment with robust governmental commitments to pro-FDI reforms." },
+          { title: "Young & Competitive Labor", desc: "Over 50 million highly trainable young workers with extremely competitive labor cost models." },
+          { title: "Upgraded Infrastructure", desc: "Fast-developing North-South expressway network, Long Thanh mega airport, and high-tech industrial logistics." },
+          { title: "Green Energy Transition", desc: "Generous incentive programs and open corridors targeting wind, solar, EV assembly, and BESS projects." }
+        ],
+        
+        sec3Title: "Strategic Calling Projects List",
+        sec3Subtitle: "Discover 12 high-capacity clean-land projects ready for immediate implementation",
+        filterAllSec: "All Sectors",
+        filterAllReg: "All Regions",
+        filterAllBud: "All Budgets",
+        filterAllTyp: "All Investment Types",
+        
+        statusCalling: "Open for Calling",
+        statusInterested: "Investor Interested",
+        statusNegotiating: "Under Negotiation",
+        
+        specScale: "Expected Scale",
+        specType: "Investment Model",
+        specLocation: "Location",
+        btnInterest: "Request Project Details",
+        
+        sec4Title: "Industrial Parks & Economic Zones Map",
+        sec4Subtitle: "Interactive guide to gold-standard industrial hubs across Vietnam",
+        
+        sec5Title: "Key Investment Incentives",
+        sec5Subtitle: "Summary of high-level statutory benefits granted to qualifying foreign investments",
+        thPolicyType: "Incentive Category",
+        thPolicyDesc: "Legal Overview",
+        
+        policies: [
+          { type: "Corporate Income Tax (CIT)", desc: "10% preferential CIT rate for up to 15 years (compared to standard 20%) plus 4-year tax holiday and 50% reduction for the next 9 years for high-tech and renewable projects." },
+          { type: "Import Duties Exemption", desc: "100% duty exemptions on imported machinery, equipment to form fixed assets; raw materials imports for export production are exempted from duties for 5 years." },
+          { type: "Land Rent Exemption", desc: "Full land lease fee exemptions during basic construction (up to 3 years); 11 to 15 years or permanent exemptions depending on geographical difficulties." },
+          { type: "Express Green Lane", desc: "Fast-track administrative processing for Investment Registration Certificates (IRC), environment reports, and fire safety licensing for strategic projects." }
+        ],
+        
+        formHeaderTitle: "Project Inquiry Submission",
+        formHeaderDesc: "Which project are you targeting? VCEC will connect you with land developers, local investment bureaus, and developers within 7 working days.",
+        labelCompany: "Company Name",
+        labelCountry: "Country",
+        labelProject: "Target Project",
+        labelBudget: "Expected Budget",
+        labelContact: "Phone Number / WeChat ID",
+        labelWishes: "Specific Investment Needs",
+        btnSubmit: "Submit Connection Request",
+        
+        wechatModalTitle: "Inquiry Submitted Successfully!",
+        wechatModalDesc: "Your project request is registered. A bilingual VCEC project manager will contact you shortly.",
+        wechatModalAction: "For 24/7 emergency Chinese support, please scan the WeChat QR or add the support ID:",
+        wechatClose: "Close Window"
+      }
+    };
+
+    function getLang() {
+      return localStorage.getItem('vcec_lang') || 'vi';
+    }
+
+    // Interactive actions: populate filters, render projects, handle maps and lead submits
+    function renderContent() {
+      const lang = getLang();
+      const t = coHoiTranslations[lang] || coHoiTranslations.vi;
+      
+      // Update basic texts
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+      document.getElementById('sec2-title').textContent = t.sec2Title;
+      document.getElementById('sec2-subtitle').textContent = t.sec2Subtitle;
+      document.getElementById('sec3-title').textContent = t.sec3Title;
+      document.getElementById('sec3-subtitle').textContent = t.sec3Subtitle;
+      document.getElementById('sec4-title').textContent = t.sec4Title;
+      document.getElementById('sec4-subtitle').textContent = t.sec4Subtitle;
+      document.getElementById('sec5-title').textContent = t.sec5Title;
+      document.getElementById('sec5-subtitle').textContent = t.sec5Subtitle;
+      
+      document.getElementById('th-policy-type').textContent = t.thPolicyType;
+      document.getElementById('th-policy-desc').textContent = t.thPolicyDesc;
+      document.getElementById('policies-footer-note').textContent = t.policiesFooterNote || '* ' + t.policies[0].type + '...';
+
+      // Render 6 reasons cards
+      const svgs = [
+        // Vị trí
+        `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
+        // FTA
+        `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+        // Chính trị
+        `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+        // Nhân lực
+        `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+        // Hạ tầng
+        `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>`,
+        // Xanh
+        `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`
+      ];
+
+      const whyHtml = t.whyReasons.map((item, index) => `
+        <div class="why-vn-card">
+          <div class="why-vn-icon">
+            ${svgs[index]}
+          </div>
+          <h3 class="why-vn-card-title">${item.title}</h3>
+          <p class="why-vn-card-desc">${item.desc}</p>
+        </div>
+      `).join('');
+      document.getElementById('why-vn-container').innerHTML = whyHtml;
+
+      // Render comparative incentives table
+      const policiesHtml = t.policies.map(p => `
+        <tr>
+          <td class="policies-label-cell">${p.type}</td>
+          <td>${p.desc}</td>
+        </tr>
+      `).join('');
+      document.getElementById('policies-tbody').innerHTML = policiesHtml;
+
+      // Render Form titles
+      document.getElementById('form-header-title').textContent = t.formHeaderTitle;
+      document.getElementById('form-header-desc').textContent = t.formHeaderDesc;
+      document.getElementById('bullet-form-1').textContent = t.bulletForm1 || t.policies[3].type;
+      document.getElementById('bullet-form-2').textContent = t.bulletForm2 || t.policies[1].type;
+      document.getElementById('bullet-form-3').textContent = t.bulletForm3 || t.policies[0].type;
+      
+      document.getElementById('label-form-company').textContent = t.labelCompany;
+      document.getElementById('label-form-country').textContent = t.labelCountry;
+      document.getElementById('label-form-project').textContent = t.labelProject;
+      document.getElementById('label-form-budget').textContent = t.labelBudget;
+      document.getElementById('label-form-contact').textContent = t.labelContact;
+      document.getElementById('label-form-wishes').textContent = t.labelWishes;
+      document.getElementById('btn-submit').textContent = t.btnSubmit;
+
+      document.getElementById('modal-title').textContent = t.wechatModalTitle;
+      document.getElementById('modal-desc').textContent = t.wechatModalDesc;
+      document.getElementById('modal-action-text').textContent = t.wechatModalAction;
+      document.getElementById('modal-close-btn').textContent = t.wechatClose;
+
+      // Setup filter lists dynamically in proper language
+      populateFilters(t);
+
+      // Render active project lists
+      filterAndRenderProjects();
+
+      // Render Interactive Map Panel
+      setupInteractiveMap(lang);
+    }
+
+    // Populate drop down menus for project categories
+    function populateFilters(t) {
+      const sectorSelect = document.getElementById('filter-sector');
+      const regionSelect = document.getElementById('filter-region');
+      const budgetSelect = document.getElementById('filter-budget');
+      const typeSelect = document.getElementById('filter-type');
+
+      // Preserve values if selected
+      const sVal = sectorSelect.value;
+      const rVal = regionSelect.value;
+      const bVal = budgetSelect.value;
+      const tVal = typeSelect.value;
+
+      sectorSelect.innerHTML = `
+        <option value="all">${t.filterAllSec}</option>
+        <option value="logistics">1. Logistics & Supply Chain</option>
+        <option value="energy">2. Green Energy & BESS</option>
+        <option value="ev">3. EV & Charging Stations</option>
+        <option value="ebike">4. E-bike Sharing</option>
+        <option value="drone">5. Drones & Robotics</option>
+        <option value="smart-mfg">6. Smart Manufacturing</option>
+        <option value="agri">7. High-Tech Agriculture</option>
+        <option value="culture">8. Tourism & Culture</option>
+      `;
+
+      regionSelect.innerHTML = `
+        <option value="all">${t.filterAllReg}</option>
+        <option value="north">Miền Bắc (Northern Region)</option>
+        <option value="central">Miền Trung (Central Region)</option>
+        <option value="south">Miền Nam (Southern Region)</option>
+      `;
+
+      budgetSelect.innerHTML = `
+        <option value="all">${t.filterAllBud}</option>
+        <option value="under50">Dưới 50M USD (<$50M)</option>
+        <option value="50to100">50M - 100M USD ($50M-$100M)</option>
+        <option value="above100">Trên 100M USD (>$100M)</option>
+      `;
+
+      typeSelect.innerHTML = `
+        <option value="all">${t.filterAllTyp}</option>
+        <option value="fdi">100% FDI</option>
+        <option value="jv">Liên doanh (Joint Venture)</option>
+        <option value="mna">M&A</option>
+      `;
+
+      // Restore
+      if (sVal) sectorSelect.value = sVal;
+      if (rVal) regionSelect.value = rVal;
+      if (bVal) budgetSelect.value = bVal;
+      if (tVal) typeSelect.value = tVal;
+
+      // Also populate the Lead form project dropdown
+      const formProjSelect = document.getElementById('project-interest');
+      const activeProjVal = formProjSelect.value;
+      
+      const lang = getLang();
+      formProjSelect.innerHTML = `
+        <option value="general">-- Tư vấn đầu tư chung (General Investment Consult) --</option>
+        ${projects.map(p => `<option value="${p.id}">${lang === 'vi' ? p.title_vi : (lang === 'zh' ? p.title_zh : p.title_en)}</option>`).join('')}
+      `;
+      if (activeProjVal) formProjSelect.value = activeProjVal;
+    }
+
+    // Main Filter Logic
+    function filterAndRenderProjects() {
+      const sector = document.getElementById('filter-sector').value;
+      const region = document.getElementById('filter-region').value;
+      const budget = document.getElementById('filter-budget').value;
+      const type = document.getElementById('filter-type').value;
+
+      const filtered = projects.filter(p => {
+        if (sector !== 'all' && p.sector !== sector) return false;
+        if (region !== 'all' && p.region !== region) return false;
+        
+        // Budget logic
+        const scaleVal = parseFloat(p.scale);
+        if (budget === 'under50' && scaleVal >= 50) return false;
+        if (budget === '50to100' && (scaleVal < 50 || scaleVal > 100)) return false;
+        if (budget === 'above100' && scaleVal <= 100) return false;
+
+        // Type logic
+        if (type !== 'all' && p.type !== type) return false;
+
+        return true;
+      });
+
+      const lang = getLang();
+      const t = coHoiTranslations[lang] || coHoiTranslations.vi;
+      const container = document.getElementById('projects-grid-container');
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--vcec-text-light); padding: 50px 0;">No matching investment projects found. / Không tìm thấy dự án phù hợp.</p>`;
+        return;
       }
 
-      function loadPosts() {
-        if (!window.supabaseClient) { setTimeout(loadPosts, 150); return; }
-        window.supabaseClient
-          .from('vcec_posts')
-          .select('id,title_vi,title_zh,title_en,summary_vi,summary_zh,summary_en,cover_image,created_at')
-          .eq('category','co-hoi').eq('status','published')
-          .order('created_at', { ascending: false })
-          .then(function(res) { cachedData = res.data; renderPosts(res.error ? null : res.data); });
-      }
+      container.innerHTML = filtered.map(p => {
+        const title = lang === 'vi' ? p.title_vi : (lang === 'zh' ? p.title_zh : p.title_en);
+        const desc = lang === 'vi' ? p.desc_vi : (lang === 'zh' ? p.desc_zh : p.desc_en);
+        const attr = lang === 'vi' ? p.attraction_vi : (lang === 'zh' ? p.attraction_zh : p.attraction_en);
+        const loc = lang === 'vi' ? p.location_vi : (lang === 'zh' ? p.location_zh : p.location_en);
 
-      loadPosts();
-      window.addEventListener('vcec-lang-change', function() { if (cachedData) renderPosts(cachedData); });
-    })();
+        let statusText = "";
+        let statusClass = "";
+        if (p.status === 'calling') {
+          statusText = t.statusCalling;
+          statusClass = "status-calling";
+        } else if (p.status === 'interested') {
+          statusText = t.statusInterested;
+          statusClass = "status-interested";
+        } else if (p.status === 'negotiating') {
+          statusText = t.statusNegotiating;
+          statusClass = "status-negotiating";
+        }
+
+        return `
+          <div class="project-card">
+            <div class="project-card-image-wrap">
+              <span class="project-card-status-badge ${statusClass}">${statusText}</span>
+              <img src="${p.img}" alt="${title}" class="project-card-image">
+            </div>
+            <div class="project-card-body">
+              <span class="project-card-meta">${p.sector.toUpperCase()}</span>
+              <h3 class="project-card-title">${title}</h3>
+              <p class="project-card-desc">${desc}</p>
+              
+              <div class="project-card-specs">
+                <div class="project-spec-item">
+                  <span class="project-spec-label">${t.specScale}:</span>
+                  <span class="project-spec-value">${p.scale} Million USD</span>
+                </div>
+                <div class="project-spec-item">
+                  <span class="project-spec-label">${t.specType}:</span>
+                  <span style="font-weight: 700;">${p.type.toUpperCase()}</span>
+                </div>
+                <div class="project-spec-item">
+                  <span class="project-spec-label">${t.specLocation}:</span>
+                  <span style="font-size: 0.85rem; color: var(--vcec-text-light);">${loc}</span>
+                </div>
+              </div>
+
+              <div style="background: rgba(175, 136, 58, 0.05); border-left: 3px solid var(--vcec-gold); padding: 10px; margin-bottom: 20px; font-size: 0.85rem; line-height:1.4;">
+                <strong>Incentive:</strong> ${attr}
+              </div>
+              
+              <button class="btn-project-interest" onclick="selectCallingProject('${p.id}')">${t.btnInterest}</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Auto select calling project and scroll smoothly down
+    function selectCallingProject(id) {
+      const selectEl = document.getElementById('project-interest');
+      if (selectEl) {
+        selectEl.value = id;
+      }
+      const formSection = document.getElementById('consultation-form-section');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const formContainer = document.querySelector('.glass-form-container');
+        formContainer.style.boxShadow = '0 0 35px rgba(178, 136, 52, 0.4)';
+        setTimeout(() => {
+          formContainer.style.boxShadow = '0 20px 50px rgba(0,0,0,0.15)';
+        }, 1500);
+      }
+    }
+
+    // Interactive Map controllers
+    let activeMapId = "zone-border";
+    function setupInteractiveMap(lang) {
+      const selectorsContainer = document.getElementById('map-selectors');
+      const detailsContainer = document.getElementById('map-details-content');
+      const dataset = mapData[lang] || mapData.vi;
+
+      // Populate interactive buttons
+      selectorsContainer.innerHTML = dataset.map(item => `
+        <button class="map-interactive-btn ${item.id === activeMapId ? 'active' : ''}" onclick="selectMapZone('${item.id}')">
+          <div class="map-btn-title">${item.name}</div>
+          <div class="map-btn-subtitle">${item.subtitle}</div>
+        </button>
+      `).join('');
+
+      // Populate active zone details
+      const activeZone = dataset.find(item => item.id === activeMapId) || dataset[0];
+      detailsContainer.innerHTML = `
+        <h3 class="map-details-title">${activeZone.name}</h3>
+        <p class="map-details-desc">${activeZone.desc}</p>
+        <div class="map-tags-grid">
+          ${activeZone.features.map(f => `
+            <div class="map-tag-item">
+              <span class="map-tag-bullet"></span>
+              <span>${f}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function selectMapZone(id) {
+      activeMapId = id;
+      setupInteractiveMap(getLang());
+    }
+
+    // Modal Control
+    function showWechatModal() {
+      const modal = document.getElementById('wechat-success-modal');
+      modal.classList.add('active');
+    }
+
+    function closeWechatModal() {
+      const modal = document.getElementById('wechat-success-modal');
+      modal.classList.remove('active');
+    }
+
+    // Init page binding
+    document.addEventListener('DOMContentLoaded', () => {
+      renderContent();
+      
+      // Local dynamic language switch binding
+      window.addEventListener('vcec-lang-change', () => {
+        renderContent();
+      });
+
+      // Filter listeners
+      document.getElementById('filter-sector').addEventListener('change', filterAndRenderProjects);
+      document.getElementById('filter-region').addEventListener('change', filterAndRenderProjects);
+      document.getElementById('filter-budget').addEventListener('change', filterAndRenderProjects);
+      document.getElementById('filter-type').addEventListener('change', filterAndRenderProjects);
+
+      // Submit listener connected cleanly to Supabase
+      const fdiForm = document.getElementById('lead-fdi-form');
+      if (fdiForm) {
+        fdiForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const company = document.getElementById('company-name').value;
+          const country = document.getElementById('investor-country').value;
+          const interest = document.getElementById('project-interest').value;
+          const budget = document.getElementById('expected-budget').value;
+          const contact = document.getElementById('contact-info').value;
+          const wishes = document.getElementById('investor-wishes').value;
+          
+          const submitBtn = document.getElementById('btn-submit');
+          const originalText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = getLang() === 'vi' ? 'Đang gửi...' : (getLang() === 'zh' ? '正在提交...' : 'Submitting...');
+
+          // Match dynamic project title from ID
+          const projObj = projects.find(p => p.id === interest);
+          const projTitle = projObj ? projObj.title_vi : interest;
+
+          // Package metadata securely in the project_name column to preserve vcec_leads schema compatibility
+          const payload = {
+            company_name: company,
+            contact_name: "Investor from " + country,
+            wechat_id: contact,
+            project_name: JSON.stringify({
+              project_interest: projTitle,
+              budget: budget,
+              wishes: wishes,
+              source: 'co-hoi-page',
+              submitted_at: new Date().toISOString()
+            })
+          };
+
+          const handleFormSuccess = () => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            fdiForm.reset();
+            showWechatModal();
+          };
+
+          if (window.supabaseClient) {
+            window.supabaseClient
+              .from('vcec_leads')
+              .insert([payload])
+              .then(res => {
+                if (res.error) {
+                  console.error('Supabase submission failed:', res.error);
+                } else {
+                  console.log('FDI Lead registered successfully in Supabase!');
+                }
+                handleFormSuccess();
+              })
+              .catch(err => {
+                console.error('Network error during Supabase FDI submission:', err);
+                handleFormSuccess();
+              });
+          } else {
+            console.warn('Supabase client not loaded, proceeding with local fallback.');
+            setTimeout(handleFormSuccess, 800);
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>

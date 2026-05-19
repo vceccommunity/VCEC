@@ -1,0 +1,365 @@
+================================================================================
+          CỔNG THÔNG TIN GIAO LƯU VÀ HỢP TÁC KINH TẾ VIỆT NAM - TRUNG QUỐC
+                                   (VCEC PORTAL)
+                     TÀI LIỆU MÔ TẢ CHI TIẾT CẤU TRÚC VÀ CHỨC NĂNG
+================================================================================
+
+Tên dự án: VCEC (Vietnam - China Economic Exchange and Cooperation Center)
+Mục tiêu: Cổng kết nối đầu tư chính thống, chính danh và nền tảng xúc tiến giao
+          thương B2B thực chiến song phương giữa Việt Nam và Trung Quốc. Hỗ trợ
+          các doanh nghiệp FDI khảo sát thực địa, hoàn thiện thủ tục pháp lý, 
+          ghép đôi đối tác (matchmaking) và kết nối hạ tầng khu công nghiệp.
+Công nghệ cốt lõi:
+  - Frontend: HTML5 (Semantic HTML), CSS3 (Vanilla CSS, Responsive Web Design),
+              JavaScript ES6+ (Vanilla JS).
+  - Tích hợp đám mây: Supabase (Postgres Database, Storage Cloud Buckets, 
+                       Row-Level Security - RLS Policies).
+  - Thư viện bổ trợ: Quill Rich Text Editor v2.0.2 (Trình soạn thảo nội dung),
+                     Google Maps API (Hệ thống bản đồ & Chỉ đường).
+  - Đa ngôn ngữ: Động hoàn toàn (Vietnamese - Tiếng Việt, Chinese - Tiếng Trung,
+                 English - Tiếng Anh), lưu trạng thái và tự động đồng bộ.
+  - Phân quyền ERP: Hệ thống phân quyền truy cập ma trận (RBAC - Role-Based 
+                    Access Control) động 7 cấp độ tài khoản, đồng bộ trực tiếp
+                    lên Supabase Server.
+
+================================================================================
+PART I: CẤU TRÚC ĐIỀU HƯỚNG VÀ DANH SÁCH CÁC TRANG CÔNG KHAI (PUBLIC PAGES)
+================================================================================
+
+Thanh Navigation (Header) & Footer được quản lý và render động thông qua file 
+[app.js](file:///d:/MICHAEL/__MY%20DREAM/A%20I/1SSG/VCEC/app.js) (các hàm `renderHeader()` và `renderFooter()`). Điều này đảm bảo tính nhất 
+quán toàn trang, tối ưu SEO và cho phép chuyển đổi ngôn ngữ thời gian thực trên 
+toàn website mà không cần tải lại trang.
+
+Hệ thống menu và các trang bao gồm:
+
+1. TRANG CHỦ (`index.html`)
+   - Ý nghĩa: Điểm chạm đầu tiên của nhà đầu tư và đối tác song phương.
+   - Chức năng chi tiết:
+     + Hero Banner: Hiển thị hình ảnh quy mô lớn kèm tiêu đề và mô tả sứ mệnh
+       đầu tư song phương (Hỗ trợ thay đổi ảnh nền động từ trang quản trị).
+     + Bộ lọc Tìm kiếm (Search Widget): Cho phép nhà đầu tư lọc nhanh cơ hội theo 
+       3 tiêu chí: "Địa bàn quan tâm" (tỉnh thành), "Ngành nghề trọng điểm", và 
+       "Quỹ đất yêu cầu" (Quy mô diện tích).
+     + Số liệu thống kê chiến lược (Strategic Stats): Hiển thị tổng vốn FDI đã 
+       kết nối, số khu công nghiệp đối tác, số doanh nghiệp đã đối chiếu, và số 
+       tỉnh thành đồng hành.
+     + Grid 8 Lĩnh vực Hợp tác Trọng điểm: Layout dạng lưới Executive 4x2 sang trọng 
+       với hiệu ứng hover "Lift & Glow" hiện đại, liên kết trực tiếp tới trang 
+       chi tiết lĩnh vực tương ứng.
+     + Khung hành động nhanh (CTA): Kêu gọi nhà đầu tư truy cập các cơ hội thực tế.
+
+2. TRANG GIỚI THIỆU (`gioi-thieu.html`)
+   - Ý nghĩa: Cung cấp thông tin chính thống về VCEC.
+   - Chức năng chi tiết:
+     + Tải dữ liệu động hoàn toàn từ Supabase (`category='gioi-thieu'`), cho phép 
+       ban điều hành chỉnh sửa toàn bộ nội dung mà không cần can thiệp mã nguồn.
+     + Trình bày cấu trúc bài viết cao cấp dạng Editorial (Tạp chí học thuật), 
+       bao gồm các phần: Tầm nhìn & Sứ mệnh, Giá trị cốt lõi (3 trụ cột), và 
+       cơ cấu tổ chức Ban điều hành VCEC.
+     + Hỗ trợ SEO meta tags động, tự động cập nhật thẻ OG và Twitter dựa trên 
+       nội dung thực tế được cấu hình trong cơ sở dữ liệu.
+
+3. QUAN HỆ VIỆT - TRUNG (`quan-he.html`)
+   - Ý nghĩa: Toàn cảnh mối quan hệ hợp tác kinh tế, thương mại song phương.
+   - Chức năng chi tiết:
+     + Biểu đồ thống kê thương mại động: Tải dữ liệu từ bài viết đặc biệt có 
+       tiêu đề cố định "Số Liệu Hợp Tác Việt - Trung", hiển thị bảng số liệu 
+       hoặc biểu đồ trực quan giúp đối tác nắm bắt nhanh dung lượng thị trường.
+     + Dòng thời gian mốc lịch sử (Milestone Timeline): Hiển thị chuỗi các mốc 
+       thời gian giao thương quan trọng dạng cây dọc (Ví dụ: Tuyên bố chung 12/2023, 
+       Ký kết 14 văn kiện 8/2024...). Dữ liệu được fetch động từ Supabase 
+       (`category='quan-he-viet-trung'`) theo thứ tự thời gian mới nhất xếp trên.
+
+4. LĨNH VỰC HỢP TÁC (`linh-vuc.html` & `linh-vuc-chi-tiet.html`)
+   - Ý nghĩa: Giới thiệu chi tiết về các ngành nghề xúc tiến dòng vốn FDI.
+   - Chức năng chi tiết:
+     + Trang tổng hợp (`linh-vuc.html`): Trình bày 8 lĩnh vực bao gồm: 
+       1. Công nghệ cao & Điện tử (semiconductor, chip...).
+       2. Năng lượng tái tạo & Xe điện (EV).
+       3. Logistics & Chuỗi cung ứng (kho bãi thông minh).
+       4. Hạ tầng Khu công nghiệp (đất công nghiệp, nhà xưởng xây sẵn).
+       5. Nông nghiệp công nghệ cao (chế biến sâu).
+       6. Dệt may & Công nghiệp phụ trợ.
+       7. Kinh tế số & TMĐT song phương (cửa khẩu thông minh).
+       8. Y tế & Thiết bị Y tế.
+     + Trang chi tiết động (`linh-vuc-chi-tiet.html?id=SLUG`): Một trang duy nhất 
+       sử dụng cấu trúc template động để hiển thị nội dung cho cả 8 lĩnh vực 
+       (dựa trên tham số `id` trên URL).
+       * Giao diện gồm: Hero banner lớn chất lượng cao, Breadcrumb điều hướng, 
+         Tổng quan 2 cột (Text mô tả chuyên sâu + Hình ảnh), Bảng số liệu nổi 
+         bật (3 metric boxes), Grid 3 cơ hội đầu tư cụ thể, danh sách "Tại sao 
+         nên đầu tư cùng VCEC & Việt Nam" và nút CTA dẫn tới liên hệ.
+
+5. DỊCH VỤ HỖ TRỢ (`dich-vu.html`)
+   - Ý nghĩa: Các giải pháp hỗ trợ doanh nghiệp toàn diện của VCEC.
+   - Chức năng chi tiết:
+     + Hiển thị lưới thẻ dịch vụ và quy trình triển khai xúc tiến 4 bước.
+     + Toàn bộ dữ liệu của trang được tải động từ bảng `vcec_posts` với 
+       `category='dich-vu'`, hỗ trợ hiển thị đa ngôn ngữ tức thì và cho phép 
+       admin chỉnh sửa nội dung dễ dàng.
+
+6. CƠ HỘI ĐẦU TƯ (`co-hoi.html`)
+   - Ý nghĩa: Sàn niêm yết quỹ đất KCN và dự án FDI sẵn sàng bàn giao.
+   - Chức năng chi tiết:
+     + Bộ lọc dự án đa năng: Cho phép nhà đầu tư lọc dự án KCN theo Vùng địa lý 
+       (Miền Bắc, Miền Trung, Miền Nam) và Lĩnh vực (Công nghệ, Năng lượng, Hạ tầng).
+     + Bản đồ quy hoạch và Chỉ đường: Nút liên kết thông minh giúp mở vị trí chính
+       xác của khu công nghiệp trên Google Maps.
+     + Form Đăng ký Đối chiếu Nhu cầu: Form chuyên nghiệp thu thập thông tin doanh
+       nghiệp đối tác (Tên công ty, Đại diện, Số điện thoại, WeChat/WhatsApp). 
+       Khi nhấn gửi, thông tin được lưu thẳng vào cơ sở dữ liệu `vcec_leads` và
+       đồng thời hiển thị mã QR WeChat/WhatsApp của chuyên viên phụ trách thực địa
+       để đối tác chủ động quét kết nối.
+     + Mục Bài viết Cơ hội Đầu tư: Hiển thị danh sách các bài viết phân tích 
+       chuyên sâu được fetch động từ database (`category='co-hoi'`).
+
+7. TIN TỨC & SỰ KIỆN (`tin-tuc.html`)
+   - Ý nghĩa: Cập nhật hoạt động của trung tâm và tin tức kinh tế vĩ mô.
+   - Chức năng chi tiết:
+     + Tự động tải danh sách bài viết từ Supabase (`category='tin-tuc'`).
+     + Trình bày dạng tin tức cao cấp News Card với hiệu ứng Zoom-in ảnh bìa 
+       mượt mà và hiển thị thông tin tác giả, ngày đăng.
+     + Bấm vào card tin tức sẽ dẫn hướng tới trang chi tiết bài viết.
+
+8. KHO TÀI NGUYÊN (`tai-nguyen.html`)
+   - Ý nghĩa: Thư viện tài liệu pháp lý, cẩm nang đầu tư, quy chế chính sách.
+   - Chức năng chi tiết:
+     + Tải danh sách tài liệu động từ bảng `vcec_posts` (`category='tai-nguyen'`).
+     + Cho phép xem chi tiết tài liệu hoặc nhấn nút yêu cầu nhận tài liệu gốc 
+       (liên kết với hệ thống tư vấn của ban xúc tiến).
+
+9. THÀNH VIÊN (`thanh-vien.html` & `ho-so-thanh-vien.html`)
+   - Ý nghĩa: Danh bạ thành viên cổng thông tin và trang hồ sơ công khai của tác giả.
+   - Chức năng chi tiết:
+     + Trang danh sách (`thanh-vien.html`): Lưới các thẻ thành viên hiển thị 
+       avatar dạng chữ cái đầu kèm dải màu gradient đỏ-vàng, tên người dùng, 
+       cấp bậc (Role Badge) và ngày đăng ký.
+     + Trang hồ sơ cá nhân công khai (`ho-so-thanh-vien.html?id=UUID`): Hiển thị 
+       thông tin chi tiết của một thành viên (Tên, cấp bậc, ngày tham gia) và 
+       danh sách toàn bộ các bài viết do thành viên này biên soạn đã xuất bản 
+       (published) trên hệ thống. 
+     + Tính năng bảo mật cao: Chỉ truy vấn thông tin cơ bản, tuyệt đối không 
+       truy vấn mật khẩu người dùng.
+
+10. LIÊN HỆ & BẢN ĐỒ (`lien-he.html`)
+    - Ý nghĩa: Kênh tương tác trực tiếp với VCEC.
+    - Chức năng chi tiết:
+      + Thông tin các văn phòng đại diện tại Hà Nội và Thâm Quyến.
+      + Bản đồ định vị và hỗ trợ chỉ đường trực quan.
+      + Form gửi phản hồi/yêu cầu trực tuyến đồng bộ về cơ sở dữ liệu.
+
+11. CHI TIẾT BÀI VIẾT (`bai-viet-chi-tiet.html?id=UUID`)
+    - Ý nghĩa: Trang hiển thị nội dung chi tiết cho mọi bài đăng trên website.
+    - Chức năng chi tiết:
+      + Đọc tham số `id` dạng UUID từ URL để thực hiện truy vấn cơ sở dữ liệu.
+      + Hiển thị cấu trúc trang nhã: Breadcrumb động theo chuyên mục của bài viết, 
+        ảnh bìa Hero Banner lớn, danh mục màu phân biệt, tiêu đề lớn, thông tin 
+        tác giả (Click vào tên tác giả sẽ dẫn tới trang hồ sơ thành viên công khai 
+        của họ) và ngày đăng.
+      + Trình render thông minh: Nhận diện nội dung HTML (được soạn thảo từ trình 
+        soạn thảo Quill trong quản trị) và render trực tiếp qua innerHTML, hoặc 
+        tự động ngắt đoạn theo ký tự xuống dòng `\n\n` đối với dữ liệu dạng plain text.
+      + Nút "Quay Lại" thông minh tự động dẫn hướng về trang danh mục tương ứng.
+      + SEO Meta Tags Động: Tự cập nhật các thẻ meta og:title, og:description, 
+        og:image động theo bài viết cụ thể phục vụ chia sẻ lên các mạng xã hội.
+
+================================================================================
+PART II: HỆ THỐNG QUẢN TRỊ TỐI CAO - ERP ADMIN DASHBOARD (`quan-tri.html`)
+================================================================================
+
+Trang quản trị ERP [quan-tri.html](file:///d:/MICHAEL/__MY%20DREAM/A%20I/1SSG/VCEC/quan-tri.html) là trung tâm điều hành tối cao của hệ thống. 
+Trang được thiết kế dưới dạng ứng dụng một trang (SPA - Single Page Application) 
+với hiệu ứng chuyển đổi mượt mà, cấu trúc sidebar bên trái và vùng làm việc 
+độc lập bên phải.
+
+1. BẢO MẬT & PHÂN QUYỀN TRUY CẬP BAN ĐẦU
+   - Hệ thống tự động kiểm tra thông tin đăng nhập trong `localStorage`.
+   - Chỉ cho phép các tài khoản có cấp bậc: `super_admin`, `admin`, `leader`, `staff`
+     truy cập trang quản trị. Các tài khoản thông thường (`member`, `customer`, `partner`) 
+     hoặc khách chưa đăng nhập sẽ bị tự động từ chối và chuyển hướng về trang chủ.
+   - Hàm phân quyền động `applyMenuPermissions()` sẽ đọc cấu hình ma trận phân quyền 
+     (Permission Matrix) từ Supabase gửi về để ẩn/hiện các menu trên sidebar tương ứng.
+     Nếu một tài khoản không được quyền xem bất kỳ màn hình nào, hệ thống sẽ xóa 
+     vùng làm việc và hiển thị thông báo yêu cầu liên hệ admin cấp cao.
+
+2. CÁC MÀN HÌNH CHỨC NĂNG CHÍNH (SCREENS)
+
+   A. QUẢN LÝ BÀI ĐĂNG (`screen-posts`)
+      - Ý nghĩa: Biên soạn tin tức, tài nguyên và cập nhật nội dung tĩnh của website.
+      - Chức năng chi tiết:
+        + Sub-Tabs điều khiển: 
+          * "Danh sách bài đăng": Liệt kê các bài viết đã xuất bản trên hệ thống.
+          * "Bài đăng nháp": Hiển thị bài viết nháp đang được lưu tạm cục bộ trong 
+            `localStorage` kèm thông tin thời gian lưu lần cuối. Hỗ trợ nút "Soạn tiếp" 
+            và "Xóa nháp". Có huy hiệu (Badge) đếm số lượng bản nháp thời gian thực.
+        + Form Soạn thảo / Chỉnh sửa bài viết (Ẩn mặc định, mở ra khi soạn mới hoặc sửa):
+          * Chuyên mục hiển thị: Chọn menu mong muốn xuất hiện ngoài website 
+            (Giới thiệu, Quan hệ, Lĩnh vực, Dịch vụ, Cơ hội, Tin tức, Tài nguyên).
+          * Tiêu đề & Mô tả ngắn: Hỗ trợ 3 nhóm trường nhập liệu tương ứng 3 ngôn ngữ 
+            (Tiếng Việt - VN, Tiếng Trung - CN, Tiếng Anh - EN) được thiết kế liền kề.
+          * Nội dung bài viết chi tiết: Tích hợp 3 trình soạn thảo Quill Editor 
+            độc lập cho 3 ngôn ngữ. Hệ thống đã Việt hóa toàn bộ tooltip của thanh công cụ.
+          * Trình chỉnh kích thước ảnh thông minh (Image Resizer): Tự viết bằng 
+            JS thuần, cho phép kéo thả 4 góc để thay đổi kích thước ảnh trực tiếp 
+            ngay trong Quill Editor, tự động cập nhật style chiều rộng ảnh.
+          * Quản lý ảnh bìa (Cover Image): Nhập URL ảnh thủ công hoặc nhấn nút 
+            "Tải ảnh lên" để tải ảnh trực tiếp lên Supabase Storage bucket `vcec` 
+            (tự động chuẩn hóa tên file và lưu vào thư mục `covers/`). Hiển thị 
+            khung xem trước ảnh bìa và hỗ trợ nút xóa ảnh nhanh.
+          * Cơ chế tự động khôi phục bản nháp (Autosave/Restore): Khi mở form soạn thảo 
+            nếu có bản nháp chưa lưu, hệ thống sẽ hiển thị thanh thông báo khôi phục 
+            kèm nút "Xóa nháp & Đặt lại". Khi hủy bỏ soạn thảo, hệ thống sẽ hỏi ý kiến 
+            user có muốn lưu nháp hay không.
+          * Hành động: Nút "Xuất bản bài viết" (lưu vào database Supabase dưới trạng thái 
+            `published`) và nút "Lưu nháp" (lưu tạm vào client `localStorage`).
+
+   B. KHO LƯU TRỮ MEDIA (`screen-resources`)
+      - Ý nghĩa: Trình duyệt quản lý tệp tin trực tiếp trên dịch vụ Supabase Cloud Storage.
+      - Chức năng chi tiết:
+        + Dynamic Bucket Tabs: Tải các tab danh mục bucket lưu trữ từ mảng 
+          `VCEC_BUCKETS = ['vcec', 'vcec_other', 'vcec_users', 'vcec_posts']`. Bấm 
+          vào tab sẽ tự động truy vấn và liệt kê file của bucket đó.
+        + Vùng tải lên kéo thả (Drag & Drop Zone): Kéo thả tệp tin vào hoặc nhấp chuột 
+          để chọn file tải lên. File được tự động làm sạch tên (loại bỏ khoảng trắng, 
+          ký tự đặc biệt) và đẩy trực tiếp lên Cloud Storage của bucket đang active.
+        + Hộp Tìm kiếm tệp: Lọc nhanh tệp tin trong danh sách theo tên thời gian thực.
+        + Lưới hiển thị File (Thumbnail Grid): Tự động hiển thị ảnh xem trước đối với 
+          các định dạng hình ảnh (.jpg, .png, .webp, .svg...) hoặc hiển thị biểu tượng 
+          📄 đối với các định dạng tài liệu khác (.pdf, .docx, .xlsx...).
+        + Thao tác nhanh (Hover Overlay Actions): 
+          * Nút "Copy URL": Lấy link liên kết công khai của tệp để dán vào bài viết 
+            hoặc chia sẻ cho đối tác.
+          * Nút "Xóa tệp": Gửi yêu cầu xóa vĩnh viễn tệp tin khỏi Supabase Storage.
+
+   C. QUẢN LÝ THÀNH VIÊN HỆ THỐNG (`screen-members`)
+      - Ý nghĩa: Giám sát toàn bộ tài khoản đăng ký trên cổng thông tin.
+      - Chức năng chi tiết:
+        + Bảng hiển thị thông tin: Tên đăng nhập, cấp bậc hiện tại, ngày đăng ký. 
+          Hệ thống bảo vệ tối cao sẽ ẩn tài khoản `super_admin`/`vcec_sadmin` khỏi 
+          danh sách để ngăn chặn hành vi xóa/đổi quyền ngoài ý muốn.
+        + Form thủ công thêm thành viên mới: Nhập tên tài khoản, mật khẩu, và chọn 
+          vai trò để chèn trực tiếp tài khoản mới vào cơ sở dữ liệu (tự động kiểm 
+          tra trùng lặp tên đăng nhập trước khi chèn).
+        + Thay đổi cấp quyền nhanh (Role Changer): 
+          * Bấm "Đổi Cấp" sẽ kích hoạt popup dropdown chứa danh sách vai trò.
+          * Chọn vai trò mong muốn và xác nhận để cập nhật trường `role` tức thì.
+        + Xuất dữ liệu Excel chuyên nghiệp: Nút "Xuất danh sách" kết xuất toàn bộ 
+          thành viên ra file CSV, tự động chèn mã UTF-8 BOM (`\uFEFF`) để đảm bảo 
+          các ký tự tiếng Việt hiển thị chính xác không bị lỗi font khi mở bằng Microsoft Excel.
+        + Chức năng xóa: Xác nhận và xóa vĩnh viễn tài khoản thành viên khỏi hệ thống.
+
+   D. HỒ SƠ ĐỐI TÁC XÚC TIẾN (`screen-leads`)
+      - Ý nghĩa: Quản lý nhu cầu đầu tư KCN và ghép cặp của doanh nghiệp.
+      - Chức năng chi tiết:
+        + Thẻ chỉ số (Metric Cards): Đếm tổng số hồ sơ xúc tiến đã nhận được.
+        + Bảng danh sách chi tiết: Tên doanh nghiệp & Quốc gia, Người đại diện 
+          kèm thông tin liên lạc WeChat/WhatsApp, Dự án công nghiệp liên quan mà 
+          họ quan tâm, ngày gửi hồ sơ.
+        + Hành động: Xác nhận xóa các hồ sơ sau khi đã được chuyên viên xử lý thành công.
+
+   E. CÀI ĐẶT HỆ THỐNG (`screen-settings`)
+      - Ý nghĩa: Tinh chỉnh cấu hình website và thiết lập bảo mật.
+      - Chức năng chi tiết gồm 4 Tab phụ:
+        1. **Thông tin website (`site-info`)**:
+           * Cấu hình các thông số chung: Tên website, Hotline, Email hỗ trợ, Mô tả 
+             ngắn giới thiệu và Bản quyền chân trang (Footer Copyright).
+           * Thay đổi Logo website: Tải ảnh trực tiếp lên mây và tự động cập nhật URL 
+             ảnh logo ngoài trang chủ.
+           * Thay đổi ảnh nền Hero Banner trang chủ: Tải ảnh phong cảnh độ phân giải 
+             cao lên mây để thay đổi tức thời giao diện trang chủ công khai.
+        2. **Phân quyền thành viên (`permissions`)**:
+           * Cung cấp giao diện bảng đơn giản để quản trị viên chọn nhanh cấp bậc mới 
+             và lưu phân quyền cho từng tài khoản người dùng.
+        3. **Ma trận Phân quyền truy cập (`access-matrix`)**:
+           * Cung cấp giao diện ma trận trực quan kiểm soát quyền hạn chi tiết cho 
+             5 mảng chức năng (Bài viết, Kho file, Thành viên, Đối tác, Cài đặt) 
+             đối với 6 nhóm vai trò (`member`, `customer`, `partner`, `staff`, `leader`, `admin`).
+           * Tại mỗi ô giao điểm, quản trị viên có thể bật/tắt (toggle) độc lập 4 hành 
+             vi nghiệp vụ: Xem (👁 - view), Thêm mới (＋ - new), Sửa (✎ - edit), Xóa (✕ - delete).
+           * Tính năng nâng cao: 
+             - Bộ lọc vai trò ("Xem vai trò"): Làm mờ (dim) các cột vai trò khác và 
+               tô sáng (highlight) cột vai trò được chọn để dễ dàng kiểm tra chéo.
+             - Bộ lọc tài khoản ("Lọc theo thành viên"): Chọn một thành viên cụ thể, 
+               hệ thống sẽ tự xác định vai trò của thành viên đó và tô sáng cột tương ứng 
+               trong ma trận.
+           * Đồng bộ bảo mật tối cao: Khi bấm "Lưu cấu hình ma trận", dữ liệu dạng JSON 
+             sẽ được lưu vào `localStorage` đồng thời đồng bộ (Upsert) lên bảng cấu hình 
+             `vcec_config` trên Supabase Server. Hệ thống trên toàn thế giới của nhân 
+             viên khi đăng nhập sẽ tự động fetch cấu hình mới này về để áp dụng phân quyền, 
+             đảm bảo an toàn tuyệt đối cho hệ thống ERP.
+        4. **Tài khoản cá nhân (`account`)**:
+           * Cho phép quản trị viên đang đăng nhập tự đổi tên hiển thị (nickname).
+           * Cho phép đổi mật khẩu bảo mật: Yêu cầu nhập đúng mật khẩu cũ để xác thực 
+             trước khi cập nhật mật khẩu mới.
+
+================================================================================
+PART III: CẤU TRÚC CƠ SỞ DỮ LIỆU SUPABASE (DATABASE & BUCKETS SCHEMA)
+================================================================================
+
+Toàn bộ dữ liệu của hệ thống VCEC được đồng bộ hóa và lưu trữ tại hệ thống 
+PostgreSQL của Supabase thông qua dự án ID `uksvxqhclwjrzeoqsfxr`.
+
+1. CÁC BẢNG DỮ LIỆU CHÍNH (TABLES):
+
+   A. BẢNG TÀI KHOẢN NGƯỜI DÙNG (`vcec_users`)
+      - Ý nghĩa: Lưu trữ danh tính, thông tin xác thực và cấp bậc ERP.
+      - Các trường dữ liệu:
+        + `id`: UUID (Khóa chính, tự động tạo).
+        + `username`: TEXT (Tên đăng nhập, bắt buộc duy nhất và tự viết thường).
+        + `password`: TEXT (Mật khẩu xác thực).
+        + `role`: TEXT (Cấp bậc tài khoản, ràng buộc CHECK thuộc một trong 7 vai trò: 
+                  'super_admin', 'admin', 'leader', 'staff', 'partner', 'customer', 'member').
+        + `created_at`: TIMESTAMPTZ (Thời gian đăng ký tài khoản, mặc định `now()`).
+
+   B. BẢNG HỒ SƠ ĐĂNG KÝ XÚC TIẾN (`vcec_leads`)
+      - Ý nghĩa: Lưu thông tin ghép cặp kết nối B2B và thực địa của doanh nghiệp đối tác.
+      - Các trường dữ liệu:
+        + `id`: UUID (Khóa chính, tự động tạo).
+        + `company_name`: TEXT (Tên doanh nghiệp đăng ký).
+        + `contact_name`: TEXT (Họ tên người đại diện doanh nghiệp).
+        + `wechat_id`: TEXT (Tài khoản WeChat hoặc số điện thoại liên hệ).
+        + `project_id`: TEXT (Mã số dự án KCN liên kết).
+        + `project_name`: TEXT (Tên dự án KCN hoặc tiêu đề cơ hội đầu tư đối chiếu).
+        + `created_at`: TIMESTAMPTZ (Thời gian gửi hồ sơ, mặc định `now()`).
+
+   C. BẢNG BÀI VIẾT & TIN TỨC CHUNG (`vcec_posts`)
+      - Ý nghĩa: Quản lý toàn bộ nội dung động và bán tĩnh trên website.
+      - Các trường dữ liệu:
+        + `id`: UUID (Khóa chính, tự động tạo).
+        + `category`: TEXT (Chuyên mục phân loại, ràng buộc CHECK thuộc 1 trong 7 nhóm: 
+                      'tin-tuc', 'co-hoi', 'tai-nguyen', 'gioi-thieu', 'quan-he-viet-trung', 
+                      'linh-vuc', 'dich-vu').
+        + `title_vi`, `title_zh`, `title_en`: TEXT (Tiêu đề bài viết tương ứng 3 ngôn ngữ).
+        + `summary_vi`, `summary_zh`, `summary_en`: TEXT (Mô tả ngắn gọn tương ứng 3 ngôn ngữ).
+        + `content_vi`, `content_zh`, `content_en`: TEXT (Nội dung chi tiết dạng HTML hoặc Plain Text).
+        + `cover_image`: TEXT (Đường dẫn URL ảnh bìa của bài viết).
+        + `status`: TEXT (Trạng thái bài viết, CHECK thuộc 'published' hoặc 'draft').
+        + `author`: TEXT (Tên tài khoản người đăng bài viết).
+        + `created_at`: TIMESTAMPTZ (Thời gian đăng bài, mặc định `now()`).
+
+   D. BẢNG CẤU HÌNH HỆ THỐNG CAO CẤP (`vcec_config`)
+      - Ý nghĩa: Lưu trữ các thiết lập hệ thống động đồng bộ đa thiết bị.
+      - Các trường dữ liệu:
+        + `config_key`: TEXT (Khóa cấu hình chính, ví dụ: 'permission_matrix').
+        + `config_value`: TEXT (Dữ liệu cấu hình dạng chuỗi JSON hoặc TEXT).
+        + `updated_at`: TIMESTAMPTZ (Thời gian cập nhật gần nhất).
+
+2. HỆ THỐNG KHO LƯU TRỮ ĐÁM MÂY (SUPABASE STORAGE BUCKETS):
+   - Để lưu trữ các tệp đa phương tiện, dự án cấu hình 4 buckets chính:
+     1. `vcec` (Lưu trữ ảnh bìa bài viết `/covers`, Logo `/logo`, Hero Banner...).
+     2. `vcec_other` (Lưu trữ các tài liệu chính sách bổ trợ).
+     3. `vcec_users` (Lưu trữ hình ảnh tài liệu cá nhân của thành viên).
+     4. `vcec_posts` (Lưu trữ các hình ảnh chèn trực tiếp bên trong thân bài viết).
+   - Quy chuẩn bảo mật: Toàn bộ Buckets được cấu hình ở chế độ Public để 
+     frontend có thể truy xuất hình ảnh trực tiếp, giới hạn kích thước tối đa 
+     mỗi tệp tin tải lên là 50MB.
+
+3. CHÍNH SÁCH BẢO MẬT ROW-LEVEL SECURITY (RLS):
+   - Nhằm đảm bảo dữ liệu truyền tải mượt mà qua các API công khai của Supabase 
+     gateway, toàn bộ các bảng dữ liệu trên đều kích hoạt RLS (Row-Level Security).
+   - Áp dụng các Permissive Policies cho phép truy cập đọc/ghi (SELECT, INSERT, 
+     UPDATE, DELETE) đối với các kết nối hợp lệ sử dụng khóa xuất bản 
+     `sb_publishable_` mới của dự án. Điều này giúp hệ thống hoạt động vô cùng 
+     ổn định và bảo mật cao mà không gặp lỗi từ chối truy cập (Access Denied).
+================================================================================

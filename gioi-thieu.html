@@ -4,123 +4,1545 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/jpeg" href="public/logo_VCEC.jpg">
-  <title>Giới Thiệu VCEC - Trung Tâm Giao Lưu & Hợp Tác Kinh Tế Việt Nam - Trung Quốc</title>
-  <meta name="description" content="Khám phá Tầm nhìn, Sứ mệnh và Cơ cấu tổ chức của VCEC - Cầu nối tin cậy hàng đầu thúc đẩy hợp tác đầu tư, giao thương song phương Việt Nam - Trung Quốc.">
-  <meta property="og:title" content="Giới Thiệu VCEC - Trung Tâm Giao Lưu & Hợp Tác Kinh Tế Việt Nam - Trung Quốc">
-  <meta property="og:description" content="Khám phá Tầm nhìn, Sứ mệnh và Cơ cấu tổ chức của VCEC - Cầu nối tin cậy hàng đầu thúc đẩy hợp tác đầu tư, giao thương song phương Việt Nam - Trung Quốc.">
-  <meta property="og:image" content="public/logo_VCEC.jpg">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="VCEC Portal">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Giới Thiệu VCEC">
-  <meta name="twitter:description" content="Khám phá Tầm nhìn, Sứ mệnh và Cơ cấu tổ chức của VCEC - Cầu nối tin cậy hàng đầu thúc đẩy hợp tác đầu tư, giao thương song phương Việt Nam - Trung Quốc.">
-  <meta name="twitter:image" content="public/logo_VCEC.jpg">
+  <title>Giới Thiệu VCEC - Một Thập Niên Kết Nối, Vạn Cơ Hội Tương Lai</title>
+  <meta name="description" content="Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam – Trung Quốc (VCEC) là cầu nối chiến lược thúc đẩy đầu tư, thương mại và chuỗi cung ứng song phương.">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Premium Page-Specific Styles for About Us Editorial Page */
+    .about-hero {
+      background: linear-gradient(135deg, #5A0814 0%, #7A0C1E 40%, #A81B34 70%, #1A1A1A 100%);
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 3px solid var(--vcec-gold);
+    }
+    .about-hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(184, 134, 11, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .about-hero h1 {
+      font-family: var(--vcec-font-title);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 15px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    .about-hero-slogan {
+      font-size: 1.3rem;
+      color: var(--vcec-gold);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* About Us Text section */
+    .about-intro-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 2fr;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    .about-intro-left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .about-intro-quote {
+      border-left: 5px solid var(--vcec-red);
+      padding: 15px 0 15px 30px;
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      color: var(--vcec-red);
+      font-weight: 700;
+    }
+    .about-intro-paragraphs {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--vcec-text-dark);
+      text-align: justify;
+    }
+    .about-intro-paragraphs p {
+      margin-bottom: 20px;
+    }
+    .about-intro-paragraphs p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Vision Mission Values Block */
+    .vmv-section {
+      background: var(--vcec-bg-light);
+      padding: 80px 0;
+    }
+    .vm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    .vm-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+    .vm-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(122, 12, 30, 0.08);
+      border-color: rgba(122, 12, 30, 0.15);
+    }
+    .vm-icon {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+    .vm-card h3 {
+      font-family: var(--vcec-font-title);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 15px;
+    }
+    .vm-card p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--vcec-text-light);
+    }
+    .vm-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .vm-card ul li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--vcec-text-light);
+    }
+    .vm-card ul li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: var(--vcec-gold);
+      font-weight: bold;
+    }
+
+    /* Core Values 4-Column Grid */
+    .values-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .values-title h3 {
+      font-family: var(--vcec-font-title);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .value-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-top: 4px solid var(--vcec-gold);
+      border-radius: 12px;
+      padding: 30px 24px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(184, 134, 11, 0.15);
+      border-top-color: var(--vcec-red);
+    }
+    .value-word {
+      font-family: var(--vcec-font-title);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+    .value-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--vcec-text-light);
+    }
+
+    /* Leadership Section */
+    .leadership-section {
+      padding: 80px 0;
+    }
+    .leadership-main-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-left: 6px solid var(--vcec-red);
+      border-radius: 20px;
+      padding: 45px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    .leader-photo-box {
+      width: 280px;
+      height: 350px;
+      border-radius: 12px;
+      border: 3px solid var(--vcec-gold);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .leader-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .leadership-main-card:hover .leader-photo-img {
+      transform: scale(1.05);
+    }
+    .leader-info h3 {
+      font-family: var(--vcec-font-title);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 5px;
+    }
+    .leader-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--vcec-gold);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .leader-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--vcec-text-dark);
+      margin-bottom: 25px;
+    }
+    .leader-desc p {
+      margin-bottom: 12px;
+    }
+    .leader-desc p:last-child {
+      margin-bottom: 0;
+    }
+    .btn-connect-leader {
+      background: linear-gradient(135deg, var(--vcec-red), #A81B34);
+      color: #FFFFFF;
+      font-weight: 800;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 35px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(122, 12, 30, 0.25);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .btn-connect-leader:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(122, 12, 30, 0.45);
+      background: linear-gradient(135deg, #A81B34, var(--vcec-red));
+    }
+
+    /* Advisors grid */
+    .advisors-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .advisors-header h4 {
+      font-family: var(--vcec-font-title);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 10px;
+    }
+    .advisors-header p {
+      font-size: 1rem;
+      color: var(--vcec-text-light);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .advisors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .advisor-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .advisor-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(122, 12, 30, 0.08);
+      border-color: rgba(122, 12, 30, 0.1);
+    }
+    .advisor-name {
+      font-family: var(--vcec-font-title);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 4px;
+    }
+    .advisor-role {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--vcec-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 15px;
+    }
+    .advisor-bio {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--vcec-text-light);
+      margin-bottom: 20px;
+    }
+    .advisor-connect-btn {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      transition: color 0.3s;
+    }
+    .advisor-connect-btn:hover {
+      color: var(--vcec-gold);
+    }
+
+    /* Partner Network styling */
+    .partners-section {
+      background: var(--vcec-bg-light);
+      padding: 80px 0;
+    }
+    .partners-group {
+      margin-bottom: 45px;
+    }
+    .partners-group:last-child {
+      margin-bottom: 0;
+    }
+    .partner-group-title {
+      font-family: var(--vcec-font-title);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--vcec-text-dark);
+      margin-bottom: 20px;
+      border-left: 4px solid var(--vcec-gold);
+      padding-left: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .partners-logos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .partner-logo-item {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 8px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #999;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: default;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+    .partner-logo-item:hover {
+      color: var(--vcec-red);
+      border-color: var(--vcec-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(184,134,11,0.15);
+      background: rgba(184, 134, 11, 0.03);
+    }
+
+    /* Development Timeline horizontal */
+    .timeline-section {
+      padding: 80px 0;
+      overflow: hidden;
+    }
+    .timeline-scroll-container {
+      display: flex;
+      gap: 30px;
+      padding: 20px 10px 40px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+    }
+    /* Style scrollbar */
+    .timeline-scroll-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .timeline-scroll-container::-webkit-scrollbar-track {
+      background: #F1F1F1;
+      border-radius: 4px;
+    }
+    .timeline-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--vcec-gold);
+      border-radius: 4px;
+    }
+    .timeline-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: #A81B34;
+    }
+    .timeline-card {
+      flex: 0 0 280px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 30px 24px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .timeline-card::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: 24px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--vcec-red);
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 3px var(--vcec-gold);
+      z-index: 2;
+    }
+    .timeline-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--vcec-gold);
+      box-shadow: 0 8px 25px rgba(122, 12, 30, 0.08);
+    }
+    .timeline-year {
+      font-family: var(--vcec-font-title);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 10px;
+    }
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--vcec-text-dark);
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--vcec-text-light);
+    }
+
+    /* Connection Advisor Modal */
+    .advisor-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .adv-modal-content {
+      background: #FFFFFF;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 580px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      position: relative;
+      animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalSlideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .adv-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s;
+    }
+    .adv-modal-close:hover {
+      color: var(--vcec-red);
+    }
+    .adv-modal-title {
+      font-family: var(--vcec-font-title);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--vcec-red);
+      margin-bottom: 8px;
+    }
+    .adv-modal-subtitle {
+      font-size: 0.95rem;
+      color: var(--vcec-gold);
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .adv-form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .adv-form-group label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--vcec-text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .adv-form-input, .adv-form-textarea {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+    .adv-form-input:focus, .adv-form-textarea:focus {
+      border-color: var(--vcec-red);
+      outline: none;
+      box-shadow: 0 0 10px rgba(122, 12, 30, 0.15);
+    }
+    .btn-adv-submit {
+      background: linear-gradient(135deg, var(--vcec-red), #A81B34);
+      color: #FFFFFF;
+      font-weight: 800;
+      border: none;
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(122, 12, 30, 0.25);
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    .btn-adv-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(122, 12, 30, 0.45);
+      background: linear-gradient(135deg, #A81B34, var(--vcec-red));
+    }
+
+    /* Responsive style */
+    @media (max-width: 992px) {
+      .about-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .vm-grid {
+        grid-template-columns: 1fr;
+      }
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .leadership-main-card {
+        grid-template-columns: 1fr;
+        padding: 30px;
+      }
+      .leader-photo-box {
+        margin: 0 auto;
+      }
+      .advisors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .partners-logos-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .about-hero h1 {
+        font-size: 2rem;
+      }
+      .about-hero-slogan {
+        font-size: 1.1rem;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+      .advisors-grid {
+        grid-template-columns: 1fr;
+      }
+      .partners-logos-grid {
+        grid-template-columns: 1fr;
+      }
+      .adv-modal-content {
+        padding: 25px;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <!-- Shared Global Header -->
   <header id="global-header"></header>
 
-  <!-- Main Content with cloud watermark background -->
+  <!-- Main content wrapper with cloud watermark bg -->
   <main class="bg-china-motif">
-    <div class="section-content">
-      
-      <!-- Sub-page Title Block -->
-      <section class="sub-hero" style="padding: 80px 0 40px;">
-        <div class="container text-center">
-          <h1 class="article-title-main" style="margin-bottom: 10px;" data-i18n="nav-about">Giới Thiệu VCEC</h1>
-          <div style="width: 40px; height: 3px; background: var(--vcec-gold); margin: 0 auto 15px;"></div>
-          <p style="color: var(--vcec-gold); font-size: 1rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;" data-i18n="sub-title">ĐẦU TƯ SONG PHƯƠNG</p>
-        </div>
-      </section>
+    
+    <!-- 1. Banner trang -->
+    <section class="about-hero">
+      <div class="container">
+        <h1 id="about-hero-title">GIỚI THIỆU VCEC</h1>
+        <div style="width: 60px; height: 3px; background: var(--vcec-gold); margin: 0 auto 20px;"></div>
+        <p class="about-hero-slogan" id="about-hero-slogan">Một thập niên kết nối – Vạn cơ hội tương lai</p>
+      </div>
+    </section>
 
-      <!-- Professional Introduction Content -->
-      <section class="section" style="padding-top: 0;">
-        <div class="container">
-          <div id="gioi-thieu-container">
-            <div class="article-wrap" style="text-align:center;">
-              <p style="color: var(--vcec-gold); font-size: 1.2rem;" data-i18n="loading">⏳ Đang tải nội dung giới thiệu...</p>
+    <!-- CMS Content Zone: quản lý qua trang quản trị → category "gioi-thieu" -->
+    <section class="section" id="cms-gioi-thieu-section" style="display:none; padding-bottom: 0;">
+      <div class="container">
+        <img id="cms-cover-gt" class="cms-cover-image" alt="Ảnh bìa VCEC" style="display:none;">
+        <div id="cms-zone-gioi-thieu" class="cms-zone"></div>
+      </div>
+    </section>
+
+    <!-- 2. Về chúng tôi -->
+    <section class="section">
+      <div class="container">
+        <div class="about-intro-grid">
+          <div class="about-intro-left">
+            <div class="about-intro-quote" id="about-quote">
+              "Quan hệ Đối tác Hợp tác Chiến lược Toàn diện song phương Việt - Trung là nền tảng vững chắc nhất cho phát triển kinh tế bền vững."
+            </div>
+          </div>
+          <div class="about-intro-right">
+            <div class="about-intro-paragraphs" id="about-paragraphs">
+              <p>Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam – Trung Quốc (Vietnam–China Economic Cooperation & Exchange Center – VCEC) là tổ chức chuyên trách thúc đẩy giao lưu kinh tế, thương mại và đầu tư giữa Việt Nam và Trung Quốc.</p>
+              <p>Trên nền tảng quan hệ Đối tác Hợp tác Chiến lược Toàn diện và khuôn khổ "Cộng đồng chia sẻ tương lai Việt Nam – Trung Quốc có ý nghĩa chiến lược", VCEC giữ vai trò cầu nối giữa cộng đồng doanh nghiệp hai nước, hỗ trợ quá trình tìm kiếm đối tác, chuyển giao công nghệ, mở rộng thị trường và triển khai dự án đầu tư.</p>
+              <p>VCEC là điểm đến đầu tiên cho các tập đoàn Trung Quốc muốn vào Việt Nam và các doanh nghiệp Việt Nam muốn tiếp cận thị trường Trung Quốc một cách bài bản, hợp pháp và hiệu quả.</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
+    <!-- 3. Tầm nhìn - Sứ mệnh - Giá trị cốt lõi -->
+    <section class="vmv-section">
+      <div class="container">
+        
+        <!-- Vision & Mission Grid -->
+        <div class="vm-grid">
+          <!-- Vision -->
+          <div class="vm-card">
+            <div class="vm-icon">👁️‍🗨️</div>
+            <h3 id="vision-title">Tầm nhìn (Vision)</h3>
+            <p id="vision-desc">Trở thành cầu nối kinh tế Việt – Trung uy tín hàng đầu, đồng hành cùng các doanh nghiệp xây dựng chuỗi giá trị bền vững giữa hai nền kinh tế lớn của châu Á.</p>
+          </div>
+          <!-- Mission -->
+          <div class="vm-card">
+            <div class="vm-icon">🎯</div>
+            <h3 id="mission-title">Sứ mệnh (Mission)</h3>
+            <ul id="mission-list">
+              <li>Thúc đẩy hợp tác đầu tư, thương mại, công nghệ giữa doanh nghiệp Việt Nam và Trung Quốc.</li>
+              <li>Xúc tiến các dự án trọng điểm trong logistics, năng lượng xanh, EV, sản xuất thông minh, nông nghiệp công nghệ cao.</li>
+              <li>Hỗ trợ doanh nghiệp Trung Quốc tiếp cận chính sách, thủ tục và hệ sinh thái đầu tư tại Việt Nam.</li>
+              <li>Hỗ trợ doanh nghiệp Việt Nam mở rộng thị trường, huy động vốn và công nghệ từ Trung Quốc.</li>
+              <li>Tổ chức diễn đàn, hội thảo, đoàn doanh nghiệp xúc tiến thương mại – đầu tư hai chiều.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Core Values Grid -->
+        <div class="values-title">
+          <h3 id="values-grid-title">GIÁ TRỊ CỐT LÕI</h3>
+        </div>
+        
+        <div class="values-grid" id="values-grid-box">
+          <!-- Value 1 -->
+          <div class="value-card">
+            <div class="value-word">CHÍNH DANH</div>
+            <p class="value-desc">Hoạt động đúng pháp luật, đúng vai trò cầu nối chính danh giữa hai nước.</p>
+          </div>
+          <!-- Value 2 -->
+          <div class="value-card">
+            <div class="value-word">CHUYÊN NGHIỆP</div>
+            <p class="value-desc">Đội ngũ song ngữ, am hiểu pháp lý, văn hóa và thực tiễn kinh doanh.</p>
+          </div>
+          <!-- Value 3 -->
+          <div class="value-card">
+            <div class="value-word">HIỆU QUẢ</div>
+            <p class="value-desc">Cam kết kết quả: kết nối đúng đối tác, đúng thời điểm, đúng nhu cầu.</p>
+          </div>
+          <!-- Value 4 -->
+          <div class="value-card">
+            <div class="value-word">BỀN VỮNG</div>
+            <p class="value-desc">Ưu tiên dự án xanh, công nghệ cao, đóng góp dài hạn cho hai nền kinh tế.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. Ban Lãnh đạo & Cố vấn -->
+    <section class="leadership-section">
+      <div class="container">
+        
+        <div class="section-header text-center" style="margin-bottom: 50px;">
+          <h2 id="leadership-section-title">BAN LÃNH ĐẠO</h2>
+          <div style="width: 40px; height: 3px; background: var(--vcec-gold); margin: 15px auto 0;"></div>
+        </div>
+
+        <!-- Director Main Card -->
+        <div class="leadership-main-card">
+          <div class="leader-photo-box">
+            <!-- Dynamic elegant portrait layout if image is missing -->
+            <svg viewBox="0 0 280 350" width="100%" height="100%" style="background:#5A0814;">
+              <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#B8860B"/>
+                  <stop offset="100%" stop-color="#D4AF37"/>
+                </linearGradient>
+              </defs>
+              <!-- Elegant silhouette avatar representation -->
+              <rect x="0" y="0" width="280" height="350" fill="url(#goldGrad)" opacity="0.1"/>
+              <circle cx="140" cy="130" r="60" fill="url(#goldGrad)" opacity="0.6"/>
+              <path d="M60 290 C60 210, 220 210, 220 290 Z" fill="url(#goldGrad)" opacity="0.8"/>
+              <!-- text placeholder on top -->
+              <text x="140" y="325" fill="#FFFFFF" font-size="16" font-weight="bold" text-anchor="middle" font-family="Outfit, sans-serif">MR. DINH VINH CUONG</text>
+            </svg>
+          </div>
+          <div class="leader-info">
+            <h3 id="leader-name">Giám đốc Trung tâm – Ông Đinh Vĩnh Cường</h3>
+            <div class="leader-title" id="leader-title">CHỦ TỊCH VCEC | CHỦ TỊCH 365 GROUP</div>
+            <div class="leader-desc" id="leader-desc">
+              <p>• Chủ tịch Tập đoàn 365 (365 Group JSC) – tập đoàn đa ngành Việt Nam hoạt động trong logistics, xe điện, BESS, drone, robot và sản xuất thông minh.</p>
+              <p>• Chủ tịch Câu lạc bộ Kết nối Doanh nhân Quốc tế Việt Nam (VIENC) – mạng lưới doanh nhân Việt kết nối toàn cầu.</p>
+              <p>• Với hơn hai thập niên kinh nghiệm trong thương mại quốc tế và quan hệ Việt – Trung, ông Cường định vị VCEC trở thành nền tảng chiến lược kết nối doanh nghiệp hai nước trong các lĩnh vực kinh tế xanh, logistics thông minh và công nghệ cao.</p>
+            </div>
+            <button class="btn-connect-leader" onclick="openAdvisorModal('Ông Đinh Vĩnh Cường', 'Giám đốc VCEC / Chủ tịch 365 Group')" id="btn-leader-connect">Kết nối với Giám đốc</button>
+          </div>
+        </div>
+
+        <!-- Advisors Grid Area -->
+        <div class="advisors-header">
+          <h4 id="advisors-title">CỐ VẤN CẤP CAO & HỘI ĐỒNG CHUYÊN GIA</h4>
+          <p id="advisors-desc">VCEC sở hữu đội ngũ cố vấn quan hệ ngoại giao, chuyên gia kinh tế vĩ mô và luật sư đầu tư giàu kinh nghiệm thực chiến song phương Việt - Trung.</p>
+        </div>
+
+        <div class="advisors-grid" id="advisors-list-box">
+          <!-- Advisor 1 -->
+          <div class="advisor-card">
+            <div>
+              <div class="advisor-name">TS. Nguyễn Văn Bình</div>
+              <div class="advisor-role">Cố vấn Chiến lược FDI</div>
+              <div class="advisor-bio">Nguyên Vụ trưởng Vụ Đầu tư Nước ngoài, hơn 25 năm kinh nghiệm hoạch định chính sách thu hút dòng vốn đầu tư trực tiếp.</div>
+            </div>
+            <button class="advisor-connect-btn" onclick="openAdvisorModal('TS. Nguyễn Văn Bình', 'Cố vấn Chiến lược FDI')">✉ Liên hệ cố vấn &rarr;</button>
+          </div>
+          <!-- Advisor 2 -->
+          <div class="advisor-card">
+            <div>
+              <div class="advisor-name">GS. Vương Chí Minh</div>
+              <div class="advisor-role">Cố vấn Thương mại Song phương</div>
+              <div class="advisor-bio">Nguyên Giáo sư Đại học Giao thông Thượng Hải, chuyên gia nghiên cứu chuỗi cung ứng và hiệp định thương mại song phương.</div>
+            </div>
+            <button class="advisor-connect-btn" onclick="openAdvisorModal('GS. Vương Chí Minh', 'Cố vấn Thương mại Song phương')">✉ Liên hệ cố vấn &rarr;</button>
+          </div>
+          <!-- Advisor 3 -->
+          <div class="advisor-card">
+            <div>
+              <div class="advisor-name">Luật sư Trần Hữu Trí</div>
+              <div class="advisor-role">Luật sư Đầu tư Quốc tế</div>
+              <div class="advisor-bio">Chuyên gia luật M&A, tư vấn thành lập doanh nghiệp FDI, thâu tóm dự án và bảo hộ sở hữu trí tuệ liên quốc gia.</div>
+            </div>
+            <button class="advisor-connect-btn" onclick="openAdvisorModal('Luật sư Trần Hữu Trí', 'Luật sư Đầu tư Quốc tế')">✉ Liên hệ cố vấn &rarr;</button>
+          </div>
+          <!-- Advisor 4 -->
+          <div class="advisor-card">
+            <div>
+              <div class="advisor-name">Bà Trương Lệ Hoa</div>
+              <div class="advisor-role">Cố vấn Hợp tác Công nghệ</div>
+              <div class="advisor-bio">Nguyên Giám đốc ban xúc tiến khoa học công nghệ Thâm Quyến, chuyên gia kết nối doanh nghiệp phần cứng và tự động hóa.</div>
+            </div>
+            <button class="advisor-connect-btn" onclick="openAdvisorModal('Bà Trương Lệ Hoa', 'Cố vấn Hợp tác Công nghệ')">✉ Liên hệ cố vấn &rarr;</button>
+          </div>
+          <!-- Advisor 5 -->
+          <div class="advisor-card">
+            <div>
+              <div class="advisor-name">Ông Phạm Minh Đức</div>
+              <div class="advisor-role">Chuyên gia Chuỗi Cung ứng</div>
+              <div class="advisor-bio">Cựu Giám đốc Logistics Tập đoàn Đa quốc gia, chuyên gia tối ưu hóa luồng hàng hóa và hải quan giữa Việt Nam và Trung Quốc.</div>
+            </div>
+            <button class="advisor-connect-btn" onclick="openAdvisorModal('Ông Phạm Minh Đức', 'Chuyên gia Chuỗi Cung ứng')">✉ Liên hệ cố vấn &rarr;</button>
+          </div>
+          <!-- Advisor 6 -->
+          <div class="advisor-card">
+            <div>
+              <div class="advisor-name">TS. Chu Hải Đường</div>
+              <div class="advisor-role">Cố vấn Năng lượng xanh & BESS</div>
+              <div class="advisor-bio">Tiến sĩ chuyên ngành lưu trữ năng lượng, cố vấn kỹ thuật và chuyển giao công nghệ cho các nhà máy pin lithium hàng đầu.</div>
+            </div>
+            <button class="advisor-connect-btn" onclick="openAdvisorModal('TS. Chu Hải Đường', 'Cố vấn Năng lượng xanh & BESS')">✉ Liên hệ cố vấn &rarr;</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. Mạng lưới đối tác -->
+    <section class="partners-section">
+      <div class="container">
+        
+        <div class="section-header text-center" style="margin-bottom: 50px;">
+          <h2 id="partners-section-title">MẠNG LƯỚI ĐỐI TÁC</h2>
+          <div style="width: 40px; height: 3px; background: var(--vcec-gold); margin: 15px auto 0;"></div>
+        </div>
+
+        <!-- Partner Group 1 -->
+        <div class="partners-group">
+          <div class="partner-group-title" id="partner-group-1">Cơ quan ngoại giao & Chính phủ</div>
+          <div class="partners-logos-grid">
+            <div class="partner-logo-item">VCCI VN</div>
+            <div class="partner-logo-item">MOIT Vietnam</div>
+            <div class="partner-logo-item">CCPIT China</div>
+            <div class="partner-logo-item">Shenzhen Gov</div>
+          </div>
+        </div>
+
+        <!-- Partner Group 2 -->
+        <div class="partners-group">
+          <div class="partner-group-title" id="partner-group-2">Hiệp hội ngành nghề Việt Nam – Trung Quốc</div>
+          <div class="partners-logos-grid">
+            <div class="partner-logo-item">VIENC Club</div>
+            <div class="partner-logo-item">VLA Logistics</div>
+            <div class="partner-logo-item">CN Energy Assoc</div>
+            <div class="partner-logo-item">VN Tech Assoc</div>
+          </div>
+        </div>
+
+        <!-- Partner Group 3 -->
+        <div class="partners-group">
+          <div class="partner-group-title" id="partner-group-3">Tập đoàn doanh nghiệp</div>
+          <div class="partners-logos-grid">
+            <div class="partner-logo-item">365 Group</div>
+            <div class="partner-logo-item">Trina Solar</div>
+            <div class="partner-logo-item">Goertek</div>
+            <div class="partner-logo-item">Shenzhen Warehousing</div>
+          </div>
+        </div>
+
+        <!-- Partner Group 4 -->
+        <div class="partners-group">
+          <div class="partner-group-title" id="partner-group-4">Ngân hàng – Định chế tài chính</div>
+          <div class="partners-logos-grid">
+            <div class="partner-logo-item">ICBC Bank</div>
+            <div class="partner-logo-item">VietinBank</div>
+            <div class="partner-logo-item">China Construction Bank</div>
+            <div class="partner-logo-item">BIDV Vietnam</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. Lịch sử hình thành & Hành trình -->
+    <section class="timeline-section">
+      <div class="container">
+        
+        <div class="section-header text-center" style="margin-bottom: 50px;">
+          <h2 id="timeline-section-title">LỊCH SỬ HÌNH THÀNH & HÀNH TRÌNH</h2>
+          <div style="width: 40px; height: 3px; background: var(--vcec-gold); margin: 15px auto 0;"></div>
+        </div>
+
+        <!-- Horizontal Scroll Timeline Cards -->
+        <div class="timeline-scroll-container" id="timeline-container-scroll">
+          <!-- milestone 1 -->
+          <div class="timeline-card">
+            <div class="timeline-year">2015</div>
+            <div class="timeline-title">Thành Lập Trung Tâm</div>
+            <div class="timeline-desc">VCEC được thành lập tại Hà Nội với vai trò cầu nối chuyên gia tư vấn đầu tư công và chính sách thương mại Việt - Trung.</div>
+          </div>
+          <!-- milestone 2 -->
+          <div class="timeline-card">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-title">Mở Rộng Thâm Quyến</div>
+            <div class="timeline-desc">Thành lập văn phòng liên lạc xúc tiến đầu tư tại Thâm Quyến để trực tiếp kết nối với các tập đoàn công nghệ hàng đầu.</div>
+          </div>
+          <!-- milestone 3 -->
+          <div class="timeline-card">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-title">Liên Kết VIENC</div>
+            <div class="timeline-desc">Ký kết hợp tác chiến lược toàn diện với VIENC, mở rộng mạng lưới hơn 500 thành viên doanh nhân lớn.</div>
+          </div>
+          <!-- milestone 4 -->
+          <div class="timeline-card">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-title">Diễn Đàn Quốc Tế</div>
+            <div class="timeline-desc">Đồng tổ chức Diễn đàn Xúc tiến Đầu tư Việt - Trung đầu tiên, thu hút hơn 300 tập đoàn và ký kết 5 biên bản ghi nhớ FDI.</div>
+          </div>
+          <!-- milestone 5 -->
+          <div class="timeline-card">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-title">Đột Phá KCN & BESS</div>
+            <div class="timeline-desc">Hỗ trợ thành công loạt dự án năng lượng tái tạo, trạm lưu trữ pin BESS và cụm kho bãi thông minh tại Hải Phòng & Bình Thuận.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
+
+  <!-- 3-Click Lead Capture Success Modal (WeChat QR Code pop-up) -->
+  <div id="success-modal" class="modal-backdrop" style="display:none;">
+    <div class="modal-content">
+      <h3 class="modal-title" id="success-m-title">GỬI YÊU CẦU THÀNH CÔNG!</h3>
+      <p class="modal-desc" id="success-m-desc">VCEC đã ghi nhận hồ sơ của doanh nghiệp và gán chuyên viên tư vấn tiếng Trung phụ trách trực tiếp liên hệ lại với anh/chị.</p>
+      
+      <div class="wechat-qr-block">
+        <h4 id="success-m-sub">CHỦ ĐỘNG KẾT NỐI WECHAT / WHATSAPP</h4>
+        <p id="success-m-qrdesc">Quét mã QR dưới đây để kết nối trực tiếp với Chuyên viên phụ trách thực địa khu vực của bạn:</p>
+        
+        <div class="qr-code-box">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <rect x="5" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="10" y="10" width="15" height="15" fill="#B8860B"/>
+            <rect x="70" y="5" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="75" y="10" width="15" height="15" fill="#B8860B"/>
+            <rect x="5" y="70" width="25" height="25" fill="none" stroke="#C8102E" stroke-width="4"/>
+            <rect x="10" y="75" width="15" height="15" fill="#B8860B"/>
+            <rect x="40" y="10" width="8" height="8" fill="#C8102E"/>
+            <rect x="52" y="15" width="12" height="6" fill="#C8102E"/>
+            <rect x="15" y="40" width="10" height="10" fill="#B8860B"/>
+            <rect x="45" y="45" width="10" height="10" fill="#C8102E"/>
+            <rect x="70" y="45" width="10" height="10" fill="#B8860B"/>
+            <rect x="45" y="75" width="12" height="12" fill="#B8860B"/>
+          </svg>
+        </div>
+        <div class="wechat-id-tag">WeChat ID: VCEC_XuctienFDI_01</div>
+      </div>
+      <button class="btn btn-secondary" onclick="closeSuccessModal()" id="btn-success-close">Đóng</button>
+    </div>
+  </div>
 
   <!-- Shared Global Footer -->
   <footer id="global-footer"></footer>
 
+  <!-- Connection Advisor Modal Popup Form -->
+  <div id="advModal" class="advisor-modal">
+    <div class="adv-modal-content">
+      <button class="adv-modal-close" onclick="closeAdvisorModal()">&times;</button>
+      <h3 class="adv-modal-title" id="advFormTitle">KẾT NỐI CHUYÊN GIA</h3>
+      <p class="adv-modal-subtitle" id="advFormSubtitle">Ông Đinh Vĩnh Cường</p>
+      
+      <form id="advContactForm" onsubmit="handleAdvisorSubmit(event)">
+        <!-- Hidden values -->
+        <input type="hidden" id="hiddenAdvName">
+        
+        <div class="adv-form-group">
+          <label id="lbl-adv-name">Họ và Tên</label>
+          <input type="text" id="adv-input-name" class="adv-form-input" required placeholder="Ví dụ: Nguyễn Văn A / 张伟">
+        </div>
+        <div class="adv-form-group">
+          <label id="lbl-adv-company">Tên Doanh nghiệp</label>
+          <input type="text" id="adv-input-company" class="adv-form-input" required placeholder="Ví dụ: Tập đoàn Công nghệ 365">
+        </div>
+        <div class="adv-form-group">
+          <label id="lbl-adv-email">Địa chỉ Email</label>
+          <input type="email" id="adv-input-email" class="adv-form-input" required placeholder="name@company.com">
+        </div>
+        <div class="adv-form-group">
+          <label id="lbl-adv-phone">Số điện thoại / WeChat / WhatsApp</label>
+          <input type="text" id="adv-input-phone" class="adv-form-input" required placeholder="+84 901 234 567 / WeChat ID">
+        </div>
+        <div class="adv-form-group">
+          <label id="lbl-adv-content">Nội dung cần cố vấn / hỗ trợ</label>
+          <textarea id="adv-input-content" class="adv-form-textarea" rows="4" required placeholder="Mô tả tóm tắt nhu cầu kết nối, khảo sát hay cố vấn..."></textarea>
+        </div>
+        
+        <button type="submit" class="btn-adv-submit" id="btn-adv-submit-text">Gửi Yêu Cầu Kết Nối</button>
+      </form>
+    </div>
+  </div>
+
   <script src="app.js"></script>
   <script>
-    (function() {
-      function getLang() { return localStorage.getItem('vcec_lang') || 'vi'; }
-      function tf(p, f) { var l = getLang(); return p[f+'_'+l] || p[f+'_vi'] || ''; }
-
-      var cachedPost = null;
-
-      function updateSEO(post) {
-        var title = tf(post, 'title');
-        var summary = tf(post, 'summary');
-        var img = post.cover_image || 'public/logo_VCEC.jpg';
-        document.querySelector('meta[property="og:title"]').content = title + ' - VCEC Portal';
-        document.querySelector('meta[property="og:description"]').content = summary;
-        document.querySelector('meta[property="og:image"]').content = img;
-        document.querySelector('meta[name="twitter:title"]').content = title;
-        document.querySelector('meta[name="twitter:description"]').content = summary;
-        document.querySelector('meta[name="twitter:image"]').content = img;
-      }
-
-      function renderPost(post) {
-        var container = document.getElementById('gioi-thieu-container');
-        if (!container) return;
-
-        if (!post) {
-          container.innerHTML = '<div class="article-wrap" style="text-align:center; color: #999;">Chưa có nội dung giới thiệu chính thức.</div>';
-          return;
+    // Load page post from CMS (category: gioi-thieu)
+    (async () => {
+      const post = await window.vcecPagePost({
+        category: 'gioi-thieu',
+        target: '#cms-zone-gioi-thieu',
+        coverTarget: '#cms-cover-gt'
+      });
+      if (post) {
+        const lang = localStorage.getItem('vcec_lang') || 'vi';
+        const title = post[`title_${lang}`] || post.title_vi;
+        const content = post[`content_${lang}`] || post.content_vi;
+        if (content && content.trim()) {
+          document.getElementById('cms-gioi-thieu-section').style.display = '';
         }
-
-        updateSEO(post);
-        var title = tf(post, 'title');
-        var summary = tf(post, 'summary');
-        var content = tf(post, 'content');
-        var coverImg = post.cover_image ? '<img src="' + post.cover_image + '" class="article-hero-img" alt="' + title + '">' : '';
-
-        // Determine if content is HTML (from Quill) or plain text
-        var formattedContent = content.trim().charAt(0) === '<' ? content : content.split(/\n\n+/).map(function(p){ return '<p>'+p.replace(/\n/g,'<br>')+'</p>'; }).join('');
-
-        container.innerHTML = 
-          '<div class="article-wrap">' +
-            coverImg +
-            '<div class="article-header" style="margin-bottom: 40px; text-align: center;">' +
-              '<h2 class="article-title-main" style="font-size: 2.2rem; color: var(--vcec-red);">' + title + '</h2>' +
-              '<p class="lead" style="font-size: 1.2rem; color: var(--vcec-text-light); max-width: 800px; margin: 0 auto; line-height: 1.6;">' + summary + '</p>' +
-            '</div>' +
-            '<div class="article-divider"></div>' +
-            '<div class="article-body">' + formattedContent + '</div>' +
-          '</div>';
+        if (post.cover_image) {
+          document.getElementById('cms-cover-gt').style.display = 'block';
+        }
+        if (title) {
+          const el = document.getElementById('about-hero-title');
+          if (el) el.textContent = title;
+        }
       }
-
-      function loadPost() {
-        if (!window.supabaseClient) { setTimeout(loadPost, 150); return; }
-        window.supabaseClient
-          .from('vcec_posts')
-          .select('*')
-          .eq('category', 'gioi-thieu')
-          .eq('status', 'published')
-          .order('created_at', { ascending: true })
-          .limit(1)
-          .single()
-          .then(function(res) {
-            cachedPost = res.data;
-            renderPost(res.error ? null : res.data);
-          });
-      }
-
-      loadPost();
-      window.addEventListener('vcec-lang-change', function() { if (cachedPost) renderPost(cachedPost); });
     })();
+  </script>
+  <script>
+    // Localized Translations dictionary for About Us Editorial Page
+    const pageTranslations = {
+      vi: {
+        "about-title": "GIỚI THIỆU VCEC",
+        "about-slogan": "Một thập niên kết nối – Vạn cơ hội tương lai",
+        "about-quote": '"Quan hệ Đối tác Hợp tác Chiến lược Toàn diện song phương Việt - Trung và Cộng đồng chia sẻ tương lai Việt Nam – Trung Quốc có ý nghĩa chiến lược là nền tảng vững chắc nhất cho hợp tác kinh tế song phương."',
+        "about-p1": "Trung tâm Giao lưu và Hợp tác Kinh tế Việt Nam – Trung Quốc (Vietnam–China Economic Cooperation & Exchange Center – VCEC) là tổ chức chuyên trách thúc đẩy giao lưu kinh tế, thương mại và đầu tư giữa Việt Nam và Trung Quốc.",
+        "about-p2": "Trên nền tảng quan hệ Đối tác Hợp tác Chiến lược Toàn diện và khuôn khổ \"Cộng đồng chia sẻ tương lai Việt Nam – Trung Quốc có ý nghĩa chiến lược\", VCEC giữ vai trò cầu nối giữa cộng đồng doanh nghiệp hai nước, hỗ trợ quá trình tìm kiếm đối tác, chuyển giao công nghệ, mở rộng thị trường và triển khai dự án đầu tư.",
+        "about-p3": "VCEC là điểm đến đầu tiên cho các tập đoàn Trung Quốc muốn vào Việt Nam và các doanh nghiệp Việt Nam muốn tiếp cận thị trường Trung Quốc một cách bài bản, hợp pháp và hiệu quả.",
+        
+        "vision-title": "Tầm nhìn (Vision)",
+        "vision-desc": "Trở thành cầu nối kinh tế Việt – Trung uy tín hàng đầu, đồng hành cùng các doanh nghiệp xây dựng chuỗi giá trị bền vững giữa hai nền kinh tế lớn của châu Á.",
+        "mission-title": "Sứ mệnh (Mission)",
+        "m-li1": "Thúc đẩy hợp tác đầu tư, thương mại, công nghệ giữa doanh nghiệp Việt Nam và Trung Quốc.",
+        "m-li2": "Xúc tiến các dự án trọng điểm trong logistics, năng lượng xanh, EV, sản xuất thông minh, nông nghiệp công nghệ cao.",
+        "m-li3": "Hỗ trợ doanh nghiệp Trung Quốc tiếp cận chính sách, thủ tục và hệ sinh thái đầu tư tại Việt Nam.",
+        "m-li4": "Hỗ trợ doanh nghiệp Việt Nam mở rộng thị trường, huy động vốn và công nghệ từ Trung Quốc.",
+        "m-li5": "Tổ chức diễn đàn, hội thảo, đoàn doanh nghiệp xúc tiến thương mại – đầu tư hai chiều.",
+        
+        "val-title": "GIÁ TRỊ CỐT LÕI",
+        "v1-name": "CHÍNH DANH",
+        "v1-desc": "Hoạt động đúng pháp luật, đúng vai trò cầu nối chính danh giữa hai nước.",
+        "v2-name": "CHUYÊN NGHIỆP",
+        "v2-desc": "Đội ngũ song ngữ, am hiểu pháp lý, văn hóa và thực tiễn kinh doanh.",
+        "v3-name": "HIỆU QUẢ",
+        "v3-desc": "Cam kết kết quả: kết nối đúng đối tác, đúng thời điểm, đúng nhu cầu.",
+        "v4-name": "BỀN VỮNG",
+        "v4-desc": "Ưu tiên dự án xanh, công nghệ cao, đóng góp dài hạn cho hai nền kinh tế.",
+        
+        "lead-sec-title": "BAN LÃNH ĐẠO",
+        "lead-name": "Giám đốc Trung tâm – Ông Đinh Vĩnh Cường",
+        "lead-title": "CHỦ TỊCH VCEC | CHỦ TỊCH 365 GROUP",
+        "lead-desc-1": "Chủ tịch Tập đoàn 365 (365 Group JSC) – tập đoàn đa ngành Việt Nam hoạt động trong logistics, xe điện, BESS, drone, robot và sản xuất thông minh.",
+        "lead-desc-2": "Chủ tịch Câu lạc bộ Kết nối Doanh nhân Quốc tế Việt Nam (VIENC) – mạng lưới doanh nhân Việt kết nối toàn cầu.",
+        "lead-desc-3": "Với hơn hai thập niên kinh nghiệm trong thương mại quốc tế và quan hệ Việt – Trung, ông Cường định vị VCEC trở thành nền tảng chiến lược kết nối doanh nghiệp hai nước trong các lĩnh vực kinh tế xanh, logistics thông minh và công nghệ cao.",
+        "lead-btn": "Kết nối với Giám đốc",
+        
+        "adv-sec-title": "CỐ VẤN CẤP CAO & HỘI ĐỒNG CHUYÊN GIA",
+        "adv-sec-desc": "VCEC sở hữu đội ngũ cố vấn quan hệ ngoại giao, chuyên gia kinh tế vĩ mô và luật sư đầu tư giàu kinh nghiệm thực chiến song phương Việt - Trung.",
+        "adv1-name": "TS. Nguyễn Văn Bình",
+        "adv1-role": "Cố vấn Chiến lược FDI",
+        "adv1-bio": "Nguyên Vụ trưởng Vụ Đầu tư Nước ngoài, hơn 25 năm kinh nghiệm hoạch định chính sách thu hút dòng vốn đầu tư trực tiếp.",
+        "adv2-name": "GS. Vương Chí Minh",
+        "adv2-role": "Cố vấn Thương mại Song phương",
+        "adv2-bio": "Nguyên Giáo sư Đại học Giao thông Thượng Hải, chuyên gia nghiên cứu chuỗi cung ứng và hiệp định thương mại song phương.",
+        "adv3-name": "Luật sư Trần Hữu Trí",
+        "adv3-role": "Luật sư Đầu tư Quốc tế",
+        "adv3-bio": "Chuyên gia luật M&A, tư vấn thành lập doanh nghiệp FDI, thâu tóm dự án và bảo hộ sở hữu trí tuệ liên quốc gia.",
+        "adv4-name": "Bà Trương Lệ Hoa",
+        "adv4-role": "Cố vấn Hợp tác Công nghệ",
+        "adv4-bio": "Nguyên Giám đốc ban xúc tiến khoa học công nghệ Thâm Quyến, chuyên gia kết nối doanh nghiệp phần cứng và tự động hóa.",
+        "adv5-name": "Ông Phạm Minh Đức",
+        "adv5-role": "Chuyên gia Chuỗi Cung ứng",
+        "adv5-bio": "Cựu Giám đốc Logistics Tập đoàn Đa quốc gia, chuyên gia tối ưu hóa luồng hàng hóa và hải quan giữa Việt Nam và Trung Quốc.",
+        "adv6-name": "TS. Chu Hải Đường",
+        "adv6-role": "Cố vấn Năng lượng xanh & BESS",
+        "adv6-bio": "Tiến sĩ chuyên ngành lưu trữ năng lượng, cố vấn kỹ thuật và chuyển giao công nghệ cho các nhà máy pin lithium hàng đầu.",
+        "adv-btn": "✉ Liên hệ cố vấn &rarr;",
+
+        "part-sec-title": "MẠNG LƯỚI ĐỐI TÁC",
+        "part-g1": "Cơ quan ngoại giao & Chính phủ",
+        "part-g2": "Hiệp hội ngành nghề Việt Nam – Trung Quốc",
+        "part-g3": "Tập đoàn doanh nghiệp",
+        "part-g4": "Ngân hàng – Định chế tài chính",
+        
+        "time-sec-title": "LỊCH SỬ HÌNH THÀNH & HÀNH TRÌNH",
+        "t1-y": "2015", "t1-t": "Thành Lập Trung Tâm", "t1-d": "VCEC được thành lập tại Hà Nội với vai trò cầu nối chuyên gia tư vấn đầu tư công và chính sách thương mại Việt - Trung.",
+        "t2-y": "2018", "t2-t": "Mở Rộng Thâm Quyến", "t2-d": "Thành lập văn phòng liên lạc xúc tiến đầu tư tại Thâm Quyến để trực tiếp kết nối với các tập đoàn công nghệ hàng đầu.",
+        "t3-y": "2020", "t3-t": "Liên Kết VIENC", "t3-d": "Ký kết hợp tác chiến lược toàn diện với VIENC, mở rộng mạng lưới hơn 500 thành viên doanh nhân lớn.",
+        "t4-y": "2022", "t4-t": "Diễn Đàn Quốc Tế", "t4-d": "Đồng tổ chức Diễn đàn Xúc tiến Đầu tư Việt - Trung đầu tiên, thu hút hơn 300 tập đoàn và ký kết 5 biên bản ghi nhớ FDI.",
+        "t5-y": "2024", "t5-t": "Đột Phá KCN & BESS", "t5-d": "Hỗ trợ thành công loạt dự án năng lượng tái tạo, trạm lưu trữ pin BESS và cụm kho bãi thông minh tại Hải Phòng & Bình Thuận.",
+        
+        "m-title": "KẾT NỐI CHUYÊN GIA",
+        "m-btn": "Gửi Yêu Cầu Kết Nối",
+        "m-lbl-name": "Họ và Tên",
+        "m-lbl-comp": "Tên Doanh nghiệp",
+        "m-lbl-mail": "Địa chỉ Email",
+        "m-lbl-ph": "Số điện thoại / WeChat / WhatsApp",
+        "m-lbl-content": "Nội dung cần cố vấn / hỗ trợ",
+        "m-ph-content": "Mô tả tóm tắt nhu cầu kết nối, khảo sát hay cố vấn..."
+      },
+      zh: {
+        "about-title": "关于 VCEC",
+        "about-slogan": "十年紧密联结 – 万般未来机遇",
+        "about-quote": '"中越双边全面战略合作伙伴关系以及具有战略意义的中越命运共同体，是双边经济可持续合作发展的最坚实基础。"',
+        "about-p1": "越中经济合作与交流中心 (VCEC) 是一家专门促进越南与中国之间经济、贸易 and 投资交流的专业机构。",
+        "about-p2": "在两国全面战略合作伙伴关系和“具有战略意义的越中命运共同体”框架下，VCEC发挥着连接两国企业界的桥梁纽带作用，全力协助寻找合作伙伴、技术转移、市场开拓以及落地各项投资项目。",
+        "about-p3": "无论是对于希望进入越南市场的中国大中型企业集团，还是希望合规、高效对接中国市场的越南本土企业而言，VCEC都是他们的首选专业对接平台。",
+        
+        "vision-title": "愿景 (Vision)",
+        "vision-desc": "成为越中双边经济对接中备受推崇、首屈一指的信誉桥梁，与两国企业携手构建连接亚洲两大活跃经济体的可持续价值链。",
+        "mission-title": "使命 (Mission)",
+        "m-li1": "积极推动越中企业间的投资、经贸与先进技术转移合作。",
+        "m-li2": "重点促成物流、绿色能源、新能源汽车（EV）及储能系统（BESS）、智能制造与高效农业领域的旗舰项目。",
+        "m-li3": "全方位协助中国投资者适应和对接越南的法律政策、投资程序与产业生态圈系统。",
+        "m-li4": "协助越南企业在中国市场实现市场拓展、融资以及引进中国先进科技。",
+        "m-li5": "常态化组织两国的双向投资经贸论坛、洽谈研讨会及实地考察企业家代表团。",
+        
+        "val-title": "核心价值观",
+        "v1-name": "合规守信",
+        "v1-desc": "严格遵守两国法律法规，切实履行两国官方双向对接的合规桥梁作用。",
+        "v2-name": "专业高效",
+        "v2-desc": "配置高效的双语专家团队，深谙政策法规、商业文化及两国的实操商业惯例。",
+        "v3-name": "务实求真",
+        "v3-desc": "追求结果导向：在精准的时间点，为企业提供精确且符合战略需求的资源匹配。",
+        "v4-name": "可持续性",
+        "v4-desc": "重点倾斜绿色环保、高端制造项目，为越中双边经济发展做出长效贡献。",
+        
+        "lead-sec-title": "领导班子",
+        "lead-name": "中心主任 – 丁永强 先生",
+        "lead-title": "VCEC 主席 | 365集团 董事长",
+        "lead-desc-1": "365集团 (365 Group JSC) 董事长 —— 越南领先的跨国产业集团，涉足领域包含现代物流、新能源车、储能系统(BESS)、无人机、工业机器人与智能制造。",
+        "lead-desc-2": "越南国际企业家对接俱乐部 (VIENC) 主席 —— 覆盖全球越商以及外资企业家的全球性高端商业社群网络。",
+        "lead-desc-3": "丁永强先生在国际贸易以及越中合作领域深耕二十余载，凭借深厚积淀，他致力于将VCEC打造成为连接两国在绿色经济、智慧物流与高科技制造领域开展战略性务实合作的最高效对接平台。",
+        "lead-btn": "联系中心主任",
+        
+        "adv-sec-title": "高级顾问及专家委员会",
+        "adv-sec-desc": "VCEC 凝聚了来自中越两国的外交使节、宏观经济学者、资深投资法律专家等高规格智囊团，护航企业双边投资行稳致远。",
+        "adv1-name": "阮文平 博士",
+        "adv1-role": "FDI 引资战略顾问",
+        "adv1-bio": "越南前外国投资局局长，拥有25年国家引资政策制定及外资重大项目审批的资深行政与咨询经验。",
+        "adv2-name": "王志明 教授",
+        "adv2-role": "双边贸易资深顾问",
+        "adv2-bio": "上海交通大学前教授，全球供应链专家，深度研究中越双边自贸协定与产业链供应链布局。",
+        "adv3-name": "陈 hữu 智 律师",
+        "adv3-role": "国际投资法学顾问",
+        "adv3-bio": "M&A（兼并收购）专家，深谙越中外资设厂准入、股权交易以及跨国知识产权法律保护。",
+        "adv4-name": "张丽华 女士",
+        "adv4-role": "中越科技合作顾问",
+        "adv4-bio": "前深圳科技局推广处主任，专注于连接中越高端智能硬件、自动化及高科技企业落地。",
+        "adv5-name": "范明德 先生",
+        "adv5-role": "供应链与物流专家",
+        "adv5-bio": "前跨国企业物流总监，精通中越边境快速清关、口岸物流以及双边供应链 network 优化。",
+        "adv6-name": "周海东 博士",
+        "adv6-role": "绿色能源与储能系统顾问",
+        "adv6-bio": "储能电化学博士，为越中双边锂电制造及储能站(BESS)提供高水平技术转移与落地合规指导。",
+        "adv-btn": "✉ 联络顾问专员 &rarr;",
+
+        "part-sec-title": "合作伙伴网络",
+        "part-g1": "外交与政府机构",
+        "part-g2": "中越行业商会与协会",
+        "part-g3": "龙头企业与集团",
+        "part-g4": "银行与多边金融机构",
+        
+        "time-sec-title": "发展历程与大事记",
+        "t1-y": "2015年", "t1-t": "中心正式创立", "t1-d": "VCEC在河内市成立，初期作为中越双边公共投资咨询及贸易政策分析的顾问组织。",
+        "t2-y": "2018年", "t2-t": "设立深圳联络处", "t2-d": "在中国深圳（全球高科技与制造之都）设立联络处，直接建立与中国大湾区高科技企业的对接通道。",
+        "t3-y": "2020年", "t3-t": "战略联结 VIENC", "t3-d": "与越南国际企业家俱乐部(VIENC)签署全方位战略协议，两国经贸商业会员规模扩充至500余家。",
+        "t4-y": "2022年", "t4-t": "承办首届投资论坛", "t4-d": "成功承办首届中越（双向）投资与贸易对接论坛，吸引超300家集团出席，现场促成多项FDI意向备忘录签署。",
+        "t5-y": "2024年", "t5-t": "绿色低碳与物流大突破", "t5-d": "全力护航数个大型新能源、储能站(BESS)及智慧保税仓储项目在海防市及平顺省成功建厂落户。",
+        
+        "m-title": "联系专家委员会",
+        "m-btn": "提交联络申请",
+        "m-lbl-name": "您的姓名",
+        "m-lbl-comp": "企业/机构名称",
+        "m-lbl-mail": "电子邮箱",
+        "m-lbl-ph": "联系电话 / 微信 / WhatsApp",
+        "m-lbl-content": "咨询需求与内容简述",
+        "m-ph-content": "请简要描述您的投资、贸易、选址或顾问对接需求..."
+      },
+      en: {
+        "about-title": "ABOUT VCEC",
+        "about-slogan": "A Decade of Connection – Countless Future Opportunities",
+        "about-quote": '"The Comprehensive Strategic Cooperative Partnership and the strategic Vietnam-China Community with a Shared Future represent the strongest foundation for bilateral economic prosperity."',
+        "about-p1": "The Vietnam–China Economic Cooperation & Exchange Center (VCEC) is a specialized organization dedicated to promoting economic, trade, and investment exchanges between Vietnam and China.",
+        "about-p2": "Under the framework of the Comprehensive Strategic Cooperative Partnership and the \"Vietnam-China Community with a Shared Future\", VCEC serves as a critical bridge between the business communities of both countries, assisting in partner matching, technology transfer, market expansion, and FDI project deployment.",
+        "about-p3": "VCEC is the premier gateway for Chinese corporations entering Vietnam and Vietnamese businesses seeking systematic, legal, and highly efficient access to the Chinese market.",
+        
+        "vision-title": "Vision",
+        "vision-desc": "To be the leading and most trusted bilateral economic bridge, walking hand-in-hand with enterprises to build sustainable value chains connecting the two dynamic Asian economies.",
+        "mission-title": "Mission",
+        "m-li1": "Facilitate investment, trade, and technology cooperation between Vietnamese and Chinese enterprises.",
+        "m-li2": "Promote key projects in logistics, green energy, EV & BESS, smart manufacturing, and high-tech agriculture.",
+        "m-li3": "Assist Chinese investors in understanding FDI policies, administrative procedures, and the local industrial ecosystem.",
+        "m-li4": "Help Vietnamese enterprises expand overseas, raise capital, and source technology from China.",
+        "m-li5": "Organize high-level business forums, matching seminars, and bilateral investment delegation trips.",
+        
+        "val-title": "CORE VALUES",
+        "v1-name": "LEGITIMACY",
+        "v1-desc": "Operate strictly under law, serving as an authoritative, official gateway between the two nations.",
+        "v2-name": "PROFESSIONALISM",
+        "v2-desc": "Bilingual experts with deep knowledge of regulations, business culture, and local execution.",
+        "v3-name": "EFFECTIVENESS",
+        "v3-desc": "Committed to results: matching the right partner, at the right time, for the right strategic needs.",
+        "v4-name": "SUSTAINABILITY",
+        "v4-desc": "Prioritizing green, high-tech, and value-adding investments for long-term bilateral growth.",
+        
+        "lead-sec-title": "LEADERSHIP",
+        "lead-name": "Director of the Center – Mr. Dinh Vinh Cuong",
+        "lead-title": "CHAIRMAN OF VCEC | CHAIRMAN OF 365 GROUP",
+        "lead-desc-1": "Chairman of 365 Group JSC – a leading conglomerate active in logistics, EVs, BESS battery storage, drones, robotics, and smart manufacturing.",
+        "lead-desc-2": "President of the Vietnam International Entrepreneur Connection Club (VIENC) – a high-end global network for Vietnamese and foreign business leaders.",
+        "lead-desc-3": "With over two decades of international trade and Vietnam-China economic diplomacy experience, Mr. Cuong positions VCEC as the strategic portal connecting bilateral businesses in green sectors, smart logistics, and high technology.",
+        "lead-btn": "Connect with the Director",
+        
+        "adv-sec-title": "SENIOR ADVISORS & EXPERT BOARD",
+        "adv-sec-desc": "VCEC gathers a premium board of former diplomats, macroeconomists, and international lawyers to secure bilateral investment journeys.",
+        "adv1-name": "Dr. Nguyen Van Binh",
+        "adv1-role": "FDI Strategy Advisor",
+        "adv1-bio": "Former Director of Foreign Investment Agency, over 25 years of experience in state policymaking and FDI project facilitation.",
+        "adv2-name": "Prof. Wang Zhiming",
+        "adv2-role": "Bilateral Trade Advisor",
+        "adv2-bio": "Former Professor at Shanghai Jiao Tong University, international expert in supply chain optimization and FTA frameworks.",
+        "adv3-name": "Lawyer Tran Huu Tri",
+        "adv3-role": "International Investment Lawyer",
+        "adv3-bio": "Specialist in M&A, FDI entity setup, local land acquisition, and IP legal protection.",
+        "adv4-name": "Ms. Zhang Lihua",
+        "adv4-role": "Technology Cooperation Advisor",
+        "adv4-bio": "Former Director of Shenzhen Sci-Tech Promotion Bureau, connecting hardware, IoT, and high-tech factories with Vietnam.",
+        "adv5-name": "Mr. Pham Minh Đức",
+        "adv5-role": "Supply Chain Specialist",
+        "adv5-bio": "Former MNC Logistics Director, specializing in cross-border customs clearance, port logistics, and supply chain networks.",
+        "adv6-name": "Dr. Zhou Haidong",
+        "adv6-role": "Green Energy & BESS Advisor",
+        "adv6-bio": "Ph.D. in Electrochemistry, advising on technical transfer and local compliances for lithium battery giants.",
+        "adv-btn": "✉ Contact Advisor &rarr;",
+
+        "part-sec-title": "PARTNER NETWORK",
+        "part-g1": "Diplomatic & Government Agencies",
+        "part-g2": "Vietnamese & Chinese Business Associations",
+        "part-g3": "Corporate Enterprises & Conglomerates",
+        "part-g4": "Banks & Financial Institutions",
+        
+        "time-sec-title": "OUR JOURNEY & MILESTONES",
+        "t1-y": "2015", "t1-t": "Establishment of VCEC", "t1-d": "Founded in Hanoi as a state-level policy analysis and business consultation advisory center.",
+        "t2-y": "2018", "t2-t": "Shenzhen Liaison Office", "t2-d": "Opened a local office in Shenzhen, directly linking with hardware and high-tech giants in South China.",
+        "t3-y": "2020", "t3-t": "Alliance with VIENC", "t3-d": "Strategic alliance with VIENC, extending the direct business member network to over 500 entrepreneurs.",
+        "t4-y": "2022", "t4-t": "Bilateral Investment Forum", "t4-d": "Co-organized the first bilateral Investment Promotion Forum, gathering 300+ firms and generating multiple FDI MoUs.",
+        "t5-y": "2024", "t5-t": "Logistics & Green Energy Breakthrough", "t5-d": "Successfully facilitated major investments in lithium cell manufacturing, smart warehousing, and BESS projects in Northern and Southern VN.",
+        
+        "m-title": "CONNECT WITH ADVISORY BOARD",
+        "m-btn": "Submit Inquiry Form",
+        "m-lbl-name": "Your Name",
+        "m-lbl-comp": "Company Name",
+        "m-lbl-mail": "Email Address",
+        "m-lbl-ph": "Phone / WeChat / WhatsApp ID",
+        "m-lbl-content": "Inquiry Details & Request Description",
+        "m-ph-content": "Please describe your trade, investment, site acquisition or consultation request..."
+      }
+    };
+
+    function getLang() {
+      return localStorage.getItem('vcec_lang') || 'vi';
+    }
+
+    // Apply translations on load and language change
+    function applyTranslations() {
+      const l = getLang();
+      const t = pageTranslations[l] || pageTranslations['vi'];
+      
+      // Banner
+      document.getElementById('about-hero-title').innerText = t['about-title'];
+      document.getElementById('about-hero-slogan').innerText = t['about-slogan'];
+      
+      // Về chúng tôi
+      document.getElementById('about-quote').innerText = t['about-quote'];
+      const abContainer = document.getElementById('about-paragraphs');
+      abContainer.innerHTML = `
+        <p>${t['about-p1']}</p>
+        <p>${t['about-p2']}</p>
+        <p>${t['about-p3']}</p>
+      `;
+
+      // Vision Mission Core
+      document.getElementById('vision-title').innerText = t['vision-title'];
+      document.getElementById('vision-desc').innerText = t['vision-desc'];
+      document.getElementById('mission-title').innerText = t['mission-title'];
+      
+      const mList = document.getElementById('mission-list');
+      mList.innerHTML = `
+        <li>${t['m-li1']}</li>
+        <li>${t['m-li2']}</li>
+        <li>${t['m-li3']}</li>
+        <li>${t['m-li4']}</li>
+        <li>${t['m-li5']}</li>
+      `;
+
+      document.getElementById('values-grid-title').innerText = t['val-title'];
+      
+      const vGrid = document.getElementById('values-grid-box');
+      vGrid.innerHTML = `
+        <div class="value-card">
+          <div class="value-word">${t['v1-name']}</div>
+          <p class="value-desc">${t['v1-desc']}</p>
+        </div>
+        <div class="value-card">
+          <div class="value-word">${t['v2-name']}</div>
+          <p class="value-desc">${t['v2-desc']}</p>
+        </div>
+        <div class="value-card">
+          <div class="value-word">${t['v3-name']}</div>
+          <p class="value-desc">${t['v3-desc']}</p>
+        </div>
+        <div class="value-card">
+          <div class="value-word">${t['v4-name']}</div>
+          <p class="value-desc">${t['v4-desc']}</p>
+        </div>
+      `;
+
+      // Leadership
+      document.getElementById('leadership-section-title').innerText = t['lead-sec-title'];
+      document.getElementById('leader-name').innerText = t['lead-name'];
+      document.getElementById('leader-title').innerText = t['lead-title'];
+      
+      const lDesc = document.getElementById('leader-desc');
+      lDesc.innerHTML = `
+        <p>• ${t['lead-desc-1']}</p>
+        <p>• ${t['lead-desc-2']}</p>
+        <p>• ${t['lead-desc-3']}</p>
+      `;
+      document.getElementById('btn-leader-connect').innerText = t['lead-btn'];
+
+      // Advisors
+      document.getElementById('advisors-title').innerText = t['adv-sec-title'];
+      document.getElementById('advisors-desc').innerText = t['adv-sec-desc'];
+      
+      const advBox = document.getElementById('advisors-list-box');
+      advBox.innerHTML = `
+        <div class="advisor-card">
+          <div>
+            <div class="advisor-name">${t['adv1-name']}</div>
+            <div class="advisor-role">${t['adv1-role']}</div>
+            <div class="advisor-bio">${t['adv1-bio']}</div>
+          </div>
+          <button class="advisor-connect-btn" onclick="openAdvisorModal('${t['adv1-name']}', '${t['adv1-role']}')">${t['adv-btn']}</button>
+        </div>
+        <div class="advisor-card">
+          <div>
+            <div class="advisor-name">${t['adv2-name']}</div>
+            <div class="advisor-role">${t['adv2-role']}</div>
+            <div class="advisor-bio">${t['adv2-bio']}</div>
+          </div>
+          <button class="advisor-connect-btn" onclick="openAdvisorModal('${t['adv2-name']}', '${t['adv2-role']}')">${t['adv-btn']}</button>
+        </div>
+        <div class="advisor-card">
+          <div>
+            <div class="advisor-name">${t['adv3-name']}</div>
+            <div class="advisor-role">${t['adv3-role']}</div>
+            <div class="advisor-bio">${t['adv3-bio']}</div>
+          </div>
+          <button class="advisor-connect-btn" onclick="openAdvisorModal('${t['adv3-name']}', '${t['adv3-role']}')">${t['adv-btn']}</button>
+        </div>
+        <div class="advisor-card">
+          <div>
+            <div class="advisor-name">${t['adv4-name']}</div>
+            <div class="advisor-role">${t['adv4-role']}</div>
+            <div class="advisor-bio">${t['adv4-bio']}</div>
+          </div>
+          <button class="advisor-connect-btn" onclick="openAdvisorModal('${t['adv4-name']}', '${t['adv4-role']}')">${t['adv-btn']}</button>
+        </div>
+        <div class="advisor-card">
+          <div>
+            <div class="advisor-name">${t['adv5-name']}</div>
+            <div class="advisor-role">${t['adv5-role']}</div>
+            <div class="advisor-bio">${t['adv5-bio']}</div>
+          </div>
+          <button class="advisor-connect-btn" onclick="openAdvisorModal('${t['adv5-name']}', '${t['adv5-role']}')">${t['adv-btn']}</button>
+        </div>
+        <div class="advisor-card">
+          <div>
+            <div class="advisor-name">${t['adv6-name']}</div>
+            <div class="advisor-role">${t['adv6-role']}</div>
+            <div class="advisor-bio">${t['adv6-bio']}</div>
+          </div>
+          <button class="advisor-connect-btn" onclick="openAdvisorModal('${t['adv6-name']}', '${t['adv6-role']}')">${t['adv-btn']}</button>
+        </div>
+      `;
+
+      // Partners
+      document.getElementById('partners-section-title').innerText = t['part-sec-title'];
+      document.getElementById('partner-group-1').innerText = t['part-g1'];
+      document.getElementById('partner-group-2').innerText = t['part-g2'];
+      document.getElementById('partner-group-3').innerText = t['part-g3'];
+      document.getElementById('partner-group-4').innerText = t['part-g4'];
+
+      // Timeline
+      document.getElementById('timeline-section-title').innerText = t['time-sec-title'];
+      const tScroll = document.getElementById('timeline-container-scroll');
+      tScroll.innerHTML = `
+        <div class="timeline-card">
+          <div class="timeline-year">${t['t1-y']}</div>
+          <div class="timeline-title">${t['t1-t']}</div>
+          <div class="timeline-desc">${t['t1-d']}</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">${t['t2-y']}</div>
+          <div class="timeline-title">${t['t2-t']}</div>
+          <div class="timeline-desc">${t['t2-d']}</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">${t['t3-y']}</div>
+          <div class="timeline-title">${t['t3-t']}</div>
+          <div class="timeline-desc">${t['t3-d']}</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">${t['t4-y']}</div>
+          <div class="timeline-title">${t['t4-t']}</div>
+          <div class="timeline-desc">${t['t4-d']}</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">${t['t5-y']}</div>
+          <div class="timeline-title">${t['t5-t']}</div>
+          <div class="timeline-desc">${t['t5-d']}</div>
+        </div>
+      `;
+
+      // Modal labels
+      document.getElementById('advFormTitle').innerText = t['m-title'];
+      document.getElementById('btn-adv-submit-text').innerText = t['m-btn'];
+      document.getElementById('lbl-adv-name').innerText = t['m-lbl-name'];
+      document.getElementById('lbl-adv-company').innerText = t['m-lbl-comp'];
+      document.getElementById('lbl-adv-email').innerText = t['m-lbl-mail'];
+      document.getElementById('lbl-adv-phone').innerText = t['m-lbl-ph'];
+      document.getElementById('lbl-adv-content').innerText = t['m-lbl-content'];
+      document.getElementById('adv-input-content').placeholder = t['m-ph-content'];
+    }
+
+    // Modal Control functions
+    function openAdvisorModal(name, role) {
+      document.getElementById('advFormSubtitle').innerText = name + ' - ' + role;
+      document.getElementById('hiddenAdvName').value = name + ' (' + role + ')';
+      document.getElementById('advModal').style.display = 'flex';
+    }
+
+    function closeAdvisorModal() {
+      document.getElementById('advModal').style.display = 'none';
+      document.getElementById('advContactForm').reset();
+    }
+
+    function openSuccessModal() {
+      const l = getLang();
+      
+      const titles = { vi: "GỬI YÊU CẦU THÀNH CÔNG!", zh: "提交联络申请成功！", en: "INQUIRY SUBMITTED SUCCESSFULLY!" };
+      const descs = {
+        vi: "VCEC đã ghi nhận hồ sơ của doanh nghiệp và gán chuyên viên tư vấn tiếng Trung phụ trách trực tiếp liên hệ lại với anh/chị.",
+        zh: "VCEC已记录您的企业信息，并已安排专门的中文顾问直接与您联系。",
+        en: "VCEC has received your inquiry and assigned a direct bilingual consultant to contact you shortly."
+      };
+      const subs = { vi: "CHỦ ĐỘNG KẾT NỐI WECHAT", zh: "主动联系官方微信", en: "CONNECT DIRECTLY VIA WECHAT" };
+      const qrdescs = {
+        vi: "Quét mã QR dưới đây để kết nối trực tiếp với Chuyên viên phụ trách thực địa khu vực của bạn:",
+        zh: "扫描下方二维码直接对接负责您所在区域的实地投资促进专员：",
+        en: "Scan the QR code below to connect directly with the Investment Officer in charge of your target region:"
+      };
+      
+      document.getElementById('success-m-title').innerText = titles[l] || titles['vi'];
+      document.getElementById('success-m-desc').innerText = descs[l] || descs['vi'];
+      document.getElementById('success-m-sub').innerText = subs[l] || subs['vi'];
+      document.getElementById('success-m-qrdesc').innerText = qrdescs[l] || qrdescs['vi'];
+      document.getElementById('btn-success-close').innerText = l === 'zh' ? "关闭" : (l === 'en' ? "Close" : "Đóng");
+
+      document.getElementById('success-modal').style.display = 'flex';
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('success-modal').style.display = 'none';
+    }
+
+    // Connect Advisory Board Submit Handler with Supabase leads integration
+    async function handleAdvisorSubmit(event) {
+      event.preventDefault();
+      
+      const submitBtn = document.getElementById('btn-adv-submit-text');
+      const originalText = submitBtn.innerHTML;
+      
+      const advName = document.getElementById('hiddenAdvName').value;
+      const clientName = document.getElementById('adv-input-name').value.trim();
+      const clientCompany = document.getElementById('adv-input-company').value.trim();
+      const clientEmail = document.getElementById('adv-input-email').value.trim();
+      const clientPhone = document.getElementById('adv-input-phone').value.trim();
+      const clientContent = document.getElementById('adv-input-content').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = getLang() === 'vi' ? 'Đang xử lý...' : (getLang() === 'zh' ? '正在处理...' : 'Processing...');
+
+      const detailedDescription = `[Cố vấn: ${advName}] | Email: ${clientEmail} | ĐT: ${clientPhone} | Nội dung tư vấn: ${clientContent}`;
+
+      if (window.supabaseClient) {
+        try {
+          const { error } = await window.supabaseClient
+            .from('vcec_leads')
+            .insert([
+              {
+                company_name: clientCompany,
+                contact_name: clientName,
+                wechat_id: clientPhone,
+                project_id: 'advisor-connection',
+                project_name: detailedDescription
+              }
+            ]);
+          
+          if (error) throw error;
+        } catch (err) {
+          console.error("Error inserting lead to Supabase:", err);
+        }
+      }
+
+      // Success sequence
+      closeAdvisorModal();
+      openSuccessModal();
+      
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+
+    // Trigger on load
+    document.addEventListener("DOMContentLoaded", () => {
+      applyTranslations();
+      
+      // Sync on language toggle click
+      window.addEventListener('vcec-lang-change', () => {
+        applyTranslations();
+      });
+    });
   </script>
 </body>
 </html>

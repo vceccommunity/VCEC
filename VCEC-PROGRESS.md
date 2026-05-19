@@ -1,4 +1,216 @@
 # VCEC PROJECT PROGRESS
+ 
+====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + app.js: Thêm nút/icon "Logout" chuyên dụng (🚪 SVG phong cách hiện đại) nằm ngay bên trái Avatar người dùng ở Header. Hỗ trợ hiệu ứng hover chuyển sang màu đỏ báo hiệu trực quan, và kích hoạt đăng xuất nhanh tức thì khi click, xóa sạch `localStorage` và tự động reload trang.
+    + app.js: Tối ưu hóa hành vi click vào Avatar của người dùng đã đăng nhập:
+        * Đối với Thành viên thông thường (không được phân quyền admin): Nhấp vào avatar sẽ chuyển hướng trực tiếp và mở trang chi tiết cá nhân (`profile.html`).
+        * Đối với Người dùng có quyền truy cập hệ thống quản trị (`super_admin`, `admin`, `staff`, `leader`): Nhấp vào avatar sẽ trực tiếp mở trang quản trị hệ thống (`quan-tri.html`).
+        * Đối với Người dùng chưa đăng nhập: Nhấp vào avatar vẫn mở cửa sổ đăng nhập/đăng ký (`#member-modal`) như cũ.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: dich-vu.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + dich-vu.html: Xóa bỏ hoàn toàn giao diện bảng biểu khô khan và thiết kế lại từ đầu thành một kiệt tác giao diện VCEC siêu sang trọng và trực quan:
+        * 1. 5.1. Tổng quan (6 dịch vụ): Thiết kế lưới thẻ dịch vụ một đầu mối `.premium-service-grid` tuyệt đẹp gồm 6 thẻ thủy tinh trắng ngà. Mỗi thẻ tích hợp biểu tượng vector SVG chìm phát sáng khi hover, đường kẻ gradient đỏ son - vàng kim chỉ lối ở cạnh trái, và tiêu đề chuyển màu đỏ bắt mắt.
+        * 2. 5.2. Quy trình hỗ trợ tiêu chuẩn 5 bước (Timeline): Thiết kế dòng thời gian thẳng đứng `.timeline-container` với vệt theo dõi gradient chạy dọc, các nút tròn chỉ mục `01` - `05` có hào quang gold tỏa sáng khi di chuột, và các thẻ nội dung trượt động êm ái sang phải khi tương tác.
+        * 3. Chương trình hội viên VCEC: Hiển thị 3 thẻ Bronze (Cơ bản), Silver (Doanh nghiệp), Gold (Đối tác chiến lược VIP) đồng bộ tuyệt đối với các gạch đầu dòng chi tiết từ yêu cầu của đối tác. Thẻ Gold sở hữu viền vàng Champagne, dải duy băng chéo vương giả và vầng hào quang chìm sang quý.
+        * 4. Tương tác tactile & Đa ngôn ngữ: Giữ nguyên cơ chế click vào dịch vụ tự động cuộn mượt mà xuống form, pre-select mục quan tâm và nhấp nháy phát sáng gold mờ định vị. Hỗ trợ dịch thuật 3 ngôn ngữ (VI/ZH/EN) tự động đồng bộ hóa mượt mà.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: dich-vu.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + dich-vu.html: Cập nhật và tinh chỉnh nội dung trang Dịch vụ theo yêu cầu của đối tác:
+        * 1. 6 Nhóm Dịch Vụ Trọn Gói (One-stop Service): Cập nhật mô tả ngắn gọn, súc tích và chuẩn hóa thuật ngữ tiếng Việt, tiếng Trung và tiếng Anh cho các dịch vụ Kết nối B2B, Xúc tiến đầu tư, Tư vấn pháp lý – thuế, Nghiên cứu thị trường, Phiên dịch & Văn hóa, Sự kiện & Đoàn doanh nghiệp.
+        * 2. Quy trình hỗ trợ tiêu chuẩn 5 bước: Cập nhật nội dung chi tiết của 5 bước từ Tiếp nhận yêu cầu, Tư vấn ban đầu, Đề xuất giải pháp, Triển khai, đến Theo dõi sau kết nối với thời gian phản hồi chuẩn 48 giờ.
+        * 3. Chương trình hội viên VCEC (Membership Tiers): Điều chỉnh gói định vị cho các hội viên: Bronze (Cơ bản), Silver (Doanh nghiệp), Gold (Đối tác chiến lược) cùng hệ thống đặc quyền chuẩn hóa.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: co-hoi.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + co-hoi.html: Tái cấu trúc và thiết kế toàn diện trang Cơ Hội Đầu Tư thành cổng thông tin FDI & B2B quy mô lớn:
+        * 1. Banner & Hook: Tạo dải màu chuyển sắc hoàng gia sâu rộng cùng Tuyên cáo: "Việt Nam: điểm đến chiến lược cho dòng vốn Trung Quốc trong kỷ nguyên dịch chuyển chuỗi cung ứng."
+        * 2. Vì sao đầu tư vào Việt Nam?: Thiết kế 6 thẻ lợi thế chiến lược cốt lõi (Vị trí cửa ngõ, Mạng lưới 16+ FTA, Ổn định chính trị, Nhân lực trẻ, Hạ tầng đồng bộ, Chuyển đổi xanh) đi kèm icon vector SVG tinh xảo và phản hồi hover phát sáng.
+        * 3. Danh mục 12 dự án FDI mẫu: Xây dựng cấu trúc dữ liệu 12 dự án FDI trọng điểm trải đều 8 lĩnh vực hợp tác và 3 miền Bắc - Trung - Nam. Tích hợp thanh bộ lọc thông minh (Lĩnh vực | Vùng miền | Quy mô vốn | Hình thức đầu tư) bằng Javascript xử lý tức thời. Mỗi thẻ dự án chứa đầy đủ trạng thái động (Đang kêu gọi | Đã quan tâm | Đang đàm phán) và nút phản hồi nhanh tự động điền vào mẫu đăng ký.
+        * 4. Bản đồ KCN & Khu kinh tế tương tác: Thiết kế cụm định vị thông tin 4 địa bàn trọng điểm (Cửa khẩu biên mậu, KCNC quốc gia Hòa Lạc/SHTP, Cảng nước sâu DEEP C/Đình Vũ, và Cụm linh kiện Bắc Ninh/Bắc Giang) có khả năng tương tác hiển thị thông số và thế mạnh chuyên sâu tức thì khi chọn.
+        * 5. Khung chính sách ưu đãi đầu tư: Trực quan hóa chính sách thuế TNDN đặc biệt (miễn 4 giảm 9), miễn thuế nhập khẩu tài sản cố định, ưu đãi miễn giảm tiền thuê đất và quy trình một cửa "luồng xanh" dưới dạng bảng dữ liệu chuyên nghiệp có phản hồi hover dòng.
+        * 6. Biểu mẫu tư vấn Glassmorphism: Tích hợp Lead capture form trên nền royal gradient kết nối trực tiếp với client Supabase để lưu trữ thông tin lead doanh nghiệp vào bảng `vcec_leads`, đi kèm WeChat success popup modal đồng bộ.
+        * 7. Hỗ trợ Đa ngôn ngữ (VI/ZH/EN): Tích hợp trọn vẹn từ điển dịch thuật 3 ngôn ngữ đồng bộ hóa hoàn hảo với sự kiện `vcec-lang-change`.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: dich-vu.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + dich-vu.html: Tái cấu trúc và nâng cấp toàn diện trang Dịch Vụ & Hội Viên:
+        * 1. 6 Nhóm Dịch Vụ Trọn Gói (One-stop Service): Thiết kế lưới 3 cột hiển thị các nhóm dịch vụ từ Kết nối B2B, Xúc tiến đầu tư, Pháp lý & Thuế, Nghiên cứu thị trường, Phiên dịch & Văn hóa đến Sự kiện & Đoàn doanh nghiệp. Mỗi thẻ có hiệu ứng di chuột (hover state) nâng cao, đường viền phát sáng đỏ son và SVG vector tùy biến tuyệt đẹp.
+        * 2. Quy trình hỗ trợ tiêu chuẩn 5 bước: Thiết kế dòng thời gian (timeline) 5 bước dọc trực quan, trang trí bằng dải nối gradient đỏ-vàng hoàng gia và các nút chấm tỏa sáng động khi cuộn chuột.
+        * 3. Chương trình hội viên VCEC (Membership Tiers): Trực quan hóa 3 phân khúc hội viên cốt lõi: Hội viên Bronze (Cơ bản), Hội viên Silver (Tăng tốc), và Hội viên Gold (Đối tác chiến lược VIP). Gói Gold được bao bọc bởi dải viền lấp lánh màu vàng Gold vương giả và nhãn đề xuất VIP nổi bật.
+        * 4. Biểu mẫu đăng ký tư vấn Glassmorphic (B2B Lead Form): Tích hợp biểu mẫu đăng ký chuyên sâu đặt trên nền chuyển sắc đỏ son - vàng đặc trưng. Tích hợp trực tiếp dữ liệu đăng ký với cơ sở dữ liệu `vcec_leads` của Supabase, lưu trữ an toàn thông tin liên lạc và nhu cầu của đối tác.
+        * 5. WeChat Success Popup Modal: Hiển thị ngay sau khi gửi lead thành công, cung cấp mã QR WeChat hỗ trợ khẩn cấp 24/7 và thông tin kết nối trực tiếp với tài khoản hỗ trợ.
+        * 6. Chuyển đổi Đa ngôn ngữ (VI/ZH/EN): Tích hợp hoàn hảo từ điển song ngữ 3 phiên bản tiếng Việt, tiếng Trung và tiếng Anh, kết nối chặt chẽ với sự kiện hệ thống `vcec-lang-change` để chuyển đổi tức thời không trễ.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: linh-vuc-chi-tiet.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + linh-vuc-chi-tiet.html: Tái thiết kế toàn diện trang chi tiết mảng hợp tác thành một Cổng thông tin B2B Chiến lược 8 lĩnh vực hợp tác trọng điểm:
+        * 1. Hỗ trợ 8 lĩnh vực cốt lõi: Côn bộ đầy đủ chi tiết cho: Logistics & Chuỗi cung ứng, Năng lượng xanh & BESS, Xe điện & Trạm sạc, E-bike sharing, Drone & Robot công nghiệp, Sản xuất thông minh, Nông nghiệp công nghệ cao, Du lịch & Văn hóa.
+        * 2. Sidebar & Tab Điều hướng Tương tác: Thiết kế sidebar bám dính (sticky) ở máy tính để bàn và thanh trượt cuộn ngang (mobile swipeable ribbon) ở di động, cho phép chuyển đổi ngay lập tức giữa 8 lĩnh vực với hiệu ứng mờ nhòe chuyển động (smooth fade transition) và tự động đồng bộ hóa deep-link URL (Stateful URL handling).
+        * 3. Bố cảnh thị trường cao cấp: Chi tiết từ 3-4 đoạn văn phân tích bối cảnh, tiềm năng phát triển của thị trường Việt Nam kết hợp thế mạnh kỹ nghệ tiên phong của đối tác Trung Quốc.
+        * 4. Lưới Cơ hội Song phương & Dịch vụ hỗ trợ VCEC: Trực quan hóa 4 thẻ cơ hội B2B thủy tinh bóng mờ (glassmorphic lift & glow) và 4 dịch vụ cốt lõi hỗ trợ FDI/Xúc tiến thương mại thực chiến của VCEC.
+        * 5. Case Study thực chiến điển hình: Bố cục tinh xảo hiển thị dự án điển hình (ví dụ: CATL, BYD, DJI, Hellobike, 365 Group, Sầu riêng Đắk Lắk...), đi kèm thông điệp vàng trích dẫn từ lãnh đạo cấp cao của doanh nghiệp.
+        * 6. Biểu mẫu Đăng ký kết nối đầu tư B2B: Tích hợp trực tiếp Lead Capture Form kết nối trực tiếp với client Supabase, tự động chuyển đổi định dạng và lưu trữ thông tin trực tiếp vào bảng `vcec_leads` mà không ảnh hưởng cấu trúc cũ.
+        * 7. WeChat Success Popup Modal: Kích hoạt modal thông báo gửi đơn đăng ký thành công đi kèm thông tin hỗ trợ khẩn cấp WeChat ID (VCEC_XuctienFDI_01).
+        * 8. Hỗ trợ Đa Ngôn Ngữ đồng bộ: Tích hợp từ điển 3 ngôn ngữ (VI/ZH/EN) cho từng lĩnh vực và tự động lắng nghe sự kiện thay đổi ngôn ngữ `vcec-lang-change` để chuyển đổi tức thời không tải lại trang.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+- Tên file vừa sửa/tạo mới: quan-he.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + quan-he.html: Tái thiết kế toàn diện trang "Quan hệ Việt - Trung" thành một bản báo cáo chuyên đề / xã luận đặc sắc đẳng cấp cao:
+        * 1. Banner & Tuyên ngôn mở đầu: Gradient chuyển màu đỏ - đen hoàng gia sâu lắng, kèm theo Tuyên cáo song phương nổi bật: "Việt Nam – Trung Quốc: Láng giềng hữu nghị, hợp tác toàn diện, ổn định lâu dài, hướng tới tương lai".
+        * 2. Khuôn khổ quan hệ chiến lược: Mô tả chi tiết việc nâng tầm thành "Cộng đồng chia sẻ tương lai Việt Nam – Trung Quốc có ý nghĩa chiến lược", với grid 6 thẻ phương hướng lớn ("6 HƠN") có hiệu ứng hover sang trọng.
+        * 3. Thành tựu hợp tác kinh tế nổi bật: Xây dựng bảng so sánh kinh tế tài chính tinh tế hiển thị vai trò thương mại song phương, dòng vốn FDI, kết nối hạ tầng giao thông biên mậu, du lịch văn hóa, và hợp tác liên địa phương (hơn 60 cặp tỉnh thành).
+        * 4. Các chuyến thăm cấp cao tiêu biểu: Thiết kế dòng thời gian thẳng đứng (Vertical Timeline) ghi nhận chi tiết 5 cột mốc ngoại giao cao cấp tiêu biểu từ 2022 đến 2024 (chuyến thăm của TBT Nguyễn Phú Trọng, Chủ tịch Tập Cận Bình, Thủ tướng Phạm Minh Chính, TBT Chủ tịch nước Tô Lâm, Thủ tướng Lý Cường).
+        * 5. Hiệp định & Khuôn khổ hợp tác: Thiết kế cụm 4 thẻ Hiệp định đa phương nổi bật (RCEP, ACFTA, BRI & 2 Hành lang, MoU Bộ Công Thương) với màu vàng gold lấp lánh khi hover.
+        * 6. Cơ hội cho doanh nghiệp: Thiết kế block 2 cột so sánh trực quan cơ hội kép cho doanh nghiệp Trung Quốc vào Việt Nam và doanh nghiệp Việt Nam tiếp cận thị trường Trung Quốc.
+        * 7. Biểu mẫu đăng ký tư vấn chuyên sâu ngành (B2B Lead Form): Tích hợp trực tiếp biểu mẫu liên hệ đăng ký tư vấn Glassmorphism đẹp mắt ngay dưới cùng, cho phép lưu trữ trực tiếp thông tin lead doanh nghiệp quan tâm đến từng lĩnh vực/ngành hàng vào `vcec_leads` của Supabase.
+        * 8. WeChat Success Modal: Tích hợp popup thông báo đăng ký thành công đồng bộ hóa WeChat hỗ trợ khẩn cấp.
+    + quan-he.html: Tích hợp đầy đủ bộ dịch 3 ngôn ngữ (VI/ZH/EN) tự động đồng bộ hóa thông qua sự kiện `vcec-lang-change`, giúp thay đổi ngôn ngữ ngay lập tức mà không cần tải lại trang.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: gioi-thieu.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + gioi-thieu.html: Tái cấu trúc toàn diện trang "Giới Thiệu VCEC" từ dạng thẻ đơn giản thành một tài liệu báo chí / xã luận (editorial) cực kỳ sang trọng và chuyên nghiệp.
+    + gioi-thieu.html: Xây dựng bản đồ dịch song ngữ 3 ngôn ngữ (Việt - Trung - Anh) được kích hoạt ngay lập tức thông qua sự kiện `vcec-lang-change`, đồng bộ hoàn hảo với bộ chuyển đổi ngôn ngữ của toàn hệ thống:
+        * 1. Banner trang: Thiết kế dải màu chuyển sắc sâu cuốn hút cùng tiêu đề "GIỚI THIỆU VCEC" và khẩu hiệu: "Một thập niên kết nối – Vạn cơ hội tương lai".
+        * 2. Về chúng tôi: Trình bày dạng 2 cột trực quan. Cột trái trích dẫn thông điệp chiến lược của quan hệ song phương, cột phải thể hiện chi tiết vai trò cầu nối của VCEC.
+        * 3. Tầm nhìn - Sứ mệnh - Giá trị cốt lõi: Thiết kế thẻ Grid bo góc tinh tế có hiệu ứng nâng nhẹ và hào quang vàng nhạt khi hover. Cụ thể 4 giá trị cốt lõi: CHÍNH DANH, CHUYÊN NGHIỆP, HIỆU QUẢ, BỀN VỮNG.
+        * 4. Ban Lãnh đạo & Hội đồng cố vấn: Thiết kế thẻ chân dung Giám đốc (Mr. Đinh Vĩnh Cường) có ảnh biểu trưng vàng kim và mô tả tóm tắt năng lực. Bổ sung cụm 6 Cố vấn cấp cao (FDI, Luật quốc tế, Chuỗi cung ứng, Năng lượng xanh...) giúp gia tăng tối đa sự uy tín và độ tin cậy.
+        * 5. Modal liên hệ Ban Lãnh đạo & Cố vấn: Tích hợp trực tiếp form đăng ký kết nối Glassmorphism tuyệt đẹp, cho phép gửi yêu cầu trực tiếp của doanh nghiệp và đồng bộ tự động vào cơ sở dữ liệu `vcec_leads` của Supabase.
+        * 6. Mạng lưới đối tác: Thiết kế bảng lưới logo đối tác phân theo 4 nhóm chuyên biệt (Ngoại giao, Hiệp hội, Doanh nghiệp, Ngân hàng) với hiệu ứng chuyển thang xám sang màu đầy sống động khi di chuột qua.
+        * 7. Lịch sử hình thành: Thiết kế dòng thời gian nằm ngang (Horizontal Scroll) với các cột mốc lịch sử đột phá từ 2015 đến 2024 vô cùng ấn tượng.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Gỡ bỏ hoàn toàn mục "Quick Action Call To Action" dư thừa (Section 4 cũ hiển thị tiêu đề "Cơ Hội Đầu Tư" kèm mô tả hệ thống tự động gán hồ sơ 15 phút). Phần này đã được thay thế trọn vẹn và tối ưu hơn bởi biểu mẫu Đăng ký hỗ trợ nhanh (Section 3e mới) và Footer toàn cục 4 cột, giúp giao diện trang chủ VCEC trở nên cô đọng, chuyên nghiệp và tránh lặp lại thông tin.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: app.js, style.css
+- Các hàm (functions) và logic đã thêm/sửa:
+    + app.js: Hoàn thiện hàm kết xuất Footer toàn cục `renderFooter()`. Tự động phát hiện ngôn ngữ hoạt động (`currentLang`) để render trọn vẹn 4 cột nội dung song ngữ chuẩn chỉ:
+        * Cột 1 – Thông tin VCEC: Hiển thị logo, Tên đầy đủ VN/CN/EN, Slogan song ngữ chuyển sắc óng ánh, địa chỉ 2 văn phòng đại diện (Hà Nội, Thâm Quyến), Hotline, Email và cụm biểu tượng mạng xã hội (Facebook, LinkedIn, WeChat WX có Tooltip QR, Zalo OA, YouTube).
+        * Cột 2 – Liên kết nhanh: Giới thiệu, Lĩnh vực, Cơ hội đầu tư, Tin tức, Liên hệ.
+        * Cột 3 – Đối tác chiến lược: Tập đoàn 365, VIENC, Hiệp hội Doanh nghiệp Việt - Trung, và các Ngân hàng đối tác lớn (ICBC, VietinBank).
+        * Cột 4 – Đăng ký nhận bản tin: Hộp nhập email glassmorphism + nút bấm Đăng ký song ngữ.
+    + app.js: Xây dựng hàm gửi bản tin `handleNewsletterSubmit(event)`. Thu thập email người dùng đăng ký bản tin và đẩy trực tiếp vào bảng `vcec_leads` trên Supabase dưới dạng một lead độc lập, giúp lưu giữ đầy đủ danh sách độc giả tiềm năng phục vụ các bản tin FDI quý mà không làm ảnh hưởng đến cơ sở dữ liệu cũ.
+    + style.css: Phát triển ngôn ngữ thiết kế sang trọng tối thượng cho Footer:
+        * Phông nền Gradient tối huyền ảo pha sắc đỏ sâu (`linear-gradient(180deg, #1C0E11 0%, #11080A 100%)`) cùng dải phân cách chỉ vàng gold (`border-top: 3px solid var(--vcec-gold)`).
+        * Cấu trúc lưới linh động `.footer-grid` chia 4 cột cân bằng hoàn hảo (`2fr 1fr 1.2fr 1.4fr`).
+        * Thiết kế nút mạng xã hội tròn mịn màng, hover chuyển màu vàng kim óng ánh, nâng cao nhẹ mặt phẳng (`translateY(-3px)`) và đổ bóng nhẹ.
+        * Phát triển hệ thống tooltip nổi WeChat: Di chuột vào biểu tượng WeChat sẽ lập tức hiển thị nhãn WeChat ID phụ trách vô cùng chuyên nghiệp.
+        * Căn chỉnh liên kết đáy footer: Thiết kế dòng copyright tinh tế nằm thẳng hàng với các liên kết chính sách bảo mật, điều khoản sử dụng, sơ đồ trang web cùng hiệu ứng đổi màu êm ái khi di chuột qua.
+        * Đồng bộ Responsive hoàn mỹ: Tự động gom thành 2 cột trên máy tính bảng (dưới 992px) và 1 cột thẳng đứng trên thiết bị di động (dưới 768px), căn giữa toàn bộ đáy footer tạo trải nghiệm thị giác vững chãi, cân đối.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, style.css, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Bổ sung mục "Đăng Ký Hỗ Trợ Nhanh" (Section 3e) ngay trước phần CTA dưới cùng của trang chủ VCEC, thu thập các thông tin: Họ tên, Doanh nghiệp, Quốc gia (Dropdown), Email/SĐT/WeChat, Lĩnh vực quan tâm (8 lĩnh vực chọn nhanh) và Nội dung cần hỗ trợ.
+    + index.html: Bổ sung cấu trúc mã nguồn Popup QR WeChat (`success-modal`) đồng bộ với hệ thống trang con, tự động kích hoạt hiển thị khi gửi đơn đăng ký hỗ trợ thành công.
+    + index.html (JS): Lập trình hàm thu thập dữ liệu độc lập `handleQuickSupportSubmit(event)`. Hàm tự động đóng gói toàn bộ các lĩnh vực quan tâm và ghi chú phụ thành chuỗi ký tự mô tả đầy đủ để đẩy vào trường `project_name` của bảng `vcec_leads` trên Supabase mà không làm thay đổi cấu trúc bảng cũ, đảm bảo an toàn tuyệt đối cho hệ thống dữ liệu hiện tại.
+    + style.css: Thiết kế giao diện sang trọng bậc nhất cho toàn bộ khu vực đăng ký hỗ trợ nhanh:
+        * Phông nền Gradient chuyển sắc hoàng gia đỏ son pha vàng champagne (`linear-gradient(135deg, #7A0C1E 0%, #A81B34 50%, #B28834 100%)`) cùng lớp phủ mạng lưới họa tiết chìm (`radial-gradient`).
+        * Khung biểu mẫu Glassmorphic đặc biệt `.support-quick-wrapper` làm mờ phông nền (`blur(20px)`), viền mỏng trắng bóng mờ, đổ bóng siêu rộng và có vầng hào quang vàng mờ sang quý.
+        * Các nhãn nhập liệu `.label-qs` bằng chữ vàng gold viết hoa nổi bật. Các ô nhập liệu, dropdown chọn quốc gia và ô văn bản có thiết kế trong suốt sang trọng, hiển thị chữ trắng tinh tế.
+        * Bộ nút chọn nhanh 8 lĩnh vực ưu tiên (`.sector-checkbox-btn`) thay thế hoàn toàn cho select box truyền thống: tự động đổi sang màu vàng gold đậm nổi bật khi được click chọn, tạo trải nghiệm tương tác chạm (tactile touch) vô cùng nhạy bén và hiện đại.
+        * Nút gửi đơn đăng ký `.btn-qs-submit` vàng kim sang trọng, có hiệu ứng hover nâng cao mặt phẳng, đổ bóng phát sáng lộng lẫy và giảm nhẹ độ lún khi nhấn chuột.
+        * Thiết kế responsive tối ưu hóa hoàn hảo: Tự động dàn trang từ 2 cột sang 1 cột đơn và co cụm lưới 8 lĩnh vực từ 4 cột sang 2 cột hoặc 1 cột tùy kích thước màn hình để đảm bảo dễ nhập liệu nhất trên di động.
+    + app.js: Định nghĩa dịch thuật trọn vẹn 3 ngôn ngữ (Việt - Trung - Anh) cho tiêu đề mục Đăng ký hỗ trợ nhanh, toàn bộ nhãn biểu mẫu, tên các quốc gia, các nút cảnh báo hợp lệ và nút submit gửi yêu cầu.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, style.css, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Bổ sung mục "Tin Tức Mới Nhất" (Section 3d) ngay phía trên phần Quick Action CTA, hiển thị 3 nhóm bài viết chính: Tin VCEC, Chính sách & Thương mại, và Sự kiện sắp diễn ra.
+    + index.html (JS): Xây dựng thuật toán gom nhóm thông minh (`groupNews`) phân loại bài viết được tải về từ Supabase dựa trên từ khóa tiêu đề (hoặc gán tuần tự nếu dữ liệu thiếu hụt), thiết lập hệ thống bài viết dự phòng chất lượng cao (`staticFallbacks`) để giao diện hiển thị ngay lập tức không bị trễ hay lỗi nếu mạng yếu hoặc database đang tải.
+    + style.css: Tạo kiểu dáng hiện đại cho lưới bài viết `.news-latest-grid`:
+        * Thẻ `.news-latest-card` có hiệu ứng hover nâng cao `.translateY(-8px)`, phủ bóng đổ đỏ mờ sang trọng `.shadow-red-glow`.
+        * Lớp ảnh `.news-latest-img` tự động thu phóng chậm (slow-zoom) khi di chuột.
+        * Các huy hiệu phân loại tuyệt đẹp tương ứng cho từng nhóm: `.badge-vcec` (đỏ gradient viền vàng), `.badge-policy` (xanh đen phiến đá viền vàng), và `.badge-events` (vàng champagne viền đỏ).
+        * Định dạng khắt khe chiều cao dòng của tiêu đề (chuẩn 2 dòng) và mô tả tóm tắt bài viết (chuẩn 3 dòng) để lưới bài viết luôn đồng đều, hoàn hảo.
+        * Tối ưu hiển thị Responsive chuẩn mực: Tự động gom thành 2 cột trên máy tính bảng (dưới 1024px) và 1 cột đứng trên điện thoại di động (dưới 768px).
+    + app.js: Định nghĩa thêm bộ từ khóa dịch thuật đa ngôn ngữ (Tiếng Việt, Tiếng Trung, Tiếng Anh) cho toàn bộ tiêu đề mục Tin tức mới nhất, tên của 3 nhóm tin tức và nút hành động "Xem tất cả" / "Xem bài viết".
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, style.css, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Bổ sung mục "Câu chuyện thành công" (Section 3c) hiển thị 3 case study dự án song phương tiêu biểu được VCEC hỗ trợ đầu tư thực chiến thành công.
+    + index.html: Lập trình hệ thống chuyển đổi slide (băng chuyền) tự động chạy chu kỳ 8 giây (Autoplay), kết hợp nút bấm di chuyển trái/phải (`Next`/`Prev`) và 3 nút chấm điều hướng (`Dots`) vô cùng nhạy bén và chuẩn mực.
+    + style.css: Xây dựng thiết kế giao diện độc đáo cho thẻ case study `.success-story-card`:
+        * Phân tách 2 cột thông tin gồm: Cột trái thể hiện vai trò hỗ trợ của VCEC giới hạn nghiêm ngặt 3 dòng chữ, Cột phải hiển thị phần Trích dẫn testimonial (`.story-quote`) lồng ghép nền nhẹ màu đỏ nhạt phối hợp cùng đường viền vàng champagne sang trọng.
+        * Sáng tạo cụm logo lồng nhau độc quyền (`.interlocking-logos`) gồm logo đối tác VN (`.logo-vn` - đỏ gradient viền vàng) và đối tác Trung Quốc (`.logo-cn` - vàng gradient viền đỏ) cùng biểu tượng bắt tay 🤝 chuyển động theo nhịp đập (`pulseHandshake`) vô cùng bắt mắt mà không cần tải thêm bất kỳ file ảnh rời nào ngoài dự án.
+        * Hỗ trợ thiết kế Responsive đầy đủ: Chuyển đổi thành một khối dọc thống nhất, tối ưu trải nghiệm đọc trên các thiết bị di động có chiều rộng nhỏ hơn 992px.
+    + app.js: Cập nhật đầy đủ từ vựng dịch thuật 3 ngôn ngữ (Việt, Trung, Anh) cho toàn bộ tiêu đề, nhãn hiệu, mô tả chi tiết vai trò của VCEC và danh tính/chức vụ cụ thể của lãnh đạo doanh nghiệp trong cả 3 case study thực tế (gồm Shenzhen Intelligent Warehousing - Hải Phòng, Trina Solar & Sông Đà Energy - Bình Thuận, và Goertek Electronics - Bắc Ninh).
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, style.css, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Bổ sung khối "Quan Hệ Việt - Trung" (Section 3b) ngay bên dưới phần 8 Lĩnh vực hợp tác trọng điểm, cấu trúc 2 cột cao cấp gồm thông điệp chiến lược bên trái và băng chuyền (carousel) chuyến thăm cấp cao bên phải.
+    + index.html: Viết mã nguồn Javascript thuần tự động chạy carousel mượt mà, hỗ trợ nút bấm điều khiển Next/Prev và hệ thống các điểm tròn chỉ mục (dots) tương tác sống động, có cơ chế tự động chuyển slide sau mỗi 6 giây.
+    + style.css: Tạo hệ thống CSS cao cấp chuyên nghiệp cho phần mới: thiết kế `.strategic-message-card` với viền đỏ hoàng gia và dải màu chuyển sắc sang trọng cùng hiệu ứng bóng đổ `.shadow-red-glow` khi hover; lập trình hiệu ứng ảnh động Ken Burns phóng to cực chậm cho `.visit-img` giúp banner trở nên vô cùng sống động; tối ưu hóa giao diện đa thiết bị tự động chuyển sang 1 cột trên màn hình điện thoại di động và máy tính bảng nhỏ.
+    + app.js: Bổ sung trọn bộ dịch thuật đa ngôn ngữ (Tiếng Việt, Tiếng Trung, Tiếng Anh) cho toàn bộ tiêu đề, thông điệp chiến lược và chi tiết 3 sự kiện chuyến thăm lịch sử cấp cao nổi bật (Hà Nội 12/2023, Bắc Kinh 08/2024, Hà Nội 10/2024), giúp tương thích hoàn hảo với hệ thống đa ngôn ngữ tự động của VCEC.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, style.css, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Bổ sung cấu trúc HTML cho phần "Tại sao chọn VCEC" (`.why-grid` và `.why-card`) ngay bên dưới 4 chỉ số thống kê.
+    + style.css: Thiết kế bộ CSS chuyên nghiệp, cao cấp cho 4 thẻ `.why-card` có hiệu ứng hover mượt mà nâng tầm trải nghiệm, chuyển màu và xoay nhẹ icon đầy sinh động. Tích hợp media queries cho màn hình máy tính bảng (`max-width: 1024px` chia thành 2 cột) và điện thoại di động (`max-width: 768px` chia thành 1 cột dọc).
+    + app.js: Thêm đầy đủ từ khóa dịch thuật đa ngôn ngữ (Tiếng Việt, Tiếng Trung, Tiếng Anh) cho tiêu đề, mô tả và nội dung chi tiết của cả 4 thẻ "Tại sao chọn VCEC".
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Loại bỏ hoàn toàn khối hộp chọn tìm kiếm tiêu chí (`.search-widget`) khỏi trang chủ index.html theo yêu cầu.
+    + index.html: Cập nhật 4 thẻ chỉ số thống kê chiến lược ở mục thống kê (Strategic Statistics Section) thành các giá trị mới: "Top 1", "250+", "8", "15+".
+    + app.js: Cập nhật nội dung dịch thuật đa ngôn ngữ (Vietnamese, Chinese, English) cho 4 khóa thống kê tương ứng (`stat-fdi-title`, `stat-kcn-title`, `stat-b2b-title`, `stat-province-title`) với các nhãn dữ liệu thực chiến cực kỳ chuyên nghiệp.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
+
+====== MI - START ======
+- Tên file vừa sửa/tạo mới: index.html, style.css, app.js
+- Các hàm (functions) và logic đã thêm/sửa:
+    + index.html: Thay đổi giao diện banner của trang chủ, dời phần khung chọn tìm kiếm nhanh (Search Criteria widget) xuống ngay dưới banner như một section độc lập. Thêm 2 nút Call to Action ("Tìm đối tác" và "Khám phá cơ hội đầu tư") vào banner chính.
+    + style.css: Bổ sung lớp style `.hero-buttons` phục vụ sắp xếp flex và khoảng cách cho 2 nút Call to Action của Banner.
+    + app.js: Cập nhật từ điển dịch thuật đa ngôn ngữ (Vietnamese, Chinese, English) cho các khóa `hero-title`, `hero-desc`, `btn-find-partner`, `btn-explore-opp` để hiển thị tiêu đề và nút mới hoàn hảo đa ngôn ngữ.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có
+====== MI - END ======
 
 ====== MI - START ======
 - Tên file vừa sửa/tạo mới: vcec_posts (Database)
@@ -535,3 +747,85 @@ Nội dung được lưu dạng HTML (`content_vi/zh/en`) — Quill editor sẽ 
 - `quan-he.html`: milestones timeline dùng inline style hardcoded (#C8102E cho dot, #AF883A đã thay var(--vcec-gold) vì VS Code linter). **MI có thể đồng bộ lại màu** qua CSS class nếu muốn.
 - Bài viết mới thêm qua Admin (cùng category) sẽ tự xuất hiện trên trang — không cần sửa HTML.
 ====== KA - END ======
+
+
+====== KA - START ======
+## [18/05/2026] Tin Tức & Sự Kiện Page Redesign (tin-tuc.html & bai-viet-chi-tiet.html)
+
+**Mục tiêu:** Hoàn thiện nâng cấp trang Tin tức & Sự kiện thành giao diện cao cấp hai khu vực chính (Sự kiện sắp diễn ra + Tin tức chuyên mục) theo yêu cầu cụ thể của MIKE.
+
+---
+
+### Files đã sửa / tạo mới:
+
+**`tin-tuc.html`** ← **Overhauled to high-fidelity design system**
+1. **Sự kiện sắp diễn ra (Phần trên):**
+   - Thiết kế dạng Lịch trình / Grid 4 cột cân xứng với huy hiệu Ngày/Tháng phong cách Executive và thẻ Trạng thái nhấp nháy "Đang mở đăng ký".
+   - Nút "Đăng ký tham gia" liên kết trực tiếp với Form đăng ký Glassmorphism Modal.
+2. **Tin tức chuyên mục (Phần dưới):**
+   - Thanh bộ lọc (Filter Bar) dạng viên thuốc (pills) bo góc cực đẹp chạy mượt mà, hỗ trợ cuộn ngang trên mobile.
+   - Hiển thị đầy đủ **6 chuyên mục tin tức** theo đúng mô tả: *Hoạt động VCEC, Quan hệ Việt - Trung, Chính sách & Pháp luật, Thương mại & Đầu tư, Phân tích ngành, Câu chuyện doanh nghiệp*.
+   - Hỗ trợ ô Tìm kiếm bài viết nhanh bằng tiếng Việt/Trung/Anh.
+3. **Lead Capture & WeChat Scanner Modal:**
+   - Khi bấm Đăng ký Sự kiện, modal tự động điền sẵn sự kiện đã chọn, lưu trữ thông tin doanh nghiệp (`company_name`, `contact_name`, `wechat_id`, `project_id`, `project_name` chứa SĐT người đại diện) trực tiếp vào bảng `vcec_leads` của Supabase.
+   - Khi gửi thành công, kích hoạt Popup quét mã QR WeChat B2B tư vấn 24/7 sang trọng.
+4. **Smart Category Classification Engine:**
+   - Viết thuật toán phân loại bài viết tự động từ cơ sở dữ liệu Supabase dựa trên từ khóa tiêu đề/tóm tắt hoặc category gốc để đưa vào đúng 6 nhóm chuyên mục tin tức.
+   - Tích hợp 6 bài viết hạt giống (seed articles) dịch đa ngữ đầy đủ nội dung thực tế để đảm bảo chất lượng giao diện luôn cao cấp nhất ngay cả khi cơ sở dữ liệu trống.
+
+**`bai-viet-chi-tiet.html`** ← **Hỗ trợ bài viết fallback ngoại tuyến**
+- Cập nhật hàm `loadPost()` để nhận diện tham số `fallback_id` khi người dùng đọc các bài viết hạt giống của trang Tin Tức.
+- Chèn bộ dữ liệu song ngữ đầy đủ của 6 bài viết fallback tương ứng, loại bỏ hoàn toàn lỗi 404 và đảm bảo tính liên kết xuyên suốt 100% của website.
+
+---
+
+### Lưu ý cho MI:
+- Form đăng ký sự kiện kết nối trực tiếp với bảng `vcec_leads` của Supabase. Bất kỳ lượt đăng ký nào đều được ghi nhận thời gian thực và đẩy về trang quản trị ERP của VCEC.
+- Biểu tượng QR WeChat lưu ở `public/WeChat_QR.jpg`. MI hãy thay tệp ảnh này bằng mã QR thật của VCEC để hoàn thành trải nghiệm.
+====== KA - END ======
+
+
+====== KA - START ======
+## [18/05/2026] Tài Nguyên & Kiến Thức Overhaul (tai-nguyen.html)
+
+**Mục tiêu:** Cải tạo toàn diện trang Tài Nguyên (`tai-nguyen.html`) theo đúng thiết kế và yêu cầu cụ thể tại Trang 8 ("TÀI NGUYÊN & KIẾN THỨC").
+
+---
+
+### Files đã sửa:
+
+**`tai-nguyen.html`** ← **Fully redesigned to professional Editorial & Lead Magnet system**
+1. **Mục đích & Phễu thu thập Lead (Mục 8.1):**
+   - Thiết lập cơ chế tải tài liệu yêu cầu xác thực thông tin liên hệ (Email & Số điện thoại / WeChat ID).
+   - Tích hợp **B2B Lead Magnet Modal** mượt mà. Khi người dùng bấm nhận tài nguyên, modal hiện ra thu thập thông tin doanh nghiệp.
+   - Kết nối trực tiếp với bảng `vcec_leads` trên Supabase:
+     * `project_id`: `LEAD_MAG_<GROUP_KEY>`
+     * `project_name`: `[TÀI NGUYÊN] Yêu cầu <Tên nhóm tài nguyên> (SĐT/WeChat: <SĐT>)`
+   - Khi gửi thành công, modal chuyển sang trạng thái **Xác minh thành công** và hiển thị hộp tải xuống (simulated download box) chứa các tệp tài liệu giả định chất lượng cao (`.pdf`, `.jpg`, `.mp3`, `.mp4`) kèm thông số dung lượng thực tế để người dùng bấm tải về.
+2. **6 Nhóm tài nguyên (Mục 8.2):**
+   - Thay thế thư viện cũ bằng lưới thẻ 3 cột cao cấp hiển thị đầy đủ 6 nhóm tài nguyên:
+     * *Báo cáo thị trường* (logistics, EV, BESS, drone, nông sản, du lịch)
+     * *Cẩm nang đầu tư* (FDI Việt Nam cho DN Trung Quốc, Xuất khẩu sang Trung Quốc cho DN Việt)
+     * *Văn bản pháp lý* (Luật, nghị định, thông tư đầu tư Việt - Trung)
+     * *Thư viện video* (Phỏng vấn chuyên gia, hội thảo, giới thiệu doanh nghiệp)
+     * *Infographic* (kim ngạch, sản phẩm chủ lực, tỉnh thành FDI)
+     * *Podcast / Webinar* (Podcast "Cầu nối Việt – Trung" hàng tháng)
+   - Tất cả thẻ đều có icon vector Champagne Gold sang trọng, hiệu ứng hover đổi màu và viền đỏ Vermilion Red nổi bật.
+3. **Mục Hỏi & Đáp FAQ (Mục 8.3):**
+   - Tích hợp hệ thống accordion Hỏi & Đáp quy mô lớn nhằm tối ưu hóa SEO và giảm tải cho ban tư vấn.
+   - Chia làm **4 nhóm chủ đề** trực quan dạng Tabs chuyển đổi nhanh:
+     * *Về VCEC và dịch vụ* (5 FAQs)
+     * *Đầu tư Trung Quốc vào Việt Nam* (5 FAQs)
+     * *Xuất khẩu Việt Nam sang Trung Quốc* (5 FAQs)
+     * *Pháp lý – thuế – thị thực* (5 FAQs)
+   - Đầy đủ **20 câu hỏi và câu trả lời thực tế, chi tiết** được dịch thuật và hiển thị hoàn hảo ở cả 3 ngôn ngữ (Tiếng Việt, Tiếng Trung, Tiếng Anh).
+   - Thiết kế accordion với hiệu ứng mở rộng mượt mà bằng Javascript (`scrollHeight`) và icon chuyển động xoay 45 độ tinh tế.
+
+---
+
+### Lưu ý cho MI:
+- Form đăng ký tải tài liệu được liên kết 100% với bảng `vcec_leads` của Supabase. Dữ liệu hội viên thu thập sẽ tự động đẩy về hệ thống quản trị CRM ERP của VCEC.
+- Các liên kết tải tệp trong trạng thái thành công đang chạy hàm giả định `alert()`. MI có thể cấu hình các đường dẫn PDF thật vào mảng `mockFiles` của mã nguồn để hoàn tất trải nghiệm tải xuống thực tế.
+====== KA - END ======
+
+
