@@ -1,6 +1,13 @@
 # VCEC PROJECT PROGRESS
  
 ====== MI - START [18/05/2026] ======
+- Tên file vừa sửa/tạo mới: co-hoi.html
+- Các hàm (functions) và logic đã thêm/sửa:
+    + co-hoi.html: Thay đổi màu chữ của Tiêu đề Banner chính `.invest-hero-title` ("Việt Nam: điểm đến chiến lược...") từ màu mặc định tối màu sang màu trắng tinh khiết (`#FFFFFF !important`). Việc này giải quyết triệt để vấn đề chữ bị chìm, giúp tiêu đề hiển thị nổi bật, rõ nét và cực kỳ chuyên nghiệp trên nền gradient đỏ-vàng hoàng gia của trang.
+- Lưu ý quan trọng cho KA nếu cần xử lý backend: Không có.
+====== MI - END ======
+
+====== MI - START [18/05/2026] ======
 - Tên file vừa sửa/tạo mới: app.js
 - Các hàm (functions) và logic đã thêm/sửa:
     + app.js: Thêm nút/icon "Logout" chuyên dụng (🚪 SVG phong cách hiện đại) nằm ngay bên trái Avatar người dùng ở Header. Hỗ trợ hiệu ứng hover chuyển sang màu đỏ báo hiệu trực quan, và kích hoạt đăng xuất nhanh tức thì khi click, xóa sạch `localStorage` và tự động reload trang.
