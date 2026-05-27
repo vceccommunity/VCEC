@@ -2698,21 +2698,78 @@
       event.preventDefault();
       const category = document.getElementById("post-category").value;
       const titleVi = document.getElementById("post-title-vi").value.trim();
-      const titleZh = document.getElementById("post-title-zh").value.trim();
-      const titleEn = document.getElementById("post-title-en").value.trim();
-
       const summaryVi = document.getElementById("post-summary-vi").value.trim();
-      const summaryZh = document.getElementById("post-summary-zh").value.trim();
-      const summaryEn = document.getElementById("post-summary-en").value.trim();
-
-      const contentVi = quillVi ? quillVi.getSemanticHTML() : "";
-      const contentZh = quillZh ? quillZh.getSemanticHTML() : "";
-      const contentEn = quillEn ? quillEn.getSemanticHTML() : "";
 
       if (!titleVi) { alert("Vui lòng nhập tiêu đề tiếng Việt!"); return; }
 
       const submitBtn = event.target.querySelector('button[type="submit"]');
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Đang lưu..."; }
+
+      // === TỰ ĐỘNG DỊCH CÁC Ô TRỐNG TRƯỚC KHI LƯU ===
+      const titleZhEl   = document.getElementById("post-title-zh");
+      const titleEnEl   = document.getElementById("post-title-en");
+      const summaryZhEl = document.getElementById("post-summary-zh");
+      const summaryEnEl = document.getElementById("post-summary-en");
+
+      const emptyTitleZh   = !titleZhEl.value.trim();
+      const emptyTitleEn   = !titleEnEl.value.trim();
+      const emptySummaryZh = !summaryZhEl.value.trim();
+      const emptySummaryEn = !summaryEnEl.value.trim();
+      const emptyBodyZh    = quillZh && quillZh.getText().trim().length < 5;
+      const emptyBodyEn    = quillEn && quillEn.getText().trim().length < 5;
+
+      const needsAnyTranslate = emptyTitleZh || emptyTitleEn || emptySummaryZh || emptySummaryEn || emptyBodyZh || emptyBodyEn;
+
+      if (needsAnyTranslate) {
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "⏳ Đang dịch tự động..."; }
+
+        // Dịch tiêu đề nếu trống
+        if (emptyTitleZh || emptyTitleEn) {
+          const [zh, en] = await Promise.all([
+            emptyTitleZh ? _translate(titleVi, 'vi', 'zh-CN') : Promise.resolve(''),
+            emptyTitleEn ? _translate(titleVi, 'vi', 'en')    : Promise.resolve('')
+          ]);
+          if (emptyTitleZh && zh) titleZhEl.value = zh;
+          if (emptyTitleEn && en) titleEnEl.value = en;
+        }
+
+        // Dịch mô tả ngắn nếu trống
+        if (summaryVi && (emptySummaryZh || emptySummaryEn)) {
+          const [zh, en] = await Promise.all([
+            emptySummaryZh ? _translate(summaryVi, 'vi', 'zh-CN') : Promise.resolve(''),
+            emptySummaryEn ? _translate(summaryVi, 'vi', 'en')    : Promise.resolve('')
+          ]);
+          if (emptySummaryZh && zh) summaryZhEl.value = zh;
+          if (emptySummaryEn && en) summaryEnEl.value = en;
+        }
+
+        // Dịch nội dung chi tiết nếu trống
+        const contentViText = quillVi ? quillVi.getText().trim() : '';
+        if (contentViText && (emptyBodyZh || emptyBodyEn)) {
+          if (submitBtn) submitBtn.textContent = "⏳ Đang dịch nội dung...";
+          const toHTML = parts => '<p>' + parts.join('\n\n').replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+          const chunks = _splitChunks(contentViText, 480);
+          if (emptyBodyZh) {
+            const parts = await Promise.all(chunks.map(c => _translate(c, 'vi', 'zh-CN')));
+            quillZh.clipboard.dangerouslyPasteHTML(toHTML(parts));
+          }
+          if (emptyBodyEn) {
+            const parts = await Promise.all(chunks.map(c => _translate(c, 'vi', 'en')));
+            quillEn.clipboard.dangerouslyPasteHTML(toHTML(parts));
+          }
+        }
+      }
+      // === KẾT THÚC TỰ ĐỘNG DỊCH ===
+
+      // Đọc lại tất cả giá trị (bao gồm nội dung vừa dịch)
+      const titleZh   = titleZhEl.value.trim();
+      const titleEn   = titleEnEl.value.trim();
+      const summaryZh = summaryZhEl.value.trim();
+      const summaryEn = summaryEnEl.value.trim();
+      const contentVi = quillVi ? quillVi.getSemanticHTML() : "";
+      const contentZh = quillZh ? quillZh.getSemanticHTML() : "";
+      const contentEn = quillEn ? quillEn.getSemanticHTML() : "";
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "⏳ Đang lưu..."; }
 
       try {
         const coverImage = (document.getElementById("post-cover-url").value || '').trim();
@@ -2746,7 +2803,7 @@
               author: window.vcec_user || 'admin'
             }]);
           if (error) throw error;
-          alert(`🚀 Xuất bản bài viết thành công!`);
+          alert("🚀 Xuất bản bài viết thành công!");
         }
 
         localStorage.removeItem("vcec_post_draft");
@@ -2758,7 +2815,7 @@
       } catch (err) {
         alert("Lỗi khi lưu bài viết: " + err.message);
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Xuất bản ngay"; }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "🚀 Xuất Bản Bài Viết"; }
       }
     }
 
