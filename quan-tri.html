@@ -1042,6 +1042,54 @@
         justify-content: center !important;
       }
     }
+
+    /* Auto-translate UI */
+    .trans-status-badge {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+    .trans-status-badge.loading {
+      background: rgba(175, 136, 58, 0.15);
+      color: #AF883A;
+      border: 1px solid rgba(175, 136, 58, 0.4);
+      animation: transPulse 1s ease-in-out infinite;
+    }
+    .trans-status-badge.done {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    @keyframes transPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .btn-retrans {
+      flex-shrink: 0;
+      height: 32px;
+      padding: 0 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      color: #9CA3AF;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-retrans:hover {
+      background: rgba(175, 136, 58, 0.15);
+      color: #AF883A;
+      border-color: rgba(175, 136, 58, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -1201,14 +1249,17 @@
               <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="lang-badge vi" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">VN</span>
                 <input type="text" id="post-title-vi" class="form-input" required placeholder="Ví dụ: VCEC tổ chức ký kết hợp tác xúc tiến thương mại Việt-Trung" style="margin: 0; flex-grow: 1;">
+                <span id="trans-status-title" class="trans-status-badge" style="display:none;"></span>
               </div>
               <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">CN</span>
-                <input type="text" id="post-title-zh" class="form-input" placeholder="例如：VCEC举办越中经贸对接签署仪式" style="margin: 0; flex-grow: 1;">
+                <input type="text" id="post-title-zh" class="form-input" placeholder="Tự động dịch từ tiếng Việt..." style="margin: 0; flex-grow: 1;">
+                <button type="button" class="btn-retrans" id="retrans-title-zh" onclick="retranslateField('title','zh')" style="display:none;" title="Dịch lại từ tiếng Việt">↺ Dịch lại</button>
               </div>
               <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">EN</span>
-                <input type="text" id="post-title-en" class="form-input" placeholder="Example: VCEC signs commercial trade promotion MoU with Guangdong delegation" style="margin: 0; flex-grow: 1;">
+                <input type="text" id="post-title-en" class="form-input" placeholder="Auto-translated from Vietnamese..." style="margin: 0; flex-grow: 1;">
+                <button type="button" class="btn-retrans" id="retrans-title-en" onclick="retranslateField('title','en')" style="display:none;" title="Dịch lại từ tiếng Việt">↺ Dịch lại</button>
               </div>
             </div>
           </div>
@@ -1222,14 +1273,17 @@
               <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span class="lang-badge vi" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">VN</span>
                 <textarea id="post-summary-vi" class="form-input" rows="2" required placeholder="Nội dung mô tả tóm tắt bằng Tiếng Việt..." style="margin: 0; flex-grow: 1;"></textarea>
+                <span id="trans-status-summary" class="trans-status-badge" style="display:none; margin-top:8px;"></span>
               </div>
               <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">CN</span>
-                <textarea id="post-summary-zh" class="form-input" rows="2" placeholder="中文简短描述..." style="margin: 0; flex-grow: 1;"></textarea>
+                <textarea id="post-summary-zh" class="form-input" rows="2" placeholder="Tự động dịch từ tiếng Việt..." style="margin: 0; flex-grow: 1;"></textarea>
+                <button type="button" class="btn-retrans" id="retrans-summary-zh" onclick="retranslateField('summary','zh')" style="display:none; margin-top:8px;" title="Dịch lại từ tiếng Việt">↺ Dịch lại</button>
               </div>
               <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">EN</span>
-                <textarea id="post-summary-en" class="form-input" rows="2" placeholder="Short description in English..." style="margin: 0; flex-grow: 1;"></textarea>
+                <textarea id="post-summary-en" class="form-input" rows="2" placeholder="Auto-translated from Vietnamese..." style="margin: 0; flex-grow: 1;"></textarea>
+                <button type="button" class="btn-retrans" id="retrans-summary-en" onclick="retranslateField('summary','en')" style="display:none; margin-top:8px;" title="Dịch lại từ tiếng Việt">↺ Dịch lại</button>
               </div>
             </div>
           </div>
@@ -1245,24 +1299,27 @@
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                   <span class="lang-badge vi" style="flex-shrink: 0; width: 50px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.75rem; border-radius: 6px;">VN</span>
                   <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Soạn thảo chi tiết bằng Tiếng Việt</span>
+                  <span id="trans-status-content" class="trans-status-badge" style="display:none;"></span>
                 </div>
                 <div id="post-body-vi" style="height: 250px; margin-bottom: 8px;"></div>
               </div>
-              
+
               <!-- CN Content -->
               <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                   <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.75rem; border-radius: 6px;">CN</span>
-                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Soạn thảo chi tiết bằng Tiếng Trung</span>
+                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Tự động dịch từ tiếng Việt</span>
+                  <button type="button" class="btn-retrans" id="retrans-content-zh" onclick="retranslateField('content','zh')" style="display:none;" title="Dịch lại từ tiếng Việt">↺ Dịch lại</button>
                 </div>
                 <div id="post-body-zh" style="height: 250px; margin-bottom: 8px;"></div>
               </div>
-              
+
               <!-- EN Content -->
               <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                   <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.75rem; border-radius: 6px;">EN</span>
-                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Soạn thảo chi tiết bằng Tiếng Anh</span>
+                  <span style="color: #A3A3A3; font-size: 0.85rem; font-weight: 600;">Auto-translated from Vietnamese</span>
+                  <button type="button" class="btn-retrans" id="retrans-content-en" onclick="retranslateField('content','en')" style="display:none;" title="Dịch lại từ tiếng Việt">↺ Dịch lại</button>
                 </div>
                 <div id="post-body-en" style="height: 250px; margin-bottom: 8px;"></div>
               </div>
@@ -1810,6 +1867,127 @@
     // Global Quill Editor references
     let quillVi, quillZh, quillEn;
 
+    // ===== AUTO-TRANSLATE SYSTEM =====
+    let _ttTitle = null, _ttSummary = null, _ttContent = null;
+    const _manualEdit = {};
+
+    async function _translate(text, from, to) {
+      if (!text || !text.trim()) return '';
+      try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.trim().substring(0, 500))}&langpair=${from}|${to}`;
+        const r = await fetch(url);
+        const d = await r.json();
+        return (d.responseStatus === 200 && d.responseData.translatedText) ? d.responseData.translatedText : '';
+      } catch(e) { return ''; }
+    }
+
+    function _splitChunks(text, max) {
+      const paras = text.split(/\n\n+/);
+      const chunks = [];
+      let cur = '';
+      for (const p of paras) {
+        const joined = cur ? cur + '\n\n' + p : p;
+        if (joined.length > max && cur) { chunks.push(cur.trim()); cur = p; }
+        else { cur = joined; }
+      }
+      if (cur.trim()) chunks.push(cur.trim());
+      return chunks.length ? chunks : [text.substring(0, max)];
+    }
+
+    function _setStatus(group, state) {
+      const el = document.getElementById(`trans-status-${group}`);
+      if (!el) return;
+      if (state === 'loading') {
+        el.textContent = '⏳ Đang dịch...';
+        el.className = 'trans-status-badge loading';
+        el.style.display = 'inline-flex';
+      } else if (state === 'done') {
+        el.textContent = '✅ Đã dịch tự động';
+        el.className = 'trans-status-badge done';
+        el.style.display = 'inline-flex';
+        setTimeout(() => { el.style.display = 'none'; }, 4000);
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+    function _showRetrans(group, lang) {
+      const btn = document.getElementById(`retrans-${group}-${lang}`);
+      if (btn) btn.style.display = 'inline-flex';
+    }
+
+    async function _doTranslateTitle(text) {
+      if (!text.trim()) return;
+      _setStatus('title', 'loading');
+      const [zh, en] = await Promise.all([_translate(text, 'vi', 'zh-CN'), _translate(text, 'vi', 'en')]);
+      const elZh = document.getElementById('post-title-zh');
+      const elEn = document.getElementById('post-title-en');
+      if (elZh && !_manualEdit['title-zh'] && zh) { elZh.value = zh; _showRetrans('title','zh'); }
+      if (elEn && !_manualEdit['title-en'] && en) { elEn.value = en; _showRetrans('title','en'); }
+      _setStatus('title', 'done');
+    }
+
+    async function _doTranslateSummary(text) {
+      if (!text.trim()) return;
+      _setStatus('summary', 'loading');
+      const [zh, en] = await Promise.all([_translate(text, 'vi', 'zh-CN'), _translate(text, 'vi', 'en')]);
+      const elZh = document.getElementById('post-summary-zh');
+      const elEn = document.getElementById('post-summary-en');
+      if (elZh && !_manualEdit['summary-zh'] && zh) { elZh.value = zh; _showRetrans('summary','zh'); }
+      if (elEn && !_manualEdit['summary-en'] && en) { elEn.value = en; _showRetrans('summary','en'); }
+      _setStatus('summary', 'done');
+    }
+
+    async function _doTranslateContent(text) {
+      if (!text.trim()) return;
+      _setStatus('content', 'loading');
+      const chunks = _splitChunks(text, 480);
+      const [zhParts, enParts] = await Promise.all([
+        Promise.all(chunks.map(c => _translate(c, 'vi', 'zh-CN'))),
+        Promise.all(chunks.map(c => _translate(c, 'vi', 'en')))
+      ]);
+      const toHTML = parts => '<p>' + parts.join('\n\n').replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+      if (quillZh && !_manualEdit['content-zh']) {
+        quillZh.clipboard.dangerouslyPasteHTML(toHTML(zhParts));
+        _showRetrans('content','zh');
+      }
+      if (quillEn && !_manualEdit['content-en']) {
+        quillEn.clipboard.dangerouslyPasteHTML(toHTML(enParts));
+        _showRetrans('content','en');
+      }
+      _setStatus('content', 'done');
+    }
+
+    async function retranslateField(group, lang) {
+      delete _manualEdit[`${group}-${lang}`];
+      if (group === 'title') {
+        const vi = document.getElementById('post-title-vi').value;
+        _setStatus('title', 'loading');
+        const t = await _translate(vi, 'vi', lang === 'zh' ? 'zh-CN' : 'en');
+        if (t) document.getElementById(`post-title-${lang}`).value = t;
+        _setStatus('title', 'done');
+      } else if (group === 'summary') {
+        const vi = document.getElementById('post-summary-vi').value;
+        _setStatus('summary', 'loading');
+        const t = await _translate(vi, 'vi', lang === 'zh' ? 'zh-CN' : 'en');
+        if (t) document.getElementById(`post-summary-${lang}`).value = t;
+        _setStatus('summary', 'done');
+      } else if (group === 'content') {
+        const vi = quillVi ? quillVi.getText().trim() : '';
+        if (vi) await _doTranslateContent(vi);
+      }
+    }
+
+    function _resetTranslateState() {
+      Object.keys(_manualEdit).forEach(k => delete _manualEdit[k]);
+      ['title','summary','content'].forEach(g => _setStatus(g, 'none'));
+      ['title-zh','title-en','summary-zh','summary-en','content-zh','content-en'].forEach(id => {
+        const btn = document.getElementById(`retrans-${id}`);
+        if (btn) btn.style.display = 'none';
+      });
+    }
+    // ===== END AUTO-TRANSLATE SYSTEM =====
+
     function applyVietnameseTooltipsToQuill() {
       const tooltipMap = {
         '.ql-bold': 'Chữ đậm (Ctrl+B)',
@@ -1907,6 +2085,35 @@
 
         // Apply Vietnamese tooltips right after initializing
         applyVietnameseTooltipsToQuill();
+
+        // ---- Auto-translate event listeners ----
+        // Title
+        document.getElementById('post-title-vi').addEventListener('input', function() {
+          clearTimeout(_ttTitle);
+          _ttTitle = setTimeout(() => _doTranslateTitle(this.value), 800);
+        });
+        document.getElementById('post-title-zh').addEventListener('input', () => { _manualEdit['title-zh'] = true; });
+        document.getElementById('post-title-en').addEventListener('input', () => { _manualEdit['title-en'] = true; });
+
+        // Summary
+        document.getElementById('post-summary-vi').addEventListener('input', function() {
+          clearTimeout(_ttSummary);
+          _ttSummary = setTimeout(() => _doTranslateSummary(this.value), 800);
+        });
+        document.getElementById('post-summary-zh').addEventListener('input', () => { _manualEdit['summary-zh'] = true; });
+        document.getElementById('post-summary-en').addEventListener('input', () => { _manualEdit['summary-en'] = true; });
+
+        // Content (Quill)
+        quillVi.on('text-change', (delta, old, source) => {
+          if (source !== 'user') return;
+          clearTimeout(_ttContent);
+          _ttContent = setTimeout(() => {
+            const t = quillVi.getText().trim();
+            if (t.length > 10) _doTranslateContent(t);
+          }, 1500);
+        });
+        quillZh.on('text-change', (d, o, source) => { if (source === 'user') _manualEdit['content-zh'] = true; });
+        quillEn.on('text-change', (d, o, source) => { if (source === 'user') _manualEdit['content-en'] = true; });
 
         // Initialize lightweight image resizer
         initImageResizer();
@@ -2684,7 +2891,11 @@
         
         if (error || !post) throw error || new Error("Không tìm thấy bài viết");
 
-        // Fill the form
+        // Fill the form — reset translate state first so edits don't auto-override existing content
+        _resetTranslateState();
+        // Mark all fields as manually edited so auto-translate won't fire on existing content
+        ['title-zh','title-en','summary-zh','summary-en','content-zh','content-en'].forEach(k => _manualEdit[k] = true);
+
         window.currentEditingPostId = post.id;
         document.getElementById("post-category").value = post.category;
         document.getElementById("post-title-vi").value = post.title_vi || "";
@@ -2693,7 +2904,12 @@
         document.getElementById("post-summary-vi").value = post.summary_vi || "";
         document.getElementById("post-summary-zh").value = post.summary_zh || "";
         document.getElementById("post-summary-en").value = post.summary_en || "";
-        
+        // Show retranslate buttons for existing posts so user can trigger if needed
+        ['title-zh','title-en','summary-zh','summary-en','content-zh','content-en'].forEach(id => {
+          const btn = document.getElementById(`retrans-${id}`);
+          if (btn) btn.style.display = 'inline-flex';
+        });
+
         if (quillVi) quillVi.setContents(quillVi.clipboard.convert({ html: post.content_vi || '' }));
         if (quillZh) quillZh.setContents(quillZh.clipboard.convert({ html: post.content_zh || '' }));
         if (quillEn) quillEn.setContents(quillEn.clipboard.convert({ html: post.content_en || '' }));
@@ -2757,6 +2973,7 @@
 
     function hideNewPostForm() {
       window.currentEditingPostId = null;
+      _resetTranslateState();
       document.getElementById("new-post-form-wrap").style.display = "none";
       document.querySelector("#new-post-form-wrap h3").textContent = "Tạo bài viết mới";
       const submitBtn = document.querySelector('#new-post-form-wrap button[type="submit"]');
