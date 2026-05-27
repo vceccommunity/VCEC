@@ -1749,20 +1749,36 @@ button, input, select, textarea {
   margin: 0 auto;
 }
 
-.breadcrumb-nav {
+.breadcrumb-outer {
   background: #F8FAFC;
   border-bottom: 1px solid rgba(168, 27, 52, 0.1);
-  padding: 14px 0;
+  padding: 12px 0;
+}
+.breadcrumb-inner-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.85rem;
   color: var(--vcec-text-light);
+  flex-wrap: wrap;
+  line-height: 1.5;
 }
 .breadcrumb-nav a {
-  color: var(--vcec-red);
+  color: #555;
   font-weight: 600;
+  transition: var(--vcec-transition);
+}
+.breadcrumb-nav a:hover {
+  color: var(--vcec-red);
+  text-decoration: underline;
 }
 .breadcrumb-nav span {
-  margin: 0 10px;
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 .overview-grid {
@@ -2637,27 +2653,6 @@ button, input, select, textarea {
 }
 
 /* 19. Shared Utilities & Animations */
-.breadcrumb-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--vcec-text-light);
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-  line-height: 1.5;
-}
-
-.breadcrumb-nav a {
-  color: var(--vcec-red);
-  transition: var(--vcec-transition);
-}
-
-.breadcrumb-nav a:hover {
-  color: var(--vcec-gold);
-  text-decoration: underline;
-}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(40px); }
@@ -2670,6 +2665,7 @@ button, input, select, textarea {
   .resource-actions { width: 100%; display: grid !important; grid-template-columns: 1fr 1fr; }
   .article-wrap { padding: 40px 25px; }
   .article-hero-img { width: calc(100% + 50px); margin-left: -25px; margin-top: 0; }
+  .breadcrumb-inner-wrap { padding: 0 20px; }
 }
 
 /* 20. Sector Detailed Grid (Executive 4-Column Layout) */
