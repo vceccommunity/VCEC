@@ -2645,6 +2645,8 @@ button, input, select, textarea {
   font-weight: 600;
   color: var(--vcec-text-light);
   margin-bottom: 30px;
+  flex-wrap: wrap;
+  line-height: 1.5;
 }
 
 .breadcrumb-nav a {
@@ -2667,7 +2669,7 @@ button, input, select, textarea {
   .resource-item { flex-direction: column; align-items: flex-start; padding: 25px; }
   .resource-actions { width: 100%; display: grid !important; grid-template-columns: 1fr 1fr; }
   .article-wrap { padding: 40px 25px; }
-  .article-hero-img { width: calc(100% + 50px); margin-left: -25px; margin-top: -40px; }
+  .article-hero-img { width: calc(100% + 50px); margin-left: -25px; margin-top: 0; }
 }
 
 /* 20. Sector Detailed Grid (Executive 4-Column Layout) */
