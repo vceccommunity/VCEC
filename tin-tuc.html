@@ -1152,6 +1152,7 @@
           .from('vcec_posts')
           .select('id, category, title_vi, title_zh, title_en, summary_vi, summary_zh, summary_en, cover_image, created_at')
           .eq('status', 'published')
+          .eq('category', 'tin-tuc')
           .order('created_at', { ascending: false })
           .then(res => {
             if (res.error) {
