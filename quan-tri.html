@@ -820,6 +820,17 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       font-size: 0.74rem !important; /* Decrease cell font size by 1 step */
     }
+    #access-matrix-table th:first-child,
+    #access-matrix-table td:first-child {
+      position: sticky;
+      left: 0;
+      background-color: #060913; /* Khớp màu nền của body */
+      z-index: 10;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    #access-matrix-table th:first-child {
+      z-index: 11;
+    }
     #settings-access-matrix select option {
       background-color: #1a1e26 !important; /* Premium dark background */
       color: #FFFFFF !important; /* Solid visible white text */
@@ -1162,22 +1173,6 @@
 
       <!-- Create New Post Form (Hidden by default) -->
       <div id="new-post-form-wrap" style="display:none; margin-bottom:30px; animation: modalIn 0.35s ease-out;">
-        <!-- ── HƯỚNG DẪN CMS: Chuyên mục → Trang web ── -->
-        <div style="background: linear-gradient(135deg, rgba(168,27,52,0.12) 0%, rgba(178,136,52,0.08) 100%); border: 1px solid rgba(178,136,52,0.25); border-radius: 14px; padding: 18px 22px; margin-bottom: 24px;">
-          <p style="color: var(--vcec-gold); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;">
-            📌 Mỗi chuyên mục điều khiển nội dung một trang trên website
-          </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">🏢 <strong>Giới Thiệu</strong> → gioi-thieu.html</span>
-            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">🤝 <strong>Quan Hệ Việt-Trung</strong> → quan-he.html</span>
-            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">🏗️ <strong>Lĩnh Vực</strong> → linh-vuc.html (mỗi bài = 1 card lĩnh vực)</span>
-            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">📰 <strong>Tin Tức</strong> → tin-tuc.html</span>
-            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #CCC;">📚 <strong>Tài Nguyên</strong> → tai-nguyen.html</span>
-          </div>
-          <p style="color: rgba(255,255,255,0.5); font-size: 0.78rem; margin-top: 12px; margin-bottom: 0;">
-            💡 Tip: Bài viết <strong>được cập nhật gần nhất</strong> trong mỗi chuyên mục sẽ hiển thị trên trang tương ứng. Để cập nhật nội dung trang, chỉnh sửa và lưu lại bài viết đó.
-          </p>
-        </div>
 
         <h3 style="color:#FFFFFF; margin-bottom:15px; font-family:var(--vcec-font-title);">Tạo bài viết mới</h3>
         <form class="admin-form" onsubmit="publishPost(event)" style="max-width: 900px;">
@@ -1209,11 +1204,11 @@
               </div>
               <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">CN</span>
-                <input type="text" id="post-title-zh" class="form-input" required placeholder="例如：VCEC举办越中经贸对接签署仪式" style="margin: 0; flex-grow: 1;">
+                <input type="text" id="post-title-zh" class="form-input" placeholder="例如：VCEC举办越中经贸对接签署仪式" style="margin: 0; flex-grow: 1;">
               </div>
               <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">EN</span>
-                <input type="text" id="post-title-en" class="form-input" required placeholder="Example: VCEC signs commercial trade promotion MoU with Guangdong delegation" style="margin: 0; flex-grow: 1;">
+                <input type="text" id="post-title-en" class="form-input" placeholder="Example: VCEC signs commercial trade promotion MoU with Guangdong delegation" style="margin: 0; flex-grow: 1;">
               </div>
             </div>
           </div>
@@ -1230,11 +1225,11 @@
               </div>
               <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span class="lang-badge zh" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">CN</span>
-                <textarea id="post-summary-zh" class="form-input" rows="2" required placeholder="中文简短描述..." style="margin: 0; flex-grow: 1;"></textarea>
+                <textarea id="post-summary-zh" class="form-input" rows="2" placeholder="中文简短描述..." style="margin: 0; flex-grow: 1;"></textarea>
               </div>
               <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span class="lang-badge en" style="flex-shrink: 0; width: 50px; height: 38px; display: flex; align-items: center; justify-content: center; margin: 0; font-size: 0.8rem; border-radius: 6px;">EN</span>
-                <textarea id="post-summary-en" class="form-input" rows="2" required placeholder="Short description in English..." style="margin: 0; flex-grow: 1;"></textarea>
+                <textarea id="post-summary-en" class="form-input" rows="2" placeholder="Short description in English..." style="margin: 0; flex-grow: 1;"></textarea>
               </div>
             </div>
           </div>
@@ -1656,7 +1651,7 @@
             </div>
           </div>
           
-          <div class="admin-table-container" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius:10px; overflow:hidden;">
+          <div class="admin-table-container" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius:10px; overflow-x: auto;">
             <table class="admin-table" id="access-matrix-table">
               <thead>
                 <tr>
@@ -2918,8 +2913,16 @@
             <td style="color: #9CA3AF; max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${summary}</td>
             <td>${timeStr}</td>
             <td style="text-align:right;">
-              <button class="action-btn secondary" style="background: rgba(184, 134, 11, 0.15); color: var(--vcec-gold); border: 1px solid rgba(184, 134, 11, 0.35); font-weight:700;" onclick="continueDrafting()">Soạn tiếp</button>
-              <button class="action-btn" onclick="deleteDraftFromList()">Xóa</button>
+              <div style="display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
+                <button class="btn" style="background: rgba(184, 134, 11, 0.12); color: var(--vcec-gold); border: 1px solid rgba(184, 134, 11, 0.3); font-weight: 600; padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="continueDrafting()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                  Soạn tiếp
+                </button>
+                <button class="btn" style="background: rgba(239, 68, 68, 0.1); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.25); font-weight: 600; padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="deleteDraftFromList()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                  Xóa
+                </button>
+              </div>
             </td>
           </tr>
         `;
