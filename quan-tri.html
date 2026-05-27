@@ -1874,7 +1874,7 @@
     async function _translate(text, from, to) {
       if (!text || !text.trim()) return '';
       try {
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.trim().substring(0, 500))}&langpair=${from}|${to}`;
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.trim().substring(0, 500))}&langpair=${from}|${to}&de=vceccommunity@gmail.com`;
         const r = await fetch(url);
         const d = await r.json();
         return (d.responseStatus === 200 && d.responseData.translatedText) ? d.responseData.translatedText : '';
